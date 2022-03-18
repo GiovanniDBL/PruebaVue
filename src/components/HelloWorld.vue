@@ -1,15 +1,15 @@
 <template>
-  <div>
-  <sidebar></sidebar> 
+  <div >
+  <!-- <sidebar></sidebar>  -->
   
    <div class="container contenido-cards">
   <div class="row">
-    <div class="col">
+    <div class="col-6">
 <div class="card" >
    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h5 class="card-title">Notificaciones en seguimiento</h5>
       <div class="table-wrapper-scroll-y my-custom-scrollbar">
-<table class="table table-light  table-hover  table-striped table-borderless">
+<table class="table table-light  table-hover  table-striped table-borderless" >
   <thead class="table-danger">
     <tr>
       <th scope="col">ID</th>
@@ -37,10 +37,10 @@
     </div>
 
 
-    <div class="col">
+    <div class="col-6">
 <div class="card" >
    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
+      <h5 class="card-title">Notificaciones</h5>
       <div class="table-wrapper-scroll-y my-custom-scrollbar">
 <table class="table table-light  table-hover  table-striped table-borderless">
   <thead class="table-danger">
@@ -73,6 +73,23 @@
   </div>
 </div>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </template>
 
 <script lang="ts">
@@ -103,12 +120,12 @@ export default {
 .contenido-cards{
   margin-top: 1rem;
 }
-.my-custom-scrollbar {
+/* .my-custom-scrollbar {
 position: relative;
 height: 200px;
 overflow: auto;
 }
 .table-wrapper-scroll-y {
 display: block;
-}
+} */
 </style>
