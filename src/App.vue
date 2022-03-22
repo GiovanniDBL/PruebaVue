@@ -3,6 +3,10 @@
 </template>
 
 <style>
+#app{
+    height:100vh;
+    background: #E4E9F7;
+}
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

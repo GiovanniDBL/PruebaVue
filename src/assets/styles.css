@@ -1,0 +1,13 @@
+/* .home {
+    position: relative;
+    height: 100vh;
+    left: 250px;
+    width: calc(100% - 250px);
+    background: rgb(51, 44, 44);
+}
+
+
+.sidebar.close~.home {
+    left: 88px;
+    width: calc(100% - 88px);
+} */

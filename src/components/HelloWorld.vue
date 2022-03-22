@@ -1,6 +1,12 @@
-<template>
-  <div >
-  <!-- <sidebar></sidebar>  -->
+<template >
+<div >
+  <sidebar></sidebar> 
+ <section class="home">
+     <div class="text">Dashboard</div>
+ </section>
+</div>
+  <!-- <div >
+  <sidebar></sidebar> 
   
    <div class="container contenido-cards">
   <div class="row">
@@ -72,8 +78,7 @@
  
   </div>
 </div>
-  </div>
-
+  </div> -->
 
 
 
@@ -94,14 +99,14 @@
 
 <script lang="ts">
 
-import sidebar from '@/components/Sidebar.vue';
+import sidebar from '../components/Sidebar.vue';
+// import sidebar from '@/components/Sidebar.vue';
 
 
 export default {
   name:'HelloWordl',
   components: {
     sidebar
-
   },
   data(){
     return {items:[
@@ -128,4 +133,14 @@ overflow: auto;
 .table-wrapper-scroll-y {
 display: block;
 } */
+
+.home {
+    position: relative;
+    height: 100vh;
+    left: 88px;
+    width: calc(100% - 88px);
+    transition: all 0.5s ease;
+}
+
+
 </style>

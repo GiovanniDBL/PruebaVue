@@ -1,22 +1,58 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import HelloWorld from '@/components/HelloWorld.vue';
+// import helloword from '@/components/HelloWorld.vue';
+import dashboard from '@/components/dashboard.vue';
+import sidebar from '@/components/Sidebar.vue';
+import monitoreo from '@/components/monitoreo.vue';
+import cuenta from '@/components/cuentas.vue';
+import subcuenta from '@/components/subcuentas.vue';
+import dispositivos from '@/components/dispositivos.vue';
+import usuarios from '@/components/usuarios.vue';
+import notificaciones from '@/components/notificaciones.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'HelloWorld',
-    component: HelloWorld
+    name: 'dashboardComponent',
+    component: dashboard
   },
-  // {
-    // path: '/about',
-    // name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import( webpackChunkName: "about"  '../views/AboutView.vue')
-  // }
+  {
+    path: '/sidebar',
+    name: 'SidebarComponent',
+    component: sidebar
+  },
+  {
+    path: '/monitoreo',
+    name: 'monitoreoComponent',
+    component: monitoreo
+  },
+  {
+    path: '/cuentas',
+    name: 'cuentaComponent',
+    component: cuenta
+  },
+  {
+    path: '/subcuentas',
+    name: 'subcuentaComponent',
+    component: subcuenta
+  },
+  {
+    path: '/dispositivos',
+    name: 'dispositivosComponent',
+    component: dispositivos
+  },
+  {
+    path: '/usuarios',
+    name: 'usuariosComponent',
+    component: usuarios
+  },
+  {
+    path: '/notificaciones',
+    name: 'notificacionesComponent',
+    component: notificaciones
+  },
+
 ]
 
 const router = createRouter({

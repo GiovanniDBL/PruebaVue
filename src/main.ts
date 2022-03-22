@@ -6,4 +6,5 @@ import store from './store'
 import 'jquery'
 import 'popper.js'
 import 'bootstrap/dist/css/bootstrap.css'
+import './assets/styles.css'
 createApp(App).use(store).use(router).mount('#app')
