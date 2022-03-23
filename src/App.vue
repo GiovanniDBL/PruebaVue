@@ -2,11 +2,21 @@
 <router-view></router-view>
 </template>
 
+
+
 <style>
 #app{
-    height:100vh;
-    background: #E4E9F7;
+    /* height:100vh; */
+    background: #1b1b27;
 }
+
+
+
+
+
+
+
+
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

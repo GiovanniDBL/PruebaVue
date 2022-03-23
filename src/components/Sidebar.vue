@@ -1,6 +1,6 @@
 <template>
 <div>
-
+<navbar></navbar>
  <nav class="sidebar close">
      <header>
          <div class="image-text">
@@ -12,17 +12,11 @@
                  <span class="profession">Web developer</span>
              </div>
          </div>
-         <!-- <i class="fas fa-arrow-alt-circle-right toggle"></i> -->
          <i class="fas fa-arrow-right toggle"></i>
      </header>
 
      <div class="menu-bar">
-         <div class="menu">
-                <!-- <li class="search-box">
-                         <i class="fas fa-search icon"></i>
-                         <input type="search" placeholder="search...">
-                 </li> -->
-                 
+         <div class="menu">     
              <ul class="menu-links">
                  <li class="">
                       <router-link to="/" replace>
@@ -87,9 +81,11 @@
 </template>
 
 <script>
-import HelloWorld from './HelloWorld.vue';
+
+import navbar from './navbar';
+
 export default {
-  components: { HelloWorld },
+  components: { navbar },
     name: 'SidebarComponent',
 
     mounted(){
@@ -121,9 +117,9 @@ ul{
     width: 250px;
     padding: 10px 14px;
     /* background: #006d00; */
-    background: #1c1f23;
- transition: all 0.5s ease;
- z-index: 100;
+    background: linear-gradient(0deg,#389466,#42b883);
+    transition: all 0.5s ease;
+    z-index: 100;
 
 }
 .sidebar.close{
@@ -134,7 +130,8 @@ ul{
     font-size: 16px;
     font-weight: 500;
     /* color: #707070; */
-    color: #DDD;
+    /* color: #DDD; */
+    color: #ffffff;
     transition: all 0.4s ease;
     white-space: nowrap;
     opacity: 1;
@@ -164,8 +161,9 @@ font-size: 20px;
 }
 .sidebar li .icon, .sidebar li .text{
 /* color: #707070; */
-color: #DDD;
+/* color: #DDD; */
 /* color: #f6f5ff; */
+color: #FFF;
 transition: all 0.2s ease;
 }
 .sidebar header {
@@ -203,7 +201,7 @@ header .image-text .header-text{
     justify-content: center;
     font-size: 15px;
     /* background:#006d00; */
-    background:#006d6d;
+    background:#1b1b27;
     border-radius: 50%;
     transition: all 0.3s ease;
 }
@@ -233,7 +231,7 @@ header .image-text .header-text{
 }
 .sidebar li a:hover{
  /* background: #006d00; */
- background: #41464b8f;
+ background: #41464b18;
 }
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text{
@@ -259,5 +257,7 @@ header .image-text .header-text{
     left: 88px;
     width: calc(100% - 88px);
 } */
+
+
 
 </style>

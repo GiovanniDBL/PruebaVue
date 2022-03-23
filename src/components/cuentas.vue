@@ -24,6 +24,12 @@ export default {
     left: 88px;
     width: calc(100% - 88px);
     transition: all 0.5s ease;
+     padding: 8px 40px;
 }
+.home .text{
+  font-size:30px;
+  font-weight: 500;
+}
+
 
 </style>
