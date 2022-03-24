@@ -7,20 +7,42 @@
     Alarmas de la semana
   </div>
         <div class="card-body text-end">
-             <button @click="popup()" type="button" class="btn btn-outline-light ">Central de monitoreo</button>
-             <canvas id="planet-chart" style="position: relative; height:15vh; width:30vw;"></canvas>
+             <!-- <button @click="popup()" type="button" class="btn btn-outline-light ">Central de monitoreo</button> -->
+             <canvas id="linechart-alarmas" style="position: relative; height:12vh; width:30vw;"></canvas>
         </div>
     </div>
 
 
-    <div class="card card2" style="width:40rem">
+<div>
+  <div class="row">
+    <div class="col">
+      <div class="card card2" style="width:36rem">
       <div class="card-header" style="color:#ffffff">
     Supervisión por hora
   </div>
         <div class="card-body text-end">
-             <canvas id="planet-chart2" style="position: relative; height:20vh; width:30vw;"></canvas>
+             <canvas id="linechart-horas" style="position: relative; height:20vh; width:30vw;"></canvas>
         </div>
     </div>
+    </div>
+    <div class="col">
+        <div class="card card2" style="width:36rem">
+      <div class="card-header" style="color:#ffffff">
+    Supervisión por hora
+  </div>
+        <div class="card-body text-end">
+             <canvas id="linechart-pendiente" style="position: relative; height:20vh; width:30vw;"></canvas>
+        </div>
+    </div>
+    </div>
+  
+  </div>
+</div>
+
+
+
+
+   
 
 
  </section>
@@ -30,7 +52,8 @@
 <script>
 import sidebar from './Sidebar';
 import { Chart } from 'chart.js';
-import planetChartData from '../../graficas/linechart.js'
+import ChartAlarmas from '../../graficas/alarmas.js'
+import ChartHoras from '../../graficas/horas.js'
 import planetChartData2 from '../../graficas/linechart2.js'
 export default {
     name: "dashboardComponent",
@@ -38,14 +61,19 @@ export default {
     sidebar
   },
    mounted() {
-    const ctx = document.getElementById('planet-chart');
-    new Chart(ctx, this.planetChartData);
-    const ctxx = document.getElementById('planet-chart2');
-    new Chart(ctxx, this.planetChartData2);
+    const ctx = document.getElementById('linechart-alarmas');
+    new Chart(ctx, this.ChartAlarmas);
+
+    const ctxx = document.getElementById('linechart-horas');
+    new Chart(ctxx, this.ChartHoras);
+
+    const ctxxx = document.getElementById('linechart-pendiente');
+    new Chart(ctxxx, this.planetChartData2);
   },
   data() {
     return {
-      planetChartData: planetChartData,
+      ChartAlarmas: ChartAlarmas,
+      ChartHoras: ChartHoras,
       planetChartData2: planetChartData2
     }
   },
@@ -66,6 +94,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
+  
 }
 .home .text{
   font-size:30px;

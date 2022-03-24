@@ -9,6 +9,7 @@ import subcuenta from '@/components/subcuentas.vue';
 import dispositivos from '@/components/dispositivos.vue';
 import usuarios from '@/components/usuarios.vue';
 import notificaciones from '@/components/notificaciones.vue';
+import detalles from '@/components/detalles.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -51,6 +52,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/notificaciones',
     name: 'notificacionesComponent',
     component: notificaciones
+  },
+  {
+    path: '/detalles',
+    name: 'detallesComponent',
+    component: detalles
   },
 
 ]

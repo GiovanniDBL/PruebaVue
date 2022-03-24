@@ -36,12 +36,12 @@
                         <span class="text nav-text">Sub cuentas</span>
                      </router-link>
                  </li>
-                 <li class="">
+                 <!-- <li class="">
                      <router-link to="/monitoreo" replace>
                      <i class="fas fa-table icon"></i>
                      <span class="text nav-text">Monitoreo</span>
                      </router-link>
-                 </li>
+                 </li> -->
                  <li class="">
                         <router-link to="/dispositivos" replace>
                         <i class="fas fa-signal-stream icon"></i>
@@ -171,7 +171,8 @@ transition: all 0.2s ease;
 }
 .sidebar .image-text img{
     width:40px;
-    border-radius: 6px;
+    border-radius: 50%;
+    /* border-radius: 6px; */
     
 }
 .sidebar header .image-text{

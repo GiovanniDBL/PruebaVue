@@ -1,15 +1,21 @@
-export const planetChartData2 = {
+export const ChartAlarmas = {
     type: "line",
     data: {
-        labels: ["9-1", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         datasets: [{
-                label: "Horas",
-                data: [600, 100, 600, 400, 500, 100, 200, 300, 100, 500, 600, 700],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
+                label: "Alarmas",
+                data: [100, 200, 300, 400, 500, 100, 200, 300, 400, 500, 600, 700],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255,99,132,1)',
+                borderWidth: 2
             },
-
+            {
+                label: "Alertas",
+                data: [500, 250, 300, 250, 400, 450, 500, 100, 150, 200, 300, 800],
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 2
+            },
         ]
 
     },
@@ -23,6 +29,7 @@ export const planetChartData2 = {
         //     fontColor: "#ffffff",
         //     position: 'left',
         // },
+
         legend: {
             labels: {
                 fontColor: "#858689",
@@ -58,13 +65,13 @@ export const planetChartData2 = {
                     fontColor: '#858689'
 
                 },
-
             }]
         }
     },
-
 };
 
 
 
-export default planetChartData2;
+
+
+export default ChartAlarmas;
