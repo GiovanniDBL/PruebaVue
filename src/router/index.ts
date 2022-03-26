@@ -54,7 +54,7 @@ const routes: Array<RouteRecordRaw> = [
     component: notificaciones
   },
   {
-    path: '/detalles',
+    path: '/detalles/:id',
     name: 'detallesComponent',
     component: detalles
   },

@@ -1,9 +1,29 @@
 <template>
     <div >
+      <nav class="navbar navbar-expand-lg ">
+  <div class="container-fluid">
+    <span class="navbar-brand">Central de <span class="span-brand">monitoreo</span></span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <span><i class="fad fa-satellite-dish"></i> Conexión: <span class="span-señal">Activa</span></span>
+        </li>
+        <li class="nav-item">
+          <span> Última conexión: <span class="span-señal">25/03/2022 10:27 AM</span></span>
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+
+
         <section class="home">
 
 <!-- ********************** ALARMAS********************************************** -->
-
 
 
   <div class="row section-alarmas">
@@ -32,7 +52,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr @click="popup()" v-for="item in items" :key="item.name">
+    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
       <th scope="row">{{item.id}}</th>
       <td>{{item.cuenta}}</td>
       <td>{{item.dispositivo}}</td>
@@ -70,7 +90,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="item in items" :key="item.name">
+    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
       <th scope="row">{{item.id}}</th>
       <td>{{item.cuenta}}</td>
       <td>{{item.dispositivo}}</td>
@@ -114,7 +134,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="item in items" :key="item.name">
+    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
       <th scope="row">{{item.id}}</th>
       <td>{{item.cuenta}}</td>
       <td>{{item.dispositivo}}</td>
@@ -152,7 +172,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="item in items" :key="item.name">
+    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
       <th scope="row">{{item.id}}</th>
       <td>{{item.cuenta}}</td>
       <td>{{item.dispositivo}}</td>
@@ -193,7 +213,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr v-for="item in items" :key="item.name">
+    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
       <th scope="row">{{item.id}}</th>
       <td>{{item.cuenta}}</td>
       <td>{{item.dispositivo}}</td>
@@ -213,30 +233,64 @@
 
 <script>
 import sidebar from './Sidebar';
+import Swal from 'sweetalert2';
 export default {
     name: "monitoreoComponent",
       components: {
     sidebar
   },
+mounted(){
+this.Alert();
+},
+  
     data(){
     return {items:[
       {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
-      ]}
+      {id: '8320', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8321', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8322', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8323', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8324', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8325', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8326', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8327', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8328', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8329', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      {id: '8330', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
+      ],
+      
+      }
   },
      methods: {
-    popup(){
-      window.open("/detalles", "Central de monitoreox", "location=0,status=0,scrollbars=0,width=1000,height=600,top=50%")
+    popup(id){
+      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=535,top=50%")
+    },
+    Alert:function(){
+      var mouseStop=null;
+      var Time=60000; /** 1 minutos */ 
+      // var Time=120000; /** 2 minutos */ 
+      // var Time=5000; /** 5 segundos */
+      document.onmousemove = function(){
+        clearTimeout(mouseStop);
+        mouseStop = setTimeout(function(){
+         Swal.fire({
+           icon: 'warning',
+           title: 'Detección de inactividad',
+           text: '¿Sigues ahí?',
+           confirmButtonText: 'Si',
+           cancelButtonText: 'No',
+           showCloseButton: true,
+           showCancelButton: true,
+         }).then((result) =>{
+           if (result.isConfirmed) {
+            //  Swal.fire('hola')
+           }else{
+              // Swal.fire('no hola')
+              window.close("/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=700,height=600,top=50%");
+           }
+         })
+        },Time)
+      }
     }
   }
   
@@ -291,6 +345,27 @@ export default {
   overflow: scroll;
 }
 
-
+.nav-item span{
+  color: #FFF;
+}
+.navbar-brand{
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.span-brand{
+  color: #1abb97;
+}
+.nav-item{
+  margin-right: 1rem;
+}
+.fa-satellite-dish{
+  color: #1abb97;
+  font-size: 1.2rem;
+}
+.nav-item .span-señal{
+  color: #1abb97;
+}
 
 </style>

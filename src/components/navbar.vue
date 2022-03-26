@@ -12,7 +12,7 @@
           <button @click="popup()" type="button" class="btn btn-outline-info ">Central de monitoreo</button>
         </li> -->
          <li class="nav-item">
-          <a class="nav-link active" @click="popup()" aria-current="page" href="#">Central de monitoreo</a>
+          <a class="nav-link active" @click="popup()" aria-current="page" href="#">Monitoreo en tiempo real</a>
         </li>
       </ul>
       <form class="d-flex">
@@ -29,7 +29,7 @@
 export default {
     methods: {
     popup(){
-      window.open("/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=1000,height=600,top=50%")
+      window.open("/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=700,height=600,top=50%")
     }
   }
     
@@ -51,10 +51,12 @@ export default {
   margin-right: 1rem;
 }
 .nav-link{
-  color: #41b580 !important;
+  /* color: #41b580 !important; */
+  color: #ffffff !important;
   text-transform: uppercase;
   font-weight: bold;
-  background-color: #2e475738;
+  /* background-color: #2e475738; */
+  background-color: #3ba06f;
   border-radius: 5px;
 }
 
