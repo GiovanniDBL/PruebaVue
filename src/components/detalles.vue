@@ -11,15 +11,15 @@
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Cuenta
-    <span class="">Sucursal 1</span>
+    <span class="">{{txtCuenta}}</span>
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Dirección
-    <span class="">Cajero 1</span>
+    <span class="">{{txtDireccion}}</span>
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Ciudad
-    <span class="">Cancún Q.Roo</span>
+    <span class="">{{txtCiudad}}</span>
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Código postal
@@ -27,11 +27,11 @@
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Tipo de alarma
-    <span class="">Puerta cajero</span>
+    <span class="">{{txtTypoAlarma}}</span>
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Fecha
-    <span class="">24/03/2022 18:21:07</span>
+    <span class="">{{txtTimeAlarma}}</span>
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Estado
@@ -57,13 +57,13 @@
 <hr>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Contactos</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Historial</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Notas</button>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -77,16 +77,96 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
     name: "detallesComponent",
+
+        mounted(){
+          this.alarmaID = this.$route.params.id;
+            this.getInfoAlarma();
+    },
+
     data(){
         return{
-            alarmaID:null
+            alarmaID:null,
+            itemsAlerts:[],
+            txtCuenta:'',
+            txtDireccion:'',
+            txtCiudad:'',
+            txtTypoAlarma:'',
+            txtTimeAlarma:'',
         }
     },
-    mounted(){
-this.alarmaID = this.$route.params.id;
+    methods:{
+        getInfoAlarma(){
+    
+  var data = {
+  "typeFunction": "getInfoAlarma",
+  "idAlarma": this.alarmaID,
+  }
+
+  const xhr = new XMLHttpRequest();
+       xhr.open(
+        "POST",
+        "https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas"
+      );
+      xhr.setRequestHeader("Content-Type", "multipart/form-data");
+      xhr.send(JSON.stringify(data));
+
+       xhr.onload = () => {
+        let resp = JSON.parse(xhr.responseText)
+        console.log("respuesta info alarma",resp);
+        var json=resp; 
+
+
+
+          for (var index in json){
+
+          var nameTypeAlarm=json[index]["nameTypeAlarm"];
+          var date=json[index]["timeAlarm"];
+          var stillUtc = moment.utc(date).toDate();
+          var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
+          var nombreStatus=json[index]["nombreStatus"];
+          var idstatusAlarmas=json[index]["idstatusAlarmas"];
+          var idAlarma=json[index]["idAlarmas"];
+          var datoAlarma=json[index]["alarmData"];
+          var nameCuenta=json[index]["NameUbica"];
+          var direccion=json[index]["ubicacionDir"];
+          var ciudad=json[index]["nombCuidadUbic"];
+          var idUbic=json[index]["idUbic"];
+          var idDevice=json[index]["idDeviceZona"];
+
+
+        }
+        console.log(nameCuenta);
+
+        this.txtTypoAlarma=nameTypeAlarm;
+        this.txtCuenta=nameCuenta;
+        this.txtDireccion=direccion;
+       this.txtTimeAlarma=local;
+       this.txtIdAlarma=idAlarma;
+       this.txtDatoAlarma=datoAlarma;
+       this.txtCiudad=ciudad;
+       this.idDeviceSelected=idDevice;
+      //  var statusAlarma=document.getElementById("select-statusA");
+
+      //  var opt = document.createElement('option');
+      //  opt.value = idstatusAlarmas;
+      //  opt.text = nombreStatus;
+      //  statusAlarma.add(opt);
+
+      //  this.getContactosAlarma(idUbic);
+
+      }
+},
     }
+
+
+
+
+
+
+
 }
 </script>
 

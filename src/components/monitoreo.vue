@@ -52,13 +52,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.cuenta}}</td>
-      <td>{{item.dispositivo}}</td>
-      <td>{{item.evento}}</td>
+    <tr @click="popup(item.idAlarmas)" v-for="item in itemsAlerts" :key="item.idAlarmas">
+      <th scope="row">{{item.idAlarmas}}</th>
+      <td>{{item.account}}</td>
+      <td>{{item.deviceid}}</td>
+      <td>{{item.event}}</td>
       <td>{{item.fecha}}</td>
-      <td>{{item.estado}}</td>
+      <td>{{item.estado_alarma}}</td>
     </tr>
   </tbody>
 </table>
@@ -234,17 +234,21 @@
 <script>
 import sidebar from './Sidebar';
 import Swal from 'sweetalert2';
+import moment from 'moment'
 export default {
     name: "monitoreoComponent",
       components: {
     sidebar
   },
 mounted(){
-this.Alert();
+// this.Alert();
+this.getAlarmasFromHttp();
+this.getDataFromSocket();
 },
   
     data(){
-    return {items:[
+    return {
+      items:[
       {id: '8319', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
       {id: '8320', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
       {id: '8321', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
@@ -258,7 +262,8 @@ this.Alert();
       {id: '8329', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
       {id: '8330', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
       ],
-      
+       itemsAlerts:[],
+       flagRegistro: 0,
       }
   },
      methods: {
@@ -267,7 +272,7 @@ this.Alert();
     },
     Alert:function(){
       var mouseStop=null;
-      var Time=60000; /** 1 minutos */ 
+      // var Time=60000; /** 1 minutos */ 
       // var Time=120000; /** 2 minutos */ 
       // var Time=5000; /** 5 segundos */
       document.onmousemove = function(){
@@ -291,7 +296,185 @@ this.Alert();
          })
         },Time)
       }
+    },
+
+    getAlarmasFromHttp(){
+
+
+ 
+    var page=1;
+    var perPage=10;
+
+
+var idUser=1; //cambiarlo despues por el state
+var typeUser=1;// cambiarlo luego por el state
+
+    console.log("idUser es",idUser);
+    console.log("idUser es",typeUser);
+
+    
+  var data = {
+  "typeFunction": "GetAlarmas",
+  "idcPrincipal":"1",
+  "idcSecundaria": "null",
+  "page":page,
+  "perPage": perPage,
+  "idUserLoged":idUser,
+  "typeUserLoged":typeUser
+  }
+
+const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas');
+            // prepare form data
+
+            // set headers (arreglalo porque lo envia too weird el form sjaskj)
+             xhr.setRequestHeader("Content-Type", "multipart/form-data");
+             //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            // send request
+            xhr.send(JSON.stringify(data));
+
+         
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText)
+                console.log("xml request aws",resp);  
+                var json=resp;
+                this.itemsAlerts.length =0; 
+
+                this.pages=resp.totalPages;
+                console.log("Datos son", json.data);
+
+          
+
+     for(var index in json.data){
+       
+
+          let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
+
+         this.itemsAlerts.push({
+           idAlarmas: json.data[index]["idAlarmas"],
+          deviceid: json.data[index]["NameDevice"],
+          fecha: locall,
+          account: json.data[index]["NameUbica"],
+          event: json.data[index]["nameTypeAlarm"],
+          zona:"000",
+          cantidad:1,
+          estado_alarma:json.data[index]["nombreStatus"]
+        });
+
+      }
+}
+},
+getDataFromSocket() {
+      console.log("Obteniendo Datos");
+      this.WebSocketTest();
+    },
+    WebSocketTest() {
+      if ("WebSocket" in window) {
+        // alert("WebSocket is supported by your Browser!");
+        var data = "";
+        // Let us open a web socket
+        /*var ws = new WebSocket(
+          "wss://2uxmgq5r4j.execute-api.us-east-1.amazonaws.com/Dev"
+        );*/
+
+        //conexion al socket el cual genera un idConexion
+        var ws = new WebSocket(
+          "wss://2uxmgq5r4j.execute-api.us-east-1.amazonaws.com/Dev"
+        );
+
+console.log("IdUser es ", this.idUser);
+var idUsuario= this.idUser;
+
+        ws.onopen = function () {
+          /*var msg = {
+            action: "getData",
+          };*/
+
+    //se suscribe al topic tablaMonitor
+    var msg = {
+        "action": "setNotifications",
+        "ActiveNotifications": 1,
+        "userID": idUsuario,
+        "topic":"/tablaMonitor"
     }
+          // Web Socket is connected, send data using send()
+          ws.send(JSON.stringify(msg));
+          console.log("Enviamdo Mensaje...");
+        };
+
+        ws.onmessage = (evt) => {
+          var received_msg = evt.data;
+          console.log("Mensaje Recibido...");
+          //console.log(received_msg);
+          data = received_msg;
+           var json= JSON.parse(data);
+      console.log(json);
+
+      var result=json.Result;  
+    
+      if(result!=undefined && result!="undefined"){
+        if(result=="Registrado Correctamente"){
+          this.flagRegistro=1;
+        localStorage.setItem('IniciarSocket', '1')
+        }
+      }
+          // var json= JSON.parse(data);
+          let typeNotification=json["typeNotification"];
+          //console.log(json);
+          // console.log(typeNotification);
+          if(typeNotification!=undefined && typeNotification!="undefined"){
+            switch (typeNotification) {
+              case 'Alarma':
+                console.log("Enviando notificacion de Alarma");
+            
+                break;
+                case 'Event':
+            
+                console.log("Enviando notificacion de Evento");
+                break;
+
+            }
+
+          }
+          
+        };
+
+        this.setAlive(ws);
+
+
+        ws.onclose = function () {
+          // websocket is closed.
+          alert("Connection is closed...");
+          localStorage.setItem('IniciarSocket', '0')
+          this.flagRegistro=0;
+           console.log("Bandera", this.flagRegistro);
+        };
+      } else {
+        // The browser doesn't support WebSocket
+        alert("WebSocket NOT supported by your Browser!");
+      }
+    },
+
+   setAlive(socketConn){
+  setInterval(() => {
+    
+      this.localll = moment().locale('es-us').format('LLL');
+ 
+      localStorage.setItem('localsocket', this.localll)
+
+console.log('[' + this.localll + '] ')
+let msgtst = {
+    "action":"testAlive"
+}
+socketConn.send(JSON.stringify(msgtst));
+}, 60000 );
+// 120000 = 2 minutos;
+// 60000 = 1 minuto;
+// 300000 = 5 minutos;
+
+}
   }
   
 }
