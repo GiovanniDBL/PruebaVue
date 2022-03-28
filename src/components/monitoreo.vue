@@ -8,11 +8,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- <li class="nav-item">
+          <span>{{idConexion}}</span>
+        </li> -->
+  
         <li class="nav-item">
-          <span><i class="fad fa-satellite-dish"></i> Conexión: <span class="span-señal">Activa</span></span>
+          
+          <span class="tooltipp">
+            <i v-bind:style="{color:EstadoServidor(flagRegistro)}" class="fad fa-satellite-dish"></i>
+             Conexión: 
+             <span v-if="flagRegistro == '1'" style="color:#1abb97">Activa</span>
+             <span v-if="flagRegistro != '1'" style="color:#ff0000">Desactivada</span>
+             <span class="tooltiptext" > <span>ID_Conexión:</span> {{idConexion}}</span>
+             </span>
         </li>
         <li class="nav-item">
-          <span> Última conexión: <span class="span-señal">25/03/2022 10:27 AM</span></span>
+          <span v-if="fechaConexion != '0'"> Última conexión: <span class="span-señal">{{fechaConexion}}</span></span>
+          <span v-if="fechaConexion == '0'"> Última conexión: <span class="span-señal">{{fechaConexionStorage}}</span></span>
         </li>
       </ul>
       
@@ -20,12 +32,9 @@
   </div>
 </nav>
 
-
         <section class="home">
-
 <!-- ********************** ALARMAS********************************************** -->
-
-
+<button type="button" class="btn btn-primary" @click="mensajetoast()">toast</button>
   <div class="row section-alarmas">
     <!-- *PRIMER COLUMNA ALARMAS -->
     <div class="col">
@@ -244,6 +253,7 @@ mounted(){
 // this.Alert();
 this.getAlarmasFromHttp();
 this.getDataFromSocket();
+console.log('Fecha de conexion:',this.fechaConexion);
 },
   
     data(){
@@ -264,6 +274,9 @@ this.getDataFromSocket();
       ],
        itemsAlerts:[],
        flagRegistro: 0,
+       fechaConexion:'0',
+       fechaConexionStorage:localStorage.getItem('localsocket'),
+       idConexion:'',
       }
   },
      methods: {
@@ -412,14 +425,18 @@ var idUsuario= this.idUser;
            var json= JSON.parse(data);
       console.log(json);
 
-      var result=json.Result;  
+      var result=json.Result;
+      var idconexion = json.idConexion  
     
       if(result!=undefined && result!="undefined"){
         if(result=="Registrado Correctamente"){
           this.flagRegistro=1;
+           console.log("Bandera", this.flagRegistro);
+           this.idConexion = idconexion;
         localStorage.setItem('IniciarSocket', '1')
         }
       }
+     
           // var json= JSON.parse(data);
           let typeNotification=json["typeNotification"];
           //console.log(json);
@@ -446,10 +463,10 @@ var idUsuario= this.idUser;
 
         ws.onclose = function () {
           // websocket is closed.
-          alert("Connection is closed...");
+          // alert("Connection is closed...");
           localStorage.setItem('IniciarSocket', '0')
           this.flagRegistro=0;
-           console.log("Bandera", this.flagRegistro);
+          console.log("Bandera", this.flagRegistro);
         };
       } else {
         // The browser doesn't support WebSocket
@@ -460,11 +477,11 @@ var idUsuario= this.idUser;
    setAlive(socketConn){
   setInterval(() => {
     
-      this.localll = moment().locale('es-us').format('LLL');
+     this.fechaConexion = moment().locale('es-us').format('LLL');
  
-      localStorage.setItem('localsocket', this.localll)
+      localStorage.setItem('localsocket', this.fechaConexion)
 
-console.log('[' + this.localll + '] ')
+console.log('[' + this.fechaConexion + '] ')
 let msgtst = {
     "action":"testAlive"
 }
@@ -474,6 +491,29 @@ socketConn.send(JSON.stringify(msgtst));
 // 60000 = 1 minuto;
 // 300000 = 5 minutos;
 
+},
+EstadoServidor(flagRegistro){
+  switch (flagRegistro) {
+    case 0:
+      return '#ff0000';
+    case 1:
+      return '#1abb97';
+    case null:
+      return 'ff0000';
+    case undefined:
+      return 'ff0000';
+    
+  }
+},
+mensajetoast(){
+  console.log('Hola toast');
+ this.$toast.open({
+            message: "Alerta Recibida de ",
+            type: "warning",
+            duration: 5000,
+            dismissible: true,
+            position: "top-right",
+          });
 }
   }
   
@@ -544,11 +584,38 @@ socketConn.send(JSON.stringify(msgtst));
   margin-right: 1rem;
 }
 .fa-satellite-dish{
-  color: #1abb97;
+  /* color: #1abb97; */
   font-size: 1.2rem;
 }
 .nav-item .span-señal{
   color: #1abb97;
+}
+.tooltipp {
+  position: relative;
+  display: inline-block;
+  /* border-bottom: 1px dotted black; */
+}
+
+.tooltipp .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: #27293d;
+  color: #1abb97;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  /* font-weight: bold; */
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+.tooltipp .tooltiptext span {
+  color: #fff;
+  font-weight: bold;
+}
+
+.tooltipp:hover .tooltiptext {
+  visibility: visible;
 }
 
 </style>

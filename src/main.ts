@@ -8,4 +8,9 @@ import 'jquery'
 import 'popper.js'
 import './assets/styles.css'
 import 'bootstrap/dist/js/bootstrap.js'
-createApp(App).use(store).use(router).mount('#app')
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
+createApp(App).use(store).use(router).use(VueToast).mount('#app')
+// let instance = App.$toast.open('You did it!');
+// instance.dismiss();
+// App.$toast.clear();

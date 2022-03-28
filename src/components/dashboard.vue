@@ -2,6 +2,15 @@
     <div>
         <sidebar></sidebar> 
   <section class="home">
+
+
+
+
+
+
+
+
+
     <div class="card " >
       <div class="card-header" style="color:#ffffff">
     Alarmas de la semana
@@ -45,12 +54,13 @@
 
    
 
-
  </section>
     </div>
 </template>
 
 <script>
+
+
 import sidebar from './Sidebar';
 import { Chart } from 'chart.js';
 import ChartAlarmas from '../../graficas/alarmas.js'
@@ -70,6 +80,7 @@ export default {
 
     const ctxxx = document.getElementById('linechart-pendiente');
     new Chart(ctxxx, this.planetChartData2);
+  
   },
   data() {
     return {
@@ -111,6 +122,5 @@ export default {
 .card-title{
   color: #fff;
 }
-
 
 </style>
