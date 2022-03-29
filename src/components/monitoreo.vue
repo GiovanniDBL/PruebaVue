@@ -34,7 +34,7 @@
 
         <section class="home">
 <!-- ********************** ALARMAS********************************************** -->
-<button type="button" class="btn btn-primary" @click="mensajetoast()">toast</button>
+<!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
   <div class="row section-alarmas">
     <!-- *PRIMER COLUMNA ALARMAS -->
     <div class="col">
@@ -49,8 +49,9 @@
             </div>
   <div class="card-body">
 <div class="scrollable">
-   <table cellspacing="1" cellpadding="1" class="table table-danger table-sm table-bordered   table-hover  table-striped table-borderless table-tamaño" >
-  <thead class="table-danger">
+  <!-- table-bordered -->
+   <table cellspacing="1" cellpadding="1" class="table  table-sm    table-hover  table-striped table-borderless table-tamaño" >
+  <thead class="" style="background:#41464b; color:#fff">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Cuenta</th>
@@ -60,14 +61,16 @@
       <th scope="col">Estado de alarma</th>
     </tr>
   </thead>
-  <tbody>
-    <tr @click="popup(item.idAlarmas)" v-for="item in itemsAlerts" :key="item.idAlarmas">
-      <th scope="row">{{item.idAlarmas}}</th>
-      <td>{{item.account}}</td>
-      <td>{{item.deviceid}}</td>
-      <td>{{item.event}}</td>
-      <td>{{item.fecha}}</td>
-      <td>{{item.estado_alarma}}</td>
+  <tbody style="background:#c71527;" v-for="item in itemsAlerts" :key="item.idAlarmas">
+    <!-- id="{{'device-' + item.idDeviceZona}}" -->
+    <!-- :id="'device-'+ item.idAlarmas" -->
+    <tr   :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas)" >
+      <th style="color:#fff" scope="row">{{item.idAlarmas}}</th>
+      <td style="color:#fff;">{{item.account}}</td>
+      <td style="color:#fff">{{item.deviceid}}</td>
+      <td style="color:#fff">{{item.event}}</td>
+      <td style="color:#fff">{{item.fecha}}</td>
+      <td style="color:#fff">{{item.estado_alarma}}</td>
     </tr>
   </tbody>
 </table>
@@ -437,21 +440,43 @@ var idUsuario= this.idUser;
         }
       }
      
-          // var json= JSON.parse(data);
           let typeNotification=json["typeNotification"];
-          //console.log(json);
-          // console.log(typeNotification);
+      
           if(typeNotification!=undefined && typeNotification!="undefined"){
             switch (typeNotification) {
               case 'Alarma':
-                console.log("Enviando notificacion de Alarma");
-            
-                break;
-                case 'Event':
-            
-                console.log("Enviando notificacion de Evento");
+
+                this.getAlarmasFromHttp();
+                 setTimeout(() =>{
+                  this.openToastAlarmas(data)
+                 }, 2000);
+          
+
                 break;
 
+                case 'Event':
+        //? 1 = apertura,
+            //? 2 = cierre,
+            //? 4 = test,
+            //? 8 = tamper reposicion,
+            //? 10=Fasia reposición,
+            //? 12 = restablecimiento de zona,
+                if(json["codeAlarm"]=="1" || json["codeAlarm"]=="2" || json["codeAlarm"]=="4"
+                || json["codeAlarm"]=="8" || json["codeAlarm"]=="10" || json["codeAlarm"]=="12"){
+
+                this.openToastEvent(json);
+                console.log(json);
+                } 
+                break;
+
+                case 'Alerta':
+                   this.openToastAlertas(data)
+        
+      //             if (json["codeAlarm"]=="17" || json["codeAlarm"]=="16" ) {
+      //             var mensaje = json["mensaje"]
+      //             this.BotonDePanico(mensaje);
+      //  }
+                break;
             }
 
           }
@@ -505,16 +530,95 @@ EstadoServidor(flagRegistro){
     
   }
 },
-mensajetoast(){
-  console.log('Hola toast');
- this.$toast.open({
-            message: "Alerta Recibida de ",
-            type: "warning",
-            duration: 5000,
-            dismissible: true,
-            position: "top-right",
+clickprueba(){
+    this.$toast.open({
+  message: 'Alarmaa de desprendimiento del sensor 414150',
+  type: "success",
+  duration: 10000,
+  dismissible: true,
+  position: "top-right",
           });
-}
+
+  var trDevice = document.getElementById("device-" + 8511);
+  trDevice.style.backgroundColor = '#fff'; 
+  trDevice.style.transition = 'all .9s ease-in-out';
+
+   setTimeout(() =>{
+    trDevice.style.backgroundColor = '#dc3545';
+   
+  }, 20000);
+},
+openToastAlarmas(params){ 
+
+  var json= JSON.parse(params);
+  var mensaje=json["mensaje"];
+  var device=json["NameDevice"];
+  var idInserted=json["idInserted"];
+  var idDevice=json["idDevice"];
+  var tempAmb =json["tempAmb"];
+  console.log("idAlarma", idInserted);
+  
+  this.$toast.open({
+  message: 'Alarma de '+ mensaje + ' del sensor: ' + device,
+  type: "error",
+  duration: 10000,
+  dismissible: true,
+  position: "top-right",
+          });
+  console.log(json);
+  var trDevice=document.getElementById("device-" + idInserted);
+  trDevice.style.backgroundColor = '#fff';
+  trDevice.style.transition = 'all .9s ease-in-out';
+  
+  setTimeout(() =>{
+    trDevice.style.backgroundColor = '#dc3545';
+  }, 20000);
+          
+},
+openToastEvent(params){ 
+
+ 
+  this.$toast.open({
+  message: 'Evento recibido de '+ params["mensaje"] + ' del sensor: ' + params["NameDevice"],
+  type: "success",
+  duration: 10000,
+  dismissible: true,
+  position: "top-right",
+          });
+console.log(params);
+
+          
+},
+openToastAlertas(params){ 
+
+  var json= JSON.parse(params);
+  var mensaje=json["mensaje"];
+  var device=json["NameDevice"];
+
+  this.$toast.open({
+  message: 'Alerta de '+ mensaje + ' del sensor: ' + device,
+  type: "warning",
+  duration: 10000,
+  dismissible: true,
+  position: "top-right",
+          });
+  console.log(json);
+      
+},
+
+
+
+
+// mensajetoast(){
+//   console.log('Hola toast');
+//  this.$toast.open({
+//             message: "Alerta Recibida de ",
+//             type: "warning",
+//             duration: 5000,
+//             dismissible: true,
+//             position: "top-right",
+//           });
+// }
   }
   
 }
