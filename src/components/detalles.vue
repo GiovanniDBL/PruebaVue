@@ -67,7 +67,31 @@
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eligendi culpa tenetur omnis a! Assumenda nesciunt odio maxime? Vitae, voluptas autem? Possimus ab fugit accusantium sunt repellat natus illo assumenda.</div>
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+ 
+  </tbody>
+</table>
+
+  </div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">lorem</div>
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">lorem</div>
 </div>

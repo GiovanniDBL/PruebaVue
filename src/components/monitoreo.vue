@@ -34,6 +34,8 @@
 
         <section class="home">
 <!-- ********************** ALARMAS********************************************** -->
+<!-- <img src="@/assets/logo.webp" alt=""> -->
+<!-- <button type="button" class="btn btn-primary" @click.prevent="playSound(require('@/assets/audioDemo.mp3'))">audio</button> -->
 <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
   <div class="row section-alarmas">
     <!-- *PRIMER COLUMNA ALARMAS -->
@@ -44,13 +46,12 @@
                Alarmas   
               <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">12</span>
             </span>
-           
-   
             </div>
   <div class="card-body">
 <div class="scrollable">
   <!-- table-bordered -->
-   <table cellspacing="1" cellpadding="1" class="table  table-sm    table-hover  table-striped table-borderless table-tamaño" >
+   <!-- <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-striped table-borderless table-tamaño" > -->
+   <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño" >
   <thead class="" style="background:#41464b; color:#fff">
     <tr>
       <th scope="col">ID</th>
@@ -61,16 +62,17 @@
       <th scope="col">Estado de alarma</th>
     </tr>
   </thead>
-  <tbody style="background:#c71527;" v-for="item in itemsAlerts" :key="item.idAlarmas">
+  <tbody   v-for="item in itemsAlerts" :key="item.idAlarmas">
+    <!-- style="background:#c71527;" -->
     <!-- id="{{'device-' + item.idDeviceZona}}" -->
     <!-- :id="'device-'+ item.idAlarmas" -->
-    <tr   :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas)" >
-      <th style="color:#fff" scope="row">{{item.idAlarmas}}</th>
-      <td style="color:#fff;">{{item.account}}</td>
-      <td style="color:#fff">{{item.deviceid}}</td>
-      <td style="color:#fff">{{item.event}}</td>
-      <td style="color:#fff">{{item.fecha}}</td>
-      <td style="color:#fff">{{item.estado_alarma}}</td>
+    <tr class="color-alarmas"  v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"   :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas)">
+      <th  scope="row">{{item.idAlarmas}}</th>
+      <td >{{item.account}}</td>
+      <td >{{item.deviceid}}</td>
+      <td >{{item.event}}</td>
+      <td >{{item.fecha}}</td>
+      <td >{{item.estado_alarma}}</td>
     </tr>
   </tbody>
 </table>
@@ -80,6 +82,7 @@
     </div>
 
 <!-- *SEGUNDA COLUMNA ALARMAS EN PROGRESO -->
+<!-- itemsAlertsProgreso -->
     <div class="col">
           <div class="card bg-light" style="width: 38rem;">
               <div class="card-header">
@@ -90,8 +93,8 @@
                 </div>
   <div class="card-body">
 <div class="scrollable">
-   <table cellspacing="1" cellpadding="1" class="table table-danger table-sm table-bordered  table-hover  table-striped table-borderless table-tamaño" >
-  <thead class="table-danger">
+   <table cellspacing="1" cellpadding="1" class="table  table-sm   table-hover  table-striped table-borderless table-tamaño" >
+  <thead style="background:#41464b; color:#fff" class="">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Cuenta</th>
@@ -101,14 +104,14 @@
       <th scope="col">Estado de alarma</th>
     </tr>
   </thead>
-  <tbody>
-    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.cuenta}}</td>
-      <td>{{item.dispositivo}}</td>
-      <td>{{item.evento}}</td>
-      <td>{{item.fecha}}</td>
-      <td>{{item.estado}}</td>
+  <tbody style="background:#ff5200cc;" v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
+    <tr >
+       <th style="color:#fff"   scope="row">{{item.idAlarmas}}</th>
+      <td  style="color:#fff">{{item.account}}</td>
+      <td  style="color:#fff">{{item.deviceid}}</td>
+      <td  style="color:#fff">{{item.event}}</td>
+      <td  style="color:#fff">{{item.fecha}}</td>
+      <td  style="color:#fff">{{item.estado_alarma}}</td>
     </tr>
   </tbody>
 </table>
@@ -122,8 +125,8 @@
   <!-- ******************************* ALERTAS  ********************************************** -->
 
 
-  <div class="row section-alertas">
-    <!-- *PRIMER COLUMNA ALERTAS -->
+  <!-- <div class="row section-alertas">
+    *PRIMER COLUMNA ALERTAS
     <div class="col">
         <div class="card bg-light" style="width: 38rem;">
           <div class="card-header">
@@ -134,8 +137,8 @@
             </div>
   <div class="card-body">
 <div class="scrollable">
-   <table cellspacing="1" cellpadding="1" class="table table-warning table-sm table-bordered   table-hover  table-striped table-borderless table-tamaño" >
-  <thead class="table-warning">
+   <table cellspacing="1" cellpadding="1" class="table  table-sm  table-hover   table-borderless table-tamaño" >
+  <thead style="background:#41464b; color:#fff" class="">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Cuenta</th>
@@ -145,14 +148,14 @@
       <th scope="col">Estado de alarma</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody style="background:#e7c129;">
     <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.cuenta}}</td>
-      <td>{{item.dispositivo}}</td>
-      <td>{{item.evento}}</td>
-      <td>{{item.fecha}}</td>
-      <td>{{item.estado}}</td>
+      <th style="color:#000" scope="row">{{item.id}}</th>
+      <td style="color:#000">{{item.cuenta}}</td>
+      <td style="color:#000">{{item.dispositivo}}</td>
+      <td style="color:#000">{{item.evento}}</td>
+      <td style="color:#000">{{item.fecha}}</td>
+      <td style="color:#000">{{item.estado}}</td>
     </tr>
   </tbody>
 </table>
@@ -161,7 +164,7 @@
 </div>
     </div>
 
-<!-- *SEGUNDA COLUMNA ALERTAS EN PROGRESO -->
+*SEGUNDA COLUMNA ALERTAS EN PROGRESO
     <div class="col">
           <div class="card bg-light" style="width: 38rem;">
               <div class="card-header">
@@ -172,8 +175,8 @@
                 </div>
   <div class="card-body">
 <div class="scrollable">
-   <table cellspacing="1" cellpadding="1" class="table table-warning table-sm table-bordered  table-hover  table-striped table-borderless table-tamaño" >
-  <thead class="table-warning">
+   <table cellspacing="1" cellpadding="1" class="table  table-sm table-bordered  table-hover  table-striped table-borderless table-tamaño" >
+  <thead style="background:#41464b; color:#fff" class="">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Cuenta</th>
@@ -198,7 +201,7 @@
   </div>
 </div>
     </div>
-  </div>
+  </div> -->
 
 
 <!-- *********************** EVENTOS ****************************** -->
@@ -213,25 +216,25 @@
               <div class="card-body">
 <!-- *PRIMER COLUMNA EVENTOS-->
 <div class="scrollable">
-   <table cellspacing="1" cellpadding="1" class="table table-success  table-bordered   table-hover  table-striped table-borderless table-tamaño" >
-  <thead class="table-success">
+   <table cellspacing="1" cellpadding="1" class="table table-hover   table-borderless table-tamaño" >
+  <thead style="background:#41464b; color:#fff" class="">
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Cuenta</th>
       <th scope="col">Dispositivo</th>
       <th scope="col">Evento</th>
       <th scope="col">Fecha</th>
-      <th scope="col">Estado de alarma</th>
+      <!-- <th scope="col">Estado de alarma</th> -->
     </tr>
   </thead>
-  <tbody>
-    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.cuenta}}</td>
-      <td>{{item.dispositivo}}</td>
-      <td>{{item.evento}}</td>
-      <td>{{item.fecha}}</td>
-      <td>{{item.estado}}</td>
+  <tbody style="background:#157347;" v-for="item in itemsEvents" :key="item.idEventos">
+    <tr :id="'device-'+ item.idEventos">
+         <th style="color:#fff" scope="row">{{item.idEventos}}</th>
+      <td style="color:#fff;">{{item.account}}</td>
+      <td style="color:#fff">{{item.deviceid}}</td>
+      <td style="color:#fff">{{item.event}}</td>
+      <td style="color:#fff">{{item.fecha}}</td>
+      <!-- <td style="color:#fff">{{item.estado}}</td> -->
     </tr>
   </tbody>
 </table>
@@ -247,6 +250,8 @@
 import sidebar from './Sidebar';
 import Swal from 'sweetalert2';
 import moment from 'moment'
+ var audio = new Audio(require('@/assets/audioDemo.mp3'))
+
 export default {
     name: "monitoreoComponent",
       components: {
@@ -255,8 +260,12 @@ export default {
 mounted(){
 // this.Alert();
 this.getAlarmasFromHttp();
+this.getEventosFromHttp();
+this. getProgresoAlarmasFromHttp();
 this.getDataFromSocket();
-console.log('Fecha de conexion:',this.fechaConexion);
+
+
+
 },
   
     data(){
@@ -276,16 +285,31 @@ console.log('Fecha de conexion:',this.fechaConexion);
       {id: '8330', cuenta:'GSI Sucursal 1', dispositivo: '414150', evento: 'Desprendimiento', fecha: '16/03/2022 14:22:39', estado: 'pendiente'},
       ],
        itemsAlerts:[],
+       itemsAlertsProgreso:[],
+       itemsEvents:[],
        flagRegistro: 0,
        fechaConexion:'0',
        fechaConexionStorage:localStorage.getItem('localsocket'),
        idConexion:'',
+       clasificacion:'',
       }
   },
      methods: {
-    popup(id){
-      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=535,top=50%")
+      //  var audio = new Audio('../assets/audioDemo.mp3')
+    playSound (sound) {
+      if(sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
     },
+    popup(id){
+  //       var trDevice=document.getElementById("device-" + id);
+  // trDevice.style.backgroundColor = '#c71527';
+  // trDevice.style.transition = 'all .9s ease-in-out';
+      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=535,top=50%")
+
+    },
+
     Alert:function(){
       var mouseStop=null;
       // var Time=60000; /** 1 minutos */ 
@@ -376,16 +400,155 @@ const xhr = new XMLHttpRequest();
           event: json.data[index]["nameTypeAlarm"],
           zona:"000",
           cantidad:1,
+          estado_alarma:json.data[index]["nombreStatus"],
+          clasificacion:json.data[index]["id_clasificacion_alarma"]
+        });
+
+      }
+}
+    },
+    getProgresoAlarmasFromHttp(){
+
+
+ 
+    var page=1;
+    var perPage=10;
+
+
+var idUser=1; //cambiarlo despues por el state
+var typeUser=1;// cambiarlo luego por el state
+
+    console.log("idUser es",idUser);
+    console.log("idUser es",typeUser);
+
+    
+  var data = {
+  "typeFunction": "getAlarmasProgreso",
+  "idcPrincipal":"1",
+  "idcSecundaria": "null",
+  "page":page,
+  "perPage": perPage,
+  "idUserLoged":idUser,
+  "typeUserLoged":typeUser
+  }
+
+const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas');
+            // prepare form data
+
+            // set headers (arreglalo porque lo envia too weird el form sjaskj)
+             xhr.setRequestHeader("Content-Type", "multipart/form-data");
+             //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            // send request
+            xhr.send(JSON.stringify(data));
+
+         
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText)
+                console.log("xml request aws",resp);  
+                var json=resp;
+                this.itemsAlertsProgreso.length =0; 
+
+                this.pages=resp.totalPages;
+                console.log("Datos son", json.data);
+
+          
+
+     for(var index in json.data){
+       
+
+          let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
+
+         this.itemsAlertsProgreso.push({
+           idAlarmas: json.data[index]["idAlarmas"],
+          deviceid: json.data[index]["NameDevice"],
+          fecha: locall,
+          account: json.data[index]["NameUbica"],
+          event: json.data[index]["nameTypeAlarm"],
+          zona:"000",
+          cantidad:1,
+          estado_alarma:json.data[index]["nombreStatus"],
+          clasificacion:json.data[index]["id_clasificacion_alarma"]
+        });
+
+      }
+}
+    },
+    getEventosFromHttp(){
+
+
+ 
+    var page=1;
+    var perPage=10;
+
+
+var idUser=1; //cambiarlo despues por el state
+var typeUser=1;// cambiarlo luego por el state
+
+    // console.log("idUser es",idUser);
+    // console.log("idUser es",typeUser);
+
+  var data = {
+  "typeFunction": "GetEventos",
+  "idcPrincipal":"1",
+  "idcSecundaria": "null",
+  "page": page,
+  "perPage": perPage,
+  "idUserLoged": idUser,
+  "typeUserLoged": typeUser
+  }
+
+const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/eventos');
+            // prepare form data
+
+            // set headers (arreglalo porque lo envia too weird el form sjaskj)
+             xhr.setRequestHeader("Content-Type", "multipart/form-data");
+             //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            // send request
+            xhr.send(JSON.stringify(data));
+
+         
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText)
+                console.log("xml request aws",resp);  
+                var json=resp;
+                this.itemsEvents.length =0; 
+
+                this.pages=resp.totalPages;
+                console.log("Datos son", json.data);
+
+          
+
+     for(var index in json.data){
+       
+
+          let locall = moment.utc(json.data[index]["hora"]).local().format('DD/MM/YYYY HH:mm:ss');
+
+         this.itemsEvents.push({
+           idEventos: json.data[index]["ideventDevice"],
+          deviceid: json.data[index]["NameDevice"],
+          fecha: locall,
+          account: json.data[index]["NameUbica"],
+          event: json.data[index]["nameTypeAlarm"],
+          zona:"000",
+          cantidad:1,
           estado_alarma:json.data[index]["nombreStatus"]
         });
 
       }
 }
-},
-getDataFromSocket() {
+    },
+
+    getDataFromSocket() {
       console.log("Obteniendo Datos");
       this.WebSocketTest();
     },
+
     WebSocketTest() {
       if ("WebSocket" in window) {
         // alert("WebSocket is supported by your Browser!");
@@ -445,13 +608,13 @@ var idUsuario= this.idUser;
           if(typeNotification!=undefined && typeNotification!="undefined"){
             switch (typeNotification) {
               case 'Alarma':
+                // this.getAlarmasFromHttp();
+                  // console.log('CaseAlarma',json["idDato"]);
+                   audio.play();
+                   this.openToastAlarmas(data)
+                   this.handleAlert(data);
 
-                this.getAlarmasFromHttp();
-                 setTimeout(() =>{
-                  this.openToastAlarmas(data)
-                 }, 2000);
-          
-
+         
                 break;
 
                 case 'Event':
@@ -464,18 +627,20 @@ var idUsuario= this.idUser;
                 if(json["codeAlarm"]=="1" || json["codeAlarm"]=="2" || json["codeAlarm"]=="4"
                 || json["codeAlarm"]=="8" || json["codeAlarm"]=="10" || json["codeAlarm"]=="12"){
 
+                this.handleAlertEventos(data)
                 this.openToastEvent(json);
                 console.log(json);
                 } 
                 break;
 
                 case 'Alerta':
+                  
+                  console.log('CaseAlerta',data);
+                   audio.play();
                    this.openToastAlertas(data)
-        
-      //             if (json["codeAlarm"]=="17" || json["codeAlarm"]=="16" ) {
-      //             var mensaje = json["mensaje"]
-      //             this.BotonDePanico(mensaje);
-      //  }
+                   this.handleAlert(data);
+
+
                 break;
             }
 
@@ -529,25 +694,170 @@ EstadoServidor(flagRegistro){
       return 'ff0000';
     
   }
+  
 },
+ChangeColor(color){
+  switch (color) {
+    case 2:
+      return '#e7c129';
+      //alerta
+    case 1:
+      return '#c71527';
+    //alarma
+  }
+},
+
 clickprueba(){
-    this.$toast.open({
-  message: 'Alarmaa de desprendimiento del sensor 414150',
-  type: "success",
+  this.$toast.open({
+    message: 'Alarmaa de desprendimiento del sensor 414150',
+  type: "error",
   duration: 10000,
   dismissible: true,
   position: "top-right",
           });
 
-  var trDevice = document.getElementById("device-" + 8511);
-  trDevice.style.backgroundColor = '#fff'; 
-  trDevice.style.transition = 'all .9s ease-in-out';
+       
+      audio.play();
 
-   setTimeout(() =>{
-    trDevice.style.backgroundColor = '#dc3545';
-   
-  }, 20000);
+  //    var trDevice=document.getElementById("device-" + 8751);
+  // trDevice.style.backgroundColor = '#20543c';
+  // trDevice.style.transition = 'all .9s ease-in-out';
+  setTimeout(() =>{
+     var trDevice=document.getElementById("device-" + 8751);
+  trDevice.style.background = '#20543c';
+  trDevice.style.transition = 'all .9s ease-in-out';
+  //   setTimeout(() =>{
+  //    trDevice.style.backgroundColor = '#157347';
+  // }, 20000);
+
+  }, 100000);
+
+
+  // var trDevice=document.getElementById("device-"+idDevice);
+  // trDevice.style.backgroundColor = '#dc354698';
+  // trDevice.style.transition = 'all .9s ease-in-out';
+
+  // setTimeout(() =>{
+  //   trDevice.style.backgroundColor = '#10141d';
+  // }, 20000);
+  
+
+  
 },
+handleAlert(params){
+      console.log("WebSocket Alert: ", JSON.parse(params) );
+      var json= JSON.parse(params);
+
+       console.log(json["mensaje"]);
+       var date=json["date"];
+       var stillUtc = moment.utc(date).toDate();
+       var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
+      //  var clasificacion=json["id_clasificacion_alarma"]
+       var clasificacion=json["typeNotification"]
+       var idAlarmas=json["idInserted"];
+       console.log('pruebaid',idAlarmas);
+       console.log('clasificacion', clasificacion);
+// clasificacion:json.data[index]["id_clasificacion_alarma"]
+
+
+  if (clasificacion == "Alarma") {
+  var idclasificacion = 1
+    // var trDevice=document.getElementById("device-" + idAlarmas);
+    //                  trDevice.style.backgroundColor = '#e7c129'
+}else if(clasificacion == "Alerta"){
+var idclasificacion = 2
+}
+// var idclasificacion=0;
+console.log('handlerPRUEBA');
+         let jSON={
+          deviceid: json["NameDevice"],
+          fecha: local,
+          account: json["ubicacion"],
+          event: json["mensaje"],
+          zona:"000",
+          cantidad:"1",
+          idAlarmas:json["idInserted"],
+          estado_alarma:json["status"],
+          clasificacion: idclasificacion
+         };
+
+         //this.itemsAlerts.push();
+         this.itemsAlerts.splice(0,0,jSON);
+         console.log('handAlert',this.itemsAlerts);
+
+
+       if (clasificacion == "Alarma") {
+
+  //  var trDevice=document.getElementById("device-" + idAlarmas);
+  //       trDevice.style.backgroundColor = '#c71527';
+  //       trDevice.style.transition = 'all .9s ease-in-out';
+  
+         setTimeout(() =>{
+     var trDevice=document.getElementById("device-" + idAlarmas);
+  trDevice.style.backgroundColor = '#fd724d';
+  trDevice.style.transition = 'all .9s ease-in-out';
+  //   setTimeout(() =>{
+  //    trDevice.style.backgroundColor = '#ff573c';
+  // }, 20000);
+
+  }, 1000);
+}else if(clasificacion == "Alerta"){
+    // var trDevice=document.getElementById("device-" + idAlarmas);
+    //        trDevice.style.backgroundColor = '#e7c129';
+    //        trDevice.style.transition = 'all .9s ease-in-out';
+    
+         setTimeout(() =>{
+     var trDevice=document.getElementById("device-" + idAlarmas);
+  trDevice.style.backgroundColor = '#a3881e';
+  trDevice.style.transition = 'all .9s ease-in-out';
+  //   setTimeout(() =>{
+  //    trDevice.style.backgroundColor = '#ff573c';
+  // }, 20000);
+
+  }, 1000);
+}
+      
+
+    },
+
+handleAlertEventos(params){
+      console.log("WebSocket Eventos: ", JSON.parse(params) );
+      var json= JSON.parse(params);
+
+       console.log(json["mensaje"]);
+       var date=json["date"];
+       var stillUtc = moment.utc(date).toDate();
+       var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
+       var idEventos=json["idInserted"];
+       console.log('pruebaid',idEventos);
+
+
+         let jSON={
+          deviceid: json["NameDevice"],
+          fecha: local,
+          account: json["ubicacion"],
+          event: json["mensaje"],
+          zona:"000",
+          cantidad:"1",
+          idEventos:json["idInserted"],
+         };
+
+         //this.itemsAlerts.push();
+         this.itemsEvents.splice(0,0,jSON);
+         console.log(this.itemsEvents);
+  
+  setTimeout(() =>{
+     var trDevice=document.getElementById("device-" + idEventos);
+  trDevice.style.backgroundColor = '#20543c';
+  trDevice.style.transition = 'all .9s ease-in-out';
+    setTimeout(() =>{
+     trDevice.style.backgroundColor = '#157347';
+  }, 20000);
+
+  }, 1000);
+
+
+    },
 openToastAlarmas(params){ 
 
   var json= JSON.parse(params);
@@ -565,15 +875,9 @@ openToastAlarmas(params){
   dismissible: true,
   position: "top-right",
           });
-  console.log(json);
-  var trDevice=document.getElementById("device-" + idInserted);
-  trDevice.style.backgroundColor = '#fff';
-  trDevice.style.transition = 'all .9s ease-in-out';
-  
-  setTimeout(() =>{
-    trDevice.style.backgroundColor = '#dc3545';
-  }, 20000);
           
+  console.log('Notificacion_alarma',json);
+
 },
 openToastEvent(params){ 
 
@@ -594,6 +898,7 @@ openToastAlertas(params){
   var json= JSON.parse(params);
   var mensaje=json["mensaje"];
   var device=json["NameDevice"];
+  var idInserted=json["idInserted"];
 
   this.$toast.open({
   message: 'Alerta de '+ mensaje + ' del sensor: ' + device,
@@ -602,7 +907,11 @@ openToastAlertas(params){
   dismissible: true,
   position: "top-right",
           });
-  console.log(json);
+  console.log('Notificacion_alerta',json);
+
+  //  var trDevice=document.getElementById("device-" + idInserted);
+  // trDevice.style.backgroundColor = '#e7c129';
+  // trDevice.style.transition = 'all .9s ease-in-out';
       
 },
 
@@ -668,7 +977,7 @@ openToastAlertas(params){
   border-radius: 6px;
 }
 .scrollable{
-  height:200px;
+  height:400px;
   overflow: scroll;
 }
 
@@ -721,5 +1030,11 @@ openToastAlertas(params){
 .tooltipp:hover .tooltiptext {
   visibility: visible;
 }
-
+/* tr:hover{
+  background-color: #817d6e73 !important;
+} */
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: #fff;
+}
 </style>
