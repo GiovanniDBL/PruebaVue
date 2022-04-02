@@ -32,19 +32,20 @@
   </div>
 </nav>
 
-        <section class="home">
+        <section class="home container-xxl">
 <!-- ********************** ALARMAS********************************************** -->
 <!-- <img src="@/assets/logo.webp" alt=""> -->
 <!-- <button type="button" class="btn btn-primary" @click.prevent="playSound(require('@/assets/audioDemo.mp3'))">audio</button> -->
 <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
-  <div class="row section-alarmas">
+  <div class="row">
     <!-- *PRIMER COLUMNA ALARMAS -->
     <div class="col">
-        <div class="card bg-light" style="width: 38rem;">
+        <!-- <div class="card bg-light" style="width: 38rem;"> -->
+        <div class="card bg-light" style="width: 40rem;">
           <div class="card-header ">
             <span class="position-relative" style="padding-right:5px;">
                Alarmas   
-              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">12</span>
+              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
             </span>
             </div>
   <div class="card-body">
@@ -84,11 +85,12 @@
 <!-- *SEGUNDA COLUMNA ALARMAS EN PROGRESO -->
 <!-- itemsAlertsProgreso -->
     <div class="col">
-          <div class="card bg-light" style="width: 38rem;">
+          <!-- <div class="card bg-light" style="width: 38rem;"> -->
+          <div class="card bg-light" style="width: 40rem;">
               <div class="card-header">
                  <span class="position-relative" style="padding-right:5px;">
                Alarmas en progreso
-              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">12</span>
+              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmasProgreso}}</span>
             </span>
                 </div>
   <div class="card-body">
@@ -210,7 +212,7 @@
           <div class="card-header">
              <span class="position-relative" style="padding-right:5px;">
                Eventos
-              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">12</span>
+              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalEventos}}</span>
             </span>
             </div>
               <div class="card-body">
@@ -292,6 +294,9 @@ this.getDataFromSocket();
        fechaConexionStorage:localStorage.getItem('localsocket'),
        idConexion:'',
        clasificacion:'',
+       totalAlarmas: 0,
+       totalAlarmasProgreso: 0,
+       totalEventos:0,
       }
   },
      methods: {
@@ -383,8 +388,9 @@ const xhr = new XMLHttpRequest();
                 this.itemsAlerts.length =0; 
 
                 this.pages=resp.totalPages;
-                console.log("Datos son", json.data);
-
+                console.log("Datos Alarmas son", json.data);
+                console.log("Datos Alarmas total", json.data.length);
+                this.totalAlarmas = json.data.length;
           
 
      for(var index in json.data){
@@ -452,9 +458,8 @@ const xhr = new XMLHttpRequest();
                 this.itemsAlertsProgreso.length =0; 
 
                 this.pages=resp.totalPages;
-                console.log("Datos son", json.data);
-
-          
+                console.log("Datos Alarmas en progreso son", json.data);
+          this.totalAlarmasProgreso = json.data.length;
 
      for(var index in json.data){
        
@@ -520,8 +525,8 @@ const xhr = new XMLHttpRequest();
                 this.itemsEvents.length =0; 
 
                 this.pages=resp.totalPages;
-                console.log("Datos son", json.data);
-
+                console.log("Datos Eventos son", json.data);
+                this.totalEventos = json.data.length;
           
 
      for(var index in json.data){
@@ -784,7 +789,7 @@ console.log('handlerPRUEBA');
          //this.itemsAlerts.push();
          this.itemsAlerts.splice(0,0,jSON);
          console.log('handAlert',this.itemsAlerts);
-
+        //  this.totalAlarmas = this.totalAlarmas + 1;; 
 
        if (clasificacion == "Alarma") {
 
@@ -845,6 +850,7 @@ handleAlertEventos(params){
          //this.itemsAlerts.push();
          this.itemsEvents.splice(0,0,jSON);
          console.log(this.itemsEvents);
+        //  this.totalEventos = this.totalEventos + 1;
   
   setTimeout(() =>{
      var trDevice=document.getElementById("device-" + idEventos);
@@ -936,20 +942,19 @@ openToastAlertas(params){
 <style scoped>
 
 .home {
-    position: relative;
-    /* height: 100vh; */
+    /* position: relative;
     left: 10px;
     width: calc(100% - 10px);
     transition: all 0.5s ease;
-     padding: 8px 40px;
-     padding-top: 5rem
+     padding: 8px 40px; */
+     padding-top: 2rem
 }
 .home .text{
   font-size:30px;
   font-weight: 500;
 }
 .table-tamaño{
-  font-size:9pt; 
+  font-size:10.1pt; 
   width:95%; 
   margin-left:2.5%;
 }
@@ -977,7 +982,7 @@ openToastAlertas(params){
   border-radius: 6px;
 }
 .scrollable{
-  height:400px;
+  height:320px;
   overflow: scroll;
 }
 
