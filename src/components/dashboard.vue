@@ -25,7 +25,7 @@
 <div>
   <div class="row">
     <div class="col">
-      <div class="card card2" style="width:36rem">
+      <div class="card card2">
       <div class="card-header" style="color:#ffffff">
     Supervisión por hora
   </div>
@@ -35,7 +35,7 @@
     </div>
     </div>
     <div class="col">
-        <div class="card card2" style="width:36rem">
+        <div class="card card2">
       <div class="card-header" style="color:#ffffff">
     Supervisión por hora
   </div>
@@ -122,5 +122,14 @@ export default {
 .card-title{
   color: #fff;
 }
+.card2{
+  width:36rem
+}
+  
+  @media only screen and (min-width: 1800px) {
+    .card2{
+       width:54rem;
+    }
+  }
 
 </style>

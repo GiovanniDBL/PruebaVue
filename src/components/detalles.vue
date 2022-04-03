@@ -91,35 +91,28 @@
   </div>
   <!-- *HISTORIAL -->
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="scrollable">
+
     <table cellspacing="1" cellpadding="1" class="table table-info  table-sm   table-hover  table-striped  table-tamaño">
-  <thead>
+  <thead class="table-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">ID</th>
+      <th scope="col">Dispositivo</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Fecha</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody  v-for="item in historialAlarmas" :key="item.nombreContacto">
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <th scope="row">{{item.id}}</th>
+      <td>{{item.NameDevice}}</td>
+      <td>{{item.typeAlarm}}</td>
+      <td>{{item.fechaAlarma}}</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+
   </tbody>
 </table>
+    </div>
   </div>
   <!-- *NOTAS -->
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">lorem</div>
@@ -316,6 +309,7 @@ export default {
           
           this.historialAlarmas.push({
             id:json[index]["idAlarmas"],
+            NameDevice: json[index]["NameDevice"],
             typeAlarm: json[index]["nameTypeAlarm"],
             tempAmb:json[index]["tempAmb"],
             fechaAlarma:local,
@@ -364,5 +358,14 @@ hr{
 }
 .tab-pane{
     /* color: #ffffff; */
+}
+.scrollable{
+  height:320px;
+  overflow: scroll;
+}
+.table-tamaño{
+  font-size:9.9pt; 
+  width:95%; 
+  margin-left:2.5%;
 }
 </style>

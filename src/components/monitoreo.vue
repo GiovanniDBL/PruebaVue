@@ -32,7 +32,7 @@
   </div>
 </nav>
 
-        <section class="home container-xxl">
+        <section class="home">
 <!-- ********************** ALARMAS********************************************** -->
 <!-- <img src="@/assets/logo.webp" alt=""> -->
 <!-- <button type="button" class="btn btn-primary" @click.prevent="playSound(require('@/assets/audioDemo.mp3'))">audio</button> -->
@@ -41,7 +41,7 @@
     <!-- *PRIMER COLUMNA ALARMAS -->
     <div class="col">
         <!-- <div class="card bg-light" style="width: 38rem;"> -->
-        <div class="card bg-light" style="width: 40rem;">
+        <div class="card bg-light card2">
           <div class="card-header ">
             <span class="position-relative" style="padding-right:5px;">
                Alarmas   
@@ -86,7 +86,7 @@
 <!-- itemsAlertsProgreso -->
     <div class="col">
           <!-- <div class="card bg-light" style="width: 38rem;"> -->
-          <div class="card bg-light" style="width: 40rem;">
+          <div class="card bg-light card2">
               <div class="card-header">
                  <span class="position-relative" style="padding-right:5px;">
                Alarmas en progreso
@@ -122,88 +122,6 @@
 </div>
     </div>
   </div>
-
-
-  <!-- ******************************* ALERTAS  ********************************************** -->
-
-
-  <!-- <div class="row section-alertas">
-    *PRIMER COLUMNA ALERTAS
-    <div class="col">
-        <div class="card bg-light" style="width: 38rem;">
-          <div class="card-header">
-            <span class="position-relative" style="padding-right:5px;">
-               Alertas
-              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">12</span>
-            </span>
-            </div>
-  <div class="card-body">
-<div class="scrollable">
-   <table cellspacing="1" cellpadding="1" class="table  table-sm  table-hover   table-borderless table-tamaño" >
-  <thead style="background:#41464b; color:#fff" class="">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Cuenta</th>
-      <th scope="col">Dispositivo</th>
-      <th scope="col">Evento</th>
-      <th scope="col">Fecha</th>
-      <th scope="col">Estado de alarma</th>
-    </tr>
-  </thead>
-  <tbody style="background:#e7c129;">
-    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
-      <th style="color:#000" scope="row">{{item.id}}</th>
-      <td style="color:#000">{{item.cuenta}}</td>
-      <td style="color:#000">{{item.dispositivo}}</td>
-      <td style="color:#000">{{item.evento}}</td>
-      <td style="color:#000">{{item.fecha}}</td>
-      <td style="color:#000">{{item.estado}}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-  </div>
-</div>
-    </div>
-
-*SEGUNDA COLUMNA ALERTAS EN PROGRESO
-    <div class="col">
-          <div class="card bg-light" style="width: 38rem;">
-              <div class="card-header">
-                 <span class="position-relative" style="padding-right:5px;">
-               Alertas en progreso
-              <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">12</span>
-            </span>
-                </div>
-  <div class="card-body">
-<div class="scrollable">
-   <table cellspacing="1" cellpadding="1" class="table  table-sm table-bordered  table-hover  table-striped table-borderless table-tamaño" >
-  <thead style="background:#41464b; color:#fff" class="">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Cuenta</th>
-      <th scope="col">Dispositivo</th>
-      <th scope="col">Evento</th>
-      <th scope="col">Fecha</th>
-      <th scope="col">Estado de alarma</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr @click="popup(item.id)" v-for="item in items" :key="item.name">
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.cuenta}}</td>
-      <td>{{item.dispositivo}}</td>
-      <td>{{item.evento}}</td>
-      <td>{{item.fecha}}</td>
-      <td>{{item.estado}}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-  </div>
-</div>
-    </div>
-  </div> -->
 
 
 <!-- *********************** EVENTOS ****************************** -->
@@ -942,11 +860,11 @@ openToastAlertas(params){
 <style scoped>
 
 .home {
-    /* position: relative;
+    position: relative;
     left: 10px;
     width: calc(100% - 10px);
     transition: all 0.5s ease;
-     padding: 8px 40px; */
+     padding: 8px 40px;
      padding-top: 2rem
 }
 .home .text{
@@ -954,7 +872,7 @@ openToastAlertas(params){
   font-weight: 500;
 }
 .table-tamaño{
-  font-size:10.1pt; 
+  font-size:9.9pt; 
   width:95%; 
   margin-left:2.5%;
 }
@@ -1042,4 +960,24 @@ openToastAlertas(params){
     --bs-table-accent-bg: var(--bs-table-hover-bg);
     color: #fff;
 }
+.card2{
+  width: 38.5rem;
+}
+  @media only screen and (min-width: 1800px) {
+ .home {
+    position: relative;
+    left: 10px;
+    width: calc(100% - 10px);
+    transition: all 0.5s ease;
+     padding: 8px 40px;
+     padding-top: 2rem
+}
+.card2{
+  width: 55.7rem;
+}
+.scrollable{
+  height:375px;
+  overflow: scroll;
+}
+  }
 </style>
