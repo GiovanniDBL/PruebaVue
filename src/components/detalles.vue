@@ -115,7 +115,18 @@
     </div>
   </div>
   <!-- *NOTAS -->
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">lorem</div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    <form action="">
+    <div class="mb-3">
+  <!-- <label for="exampleFormControlTextarea1" style="color: #000" class="form-label">Importante</label> -->
+  <span style="color: #6c757d"><i class="fad fa-info-circle" style="color:#0d6efd"></i> Importante incluir las siguientes palabras: Hasta, que, <br>como.</span>
+  <textarea class="form-control" v-on:change="buscar($event)" style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" minlength="100"  required></textarea>
+</div>
+    <div class="mb-3">
+  <button class="btn btn-primary" id="btn1" disabled>Envíar</button>
+</div>
+</form>
+  </div>
 </div>
   </div>
 </div>
@@ -130,6 +141,8 @@ export default {
         mounted(){
           this.alarmaID = this.$route.params.id;
             this.getInfoAlarma();
+
+            
     },
 
     data(){
@@ -143,6 +156,7 @@ export default {
             txtTimeAlarma:'',
             contactosAlarma:[],
             historialAlarmas:[],
+            textoBuscar:'',
         }
     },
     methods:{
@@ -248,15 +262,8 @@ export default {
               });
 
               console.log("Los contactos son:",this.contactosAlarma);
-
       }
-
-
-
   }
-
-
-
 
     },
     getHistorialAlarmas(idDevice){
@@ -321,7 +328,24 @@ export default {
         //this.getEventosDevice(idDevice);
       }
     },
+buscar(event){
 
+
+this.textoBuscar = event.target.value
+  console.log("Texto filtrado: " + this.textoBuscar);
+
+
+     if (this.textoBuscar == "como") {
+       
+       document.getElementById("btn1").disabled = false;
+   }
+ 
+    
+  
+
+  // this.textoBuscar = event.target;
+  // console.log("Texto filtrado: " +this.textoBuscar);
+}
 
 
 
@@ -367,5 +391,13 @@ hr{
   font-size:9.9pt; 
   width:95%; 
   margin-left:2.5%;
+}
+.nav-link{
+  color: #495057;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: #005aff;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
 }
 </style>

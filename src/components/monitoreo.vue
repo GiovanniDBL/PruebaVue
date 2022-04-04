@@ -1,8 +1,8 @@
 <template>
     <div >
-      <nav class="navbar navbar-expand-lg ">
+      <nav class="navbar sticky-top navbar-expand-lg ">
   <div class="container-fluid">
-    <span class="navbar-brand">Central de <span class="span-brand">monitoreo</span></span>
+    <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span></span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,7 +11,6 @@
         <!-- <li class="nav-item">
           <span>{{idConexion}}</span>
         </li> -->
-  
         <li class="nav-item">
           
           <span class="tooltipp">
@@ -47,6 +46,11 @@
                Alarmas   
               <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
             </span>
+
+                <!-- <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form> -->
             </div>
   <div class="card-body">
 <div class="scrollable">
@@ -73,7 +77,9 @@
       <td >{{item.deviceid}}</td>
       <td >{{item.event}}</td>
       <td >{{item.fecha}}</td>
-      <td >{{item.estado_alarma}}</td>
+      <td >{{item.estado_alarma}} <span class="icon-color" :id="'icono-'+ item.idAlarmas"></span></td>
+      <!-- <i  v-if="pendientes =='0'" style="color:red; font-size: 9px" class="fas fa-circle"></i> -->
+      <!-- <i  class="fas fa-circle"></i> -->
     </tr>
   </tbody>
 </table>
@@ -174,8 +180,8 @@ import moment from 'moment'
 
 export default {
     name: "monitoreoComponent",
-      components: {
-    sidebar
+    components: {
+    sidebar,
   },
 mounted(){
 // this.Alert();
@@ -215,6 +221,7 @@ this.getDataFromSocket();
        totalAlarmas: 0,
        totalAlarmasProgreso: 0,
        totalEventos:0,
+       pendientes:'',
       }
   },
      methods: {
@@ -229,6 +236,10 @@ this.getDataFromSocket();
   //       var trDevice=document.getElementById("device-" + id);
   // trDevice.style.backgroundColor = '#c71527';
   // trDevice.style.transition = 'all .9s ease-in-out';
+
+    var tricono = document.getElementById("icono-" + id);
+    tricono.innerHTML=""
+    tricono.style.color = "#fff"
       window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=535,top=50%")
 
     },
@@ -596,7 +607,8 @@ var idUsuario= this.idUser;
 
 console.log('[' + this.fechaConexion + '] ')
 let msgtst = {
-    "action":"testAlive"
+    "action":"testAlive",
+    "id_conexion": this.idConexion,
 }
 socketConn.send(JSON.stringify(msgtst));
 }, 60000 );
@@ -642,18 +654,25 @@ clickprueba(){
        
       audio.play();
 
-  //    var trDevice=document.getElementById("device-" + 8751);
+var tricono = document.getElementById("icono-" + 8841);
+    tricono.innerHTML="<i class='fas fa-circle'></i>"
+    tricono.style.color = "#dc3545"
+
+     var trDevice=document.getElementById("device-" + 8841);
+  trDevice.style.backgroundColor = '#dc3545';
+  trDevice.style.transition = 'all .9s ease-in-out';
+  //    var trDevice=document.getElementById("brandf");
   // trDevice.style.backgroundColor = '#20543c';
   // trDevice.style.transition = 'all .9s ease-in-out';
-  setTimeout(() =>{
-     var trDevice=document.getElementById("device-" + 8751);
-  trDevice.style.background = '#20543c';
-  trDevice.style.transition = 'all .9s ease-in-out';
-  //   setTimeout(() =>{
-  //    trDevice.style.backgroundColor = '#157347';
-  // }, 20000);
+  // setTimeout(() =>{
+  //    var trDevice=document.getElementById("device-" + 88);
+  // trDevice.style.background = '#20543c';
+  // trDevice.style.transition = 'all .9s ease-in-out';
+    setTimeout(() =>{
+     trDevice.style.backgroundColor = '#157347';
+  }, 900000);
 
-  }, 100000);
+  // }, 100000);
 
 
   // var trDevice=document.getElementById("device-"+idDevice);
@@ -710,7 +729,9 @@ console.log('handlerPRUEBA');
         //  this.totalAlarmas = this.totalAlarmas + 1;; 
 
        if (clasificacion == "Alarma") {
-
+  var tricono = document.getElementById("icono-" + idAlarmas);
+    tricono.innerHTML="<i class='fas fa-circle'></i>"
+    tricono.style.color = "#dc3545"
   //  var trDevice=document.getElementById("device-" + idAlarmas);
   //       trDevice.style.backgroundColor = '#c71527';
   //       trDevice.style.transition = 'all .9s ease-in-out';
@@ -730,9 +751,15 @@ console.log('handlerPRUEBA');
     //        trDevice.style.transition = 'all .9s ease-in-out';
     
          setTimeout(() =>{
+
+           var tricono = document.getElementById("icono-" + idAlarmas);
+    tricono.innerHTML="<i class='fas fa-circle'></i>"
+    tricono.style.color = "#dc3545"
+
      var trDevice=document.getElementById("device-" + idAlarmas);
   trDevice.style.backgroundColor = '#a3881e';
   trDevice.style.transition = 'all .9s ease-in-out';
+  
   //   setTimeout(() =>{
   //    trDevice.style.backgroundColor = '#ff573c';
   // }, 20000);
@@ -840,18 +867,6 @@ openToastAlertas(params){
 },
 
 
-
-
-// mensajetoast(){
-//   console.log('Hola toast');
-//  this.$toast.open({
-//             message: "Alerta Recibida de ",
-//             type: "warning",
-//             duration: 5000,
-//             dismissible: true,
-//             position: "top-right",
-//           });
-// }
   }
   
 }
@@ -912,6 +927,20 @@ openToastAlertas(params){
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 2px;
+  
+}
+
+.icon-color{
+  color: #ffffff;
+  animation: mymove 0.3s infinite;
+}
+@keyframes mymove {
+    from {
+        color: red;
+    }
+    to {
+        color: #ffffff;
+    }
 }
 .span-brand{
   color: #1abb97;
@@ -962,7 +991,14 @@ openToastAlertas(params){
 }
 .card2{
   width: 38.5rem;
+
 }
+.navbar{
+  background-color: #1b1b27;
+}
+/* .card-body{
+  height: 320px;
+} */
   @media only screen and (min-width: 1800px) {
  .home {
     position: relative;

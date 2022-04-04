@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav  class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav  class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <!-- <a class="navbar-brand" href="#">Dashboard</a> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,9 +27,18 @@
 
 <script>
 export default {
+    name:'navbarComponent',
+ 
+    data(){
+      return{
+        // msg: 0,
+      }
+    },
     methods: {
     popup(){
-      window.open("/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=700,height=600,top=50%")
+      window.open("/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=700,height=600,top=50%");
+      // this.ms = 1;
+      // this.$root.$emit("send", this.msg)
     }
   }
     
