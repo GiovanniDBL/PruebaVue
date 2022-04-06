@@ -71,7 +71,9 @@
     <!-- style="background:#c71527;" -->
     <!-- id="{{'device-' + item.idDeviceZona}}" -->
     <!-- :id="'device-'+ item.idAlarmas" -->
-    <tr class="color-alarmas"  v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"   :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas)">
+    <!-- status_restablecimiento -->
+    <tr class="color-alarmas"  v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" 
+       :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
       <th  scope="row">{{item.idAlarmas}}</th>
       <td >{{item.account}}</td>
       <td >{{item.deviceid}}</td>
@@ -112,8 +114,9 @@
       <th scope="col">Estado de alarma</th>
     </tr>
   </thead>
-  <tbody style="background:#ff5200cc;" v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
-    <tr >
+  <tbody style="background:#f39c12;" v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
+    <!-- #1b7cb5 -->
+    <tr  :id="'device2-'+ item.idAlarmas">
        <th style="color:#fff"   scope="row">{{item.idAlarmas}}</th>
       <td  style="color:#fff">{{item.account}}</td>
       <td  style="color:#fff">{{item.deviceid}}</td>
@@ -132,7 +135,7 @@
 
 <!-- *********************** EVENTOS ****************************** -->
   <div class="section-eventos">
-    <div class="card  bg-light" >
+    <div class="card  bg-light card-evento" >
           <div class="card-header">
              <span class="position-relative" style="padding-right:5px;">
                Eventos
@@ -153,7 +156,7 @@
       <!-- <th scope="col">Estado de alarma</th> -->
     </tr>
   </thead>
-  <tbody style="background:#157347;" v-for="item in itemsEvents" :key="item.idEventos">
+  <tbody style="background:#0c9f54;" v-for="item in itemsEvents" :key="item.idEventos">
     <tr :id="'device-'+ item.idEventos">
          <th style="color:#fff" scope="row">{{item.idEventos}}</th>
       <td style="color:#fff;">{{item.account}}</td>
@@ -232,15 +235,54 @@ this.getDataFromSocket();
         audio.play();
       }
     },
-    popup(id){
+    popup(id, c, d, e, f, es){
   //       var trDevice=document.getElementById("device-" + id);
   // trDevice.style.backgroundColor = '#c71527';
   // trDevice.style.transition = 'all .9s ease-in-out';
 
-    var tricono = document.getElementById("icono-" + id);
-    tricono.innerHTML=""
-    tricono.style.color = "#fff"
-      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=535,top=50%")
+    // var tricono = document.getElementById("icono-" + id);
+    // tricono.innerHTML=""
+    // tricono.style.color = "#fff"
+      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=535,top=50%");
+
+
+       let jSON={
+          deviceid: d,
+          fecha: f,
+          account: c,
+          event: e,
+          zona:"000",
+          cantidad:"1",
+          idAlarmas:id,
+          estado_alarma:'progreso',
+         };
+
+  
+         this.itemsAlertsProgreso.splice(0,0,jSON);
+         
+        var index = this.itemsAlerts.map(x =>{
+          return x.idAlarmas;
+        }).indexOf(id)
+
+        this.itemsAlerts.splice(index, 1)
+        console.log(this.itemsAlerts);
+   setTimeout(() =>{
+            // var tricono = document.getElementById("icono-" + idAlarmas);
+            // tricono.innerHTML="<i class='fas fa-circle'></i>"
+            // tricono.style.color = "#dc3545"
+
+            var trDevice=document.getElementById("device2-" + id);
+           trDevice.style.backgroundColor = '#bd3c49';
+            trDevice.style.border = 'solid 1.5px #ff6384'
+            trDevice.style.transition = 'all .9s ease-in-out';
+
+            setTimeout(() =>{
+              trDevice.style.border = ''
+              trDevice.style.backgroundColor = '';
+            }, 20000)
+
+
+  }, 1000);
 
     },
 
@@ -558,8 +600,9 @@ var idUsuario= this.idUser;
             //? 8 = tamper reposicion,
             //? 10=Fasia reposición,
             //? 12 = restablecimiento de zona,
+            //? 14 = restablecimiento de ac
                 if(json["codeAlarm"]=="1" || json["codeAlarm"]=="2" || json["codeAlarm"]=="4"
-                || json["codeAlarm"]=="8" || json["codeAlarm"]=="10" || json["codeAlarm"]=="12"){
+                || json["codeAlarm"]=="8" || json["codeAlarm"]=="10" || json["codeAlarm"]=="12" || json["codeAlarm"]=="14"){
 
                 this.handleAlertEventos(data)
                 this.openToastEvent(json);
@@ -634,10 +677,22 @@ EstadoServidor(flagRegistro){
 ChangeColor(color){
   switch (color) {
     case 2:
-      return '#e7c129';
+      return '#ffca2c';
       //alerta
     case 1:
+      // return '#e72929';
       return '#c71527';
+    //alarma
+  }
+},
+ChangeColorS(color){
+  switch (color) {
+    case 2:
+      return '#000';
+      //alerta
+    case 1:
+      // return '#e72929';
+      return '#000';
     //alarma
   }
 },
@@ -654,13 +709,23 @@ clickprueba(){
        
       audio.play();
 
-var tricono = document.getElementById("icono-" + 8841);
+var tricono = document.getElementById("icono-" + 8867);
     tricono.innerHTML="<i class='fas fa-circle'></i>"
     tricono.style.color = "#dc3545"
 
-     var trDevice=document.getElementById("device-" + 8841);
-  trDevice.style.backgroundColor = '#dc3545';
+   var trDevice=document.getElementById("device-" + 8866);
+  trDevice.style.backgroundColor = '#bd3c49';
+            trDevice.style.border = 'solid 1.5px #ff6384'
   trDevice.style.transition = 'all .9s ease-in-out';
+
+     var trDevice=document.getElementById("device-" + 8867);
+  trDevice.style.backgroundColor = '#bd4b3c';
+            trDevice.style.border = 'solid 1.5px #ff9f40'
+  trDevice.style.transition = 'all .9s ease-in-out';
+
+  
+    //   background-color: #bd4b3c;
+    // border: solid 1.5px #ff9f40;
   //    var trDevice=document.getElementById("brandf");
   // trDevice.style.backgroundColor = '#20543c';
   // trDevice.style.transition = 'all .9s ease-in-out';
@@ -669,8 +734,10 @@ var tricono = document.getElementById("icono-" + 8841);
   // trDevice.style.background = '#20543c';
   // trDevice.style.transition = 'all .9s ease-in-out';
     setTimeout(() =>{
-     trDevice.style.backgroundColor = '#157347';
-  }, 900000);
+    //  trDevice.style.backgroundColor = '#157347';
+     trDevice.style.border = ''
+     
+  }, 1000);
 
   // }, 100000);
 
@@ -710,7 +777,7 @@ handleAlert(params){
 var idclasificacion = 2
 }
 // var idclasificacion=0;
-console.log('handlerPRUEBA');
+// console.log('handlerPRUEBA');
          let jSON={
           deviceid: json["NameDevice"],
           fecha: local,
@@ -729,41 +796,40 @@ console.log('handlerPRUEBA');
         //  this.totalAlarmas = this.totalAlarmas + 1;; 
 
        if (clasificacion == "Alarma") {
-  var tricono = document.getElementById("icono-" + idAlarmas);
-    tricono.innerHTML="<i class='fas fa-circle'></i>"
-    tricono.style.color = "#dc3545"
-  //  var trDevice=document.getElementById("device-" + idAlarmas);
-  //       trDevice.style.backgroundColor = '#c71527';
-  //       trDevice.style.transition = 'all .9s ease-in-out';
-  
+
+ 
          setTimeout(() =>{
-     var trDevice=document.getElementById("device-" + idAlarmas);
-  trDevice.style.backgroundColor = '#fd724d';
-  trDevice.style.transition = 'all .9s ease-in-out';
-  //   setTimeout(() =>{
-  //    trDevice.style.backgroundColor = '#ff573c';
-  // }, 20000);
+            // var tricono = document.getElementById("icono-" + idAlarmas);
+            // tricono.innerHTML="<i class='fas fa-circle'></i>"
+            // tricono.style.color = "#dc3545"
+
+            var trDevice=document.getElementById("device-" + idAlarmas);
+           trDevice.style.backgroundColor = '#bd3c49';
+            trDevice.style.border = 'solid 1.5px #ff6384'
+            trDevice.style.transition = 'all .9s ease-in-out';
+
+            setTimeout(() =>{
+              trDevice.style.border = ''
+            }, 20000)
+
 
   }, 1000);
 }else if(clasificacion == "Alerta"){
-    // var trDevice=document.getElementById("device-" + idAlarmas);
-    //        trDevice.style.backgroundColor = '#e7c129';
-    //        trDevice.style.transition = 'all .9s ease-in-out';
-    
+  
          setTimeout(() =>{
 
-           var tricono = document.getElementById("icono-" + idAlarmas);
-    tricono.innerHTML="<i class='fas fa-circle'></i>"
-    tricono.style.color = "#dc3545"
+          //  var tricono = document.getElementById("icono-" + idAlarmas);
+          //  tricono.innerHTML="<i class='fas fa-circle'></i>"
+          //  tricono.style.color = "#dc3545"
 
-     var trDevice=document.getElementById("device-" + idAlarmas);
-  trDevice.style.backgroundColor = '#a3881e';
-  trDevice.style.transition = 'all .9s ease-in-out';
-  
-  //   setTimeout(() =>{
-  //    trDevice.style.backgroundColor = '#ff573c';
-  // }, 20000);
+          var trDevice=document.getElementById("device-" + idAlarmas);
+          trDevice.style.backgroundColor = '#bd4b3c';
+          trDevice.style.border = 'solid 1.5px #ff9f40'
+          trDevice.style.transition = 'all .9s ease-in-out';
 
+            setTimeout(() =>{
+              trDevice.style.border = ''
+            },20000)
   }, 1000);
 }
       
@@ -799,10 +865,12 @@ handleAlertEventos(params){
   
   setTimeout(() =>{
      var trDevice=document.getElementById("device-" + idEventos);
-  trDevice.style.backgroundColor = '#20543c';
+  trDevice.style.backgroundColor = '#0e6036';
+  // #0e6036
+  // #0c9f54
   trDevice.style.transition = 'all .9s ease-in-out';
     setTimeout(() =>{
-     trDevice.style.backgroundColor = '#157347';
+     trDevice.style.backgroundColor = '#0c9f54';
   }, 20000);
 
   }, 1000);
@@ -887,7 +955,8 @@ openToastAlertas(params){
   font-weight: 500;
 }
 .table-tamaño{
-  font-size:9.9pt; 
+  font-size:9.7pt; 
+  /* font-weight: 300; */
   width:95%; 
   margin-left:2.5%;
 }
@@ -991,7 +1060,10 @@ openToastAlertas(params){
 }
 .card2{
   width: 38.5rem;
-
+  height: 382px;
+}
+.card-evento{
+  height: 382px;
 }
 .navbar{
   background-color: #1b1b27;
@@ -999,6 +1071,15 @@ openToastAlertas(params){
 /* .card-body{
   height: 320px;
 } */
+.text-dark {
+    /* --bs-text-opacity: 1; */
+    color: #000 !important;
+    font-weight: 500;
+}
+.text-light {
+    /* --bs-text-opacity: 1; */
+    font-weight: 500;
+}
   @media only screen and (min-width: 1800px) {
  .home {
     position: relative;
