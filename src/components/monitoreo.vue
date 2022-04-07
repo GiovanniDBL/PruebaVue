@@ -1,5 +1,6 @@
 <template>
     <div >
+     <!-- <p style="color:red">hola {{name}}</p> -->
       <nav class="navbar sticky-top navbar-expand-lg ">
   <div class="container-fluid">
     <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span></span>
@@ -172,6 +173,9 @@
             </div>
   </div>
  </section>
+
+<!-- <detalles @customChange="logChange" /> -->
+
     </div>
 </template>
 
@@ -179,12 +183,20 @@
 import sidebar from './Sidebar';
 import Swal from 'sweetalert2';
 import moment from 'moment'
+import detalles from './detalles';
  var audio = new Audio(require('@/assets/audioDemo.mp3'))
 
 export default {
     name: "monitoreoComponent",
+    // props:{
+    //   name:{
+    //     type: String,
+    //     default:"Hello"
+    //     }
+    // },
     components: {
     sidebar,
+    detalles,
   },
 mounted(){
 // this.Alert();
@@ -192,7 +204,7 @@ this.getAlarmasFromHttp();
 this.getEventosFromHttp();
 this. getProgresoAlarmasFromHttp();
 this.getDataFromSocket();
-
+// console.log('variable global',this.myVar);
 
 
 },
@@ -225,9 +237,14 @@ this.getDataFromSocket();
        totalAlarmasProgreso: 0,
        totalEventos:0,
        pendientes:'',
+      //  myVar:this.globalVar
       }
   },
+
      methods: {
+       logChange(event){
+         console.log(event);
+       },
       //  var audio = new Audio('../assets/audioDemo.mp3')
     playSound (sound) {
       if(sound) {
@@ -257,7 +274,7 @@ this.getDataFromSocket();
           estado_alarma:'progreso',
          };
 
-  
+  console.log('monitoreo',jSON);
          this.itemsAlertsProgreso.splice(0,0,jSON);
          
         var index = this.itemsAlerts.map(x =>{
@@ -265,7 +282,7 @@ this.getDataFromSocket();
         }).indexOf(id)
 
         this.itemsAlerts.splice(index, 1)
-        console.log(this.itemsAlerts);
+      //   console.log(this.itemsAlerts);
    setTimeout(() =>{
             // var tricono = document.getElementById("icono-" + idAlarmas);
             // tricono.innerHTML="<i class='fas fa-circle'></i>"

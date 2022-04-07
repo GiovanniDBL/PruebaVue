@@ -1,11 +1,10 @@
 <template>
 
 
-
+<div>
+  <!-- <input type="text" placeholder="custom text input" @change="$emit('customChange', $event.target.value)"> -->
 <div class="card" style="width: 30rem;">
-  <!-- <div class="card-header ">
-  <a href="#" class="btn btn-danger" role="button" data-bs-toggle="button"> <i class="fas fa-play"></i> Iniciar atención</a>
-  </div> -->
+
   <div class="card-body">
 <ul class="list-group list-group-flush">
       <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -73,10 +72,6 @@
   <li class="nav-item" role="presentation">
     <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Notas</button>
   </li>
-  <!-- <li class="nav-item" role="presentation">
-    <button class="nav-link btn-atencion" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-     <i class="fas fa-play"></i> Iniciar atención</button>
-  </li> -->
 </ul>
 <div class="tab-content" id="myTabContent">
 
@@ -127,24 +122,25 @@
     </div>
   </div>
   <!-- *NOTAS -->
+ 
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
     <div class="scrollable">
 
     <table cellspacing="1" cellpadding="1" class="table table-info  table-sm   table-hover  table-striped  table-tamaño">
   <thead class="table-dark">
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Dispositivo</th>
-      <th scope="col">Nombre</th>
+      <th scope="col">ID_Nota</th>
+      <th scope="col">ID_Alarma</th>
+      <th scope="col">Nota</th>
       <th scope="col">Fecha</th>
     </tr>
   </thead>
-  <tbody  v-for="item in historialAlarmas" :key="item.nombreContacto">
+  <tbody  v-for="item in historialNotas" :key="item.idnotas_alarma">
     <tr>
-      <th scope="row">{{item.id}}</th>
-      <td>{{item.NameDevice}}</td>
-      <td>{{item.typeAlarm}}</td>
-      <td>{{item.fechaAlarma}}</td>
+      <th scope="row">{{item.idnotas_alarma}}</th>
+      <td>{{item.nota_id_alarma}}</td>
+      <td>{{item.nota_alarma}}</td>
+      <td>{{item.date_note}}</td>
     </tr>
 
   </tbody>
@@ -167,13 +163,14 @@
     <form v-on:submit.prevent="PostEnviarTicket">
     <div class="mb-3">
 
-  <!-- <span style="color: #6c757d"><i class="fad fa-info-circle" style="color:#0d6efd"></i> Importante incluir las siguientes palabras: Hasta, que, <br>como.</span> -->
+  <span style="color: #6c757d"><i class="fad fa-info-circle" style="color:#0d6efd"></i> Favor de escribir la nota</span>
   <!-- <textarea class="form-control" v-on:change="buscar($event)" style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" minlength="100"  required></textarea> -->
   <!-- <textarea class="form-control" v-on:input="buscar($event)" style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" minlength="100"  required></textarea> -->
-  <textarea name="textoForm" class="form-control" v-on:change="buscar($event)" style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" v-model="textoForm"></textarea>
+  <textarea name="textoForm" class="form-control" v-on:change="buscar($event)" style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" v-model="textoForm" required
+  ></textarea>
 </div>
     <div class="mb-3">
-  <button class="btn btn-primary" data-bs-dismiss="modal"  id="btn1" >Envíar</button>
+  <button class="btn btn-danger" data-bs-dismiss="modal"  id="btn1" >Envíar</button>
 </div>
 </form>
       </div>
@@ -186,6 +183,8 @@
 </div>
   </div>
 </div>
+  <!-- <monitore v-bind:name= this.jSonGlobal /> -->
+</div>
 
 
 
@@ -193,9 +192,15 @@
 
 <script>
 import moment from 'moment'
+import Swal from 'sweetalert2';
+import monitore from './monitoreo';
+
+
 export default {
     name: "detallesComponent",
-
+components: {
+    monitore,
+  },
         mounted(){
           this.alarmaID = this.$route.params.id;
             this.getInfoAlarma();
@@ -213,15 +218,22 @@ export default {
             txtTypoAlarma:'',
             txtTimeAlarma:'',
             txtStatus:'',
+            txtNameDevice:'',
             contactosAlarma:[],
             historialAlarmas:[],
+            historialNotas:[],
             textoBuscar:'',
             textoForm:'',
+            jSonGlobal:'',
+            // myVar:this.itemsAlertsProgreso,
         }
     },
     methods:{
       texto(){
         console.log("TxtArea",this.textoForm);
+      },
+       emitEvent() {
+        myEmitter.emit('sample-event', 'foobar') 
       },
          
     getInfoAlarma(){
@@ -261,6 +273,7 @@ export default {
           var ciudad=json[index]["nombCuidadUbic"];
           var idUbic=json[index]["idUbic"];
           var idDevice=json[index]["idDeviceZona"];
+          var nameDevice = json[index]["NameDevice"]
 
 
         }
@@ -275,6 +288,7 @@ export default {
        this.txtCiudad=ciudad;
        this.idDeviceSelected=idDevice;
        this.txtStatus=nombreStatus;
+       this.txtNameDevice = nameDevice;
       //  var statusAlarma=document.getElementById("select-statusA");
 
       //  var opt = document.createElement('option');
@@ -284,6 +298,7 @@ export default {
 
        this.getContactosAlarma(idUbic);
        this.getHistorialAlarmas(idDevice);
+       this.getHistorialTickets(idAlarma)
 
       }
 },
@@ -303,6 +318,28 @@ export default {
       );
       xhr.setRequestHeader("Content-Type", "multipart/form-data");
       xhr.send(JSON.stringify(data));
+
+
+      let jSON={
+          deviceid: this.txtNameDevice,
+          fecha: this.txtTimeAlarma,
+          account: this.txtCuenta,
+          event: this.txtTypoAlarma,
+          zona:"000",
+          cantidad:"1",
+          idAlarmas: this.txtIdAlarma,
+          estado_alarma:'progreso',
+         };
+
+         this.jSonGlobal= jSON;
+         console.log('detalles',this.jSonGlobal);
+      //    this.myVar.splice(0,0,jSON);
+      //    console.log('globarl',this.myVar[0]);
+      Swal.fire({
+  icon: 'success',
+  title: 'Nota Exitosa',
+  text: 'Nota enviada correctamente',
+})
 
        xhr.onload = () => {
         let resp = JSON.parse(xhr.responseText)
@@ -416,6 +453,49 @@ export default {
         //this.getEventosDevice(idDevice);
       }
     },
+    getHistorialTickets(idDevice){
+  
+      var data={
+        typeFunction: "obtenerNotas_alarmas",
+        idAlarma: idDevice,
+        idUser: 1,
+      };
+
+      const xhr = new XMLHttpRequest();
+       xhr.open(
+        "POST",
+        "https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas"
+      );
+      // set headers (arreglalo porque lo envia too weird el form sjaskj)
+      xhr.setRequestHeader("Content-Type", "multipart/form-data");
+      //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhr.send(JSON.stringify(data));
+      xhr.onload = () => {
+         let resp = JSON.parse(xhr.responseText)
+        console.log("respuesta getHistorialNotas",resp);
+        var json=resp;  
+
+        // this.itemsAlarmasDevice.length = 0;
+
+        for(var index in json){
+          var date= json[index]["date_note"];
+          var stillUtc = moment.utc(date).toDate();
+          var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
+          var estadoAlarma=json[index]["estado_alarma"];
+          var txtAlarma="";
+      
+          
+          this.historialNotas.push({
+            idnotas_alarma:json[index]["idnotas_alarma"],
+            nota_id_alarma: json[index]["nota_id_alarma"],
+            nota_alarma: json[index]["nota_alarma"],
+            tempAmb:json[index]["tempAmb"],
+            date_note:local,
+          });
+        }
+
+      }
+    },
     // enviarNota(){
     //   alert("Texto: " + this.textoBuscar + ' '+
     //          "ID_Alarma: " + this.alarmaID + ' ' +
@@ -508,4 +588,24 @@ li span{
   color: #fff;
   margin-bottom: 1px;
 }
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+    background: #111315;
+}
+.modal-header .btn-close {
+    padding: 0.3rem 0.3rem;
+    margin: -0.5rem -0.5rem -0.5rem auto;
+    background-color: #fff;
+}
+.modal-header h5{
+color: #fff;
+}
+
 </style>

@@ -6,9 +6,7 @@ export default createStore({
   getters: {
   },
   mutations: {
-    correr(){
-      alert('cprrer mutations')
-    }
+  
 
   },
   actions: {
