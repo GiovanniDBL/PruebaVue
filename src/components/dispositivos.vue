@@ -199,5 +199,10 @@ tr{
     --bs-table-accent-bg: var(--bs-table-hover-bg);
     color: #ffffff;
 }
-
+@media only screen and (min-width: 1800px) {
+  .scrollable{
+  height:810px;
+  overflow: scroll;
+}
+}
 </style>

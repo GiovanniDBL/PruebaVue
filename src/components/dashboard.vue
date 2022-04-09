@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     popup(){
-      window.open("http://localhost:8080/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=499,height=600,top=50%")
+      window.open("http://localhost:8080/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=800,height=600,top=50%")
     }
   }
   

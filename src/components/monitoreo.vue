@@ -83,7 +83,8 @@
       <td >{{item.deviceid}}</td>
       <td >{{item.event}}</td>
       <td >{{item.fecha}}</td>
-      <td >{{item.estado_alarma}} <span class="icon-color" :id="'icono-'+ item.idAlarmas"></span></td>
+      <td >{{item.estado_alarma}} <span  :id="'icono-'+ item.idAlarmas"></span></td>
+      <!-- <td >{{item.estado_alarma}} <span class="icon-color" :id="'icono-'+ item.idAlarmas"></span></td> -->
       <!-- <i  v-if="pendientes =='0'" style="color:red; font-size: 9px" class="fas fa-circle"></i> -->
       <!-- <i  class="fas fa-circle"></i> -->
     </tr>
@@ -120,7 +121,7 @@
   </thead>
   <tbody style="background:#f39c12;" v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
     <!-- #1b7cb5 -->
-    <tr  :id="'device2-'+ item.idAlarmas"  @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
+    <tr  :id="'device2-'+ item.idAlarmas"  @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
        <th style="color:#fff"   scope="row">{{item.idAlarmas}}</th>
       <td  style="color:#fff">{{item.account}}</td>
       <td  style="color:#fff">{{item.deviceid}}</td>
@@ -189,6 +190,7 @@ import moment from 'moment'
 import detalles from './detalles';
 import { mapGetters } from 'vuex';
  var audio = new Audio(require('@/assets/audioDemo.mp3'))
+ var audio2 = new Audio(require('@/assets/audioDemo2.mp3'))
 
 export default {
     name: "monitoreoComponent",
@@ -266,12 +268,12 @@ computed:mapGetters({
   // trDevice.style.backgroundColor = '#c71527';
   // trDevice.style.transition = 'all .9s ease-in-out';
 
-    // var tricono = document.getElementById("icono-" + id);
-    // tricono.innerHTML=""
-    // tricono.style.color = "#fff"
-      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=535,top=50%");
+    var tricono = document.getElementById("icono-" + id);
+    tricono.innerHTML=""
+    tricono.style.color = "#fff"
+      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=572,top=50%");
 
-
+audio2.pause();
        let jSON={
           deviceid: d,
           fecha: f,
@@ -284,7 +286,7 @@ computed:mapGetters({
          };
 
   console.log('monitoreo',jSON);
-        //  this.itemsAlertsProgreso.splice(0,0,jSON);
+         this.itemsAlertsProgreso.splice(0,0,jSON);
          
         var index = this.itemsAlerts.map(x =>{
           return x.idAlarmas;
@@ -298,8 +300,8 @@ computed:mapGetters({
             // tricono.style.color = "#dc3545"
 
             var trDevice=document.getElementById("device2-" + id);
-           trDevice.style.backgroundColor = '#bd3c49';
-            trDevice.style.border = 'solid 1.5px #ff6384'
+           trDevice.style.backgroundColor = '#0d6b7e';
+            // trDevice.style.border = 'solid 1.5px #ff6384'
             trDevice.style.transition = 'all .9s ease-in-out';
 
             setTimeout(() =>{
@@ -309,6 +311,11 @@ computed:mapGetters({
 
 
   }, 1000);
+
+    },
+    popup2(id, c, d, e, f, es){
+
+      window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=572,top=50%");
 
     },
 
@@ -616,7 +623,8 @@ var idUsuario= this.idUser;
               case 'Alarma':
                 // this.getAlarmasFromHttp();
                   // console.log('CaseAlarma',json["idDato"]);
-                   audio.play();
+                   audio2.play();
+                   audio2.loop= true;
                    this.openToastAlarmas(data)
                    this.handleAlert(data);
 
@@ -634,6 +642,7 @@ var idUsuario= this.idUser;
                 if(json["codeAlarm"]=="1" || json["codeAlarm"]=="2" || json["codeAlarm"]=="4"
                 || json["codeAlarm"]=="8" || json["codeAlarm"]=="10" || json["codeAlarm"]=="12" || json["codeAlarm"]=="14"){
 
+                audio.play();  
                 this.handleAlertEventos(data)
                 this.openToastEvent(json);
                 console.log(json);
@@ -643,7 +652,8 @@ var idUsuario= this.idUser;
                 case 'Alerta':
                   
                   console.log('CaseAlerta',data);
-                   audio.play();
+                     audio2.play();
+                     audio2.loop= true;
                    this.openToastAlertas(data)
                    this.handleAlert(data);
 
@@ -672,7 +682,8 @@ var idUsuario= this.idUser;
     },
 
    setAlive(socketConn){
-  setInterval(() => {
+    
+    setInterval(() => {
     
      this.fechaConexion = moment().locale('es-us').format('LLL');
  
@@ -742,11 +753,16 @@ clickprueba(){
           });
 
        
-      audio.play();
+      audio2.play();
+      audio2.loop= true;
+  
 
-// var tricono = document.getElementById("icono-" + 8955);
-//     tricono.innerHTML="<i class='fas fa-circle'></i>"
-//     tricono.style.color = "#dc3545"
+var tricono = document.getElementById("icono-" + 9012);
+    tricono.innerHTML="<i class='fas fa-circle'></i>"
+    tricono.style.color = "#00adf6"
+var tricono = document.getElementById("icono-" + 9010);
+    tricono.innerHTML="<i class='fas fa-circle'></i>"
+    tricono.style.color = "#00adf6"
 
    var trDevice=document.getElementById("device-" + 9012);
   trDevice.style.backgroundColor = '#15aac7';
@@ -842,13 +858,13 @@ var idclasificacion = 2
 
  
          setTimeout(() =>{
-            // var tricono = document.getElementById("icono-" + idAlarmas);
-            // tricono.innerHTML="<i class='fas fa-circle'></i>"
-            // tricono.style.color = "#dc3545"
+            var tricono = document.getElementById("icono-" + idAlarmas);
+            tricono.innerHTML="<i class='fas fa-circle'></i>"
+            tricono.style.color = "#00adf6"
 
             var trDevice=document.getElementById("device-" + idAlarmas);
-           trDevice.style.backgroundColor = '#bd3c49';
-            trDevice.style.border = 'solid 1.5px #ff6384'
+           trDevice.style.backgroundColor = '#15aac7';
+            // trDevice.style.border = 'solid 1.5px #ff6384'
             trDevice.style.transition = 'all .9s ease-in-out';
 
             setTimeout(() =>{
@@ -861,13 +877,13 @@ var idclasificacion = 2
   
          setTimeout(() =>{
 
-          //  var tricono = document.getElementById("icono-" + idAlarmas);
-          //  tricono.innerHTML="<i class='fas fa-circle'></i>"
-          //  tricono.style.color = "#dc3545"
+           var tricono = document.getElementById("icono-" + idAlarmas);
+           tricono.innerHTML="<i class='fas fa-circle'></i>"
+           tricono.style.color = "#00adf6"
 
           var trDevice=document.getElementById("device-" + idAlarmas);
-          trDevice.style.backgroundColor = '#bd4b3c';
-          trDevice.style.border = 'solid 1.5px #ff9f40'
+          trDevice.style.backgroundColor = '#15aac7';
+          // trDevice.style.border = 'solid 1.5px #ff9f40'
           trDevice.style.transition = 'all .9s ease-in-out';
 
             setTimeout(() =>{
@@ -1123,6 +1139,12 @@ openToastAlertas(params){
     /* --bs-text-opacity: 1; */
     font-weight: 500;
 }
+ @media only screen and (min-width: 1300px) {
+.card2{
+  width: 38rem;
+ 
+}
+ }
   @media only screen and (min-width: 1800px) {
  .home {
     position: relative;
@@ -1134,10 +1156,34 @@ openToastAlertas(params){
 }
 .card2{
   width: 55.7rem;
+  height: 443px;
+}
+.card-evento{
+ height: 443px;
 }
 .scrollable{
   height:375px;
   overflow: scroll;
+}
+.table-tamaño{
+  font-size:12pt; 
+  /* font-weight: 300; */
+  width:95%; 
+  margin-left:2.5%;
+}
+.navbar-brand{
+font-size: 1.7rem;
+  
+}
+.nav-item{
+  font-size: 1.3rem;
+}
+.fa-satellite-dish{
+  /* color: #1abb97; */
+  font-size: 1.6rem;
+}
+.card-header{
+font-size: 1.2rem;
 }
   }
 </style>

@@ -36,7 +36,7 @@ export default {
     },
     methods: {
     popup(){
-      window.open("/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=700,height=600,top=50%");
+      window.open("/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=1500,height=1000,top=50%");
       // this.ms = 1;
       // this.$root.$emit("send", this.msg)
     }

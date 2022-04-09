@@ -39,27 +39,35 @@
     Estado_Alarma:
     <span class="">{{txtStatus}}</span>
   </li>
- <li  v-if="txtStatus == 'Pendiente'"  class="list-group-item d-flex justify-content-between align-items-center" >
+ <li class="list-group-item ">
+ <div class="d-grid gap-2">
+  <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-success" v-if="txtStatus == 'Pendiente'" type="button" style="font-weight:bold;"><i class="fas fa-play"></i> Iniciar Atención</button>
+  <button data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-danger" v-if="txtStatus == 'Progreso'" type="button" style="font-weight:bold;"><i class="fas fa-play"></i> Finalizar Atención</button>
+  <i v-if="txtStatus == 'Finalizado'" style="text-align: center; font-size: 2rem; color:#1aa33c" class="fas fa-check-circle"></i>
+  <span v-if="txtStatus == 'Finalizado'" style="text-align: center; color:#1aa33c">¡Atención finalizada!</span>
+</div>
+  </li>
+ <!-- <li  v-if="txtStatus == 'Pendiente'"  class="list-group-item d-flex justify-content-between align-items-center" >
    
     <span type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="" style="color:#fff;background:#0f8f3c;padding:5px;border-radius:5px;">Iniciar atención <i class="fas fa-play"></i></span>
   </li>
  <li  v-if="txtStatus == 'Progreso'"  class="list-group-item d-flex justify-content-between align-items-center" >
    
     <span class="" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style="color:#fff;background:#dc3545;padding:5px;border-radius:5px;">Finalizar atención <i class="fas fa-play"></i></span>
-  </li>
+  </li> -->
 </ul>
 
 <!-- <button class="btn btn-danger"  type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-play"></i> Iniciar atención</button> -->
 <hr>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Contactos</button>
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"><i class="fas fa-address-book"></i> Contactos</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Historial</button>
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false"><i class="fal fa-table"></i> Historial</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Notas</button>
+    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false"><i class="far fa-comment-alt-check"></i> Notas</button>
   </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -113,16 +121,17 @@
   <!-- *NOTAS -->
  
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-
- <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdroppp" style="margin-top:1rem; margin-bottom:5px">
-       <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+  <!-- <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-</svg> Agregar nota</button>
+</svg>  -->
+ 
 
     <div class="scrollable">
-
+<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdroppp" style="margin-top:1rem; margin-bottom:5px">
+    <i class="fas fa-plus-circle"></i> Agregar nota</button>
     <table cellspacing="1" cellpadding="1" class="table table-info  table-sm   table-hover  table-striped  table-tamaño">
+      
   <thead class="table-dark">
     <tr>
       <th scope="col">ID_Nota</th>
@@ -150,12 +159,12 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Nota Pendiente</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Inicializando Atención</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
      
-    <form v-on:submit.prevent="PostEnviarTicket">
+    <form v-on:submit.prevent="PostEnviarNota">
     <div class="mb-3">
 
   <span style="color: #6c757d"><i class="fad fa-info-circle" style="color:#0d6efd"></i> Favor de escribir la nota</span>
@@ -177,27 +186,30 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Nota Progreso</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Finalizando Atención</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
      
    
-    <form v-on:submit.prevent="PostEnviarTicketFinal">
-    <div class="mb-3">
+    <form v-on:submit.prevent="PostEnviarNotaFinal">
+      <div class="mb-3">
   <select class="form-select" aria-label="Default select example"  v-model="idciereAlarm" >
-  <option disabled selected>Cierre de alarma</option>
+  <option disabled selected value="">Seleccione un evento</option>
   <option value="1">Evento Real</option>
   <option value="2">Evento Falso</option>
   <option value="3">Visita Fallas de equipo</option>
   <option value="4">Pruebas por Usuario</option>
 </select>
+      </div>
+    <div class="mb-3">
+
 
   <textarea name="textoForm" class="form-control"  style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" v-model="textoFormFinal" required
   ></textarea>
 </div>
     <div class="mb-3">
-  <button class="btn btn-danger" data-bs-dismiss="modal">Envíar</button>
+  <button class="btn btn-danger"  data-bs-dismiss="modal">Envíar</button>
 </div>
 </form>
       </div>
@@ -242,7 +254,7 @@
 import moment from 'moment'
 import Swal from 'sweetalert2';
 import monitore from './monitoreo';
-
+import 'animate.css';
 
 export default {
     name: "detallesComponent",
@@ -364,7 +376,7 @@ components: {
 
       }
 },
-    PostEnviarTicket(){
+    PostEnviarNota(){
     
   var data = {
   "typeFunction": "iniciar_atencion_alarma",
@@ -380,36 +392,41 @@ components: {
       );
       xhr.setRequestHeader("Content-Type", "multipart/form-data");
       xhr.send(JSON.stringify(data));
-
-
-      // let jSON={
-      //     deviceid: this.txtNameDevice,
-      //     fecha: this.txtTimeAlarma,
-      //     account: this.txtCuenta,
-      //     event: this.txtTypoAlarma,
-      //     zona:"000",
-      //     cantidad:"1",
-      //     idAlarmas: this.txtIdAlarma,
-      //     estado_alarma:'progreso',
-      //    };
-
-      //    this.jSonGlobal= jSON;
-      //    console.log('detalles',this.jSonGlobal);
     
       Swal.fire({
   icon: 'success',
-  title: 'Nota Exitosa',
+  title: 'Atención Iniciada',
   text: 'Nota enviada correctamente',
+     showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+}).then(()=>{
+location.reload();
 })
 
        xhr.onload = () => {
         let resp = JSON.parse(xhr.responseText)
         console.log("respuesta info alarma",resp);
         console.log(data);
+        var json=resp;
+        let locall = moment.utc().local().format('DD/MM/YYYY HH:mm:ss');
+        var id = json["insertId"]
+
+        let jSON={
+          idnotas_alarma: id,
+          nota_id_alarma: this.alarmaID,
+          nota_alarma: this.textoForm,
+          date_note: locall,
+        };
+
+         this.historialNotas.splice(0,0,jSON);
 
       }
 },
- PostEnviarTicketFinal(){
+ PostEnviarNotaFinal(){
     
   var data = {
   "typeFunction": "closeAlarm",
@@ -432,14 +449,36 @@ components: {
   icon: 'success',
   title: 'Atención Finalizada',
   text: 'Nota enviada correctamente',
+  timer: 1900,
+  showConfirmButton: false,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+}).then(()=>{
+location.reload();
 })
 
        xhr.onload = () => {
         let resp = JSON.parse(xhr.responseText)
         console.log("respuesta TicketFinal",resp);
-        // console.log(data);
+          var json=resp;
+        let locall = moment.utc().local().format('DD/MM/YYYY HH:mm:ss');
+        var id = json["insertId"]
+
+        let jSON={
+          idnotas_alarma: id,
+          nota_id_alarma: this.alarmaID,
+          nota_alarma: this.textoFormFinal,
+          date_note: locall,
+        };
+
+         this.historialNotas.splice(0,0,jSON);
 
       }
+      
 },
 AgregarNuevaNota(){
   var data = {
@@ -460,17 +499,33 @@ AgregarNuevaNota(){
       
            Swal.fire({
   icon: 'success',
-  title: 'Nota Exitosa',
+  title: 'Se ha creado una nueva nota',
   text: 'Nota enviada correctamente',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
 })
        xhr.onload = () => {
          let resp = JSON.parse(xhr.responseText)
-        console.log("respuesta TicketFinal",resp);
-        // console.log(data);
+        console.log("Nota agregada",resp);
+        var json=resp;
+        let locall = moment.utc().local().format('DD/MM/YYYY HH:mm:ss');
+        var id = json["insertId"]
 
+         let jSON={
+          idnotas_alarma: id,
+          nota_id_alarma: this.alarmaID,
+          nota_alarma: this.textoFormNotaNueva,
+          date_note: locall,
+         };
+
+         this.historialNotas.splice(0,0,jSON); 
       }
 
-         this.getHistorialTickets(this.txtIdAlarma);
+           
      
 },
     getContactosAlarma(idUbic) {
@@ -639,12 +694,6 @@ this.textoBuscar = event.target.value
 
     }
 
-
-
-
-
-
-
 }
 </script>
 
@@ -682,7 +731,7 @@ hr{
 }
 .nav-link{
   color: #495057;
-  background-color: #d0d5db;
+  background-color: #d0d5db61;
   /* background-color: #dee2e6; */
 }
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
@@ -733,5 +782,6 @@ li span{
 .modal-header h5{
 color: #fff;
 }
+
 
 </style>
