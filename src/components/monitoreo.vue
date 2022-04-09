@@ -1,5 +1,7 @@
 <template>
     <div >
+     <!-- <p style="color:red">{{$store.getters.title}}</p> -->
+     <!-- <p style="color:red">{{title}}</p> -->
      <!-- <p style="color:red">hola {{name}}</p> -->
       <nav class="navbar sticky-top navbar-expand-lg ">
   <div class="container-fluid">
@@ -73,6 +75,7 @@
     <!-- id="{{'device-' + item.idDeviceZona}}" -->
     <!-- :id="'device-'+ item.idAlarmas" -->
     <!-- status_restablecimiento -->
+    <!-- <tr class="color-alarmas"  v-bind:style="{backgroundColor:ChangeColor(asd)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"  -->
     <tr class="color-alarmas"  v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" 
        :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
       <th  scope="row">{{item.idAlarmas}}</th>
@@ -117,7 +120,7 @@
   </thead>
   <tbody style="background:#f39c12;" v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
     <!-- #1b7cb5 -->
-    <tr  :id="'device2-'+ item.idAlarmas">
+    <tr  :id="'device2-'+ item.idAlarmas"  @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
        <th style="color:#fff"   scope="row">{{item.idAlarmas}}</th>
       <td  style="color:#fff">{{item.account}}</td>
       <td  style="color:#fff">{{item.deviceid}}</td>
@@ -184,6 +187,7 @@ import sidebar from './Sidebar';
 import Swal from 'sweetalert2';
 import moment from 'moment'
 import detalles from './detalles';
+import { mapGetters } from 'vuex';
  var audio = new Audio(require('@/assets/audioDemo.mp3'))
 
 export default {
@@ -204,11 +208,15 @@ this.getAlarmasFromHttp();
 this.getEventosFromHttp();
 this. getProgresoAlarmasFromHttp();
 this.getDataFromSocket();
+
 // console.log('variable global',this.myVar);
 
 
 },
-  
+
+computed:mapGetters({
+  title: "title"
+}),
     data(){
     return {
       items:[
@@ -237,6 +245,7 @@ this.getDataFromSocket();
        totalAlarmasProgreso: 0,
        totalEventos:0,
        pendientes:'',
+       asd:'',
       //  myVar:this.globalVar
       }
   },
@@ -275,7 +284,7 @@ this.getDataFromSocket();
          };
 
   console.log('monitoreo',jSON);
-         this.itemsAlertsProgreso.splice(0,0,jSON);
+        //  this.itemsAlertsProgreso.splice(0,0,jSON);
          
         var index = this.itemsAlerts.map(x =>{
           return x.idAlarmas;
@@ -382,10 +391,9 @@ const xhr = new XMLHttpRequest();
           
 
      for(var index in json.data){
-       
 
           let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
-
+      
          this.itemsAlerts.push({
            idAlarmas: json.data[index]["idAlarmas"],
           deviceid: json.data[index]["NameDevice"],
@@ -396,9 +404,15 @@ const xhr = new XMLHttpRequest();
           cantidad:1,
           estado_alarma:json.data[index]["nombreStatus"],
           clasificacion:json.data[index]["id_clasificacion_alarma"]
+           
         });
-
+     
       }
+     
+
+
+
+      
 }
     },
     getProgresoAlarmasFromHttp(){
@@ -519,7 +533,6 @@ const xhr = new XMLHttpRequest();
 
      for(var index in json.data){
        
-
           let locall = moment.utc(json.data[index]["hora"]).local().format('DD/MM/YYYY HH:mm:ss');
 
          this.itemsEvents.push({
@@ -700,8 +713,13 @@ ChangeColor(color){
       // return '#e72929';
       return '#c71527';
     //alarma
+    case 3:
+      this.asd = 3;
+      return '#15aac7';
+    //recien llegados
   }
 },
+
 ChangeColorS(color){
   switch (color) {
     case 2:
@@ -726,21 +744,29 @@ clickprueba(){
        
       audio.play();
 
-var tricono = document.getElementById("icono-" + 8867);
-    tricono.innerHTML="<i class='fas fa-circle'></i>"
-    tricono.style.color = "#dc3545"
+// var tricono = document.getElementById("icono-" + 8955);
+//     tricono.innerHTML="<i class='fas fa-circle'></i>"
+//     tricono.style.color = "#dc3545"
 
-   var trDevice=document.getElementById("device-" + 8866);
-  trDevice.style.backgroundColor = '#bd3c49';
-            trDevice.style.border = 'solid 1.5px #ff6384'
+   var trDevice=document.getElementById("device-" + 9012);
+  trDevice.style.backgroundColor = '#15aac7';
+            // trDevice.style.border = 'solid 1.5px #ff6384'
   trDevice.style.transition = 'all .9s ease-in-out';
 
-     var trDevice=document.getElementById("device-" + 8867);
-  trDevice.style.backgroundColor = '#bd4b3c';
-            trDevice.style.border = 'solid 1.5px #ff9f40'
+     var trDevice=document.getElementById("device-" + 9010);
+  trDevice.style.backgroundColor = '#15aac7';
+            // trDevice.style.border = 'solid 1.5px #ff9f40'
   trDevice.style.transition = 'all .9s ease-in-out';
 
-  
+  setTimeout(() =>{
+    var trDevice=document.getElementById("device-" + 9012);
+  trDevice.style.backgroundColor = '#c71527';
+
+    var trDevice=document.getElementById("device-" + 9010);
+  trDevice.style.backgroundColor = '#ffca2c';
+  }, 300000)
+
+  this.asd = 3
     //   background-color: #bd4b3c;
     // border: solid 1.5px #ff9f40;
   //    var trDevice=document.getElementById("brandf");

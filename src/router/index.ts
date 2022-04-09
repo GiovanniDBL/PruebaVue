@@ -10,6 +10,7 @@ import dispositivos from '@/components/dispositivos.vue';
 import usuarios from '@/components/usuarios.vue';
 import notificaciones from '@/components/notificaciones.vue';
 import detalles from '@/components/detalles.vue';
+import devices from '@/components/devices.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -57,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/detalles/:id',
     name: 'detallesComponent',
     component: detalles
+  },
+  {
+    path: '/devices',
+    name: 'Devices',
+    component: devices
   },
 
 ]

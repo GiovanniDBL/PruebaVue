@@ -36,30 +36,19 @@
     <span class="">{{txtTimeAlarma}}</span>
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Estado:
+    Estado_Alarma:
     <span class="">{{txtStatus}}</span>
   </li>
- <li type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="list-group-item d-flex justify-content-between align-items-center" style="color:#fff;background:#dc3545;border-radius:20px;">
-   Iniciar atención
-    <span class="" style="color:#fff"><i class="fas fa-play"></i></span>
+ <li  v-if="txtStatus == 'Pendiente'"  class="list-group-item d-flex justify-content-between align-items-center" >
+   
+    <span type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="" style="color:#fff;background:#0f8f3c;padding:5px;border-radius:5px;">Iniciar atención <i class="fas fa-play"></i></span>
+  </li>
+ <li  v-if="txtStatus == 'Progreso'"  class="list-group-item d-flex justify-content-between align-items-center" >
+   
+    <span class="" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style="color:#fff;background:#dc3545;padding:5px;border-radius:5px;">Finalizar atención <i class="fas fa-play"></i></span>
   </li>
 </ul>
-<!-- <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">ID: </label>
-    <label for="exampleInputEmail1">8319</label>
 
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> -->
 <!-- <button class="btn btn-danger"  type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-play"></i> Iniciar atención</button> -->
 <hr>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -109,12 +98,12 @@
       <th scope="col">Fecha</th>
     </tr>
   </thead>
-  <tbody  v-for="item in historialAlarmas" :key="item.nombreContacto">
-    <tr>
+  <tbody   v-for="item in historialAlarmas" :key="item.nombreContacto">
+    <tr >
       <th scope="row">{{item.id}}</th>
       <td>{{item.NameDevice}}</td>
       <td>{{item.typeAlarm}}</td>
-      <td>{{item.fechaAlarma}}</td>
+      <td >{{item.fechaAlarma}}</td>
     </tr>
 
   </tbody>
@@ -124,6 +113,13 @@
   <!-- *NOTAS -->
  
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+ <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdroppp" style="margin-top:1rem; margin-bottom:5px">
+       <svg xmlns="http://www.w3.org/2000/svg"  width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg> Agregar nota</button>
+
     <div class="scrollable">
 
     <table cellspacing="1" cellpadding="1" class="table table-info  table-sm   table-hover  table-striped  table-tamaño">
@@ -136,11 +132,11 @@
     </tr>
   </thead>
   <tbody  v-for="item in historialNotas" :key="item.idnotas_alarma">
-    <tr>
+    <tr >
       <th scope="row">{{item.idnotas_alarma}}</th>
       <td>{{item.nota_id_alarma}}</td>
       <td>{{item.nota_alarma}}</td>
-      <td>{{item.date_note}}</td>
+      <td >{{item.date_note}}</td>
     </tr>
 
   </tbody>
@@ -149,13 +145,12 @@
   </div>
 </div>
 
-
-<!-- Modal -->
+<!-- //? ************** Modal de alarmas pendientes ************************* -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Nota</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Nota Pendiente</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -174,10 +169,63 @@
 </div>
 </form>
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" @click="enviarNota()" class="btn btn-primary">Enviar</button>
-      </div> -->
+    </div>
+  </div>
+</div>
+<!-- //? ************** Modal de alarmas en progreso ************** -->
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Nota Progreso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+     
+   
+    <form v-on:submit.prevent="PostEnviarTicketFinal">
+    <div class="mb-3">
+  <select class="form-select" aria-label="Default select example"  v-model="idciereAlarm" >
+  <option disabled selected>Cierre de alarma</option>
+  <option value="1">Evento Real</option>
+  <option value="2">Evento Falso</option>
+  <option value="3">Visita Fallas de equipo</option>
+  <option value="4">Pruebas por Usuario</option>
+</select>
+
+  <textarea name="textoForm" class="form-control"  style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" v-model="textoFormFinal" required
+  ></textarea>
+</div>
+    <div class="mb-3">
+  <button class="btn btn-danger" data-bs-dismiss="modal">Envíar</button>
+</div>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- //? ************** Modal Notas Nuevas ************** -->
+<div class="modal fade" id="staticBackdroppp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Crear nota nueva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+     
+   
+    <form v-on:submit.prevent="AgregarNuevaNota">
+    <div class="mb-3">
+
+  <textarea name="textoForm" class="form-control"  style="width:95%" placeholder="Escribir nota..." id="exampleFormControlTextarea1" rows="5" v-model="textoFormNotaNueva" required
+  ></textarea>
+</div>
+    <div class="mb-3">
+  <button class="btn btn-danger" data-bs-dismiss="modal">Envíar</button>
+</div>
+</form>
+      </div>
     </div>
   </div>
 </div>
@@ -224,13 +272,27 @@ components: {
             historialNotas:[],
             textoBuscar:'',
             textoForm:'',
+            textoFormFinal:'',
+            textoFormNotaNueva:'',
+            idciereAlarm:'',
             jSonGlobal:'',
+            af:'',
             // myVar:this.itemsAlertsProgreso,
         }
     },
     methods:{
       texto(){
-        console.log("TxtArea",this.textoForm);
+        // console.log("TxtAreaFinal",this.textoFormFinal);
+        // console.log("SelectFinal",this.idciereAlarm);
+         var data = {
+  "typeFunction": "closeAlarm",
+  "idAlarma": this.alarmaID,
+  "idUser": 1,
+  "notaFinal": this.textoFormFinal,
+  "id_cierre_alarma": this.idciereAlarm,
+
+  }
+  console.log("DATA FINAL",data);
       },
        emitEvent() {
         myEmitter.emit('sample-event', 'foobar') 
@@ -320,21 +382,20 @@ components: {
       xhr.send(JSON.stringify(data));
 
 
-      let jSON={
-          deviceid: this.txtNameDevice,
-          fecha: this.txtTimeAlarma,
-          account: this.txtCuenta,
-          event: this.txtTypoAlarma,
-          zona:"000",
-          cantidad:"1",
-          idAlarmas: this.txtIdAlarma,
-          estado_alarma:'progreso',
-         };
+      // let jSON={
+      //     deviceid: this.txtNameDevice,
+      //     fecha: this.txtTimeAlarma,
+      //     account: this.txtCuenta,
+      //     event: this.txtTypoAlarma,
+      //     zona:"000",
+      //     cantidad:"1",
+      //     idAlarmas: this.txtIdAlarma,
+      //     estado_alarma:'progreso',
+      //    };
 
-         this.jSonGlobal= jSON;
-         console.log('detalles',this.jSonGlobal);
-      //    this.myVar.splice(0,0,jSON);
-      //    console.log('globarl',this.myVar[0]);
+      //    this.jSonGlobal= jSON;
+      //    console.log('detalles',this.jSonGlobal);
+    
       Swal.fire({
   icon: 'success',
   title: 'Nota Exitosa',
@@ -347,6 +408,70 @@ components: {
         console.log(data);
 
       }
+},
+ PostEnviarTicketFinal(){
+    
+  var data = {
+  "typeFunction": "closeAlarm",
+  "idAlarma": this.alarmaID,
+  "idUser": 1,
+  "notaFinal": this.textoFormFinal,
+  "Id_cierre_alarma": this.idciereAlarm,
+  }
+
+// console.log(data);
+  const xhr = new XMLHttpRequest();
+       xhr.open(
+        "POST",
+        "https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas"
+      );
+      xhr.setRequestHeader("Content-Type", "multipart/form-data");
+      xhr.send(JSON.stringify(data));
+
+      Swal.fire({
+  icon: 'success',
+  title: 'Atención Finalizada',
+  text: 'Nota enviada correctamente',
+})
+
+       xhr.onload = () => {
+        let resp = JSON.parse(xhr.responseText)
+        console.log("respuesta TicketFinal",resp);
+        // console.log(data);
+
+      }
+},
+AgregarNuevaNota(){
+  var data = {
+  "typeFunction": "agregarNota",
+  "idAlarma": this.alarmaID,
+  "idUser": 1,
+  "nota": this.textoFormNotaNueva,
+  }
+
+// console.log(data);
+  const xhr = new XMLHttpRequest();
+       xhr.open(
+        "POST",
+        "https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas"
+      );
+      xhr.setRequestHeader("Content-Type", "multipart/form-data");
+      xhr.send(JSON.stringify(data));
+      
+           Swal.fire({
+  icon: 'success',
+  title: 'Nota Exitosa',
+  text: 'Nota enviada correctamente',
+})
+       xhr.onload = () => {
+         let resp = JSON.parse(xhr.responseText)
+        console.log("respuesta TicketFinal",resp);
+        // console.log(data);
+
+      }
+
+         this.getHistorialTickets(this.txtIdAlarma);
+     
 },
     getContactosAlarma(idUbic) {
       var data={
@@ -475,6 +600,7 @@ components: {
         console.log("respuesta getHistorialNotas",resp);
         var json=resp;  
 
+        this.af = resp
         // this.itemsAlarmasDevice.length = 0;
 
         for(var index in json){

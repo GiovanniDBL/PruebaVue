@@ -4,8 +4,6 @@
   <section class="home">
 
 
-
-
     <div class="card " >
       <div class="card-header" style="color:#ffffff">
     Alarmas de la semana

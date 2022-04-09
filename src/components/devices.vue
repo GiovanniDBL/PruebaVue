@@ -1,16 +1,15 @@
 <template>
-    <div>
-        <sidebar></sidebar> 
-           <section class="home">
+<div>
+    <section class="home">
 
         <div class="card" >
-            <!-- <div class="card-header">
+            <div class="card-header">
              Dispositivos
-            </div> -->
+            </div>
         <div class="card-body">
             <div class="scrollable">
- <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
-  <thead class=" text-light ">
+ <table cellspacing="1" cellpadding="1" class="table ">
+  <thead class="thead_color text-light ">
   <tr>
   <th>Id Device</th>
   <th>Name Device</th>
@@ -26,32 +25,32 @@
   
   <tbody   v-for="item in itemsDevices" :key="item.idDevice">
   <tr :id="'device-'+item.idDevice">
-  <th>{{item.idDevice}}</th>
+  <td>{{item.idDevice}}</td>
   <td>{{item.deviceName}}</td>
   
   <td class="text-center">
 
-  <svg v-if="item.linkQuality==4" style=" color: gray;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-0" viewBox="0 0 16 16">
+  <svg v-if="item.linkQuality==4" style=" color: gray;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-reception-0" viewBox="0 0 16 16">
   <path d="M0 13.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
 </svg>
 
-  <svg v-if="item.linkQuality==null" style=" color: gray;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-0" viewBox="0 0 16 16">
+  <svg v-if="item.linkQuality==null" style=" color: gray;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-reception-0" viewBox="0 0 16 16">
   <path d="M0 13.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
 </svg>
 
-<svg v-if="item.linkQuality==0" style=" color: #B22203" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-1" viewBox="0 0 16 16">
+<svg v-if="item.linkQuality==0" style=" color: #B22203" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-reception-1" viewBox="0 0 16 16">
   <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
 </svg>
  
- <svg v-if="item.linkQuality==1" style=" color: #ADFF2F" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-2" viewBox="0 0 16 16">
+ <svg v-if="item.linkQuality==1" style=" color: #ADFF2F" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-reception-2" viewBox="0 0 16 16">
   <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4 5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
 </svg>
 
-<svg v-if="item.linkQuality==2" style=" color: lightgreen;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-3" viewBox="0 0 16 16">
+<svg v-if="item.linkQuality==2" style=" color: lightgreen;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-reception-3" viewBox="0 0 16 16">
   <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
 </svg>
 
-<svg v-if="item.linkQuality==3" style=" color: green;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-4" viewBox="0 0 16 16">
+<svg v-if="item.linkQuality==3" style=" color: green;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-reception-4" viewBox="0 0 16 16">
   <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-11z"/>
 </svg>
   </td>
@@ -68,7 +67,7 @@
 
   </tr>
   </tbody>
-  </table>
+  </table>s
             </div>
         </div>
         </div>
@@ -76,17 +75,21 @@
         
 
     </section>
-    </div>
+</div>
+
+
 </template>
 
+
+
+
+
+
 <script>
-import sidebar from './Sidebar';
-export default {
-    name: "dispositivosComponent",
-      components: {
-    sidebar
-  },
-  data: function () {
+
+export default{
+    name: "Devices",
+     data: function () {
     return {
       hours: 8,
       arrayLabels:[],
@@ -96,6 +99,8 @@ export default {
       deviceSeleccionado: {},//<-- el seleccionado estará aquí
     };
   },
+    components: {
+    },
     computed:{
     },
     mounted() {
@@ -156,6 +161,7 @@ export default {
 }
 </script>
 
+
 <style scoped>
 .home {
     position: relative;
@@ -169,16 +175,15 @@ export default {
   font-size:30px;
   font-weight: 500;
 }
-
 .scrollable{
-  height:580px;
+  height:500px;
   overflow: scroll;
 }
-.table-tamaño{
-  font-size:12pt; 
+/* .table-tamaño{
+  font-size:9pt; 
   width:95%; 
   margin-left:2.5%;
-}
+} */
 .card{
   background: #27293d;
 }
@@ -186,18 +191,9 @@ export default {
   color: #fff;
 }
 Table{
+  color: #fff;
   border-color: #ffffff1a;
 }
-tr{
-  color: #fff;
-}
-.table > :not(:first-child) {
-    border-top: 0px solid #ffffff1a;
-    /* padding: 12px 7px; */
-}
-.table-hover > tbody > tr:hover > * {
-    --bs-table-accent-bg: var(--bs-table-hover-bg);
-    color: #ffffff;
-}
+
 
 </style>
