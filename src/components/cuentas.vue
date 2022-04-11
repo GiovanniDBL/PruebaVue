@@ -1,7 +1,7 @@
 <template>
     <div>
         <sidebar></sidebar> 
-        <section class="home">
+        <section class="home animated fadeIn">
      <div class="card" >
         <div class="card-header">
     Cuentas
@@ -74,15 +74,16 @@ export default {
   font-size:30px;
   font-weight: 500;
 }
+
 /* .scrollable{
-  height:250px;
+  height:400px;
   overflow: scroll;
 } */
-/* .table-tamaño{
-  font-size:9pt; 
+.table-tamaño{
+  font-size:12pt; 
   width:95%; 
   margin-left:2.5%;
-} */
+}
 .card{
   background: #27293d;
 }
@@ -90,8 +91,24 @@ export default {
   color: #fff;
 }
 Table{
-  color: #fff;
   border-color: #ffffff1a;
+}
+tr{
+  color: #fff;
+}
+.table > :not(:first-child) {
+    border-top: 0px solid #ffffff1a;
+    /* padding: 12px 7px; */
+}
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: #ffffff;
+}
+@media only screen and (min-width: 1800px) {
+  .scrollable{
+  height:810px;
+  overflow: scroll;
+}
 }
 
 

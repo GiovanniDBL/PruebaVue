@@ -1,14 +1,48 @@
-<template>
-    <div>
+<template >
+    <div >
         <sidebar></sidebar> 
-           <section class="home">
+           <section class="home animated fadeIn">
 
-        <div class="card" >
-            <!-- <div class="card-header">
-             Dispositivos
-            </div> -->
-        <div class="card-body">
-            <div class="scrollable">
+        <div class="card text-center" >
+      
+            <div class="card-header">
+<nav class="navbar navbar-expand-lg ">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" >Dispositivos ATMSense</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav nav-pills">
+        
+      <li class="nav-item" role="presentation">
+    <button class="nav-link active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >Online 
+       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{totalOnline}}</span>
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" style="margin-left:1.5rem;" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Offline 
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{totalOffline}}</span>
+    </button>
+  </li>
+
+     
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Buscar Dispositivos" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+</nav>
+ <div class="card-body">
+
+          <div class="tab-content" id="pills-tabContent">
+
+            <!-- //? ******************** DISPOSITIVOS ONLINE *********************-->
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+  
+  <div class="scrollable">
  <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
   <thead class=" text-light ">
   <tr>
@@ -24,53 +58,87 @@
   </tr>
   </thead>
   
-  <tbody   v-for="item in itemsDevices" :key="item.idDevice">
+  <tbody   v-for="item in DispositivosOnline" :key="item.idDevice">
   <tr :id="'device-'+item.idDevice">
   <th>{{item.idDevice}}</th>
   <td>{{item.deviceName}}</td>
   
   <td class="text-center">
+    
+<i v-bind:style="{color: getColorSenal(item.linkQuality)}" v-bind:class="ChangeIcon(item.linkQuality)" style="font-size: 1.5rem"></i>
 
-  <svg v-if="item.linkQuality==4" style=" color: gray;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-0" viewBox="0 0 16 16">
-  <path d="M0 13.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-</svg>
-
-  <svg v-if="item.linkQuality==null" style=" color: gray;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-0" viewBox="0 0 16 16">
-  <path d="M0 13.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-</svg>
-
-<svg v-if="item.linkQuality==0" style=" color: #B22203" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-1" viewBox="0 0 16 16">
-  <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-</svg>
- 
- <svg v-if="item.linkQuality==1" style=" color: #ADFF2F" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-2" viewBox="0 0 16 16">
-  <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4 5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm4 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-</svg>
-
-<svg v-if="item.linkQuality==2" style=" color: lightgreen;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-3" viewBox="0 0 16 16">
-  <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
-</svg>
-
-<svg v-if="item.linkQuality==3" style=" color: green;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-reception-4" viewBox="0 0 16 16">
-  <path d="M0 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-5zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-8zm4-3a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-11z"/>
-</svg>
   </td>
    <td class="text-center">
 
-    <span v-if="item.com_status==1" class="badge badge-pill badge-success">Online</span>
-    <span v-if="item.com_status==2" class="badge badge-pill badge-danger">Offline</span>
+    <span v-if="item.com_status==1" class="badge badge-pill badge-success"><i style="color:#2dd36f" class="fas fa-circle"></i> Online</span>
+    <span v-if="item.com_status==2" class="badge badge-pill badge-danger"><i style="color: gray" class="fas fa-circle"></i> Offline</span>
+    <span v-if="item.com_status==3" class="badge badge-pill badge-danger"><i style="color: gray" class="fas fa-circle"></i> Offline</span>
 
    </td>
-   <td>{{item.tempAmb}}</td>
-   <td>{{item.voltDevice}}</td>
+
+   <td><i style="color: #1abb97;"  class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
+   <td><i style="color: #1abb97;"  class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
    <td>{{item.nameCuenta}}</td>
    <td><button class="btn btn-danger">Detalles</button></td>
 
   </tr>
   </tbody>
   </table>
-            </div>
+  </div>
+  </div>
+
+   <!-- //? ******************** DISPOSITIVOS OFFLINE *********************-->
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="scrollable">
+ <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+  <thead class=" text-light ">
+  <tr>
+  <th>Id Device</th>
+  <th>Name Device</th>
+  
+  <th>Nivel de señal</th>
+  <th>Estado Comunicación</th>
+  <th>Temp</th>
+  <th>Voltaje</th>
+  <th>Cuenta</th>
+  <th>Ver información</th>
+  </tr>
+  </thead>
+  
+  <tbody   v-for="item in DispositivosOffline" :key="item.idDevice">
+  <tr :id="'device-'+item.idDevice">
+  <th>{{item.idDevice}}</th>
+  <td>{{item.deviceName}}</td>
+  
+  <td class="text-center">
+    
+<i v-if="item.idcomunicacion_status == 1 " v-bind:style="{color: getColorSenal(item.linkQuality)}" v-bind:class="ChangeIcon(item.linkQuality)" style="font-size: 1.5rem"></i>
+<i v-if="item.idcomunicacion_status != 1 " style="display: block; font-size: 26px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i>
+  </td>
+   <td class="text-center">
+
+    <span v-if="item.com_status==1" class="badge badge-pill badge-success"><i style="color:#2dd36f" class="fas fa-circle"></i> Online</span>
+    <span v-if="item.com_status==2" class="badge badge-pill badge-danger"><i style="color: gray" class="fas fa-circle"></i> Offline</span>
+    <span v-if="item.com_status==3" class="badge badge-pill badge-danger"><i style="color: gray" class="fas fa-circle"></i> Offline</span>
+
+   </td>
+
+   <td><i style="color: #1abb97;"  class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
+   <td><i style="color: #1abb97;"  class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
+   <td>{{item.nameCuenta}}</td>
+   <td><button class="btn btn-danger">Detalles</button></td>
+
+  </tr>
+  </tbody>
+  </table>
+  </div>
+  </div>
+
+</div>
+  
         </div>
+            </div>
+       
         </div>
 
         
@@ -94,6 +162,10 @@ export default {
       itemsUbicacionesInternas:[],
       idUbicIntSelecionada:{},
       deviceSeleccionado: {},//<-- el seleccionado estará aquí
+      DispositivosOnline:{},
+      DispositivosOffline:{},
+      totalOnline:'',
+      totalOffline:'',
     };
   },
     computed:{
@@ -145,14 +217,72 @@ export default {
            tempAmb:json.data[index]["tempAmb"],
            voltDevice: json.data[index]["voltDevice"]
          });
-         console.log("array",this.itemsDevices);
 
         }
+         console.log("array",this.itemsDevices);
+         //* FILTRAR DISPOSITIVOS ONLINE
+      var DevicesOnline = this.itemsDevices.filter( estado => estado.com_status == 1);
+      this.DispositivosOnline = DevicesOnline
+      console.log('Dispositivos Online',this.DispositivosOnline);
+
+      this.totalOnline = DevicesOnline.length;
+         //* FILTRAR DISPOSITIVOS OFFLINE
+      var DevicesOffline = this.itemsDevices.filter( estado => estado.com_status !== 1);
+      this.DispositivosOffline = DevicesOffline
+      console.log('Dispositivos Offline',this.DispositivosOnline);
+
+      this.totalOffline = DevicesOffline.length;
       }
-    },    
+    }, 
+    getColorSenal(linkQuality){
+    switch (linkQuality) {
+      case 0:
+        return '#eb445a';
+      case 1:
+        return '#ffc409';
+      case 2:
+        return '#2dd36f';
+      case 3:
+        return '#2dd36f';
+      case 4:
+        return 'gray';
+      case null:
+        return 'gray';
+      
+    }
+  },
+  ChangeIcon(icon){
+  switch (icon) {
+    case 0:
+      // simbolo rojo 1 rayita  "LIMIT" 
+      return 'fad fa-signal-alt-1';
+    case 1:
+      // simbolo amarillo 2 rayitas "AVERAGE"
+      return 'fad fa-signal-alt-2';
+    case 2:
+      // simbolo verde 3 rayitas "GOOD"s
+        return 'fad fa-signal-alt-3';
+    
+    case 3:
+      // simbolo verde 4 rayitas "EXCELLENT" 
+      return 'fad fa-signal-alt';
+    case 4:
+      // simbolo gris con rayita tachada "NA"
+      // return 'fad fa-signal-alt';
+  
+      return 'fad fa-signal-alt-slash';
+      
+    case null:
+      // simbolo gris con rayita tachada "NULL"
+      return 'fad fa-signal-alt-slash';
+    
+  }
+}   
   },
      created:function(){
-}
+},
+
+
 }
 </script>
 
@@ -164,6 +294,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
      padding: 8px 40px;
+     /* margin-top: 1px; */
 }
 .home .text{
   font-size:30px;
@@ -171,7 +302,7 @@ export default {
 }
 
 .scrollable{
-  height:580px;
+  height:500px;
   overflow: scroll;
 }
 .table-tamaño{
@@ -198,6 +329,31 @@ tr{
 .table-hover > tbody > tr:hover > * {
     --bs-table-accent-bg: var(--bs-table-hover-bg);
     color: #ffffff;
+}
+.form-control {
+    display: block;
+    /* width: 30%; */
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    /* color: #ffffff; */
+    /* background-color: #171b2b6e; */
+  
+    border: 1px solid #ced4da00;
+    margin: 0 auto;
+}
+.navbar-brand{
+  color: #fff !important;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b1b276e;
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #949ca9fa;
 }
 @media only screen and (min-width: 1800px) {
   .scrollable{

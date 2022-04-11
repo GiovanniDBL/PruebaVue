@@ -1,6 +1,7 @@
 <template>
     <div>
-        <nav  class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+      <!-- sticky-top -->
+        <nav  class="navbar  navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <!-- <a class="navbar-brand" href="#">Dashboard</a> -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,10 +16,10 @@
           <a class="nav-link active" @click="popup()" aria-current="page" href="#">Monitoreo en tiempo real</a>
         </li>
       </ul>
-      <form class="d-flex">
+      <!-- <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+      </form> -->
     </div>
   </div>
 </nav>

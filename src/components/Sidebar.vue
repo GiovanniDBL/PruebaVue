@@ -36,12 +36,6 @@
                         <span class="text nav-text">Sub cuentas</span>
                      </router-link>
                  </li>
-                 <!-- <li class="">
-                     <router-link to="/monitoreo" replace>
-                     <i class="fas fa-table icon"></i>
-                     <span class="text nav-text">Monitoreo</span>
-                     </router-link>
-                 </li> -->
                  <li class="">
                         <router-link to="/dispositivos" replace>
                         <i class="fas fa-signal-stream icon"></i>
@@ -104,6 +98,7 @@ toggle.addEventListener("click", () =>{
 
 
 <style >
+
 ul{
    padding-left: 0 !important;
 }

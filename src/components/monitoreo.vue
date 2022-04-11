@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="animated fadeIn">
      <!-- <p style="color:red">{{$store.getters.title}}</p> -->
      <!-- <p style="color:red">{{title}}</p> -->
      <!-- <p style="color:red">hola {{name}}</p> -->

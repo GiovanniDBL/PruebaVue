@@ -11,6 +11,7 @@ import usuarios from '@/components/usuarios.vue';
 import notificaciones from '@/components/notificaciones.vue';
 import detalles from '@/components/detalles.vue';
 import devices from '@/components/devices.vue';
+import sidebarr from '@/components/sidebarr.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -63,6 +64,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/devices',
     name: 'Devices',
     component: devices
+  },
+  {
+    path: '/sidebarr',
+    name: 'Sidebarr',
+    component: sidebarr
   },
 
 ]

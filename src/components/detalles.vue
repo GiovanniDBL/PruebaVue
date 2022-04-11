@@ -1,7 +1,7 @@
 <template>
 
 
-<div>
+<div class="">
   <!-- <input type="text" placeholder="custom text input" @change="$emit('customChange', $event.target.value)"> -->
 <div class="card" style="width: 30rem;">
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <sidebar></sidebar> 
-        <section class="home">
+        <section class="home animated fadeIn">
      <h1 class="text">Usuarios</h1>
  </section>
     </div>
