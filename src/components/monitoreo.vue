@@ -248,7 +248,7 @@ computed:mapGetters({
        totalEventos:0,
        pendientes:'',
        asd:'',
-      //  myVar:this.globalVar
+       GlobalApi:this.globalVar,
       }
   },
 
@@ -374,7 +374,7 @@ var typeUser=1;// cambiarlo luego por el state
 
 const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas');
+            xhr.open('POST',this.GlobalApi+'alarmas');
             // prepare form data
 
             // set headers (arreglalo porque lo envia too weird el form sjaskj)
@@ -449,7 +449,7 @@ var typeUser=1;// cambiarlo luego por el state
 
 const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas');
+            xhr.open('POST', this.GlobalApi+'alarmas');
             // prepare form data
 
             // set headers (arreglalo porque lo envia too weird el form sjaskj)
@@ -516,7 +516,7 @@ var typeUser=1;// cambiarlo luego por el state
 
 const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', 'https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/eventos');
+            xhr.open('POST', this.GlobalApi+'eventos');
             // prepare form data
 
             // set headers (arreglalo porque lo envia too weird el form sjaskj)

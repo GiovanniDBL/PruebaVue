@@ -16,12 +16,12 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav nav-pills">
         
       <li class="nav-item" role="presentation">
-    <button class="nav-link active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >Online 
+    <button class="nav-link active position-relative" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >Dispositivos Online 
        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{totalOnline}}</span>
     </button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" style="margin-left:1.5rem;" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Offline 
+    <button class="nav-link position-relative" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" style="margin-left:1.5rem;" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Dispositivos Offline 
       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{totalOffline}}</span>
     </button>
   </li>
@@ -29,21 +29,29 @@
      
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Buscar Dispositivos" aria-label="Search">
+        <!-- <input class="form-control me-2" type="search" placeholder="Buscar Dispositivos" aria-label="Search"> -->
+        <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar Dispositivos" aria-label="Search">
         <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
       </form>
     </div>
   </div>
 </nav>
  <div class="card-body">
-
+         <!-- <div v-if="filteredBlogs == 0 " class="alert alert-danger" role="alert">
+  No existen resultados con el termino: {{search}}
+</div> -->
           <div class="tab-content" id="pills-tabContent">
+   
 
             <!-- //? ******************** DISPOSITIVOS ONLINE *********************-->
   <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
   
   <div class="scrollable">
+    <div  v-if="filterDataOnline == 0 " class="alert animated fadeIn fast" role="alert" >
+  No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
+</div>
  <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+     
   <thead class=" text-light ">
   <tr>
   <th>Id Device</th>
@@ -56,9 +64,12 @@
   <th>Cuenta</th>
   <th>Ver información</th>
   </tr>
-  </thead>
+
+
   
-  <tbody   v-for="item in DispositivosOnline" :key="item.idDevice">
+  </thead>
+  <!-- <tbody   v-for="item in DispositivosOnline" :key="item.idDevice"> -->
+  <tbody   v-for="item in filterDataOnline" :key="item.idDevice">
   <tr :id="'device-'+item.idDevice">
   <th>{{item.idDevice}}</th>
   <td>{{item.deviceName}}</td>
@@ -90,6 +101,9 @@
    <!-- //? ******************** DISPOSITIVOS OFFLINE *********************-->
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
     <div class="scrollable">
+        <div  v-if="filterDataOffline == 0 " class="alert animated fadeIn fast" role="alert" >
+  No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
+</div>
  <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
   <thead class=" text-light ">
   <tr>
@@ -105,7 +119,7 @@
   </tr>
   </thead>
   
-  <tbody   v-for="item in DispositivosOffline" :key="item.idDevice">
+  <tbody   v-for="item in filterDataOffline" :key="item.idDevice">
   <tr :id="'device-'+item.idDevice">
   <th>{{item.idDevice}}</th>
   <td>{{item.deviceName}}</td>
@@ -162,17 +176,33 @@ export default {
       itemsUbicacionesInternas:[],
       idUbicIntSelecionada:{},
       deviceSeleccionado: {},//<-- el seleccionado estará aquí
-      DispositivosOnline:{},
-      DispositivosOffline:{},
+      DispositivosOnline:[],
+      DispositivosOffline:[],
       totalOnline:'',
       totalOffline:'',
+      search:'',
+      GlobalApi:this.globalVar,
     };
   },
     computed:{
+      filterDataOnline(){
+        return this.DispositivosOnline.filter(blog =>{
+          
+          return blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) || 
+          blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
+        });
+      },
+      filterDataOffline(){
+        return this.DispositivosOffline.filter(blog =>{
+          
+          return blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) || 
+          blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
+        });
+      }
     },
     mounted() {
      this.getAllDevices();
-     
+     console.log('variable globar',this.myvar);
     },
     methods: {
     getAllDevices(){
@@ -191,7 +221,8 @@ export default {
       const xhr = new XMLHttpRequest();
       xhr.open(
         "POST",
-        "https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/managerDevices"
+        this.GlobalApi+'managerDevices',
+        // "https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/managerDevices"
       );
 
       // set headers (arreglalo porque lo envia too weird el form sjaskj)
@@ -277,12 +308,8 @@ export default {
       return 'fad fa-signal-alt-slash';
     
   }
-}   
+  }   
   },
-     created:function(){
-},
-
-
 }
 </script>
 
@@ -302,8 +329,16 @@ export default {
 }
 
 .scrollable{
-  height:500px;
+  height:400px;
   overflow: scroll;
+  
+}
+.scrollable::-webkit-scrollbar{
+   background-color: #27293d;  
+}
+.scrollable::-webkit-scrollbar-thumb{
+  background-color: #e6e6e805; 
+ 
 }
 .table-tamaño{
   font-size:12pt; 
@@ -347,13 +382,27 @@ tr{
   color: #fff !important;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b1b276e;
+    /* color: #fff;
+    background-color: #1b1b276e; */
+    color: #1abb97;
+    background-color: rgba(26, 187, 151, .08);
+
 }
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
     color: #949ca9fa;
+}
+.alert {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    background-color: #1b1b275e;
+    display: block;
+    margin: 0 auto;
+    width: 50%;
 }
 @media only screen and (min-width: 1800px) {
   .scrollable{

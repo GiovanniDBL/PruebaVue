@@ -12,6 +12,7 @@ import notificaciones from '@/components/notificaciones.vue';
 import detalles from '@/components/detalles.vue';
 import devices from '@/components/devices.vue';
 import sidebarr from '@/components/sidebarr.vue';
+import cuentaDetalles from '@/components/detallesCuenta.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -59,6 +60,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/detalles/:id',
     name: 'detallesComponent',
     component: detalles
+  },
+  {
+    path: '/detallesDeCuenta/:id',
+    name: 'detallesCuentaComponent',
+    component: cuentaDetalles
   },
   {
     path: '/devices',

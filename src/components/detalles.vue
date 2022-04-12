@@ -289,6 +289,7 @@ components: {
             idciereAlarm:'',
             jSonGlobal:'',
             af:'',
+            GlobalApi:this.globalVar,
             // myVar:this.itemsAlertsProgreso,
         }
     },
@@ -320,7 +321,7 @@ components: {
   const xhr = new XMLHttpRequest();
        xhr.open(
         "POST",
-        "https://xm704xl9zk.execute-api.us-east-1.amazonaws.com/dev/alarmas"
+        this.GlobalApi+'alarmas',
       );
       xhr.setRequestHeader("Content-Type", "multipart/form-data");
       xhr.send(JSON.stringify(data));
