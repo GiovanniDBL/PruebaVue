@@ -515,6 +515,7 @@ AgregarNuevaNota(){
         var json=resp;
         let locall = moment.utc().local().format('DD/MM/YYYY HH:mm:ss');
         var id = json["insertId"]
+        console.log(id);
 
          let jSON={
           idnotas_alarma: id,
