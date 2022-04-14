@@ -5,8 +5,10 @@ export const planetChartData2 = {
         datasets: [{
                 label: "Horas",
                 data: [600, 100, 600, 400, 500, 100, 200, 300, 100, 500, 600, 700],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: '#2e3054',
+                borderColor: '#1d8cf8',
+                // backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                // borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
             },
 

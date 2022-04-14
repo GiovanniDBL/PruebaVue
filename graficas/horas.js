@@ -5,8 +5,10 @@ export const ChartHoras = {
         datasets: [{
                 label: "Horas",
                 data: [100, 200, 300, 400, 500, 100, 200, 300, 400, 500, 600, 700],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                // backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                // borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: '#293341',
+                borderColor: '#42b883',
                 borderWidth: 2,
             },
 

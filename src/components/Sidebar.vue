@@ -20,19 +20,19 @@
              <ul class="menu-links">
                  <li class="">
                       <router-link to="/" replace>
-                       <i class="fas fa-home icon"></i>
+                       <i class="fas fa-analytics icon"></i>
                         <span class="text nav-text">Dashboard</span>
                      </router-link>
                  </li>
                  <li class="">
                        <router-link to="/cuentas" replace>
-                         <i class="fas fa-user-shield icon"></i>
+                         <i class="fad fa-users icon"></i>
                          <span class="text nav-text">Cuentas</span>
                      </router-link>
                  </li>
                  <li class="">
                        <router-link to="/subcuentas" replace>
-                        <i class="fas fa-building icon"></i>
+                        <i class="fas fa-users-class icon"></i>
                         <span class="text nav-text">Sub cuentas</span>
                      </router-link>
                  </li>

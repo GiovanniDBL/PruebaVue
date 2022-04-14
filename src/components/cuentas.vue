@@ -10,13 +10,17 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand">Cuentas ATMSense</a>
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                            <a class="navbar-brand">Cuentas <span class="span-brand">ATMsense</span></a>
+                              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-user-plus"></i> Añadir cuenta</a>
+                                </li>
                             </ul>
                             <form class="d-flex">
                                 <!-- <input class="form-control me-2" type="search" placeholder="Buscar Dispositivos" aria-label="Search"> -->
                                 <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar Cuenta" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-outline-success" type="submit" disabled><i class="fas fa-search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -31,25 +35,31 @@
                             <!-- <table cellspacing="1" cellpadding="1" class="table table-success  table-bordered   table-hover  table-striped table-borderless table-tamaño" > -->
                             <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                 <thead class="">
-                                    <tr>
-                                        <th scope="col">ID_Cuenta</th>
+                                    <tr class="t-head-table">
+                                        <th scope="col">ID_cuenta</th>
                                         <th scope="col">Nombre de cuenta</th>
-                                        <th scope="col">Estado</th>
                                         <th scope="col">Contacto</th>
-                                        <th scope="col">Correo</th>
+                                         <th scope="col">País</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Ciudad</th>
                                         <th scope="col">Opciones</th>
+                                        <!-- <th scope="col">Correo</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in filterDataAccounts" :key="item.idsCuent">
-                                        <th scope="row">{{item.idsCuent}}</th>
+                                    <tr class="t-body-table" v-for="item in filterDataAccounts" :key="item.idsCuent">
+                                        <th scope="row">{{item.idsCuent}}</tH>
                                         <td>{{item.sCuentName}}</td>
-                                        <td>{{item.sCuentStatus}}</td>
-                                        <td>{{item.nombreContacto}}</td>
-                                        <td>{{item.suCuentaCorreo}}</td>
+                                        <td>{{item.nombreContacto}} <span v-if="item.nombreContacto == null">Jose Perez</span> </td>
+                                        <td>{{item.subCuentaPais}} <span v-if="item.subCuentaPais == null">México</span></td>
+                                        <td>{{item.subCuentaEstado}} <span v-if="item.subCuentaEstado == null">Quintana Roo</span></td>
+                                        <td>{{item.subCuentaCuidad}} <span v-if="item.subCuentaCuidad == null">Cancún</span></td>
+                                        
+                                        <!-- <td>{{item.suCuentaCorreo}}</td> -->
                                         <td>
 
-                                            <button class="btn btn-danger" v-on:click="detalles(item.idsCuent)">Detalles</button>
+                                            <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)">Detalles</button> -->
+                                            <i type="button" v-on:click="detalles(item.idsCuent)" style="font-size:1.2rem;color:#1aba97" class="fas fa-list"></i>
 
                                             <!-- <button class="btn btn-danger">Baja</button> -->
                                         </td>
@@ -85,8 +95,9 @@ export default {
         filterDataAccounts() {
             return this.itemsAccounts.filter(blog => {
 
-                return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentStatus.toString().toLowerCase().includes(this.search.toLowerCase())
+                return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
+                // return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) ||
+                //     blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentStatus.toString().toLowerCase().includes(this.search.toLowerCase())
             });
         }
     },
@@ -123,9 +134,10 @@ export default {
                     this.itemsAccounts.push({
                         idsCuent: json[index]["idsCuent"],
                         sCuentName: json[index]["sCuentName"],
-                        sCuentStatus: json[index]["sCuentStatus"],
                         nombreContacto: json[index]["nombreContacto"],
-                        suCuentaCorreo: json[index]["suCuentaCorreo"]
+                        subCuentaPais: json[index]["subCuentaPais"],
+                        subCuentaEstado: json[index]["subCuentaEstado"],
+                        subCuentaCuidad: json[index]["subCuentaCuidad"],
                     });
 
                 }
@@ -143,7 +155,7 @@ export default {
 <style scoped>
 .home {
     position: relative;
-    height: 100vh;
+    /* height: 100vh; */
     left: 88px;
     width: calc(100% - 88px);
     transition: all 0.5s ease;
@@ -160,14 +172,14 @@ export default {
     overflow: scroll;
 }
 
-.scrollable::-webkit-scrollbar {
+/* .scrollable::-webkit-scrollbar {
     background-color: #27293d;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
     background-color: #e6e6e805;
 
-}
+} */
 
 .table-tamaño {
     font-size: 12pt;
@@ -216,8 +228,16 @@ tr {
     margin: 0 auto;
 }
 
+
 .navbar-brand {
     color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing:2px;
+    font-weight: bold;
+    
+}
+.span-brand{
+color: #1abb97;
 }
 
 .alert {
@@ -230,6 +250,33 @@ tr {
     display: block;
     margin: 0 auto;
     width: 50%;
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #1abb97;
+    /* color: #1de7ba; */
+    background-color: rgba(26, 187, 151, .08);
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+ 
+}
+
+.nav-link:hover {
+
+    background-color: #00ffc833;
+
+}
+.t-head-table {
+    font-size: 13px;
+    text-transform: uppercase;
+    /* color: #ffffff99; */
+    color: #ffffffbd;
+}
+
+.t-body-table {
+    font-size: 15px;
+    /* color: #ffffffbd; */
 }
 
 @media only screen and (min-width: 1800px) {

@@ -10,17 +10,20 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand">SubCuentas ATMSense</a>
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <a class="navbar-brand">SubCuentas <span class="span-brand">ATMSense</span></a>
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus-circle"></i> Crear Subcuenta</a>
+                                    <a class="nav-link position-relative" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fas fa-user-plus"></i>
+                                    Añadir subcuenta
+                                     </a>
                                 </li>
                             </ul>
                             <form class="d-flex">
 
                                 <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar Cuenta" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+                                <button class="btn btn-outline-success" type="submit" disabled><i class="fas fa-search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -35,10 +38,10 @@
 
                             <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                 <thead class="">
-                                    <tr>
+                                    <tr class="t-head-table">
                                         <th scope="col">ID_Subcuenta</th>
                                         <th scope="col">Cuenta_principal</th>
-                                        <th scope="col">Sub_cuenta</th>
+                                        <th scope="col">Subcuenta</th>
                                         <th scope="col">País</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Ciudad</th>
@@ -46,15 +49,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in filterDataSubAccounts" :key="item.idsCuent">
+                                    <tr class="t-body-table" v-for="item in filterDataSubAccounts" :key="item.idsCuent">
                                         <th scope="row">{{item.idsCuent}}</th>
                                         <td>{{item.sCuentName}}</td>
                                         <td>{{item.NameUbica}}</td>
                                         <td>{{item.pais}}</td>
                                         <td>{{item.estado}}</td>
-                                        <td>{{item.ciudad}}</td>
+                                        <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td>
                                         <td>
-                                            <button class="btn btn-danger" v-on:click="detalles(item.idsCuent)">Detalles</button>
+                                            <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -163,9 +166,10 @@ export default {
     },
     computed: {
         filterDataSubAccounts() {
+            // blog.ciudad.toLowerCase().includes(this.search.toLowerCase()) ||
             return this.itemsSubAccounts.filter(blog => {
                 return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) || blog.NameUbica.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.estado.toLowerCase().includes(this.search.toLowerCase()) || blog.ciudad.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.estado.toLowerCase().includes(this.search.toLowerCase()) ||
                     blog.pais.toLowerCase().includes(this.search.toLowerCase()) || blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase());
             });
         }
@@ -293,7 +297,7 @@ export default {
 <style scoped>
 .home {
     position: relative;
-    height: 100vh;
+    /* height: 100vh; */
     left: 88px;
     width: calc(100% - 88px);
     transition: all 0.5s ease;
@@ -310,14 +314,14 @@ export default {
     overflow: scroll;
 }
 
-.scrollable::-webkit-scrollbar {
+/* .scrollable::-webkit-scrollbar {
     background-color: #27293d;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
     background-color: #e6e6e805;
 
-}
+} */
 
 .table-tamaño {
     font-size: 12pt;
@@ -368,6 +372,13 @@ tr {
 
 .navbar-brand {
     color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.span-brand {
+    color: #1abb97;
 }
 
 /* .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -379,13 +390,15 @@ tr {
     display: block;
     padding: 0.5rem 1rem;
     color: #1abb97;
+    /* color: #1de7ba; */
     background-color: rgba(26, 187, 151, .08);
     border-radius: 0.25rem;
+    margin-right: 1rem;
 }
 
 .nav-link:hover {
 
-    background-color: #00ffc614;
+    background-color: #00ffc833;
 
 }
 
@@ -444,18 +457,19 @@ tr {
   border-color: #28a745;
         box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 } */
-input {
+.modal input {
     background-color: #27293d !important;
     border: 1px solid #2b3553 !important;
     color: #fff;
 }
 
-input:focus {
+.modal input:focus {
 
     color: #fff;
 }
 
 .modal-body {
+    /* color: #fff; */
     color: #ffffff99;
 }
 
@@ -463,14 +477,28 @@ input:focus {
         border-color: #28a745;
         box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
     }  */
-option{
-  background-color:#fff;
-  color: #000;
+option {
+    background-color: #fff;
+    color: #000;
 }
-option:hover{
-  background-color:#fff;
-  color: #000;
+
+option:hover {
+    background-color: #fff;
+    color: #000;
 }
+
+.t-head-table {
+    font-size: 13px;
+    text-transform: uppercase;
+    /* color: #ffffff99; */
+    color: #ffffffbd;
+}
+
+.t-body-table {
+    font-size: 15px;
+    /* color: #ffffffbd; */
+}
+
 @media only screen and (min-width: 1800px) {
     .scrollable {
         height: 810px;
