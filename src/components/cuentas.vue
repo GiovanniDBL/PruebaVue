@@ -10,11 +10,15 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand">Cuentas <span class="span-brand">ATMsense</span></a>
-                              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <a class="navbar-brand"> <i class="fad fa-users icon"></i> Cuentas <span class="span-brand">ATMsense</span></a>
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-user-plus"></i> Añadir cuenta</a>
+                                    <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
+                                        <button type="button" class="btn btn-success"> <i class="fas fa-user-plus"></i> Agregar nueva cuenta</button>
+
+                                    </div>
+                                    <!-- <a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-user-plus"></i> Añadir cuenta</a> -->
                                 </li>
                             </ul>
                             <form class="d-flex">
@@ -39,10 +43,10 @@
                                         <th scope="col">ID_cuenta</th>
                                         <th scope="col">Nombre de cuenta</th>
                                         <th scope="col">Contacto</th>
-                                         <th scope="col">País</th>
+                                        <th scope="col">País</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Ciudad</th>
-                                        <th scope="col">Opciones</th>
+                                        <th scope="col">Detalles</th>
                                         <!-- <th scope="col">Correo</th> -->
                                     </tr>
                                 </thead>
@@ -54,14 +58,12 @@
                                         <td>{{item.subCuentaPais}} <span v-if="item.subCuentaPais == null">México</span></td>
                                         <td>{{item.subCuentaEstado}} <span v-if="item.subCuentaEstado == null">Quintana Roo</span></td>
                                         <td>{{item.subCuentaCuidad}} <span v-if="item.subCuentaCuidad == null">Cancún</span></td>
-                                        
+
                                         <!-- <td>{{item.suCuentaCorreo}}</td> -->
                                         <td>
 
                                             <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)">Detalles</button> -->
-                                            <i type="button" v-on:click="detalles(item.idsCuent)" style="font-size:1.2rem;color:#1aba97" class="fas fa-list"></i>
-
-                                            <!-- <button class="btn btn-danger">Baja</button> -->
+                                            <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -70,7 +72,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 </div>
@@ -78,6 +79,7 @@
 
 <script>
 import sidebar from './Sidebar';
+
 export default {
     name: "cuentaComponent",
     components: {
@@ -100,9 +102,11 @@ export default {
                 //     blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentStatus.toString().toLowerCase().includes(this.search.toLowerCase())
             });
         }
+
     },
     mounted() {
         this.getAllAccounts();
+
     },
     methods: {
         getAllAccounts() {
@@ -160,6 +164,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
+    /* margin-top: 2rem; */
 }
 
 .home .text {
@@ -228,16 +233,16 @@ tr {
     margin: 0 auto;
 }
 
-
 .navbar-brand {
     color: #fff !important;
     text-transform: uppercase;
-    letter-spacing:2px;
+    letter-spacing: 2px;
     font-weight: bold;
-    
+
 }
-.span-brand{
-color: #1abb97;
+
+.span-brand {
+    color: #1abb97;
 }
 
 .alert {
@@ -251,6 +256,7 @@ color: #1abb97;
     margin: 0 auto;
     width: 50%;
 }
+
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
@@ -259,14 +265,17 @@ color: #1abb97;
     background-color: rgba(26, 187, 151, .08);
     border-radius: 0.25rem;
     margin-right: 1rem;
- 
+
 }
+
+
 
 .nav-link:hover {
 
     background-color: #00ffc833;
 
 }
+
 .t-head-table {
     font-size: 13px;
     text-transform: uppercase;

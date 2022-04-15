@@ -7,7 +7,9 @@ import store from './store'
 import 'jquery'
 import 'popper.js'
 import './assets/styles.css'
-import 'bootstrap/dist/js/bootstrap.js'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.js';
+import 'bootstrap/dist/js/bootstrap.js';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 let app = createApp(App);

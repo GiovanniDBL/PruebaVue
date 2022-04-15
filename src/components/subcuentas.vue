@@ -10,14 +10,19 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand">SubCuentas <span class="span-brand">ATMSense</span></a>
+                            <a class="navbar-brand"><i class="fas fa-users-class icon"></i> SubCuentas <span class="span-brand">ATMSense</span></a>
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                                 <li class="nav-item">
-                                    <a class="nav-link position-relative" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <!-- <a class="nav-link position-relative" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-user-plus"></i>
                                     Añadir subcuenta
-                                     </a>
+                                     </a> -->
+
+                                          <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
+                                        <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success"> <i class="fas fa-user-plus"></i> Agregar nueva subcuenta</button>
+
+                                    </div>
                                 </li>
                             </ul>
                             <form class="d-flex">
@@ -45,7 +50,7 @@
                                         <th scope="col">País</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Ciudad</th>
-                                        <th scope="col">Opciones</th>
+                                        <th scope="col">Detalles</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,7 +62,8 @@
                                         <td>{{item.estado}}</td>
                                         <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td>
                                         <td>
-                                            <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button>
+                                            <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button> -->
+                                            <i type="button" v-on:click="detalles(item.idsCuent)"  class="fas fa-file-user fa-bounce"></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -126,8 +132,8 @@
                         <input type="text" class="form-control" placeholder="Código postal" id="validationCustom05" v-model="FormCodigoPostal" required>
                     </div>
 
-                    <div class="col-12">
-                        <button class="btn btn-success">Envíar</button>
+                    <div class="col-12 text-end">
+                        <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane" ></i> Envíar</button>
                     </div>
                 </form>
 
@@ -302,6 +308,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
+    /* margin-top: 2rem; */
 }
 
 .home .text {
@@ -420,7 +427,8 @@ tr {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #27293d;
+    background-color:#26283b;
+    /* background-color: #27293d; */
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
@@ -430,6 +438,7 @@ tr {
 .modal-header {
     border-bottom: 0;
     color: #ffffff;
+    text-transform: uppercase;
 }
 
 .modal-header .btn-close {
@@ -447,7 +456,7 @@ tr {
     font-weight: 400;
     line-height: 1.5;
     color: #fff;
-    background-color: #27293d !important;
+    background-color: #222332 !important;
     border: 1px solid #2b3553;
 
 }
@@ -458,7 +467,7 @@ tr {
         box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 } */
 .modal input {
-    background-color: #27293d !important;
+    background-color: #222332 !important;
     border: 1px solid #2b3553 !important;
     color: #fff;
 }

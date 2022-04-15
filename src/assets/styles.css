@@ -43,6 +43,26 @@ body {
     animation-name: fadeIn;
 }
 
+.fa-file-user {
+    font-size: 1.7rem;
+    color: #5fe8ff;
+    /* color: #31d2f2 */
+}
+
+.fa-file-user:hover {
+    color: #31d2f2
+}
+
+.fa-file-alt {
+    font-size: 1.7rem;
+    color: #5fe8ff;
+    /* color: #31d2f2 */
+}
+
+.fa-file-alt:hover {
+    color: #31d2f2
+}
+
 
 /* .movimiento {
     background-color: red;

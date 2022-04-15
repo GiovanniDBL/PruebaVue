@@ -32,7 +32,7 @@ export const ChartAlarmas = {
 
         legend: {
             labels: {
-                fontColor: "#858689",
+                fontColor: "#ffffffbd",
                 fontSize: 15,
             }
         },

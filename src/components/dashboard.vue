@@ -5,13 +5,14 @@
 
 
     <div class="card " >
-      <div class="card-header" style="color:#ffffff">
+      <div class="card-header">
     Alarmas de la semana
-  </div>
-        <div class="card-body text-end">
+     <div class="card-body text-end">
              <!-- <button @click="popup()" type="button" class="btn btn-outline-light ">Central de monitoreo</button> -->
-             <canvas id="linechart-alarmas" style="position: relative; height:12vh; width:30vw;"></canvas>
+             <canvas id="linechart-alarmas" style="position: relative; height:14vh; width:30vw;"></canvas>
         </div>
+  </div>
+       
     </div>
 
 
@@ -19,22 +20,24 @@
   <div class="row">
     <div class="col">
       <div class="card card2">
-      <div class="card-header" style="color:#ffffff">
+      <div class="card-header">
     Supervisión por hora
-  </div>
-        <div class="card-body text-end">
+    <div class="card-body text-end">
              <canvas id="linechart-horas" style="position: relative; height:20vh; width:30vw;"></canvas>
         </div>
+  </div>
+        
     </div>
     </div>
     <div class="col">
         <div class="card card2">
-      <div class="card-header" style="color:#ffffff">
+      <div class="card-header">
     Supervisión por hora
-  </div>
-        <div class="card-body text-end">
+     <div class="card-body text-end">
              <canvas id="linechart-pendiente" style="position: relative; height:20vh; width:30vw;"></canvas>
         </div>
+  </div>
+       
     </div>
     </div>
   
@@ -99,6 +102,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
+    /* margin-top: 2rem; */
   
 }
 .home .text{
@@ -114,9 +118,14 @@ export default {
 }
 .card-title{
   color: #fff;
+  
 }
 .card2{
   width:36rem
+}
+.card-header{
+  color: #ffffffbd;
+  text-transform: uppercase;
 }
   
   @media only screen and (min-width: 1800px) {

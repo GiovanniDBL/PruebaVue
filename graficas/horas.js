@@ -27,7 +27,7 @@ export const ChartHoras = {
         // },
         legend: {
             labels: {
-                fontColor: "#858689",
+                fontColor: "#ffffffbd",
                 fontSize: 15,
             }
         },

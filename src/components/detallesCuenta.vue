@@ -228,9 +228,11 @@ h4 span {
 input {
     background-color: #222434 !important;
     border: 1px solid #2b534d !important;
-    color: #fff;
+   color: #ffffff99;
 }
-
+label{
+  color: #ffffff99;
+}
 /* input:focus {
 
     color: #fff;

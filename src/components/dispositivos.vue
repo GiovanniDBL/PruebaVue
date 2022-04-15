@@ -12,7 +12,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand">Dispositivos <span class="span-brand">ATMSense</span></a>
+                            <a class="navbar-brand"><i class="fas fa-signal-stream icon"></i> Dispositivos <span class="span-brand">ATMSense</span></a>
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav nav-pills">
 
                                 <li class="nav-item" role="presentation">
@@ -60,7 +60,7 @@
                                             <th>Temp</th>
                                             <th>Voltaje</th>
                                             <th>Cuenta</th>
-                                            <th>Opciones</th>
+                                            <th>Detalles</th>
                                         </tr>
 
                                     </thead>
@@ -86,7 +86,7 @@
                                             <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
                                             <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
                                             <td>{{item.nameCuenta}}</td>
-                                            <td><button class="btn btn-outline-info">Detalles</button></td>
+                                            <td><i class="fas fa-file-alt"></i></td>
 
                                         </tr>
                                     </tbody>
@@ -111,7 +111,7 @@
                                             <th>Temp</th>
                                             <th>Voltaje</th>
                                             <th>Cuenta</th>
-                                            <th>Opciones</th>
+                                            <th>Detalles</th>
                                         </tr>
                                     </thead>
 
@@ -136,7 +136,7 @@
                                             <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
                                             <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
                                             <td>{{item.nameCuenta}}</td>
-                                            <td><button class="btn btn-outline-info">Detalles</button></td>
+                                            <td><i class="fas fa-file-alt"></i></td>
 
                                         </tr>
                                     </tbody>
@@ -308,12 +308,12 @@ export default {
 <style scoped>
 .home {
     position: relative;
-    height: 100vh;
+    /* height: 100vh; */
     left: 88px;
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
-    /* margin-top: 1px; */
+/* margin-top: 2rem; */
 }
 
 .home .text {
@@ -393,10 +393,11 @@ tr {
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    /* color: #fff;
-    background-color: #1b1b276e; */
-    color: #1abb97;
-    background-color: rgba(26, 187, 151, .08);
+
+    /* color: #1abb97;
+    background-color: rgba(26, 187, 151, .08); */
+    background-color:#198754;
+    border: #198754;
 
 }
 

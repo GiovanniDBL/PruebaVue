@@ -13,7 +13,21 @@
           <button @click="popup()" type="button" class="btn btn-outline-info ">Central de monitoreo</button>
         </li> -->
                     <li class="nav-item">
-                        <a class="nav-link active" @click="popup()" aria-current="page" href="#">Monitoreo en tiempo real</a>
+                        <a class="nav-link monitoreo-link active" @click="popup()" aria-current="page" href="#">
+                            <i class="fas fa-play"></i> Iniciar monitoreo en tiempo real</a>
+                    </li>
+                    <li class="nav-item dropdown dropstart">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           <img class="card-img-top img-fluid" src="../assets/logo.webp" alt="imagen">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <!-- <form class="d-flex">
@@ -60,18 +74,26 @@ export default {
 }
 
 .nav-item {
-    margin-right: 1rem;
+    /* margin-right: 1rem; */
 }
 
-.nav-link {
+.monitoreo-link {
 
     color: #ffffff !important;
     text-transform: uppercase;
     font-weight: bold;
+margin-top: 6px;
+    background-color: #af2b2b;
+    border-radius: 22px;
+    margin-right: 1rem;
+    padding: 5px;
 
-    background-color: #3ba06f;
-    border-radius: 5px;
-    
+
+}
+.nav-link {
+
+    color: #ffffff !important;
+
 }
 
 .navbar-brand {
@@ -83,5 +105,15 @@ export default {
 
 .span-brand {
     color: #1abb97;
+}
+img {
+    width: 30px;
+    height: 30px;
+    /* border: 5px solid #2b3553; */
+    border-bottom-color: transparent;
+    background-color: transparent;
+    position: relative;
+    border-radius: 50%;
+    max-width: 100%;
 }
 </style>

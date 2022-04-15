@@ -6,6 +6,7 @@
          <div class="image-text">
              <span class="image">
                  <img src="../assets/logo.webp" alt="logo">
+                 <!-- <img src="../assets/logo.webp" alt="logo"> -->
              </span>
              <div class="text header-text">
                  <span class="name">ATMSense</span>
@@ -98,6 +99,7 @@ toggle.addEventListener("click", () =>{
 
 
 <style >
+  
 
 ul{
    padding-left: 0 !important;
@@ -146,6 +148,9 @@ ul{
     display: flex;
     align-items: center;
 }
+/* li.active{
+color: red !important;
+} */
 .sidebar li .icon{
     display: flex;
     align-items: center;
