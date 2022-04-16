@@ -432,7 +432,7 @@ tr {
 }
 @media only screen and (min-width: 1800px) {
     .scrollable {
-        height: 810px;
+        height: 550px;
         overflow: scroll;
     }
 }

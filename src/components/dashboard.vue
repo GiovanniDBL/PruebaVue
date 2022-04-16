@@ -130,7 +130,7 @@ export default {
   
   @media only screen and (min-width: 1800px) {
     .card2{
-       width:54rem;
+       width:53rem;
     }
   }
 
