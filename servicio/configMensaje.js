@@ -4,15 +4,15 @@ const nodemailer = require('nodemailer');
 module.exports = (formulario) => {
     var transporter = nodemailer.createTransport({
 
-        host: "smtp.ethereal.email",
+        host: "smtp.gmail.com",
         // secureConnection: false,
-        port: 587,
-        secure: false,
+        port: 465,
+        secure: true,
 
 
         auth: {
-            user: 'issac.parker27@ethereal.email',
-            pass: 'rB9GfJnmbcnC7fKZ2a',
+            user: 'britodany12@gmail.com',
+            pass: 'D19942344',
 
         },
 
@@ -28,26 +28,12 @@ module.exports = (formulario) => {
              <strong>Nombre:</strong> ATMSense<br/>
              <strong>Telefono:</strong> 1234 <br/>
              <strong>E-mail:</strong> issac.parker27@ethereal.email <br/>
+             <img src="https://cldup.com/D5Cj_C1Vw3.png"/>
+             
              
              `
-            //         html: `
-            //  <strong>Nombre:</strong> ${formulario.fullname}<br/>
-            //  <strong>Telefono:</strong> ${formulario.phone} <br/>
-            //  <strong>E-mail:</strong> ${formulario.email} <br/>
 
-        //  `
     };
-    //     const mailOptions = {
-    //         from: "Remitente",
-    //         to: 'britodany12@gmail.com', //Cambia esta parte por el destinatario
-    //         subject: "Enviado desde nodemailer",
-    //         html: `
-    //  <strong>Nombre:</strong> ATMSense<br/>
-    //  <strong>Telefono:</strong> 1234 <br/>
-    //  <strong>E-mail:</strong> shemar.russel0@ethereal.email <br/>
-
-    //  `
-    //     };
     transporter.sendMail(mailOptions, function(err, info) {
         if (err)
             console.log(err)

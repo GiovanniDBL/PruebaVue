@@ -18,7 +18,7 @@ var key = fs.readFileSync('certs/key.pem')
 app.post('/formulario', (req, res) => {
     configMensaje(req.body);
     res.status(200).send();
-})
+});
 
 // *Start Server
 app.listen(3000, () => {
