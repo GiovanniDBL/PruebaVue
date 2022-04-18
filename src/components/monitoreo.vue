@@ -182,6 +182,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import sidebar from './Sidebar';
 import Swal from 'sweetalert2';
 import moment from 'moment'
@@ -191,7 +192,7 @@ import {
 } from 'vuex';
 var audio = new Audio(require('@/assets/audioDemo.mp3'))
 var audio2 = new Audio(require('@/assets/audioDemo2.mp3'))
-
+let messageApi = 'http://localhost:3000/formulario/';
 export default {
     name: "monitoreoComponent",
     // props:{
@@ -868,6 +869,7 @@ export default {
             console.log("WebSocket Alert: ", JSON.parse(params));
             var json = JSON.parse(params);
 
+            console.log('valores para el mensaje mailer',json);
             console.log(json["mensaje"]);
             var date = json["date"];
             var stillUtc = moment.utc(date).toDate();
@@ -899,10 +901,21 @@ export default {
                 estado_alarma: json["status"],
                 clasificacion: idclasificacion
             };
+            let mensaje = {
+                deviceid: json["NameDevice"],
+                fecha: local,
+                account: json["ubicacion"],
+                event: json["mensaje"],
+                typenotifi: json["typeNotification"],
+            };
 
             //this.itemsAlerts.push();
             this.itemsAlerts.splice(0, 0, jSON);
             console.log('handAlert', this.itemsAlerts);
+
+            axios.post(messageApi, mensaje).then(data => {
+                console.log('AXIOS DATA',data);
+            });
             //  this.totalAlarmas = this.totalAlarmas + 1;; 
 
             if (clasificacion == "Alarma") {
