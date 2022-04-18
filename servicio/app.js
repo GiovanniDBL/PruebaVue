@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const configMensaje = require('./configMensaje');
+const configWhatsapp = require('./configWhatsapp');
 const fs = require("fs")
 const https = require('https')
 
@@ -17,6 +18,11 @@ var key = fs.readFileSync('certs/key.pem')
 //** Envíar correo desde el formulario contacto ZigbMax */
 app.post('/formulario', (req, res) => {
     configMensaje(req.body);
+    res.status(200).send();
+});
+//** Envíar whatsapp*/
+app.post('/sendwhatsapp', (req, res) => {
+    configWhatsapp();
     res.status(200).send();
 });
 
