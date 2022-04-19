@@ -82,7 +82,7 @@ export default {
     color: #ffffff !important;
     text-transform: uppercase;
     font-weight: bold;
-margin-top: 6px;
+margin-top: 2px;
     background-color: #af2b2b;
     border-radius: 22px;
     margin-right: 1rem;

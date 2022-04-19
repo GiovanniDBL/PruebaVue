@@ -23,7 +23,7 @@ module.exports = (formulario) => {
     const mailOptions = {
         // from: `"${formulario.nombre} " <${formulario.email}>`,
         from: '"ZigbMax ATMSense" <Zigbmax@example.com>',
-        to: 'prueba@hotmail.com', //Cambia esta parte por el destinatario
+        to: 'pruebaa@hotmail.com', //Cambia esta parte por el destinatario
         subject: `"Notificación de ${formulario.event}"`,
         html: `
        <h1 style="text-align:center;text-transform:uppercase;color:#006d00;font-weight:bold">Estimado usuari@ ATMSense</h1>

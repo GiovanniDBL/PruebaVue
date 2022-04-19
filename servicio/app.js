@@ -22,7 +22,7 @@ app.post('/formulario', (req, res) => {
 });
 //** Envíar whatsapp*/
 app.post('/sendwhatsapp', (req, res) => {
-    configWhatsapp();
+    configWhatsapp(req.body);
     res.status(200).send();
 });
 

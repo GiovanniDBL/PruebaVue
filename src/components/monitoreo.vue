@@ -45,7 +45,7 @@
                 <!-- <div class="card bg-light" style="width: 38rem;"> -->
                 <div class="card bg-light card2">
                     <div class="card-header ">
-                        <span class="position-relative" style="padding-right:5px;">
+                        <span  class="position-relative" style="padding-right:5px;">
                             Alarmas
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
                         </span>
@@ -193,6 +193,7 @@ import {
 var audio = new Audio(require('@/assets/audioDemo.mp3'))
 var audio2 = new Audio(require('@/assets/audioDemo2.mp3'))
 let messageApi = 'http://localhost:3000/formulario/';
+let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
     name: "monitoreoComponent",
     // props:{
@@ -904,7 +905,8 @@ export default {
             let mensaje = {
                 deviceid: json["NameDevice"],
                 fecha: local,
-                account: json["ubicacion"],
+                account: "Sucursal 1",
+                // account: json["ubicacion"],
                 event: json["mensaje"],
                 typenotifi: json["typeNotification"],
             };
@@ -914,7 +916,10 @@ export default {
             console.log('handAlert', this.itemsAlerts);
 
             axios.post(messageApi, mensaje).then(data => {
-                console.log('AXIOS DATA',data);
+                console.log('AXIOS messageApi DATA',data);
+            });
+            axios.post(messageWs, mensaje).then(data => {
+                console.log('AXIOS messageWs DATA',data);
             });
             //  this.totalAlarmas = this.totalAlarmas + 1;; 
 

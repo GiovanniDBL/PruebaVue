@@ -20,7 +20,7 @@
          <div class="menu">     
              <ul class="menu-links">
                  <li class="">
-                      <router-link to="/" replace>
+                      <router-link class="nav-link" to="/">
                        <i class="fas fa-analytics icon"></i>
                         <span class="text nav-text">Dashboard</span>
                      </router-link>
@@ -148,9 +148,9 @@ ul{
     display: flex;
     align-items: center;
 }
-/* li.active{
-color: red !important;
-} */
+li.active{
+ background-color: #35495E;
+}
 .sidebar li .icon{
     display: flex;
     align-items: center;
@@ -230,12 +230,18 @@ header .image-text .header-text{
      transition: all 0.4s ease;
 }
 .sidebar li a:hover{
- /* background: #006d00; */
- background: #41464b18;
+
+ background: #1b1b2738;
 }
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text{
     color: #fff;
+}
+.nav-link{
+    padding: 0;
+}
+a.router-link-active{
+    background:#1b1b2738;
 }
 
 .sidebar .menu-bar{
@@ -244,6 +250,8 @@ header .image-text .header-text{
     flex-direction: column;
     justify-content: space-between;
 }
+
+
 /* .home {
     position: relative;
     height: 100vh;

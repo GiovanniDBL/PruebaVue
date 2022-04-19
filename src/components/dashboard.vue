@@ -2,13 +2,12 @@
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
-        <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button>
+        <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
 
         <div class="card ">
             <div class="card-header">
                 Alarmas de la semana
                 <div class="card-body text-end">
-                    <!-- <button @click="popup()" type="button" class="btn btn-outline-light ">Central de monitoreo</button> -->
                     <canvas id="linechart-alarmas" style="position: relative; height:14vh; width:30vw;"></canvas>
                 </div>
             </div>
@@ -58,6 +57,7 @@ import ChartHoras from '../../graficas/horas.js'
 import planetChartData2 from '../../graficas/linechart2.js'
 import axios from 'axios'
 let messageApi = 'http://localhost:3000/formulario/';
+let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
     name: "dashboardComponent",
     components: {
@@ -82,9 +82,6 @@ export default {
         }
     },
     methods: {
-        popup() {
-            window.open("http://localhost:8080/monitoreo", "Central de monitoreo", "location=0,status=0,scrollbars=0,width=800,height=600,top=50%")
-        },
         clickprueba() {
             this.$toast.open({
                 message: 'Correo enviado correctamente',
@@ -94,11 +91,16 @@ export default {
                 position: "top-right",
             });
             let json = {
-                "nombre": "Giovanni",
-                "email": "donitho@hotmail.com"
+                // "nombre": "Giovanni",
+                // "email": "donitho@hotmail.com"
+                "numero": "+5219988443544"
             };
-            axios.post(messageApi, json).then(data =>{
-              console.log(data);
+            // axios.post(messageApi, json).then(data =>{
+            //   console.log(data);
+            // });
+
+            axios.post(messageWs, json).then(data => {
+                console.log(data);
             });
 
         },
