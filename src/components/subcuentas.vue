@@ -14,12 +14,18 @@
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                                 <li class="nav-item">
+                                    <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
+                                        <button data-bs-toggle="modal" data-bs-target="#exampleModalSensor" type="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Añadir nuevo sensor</button>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item">
                                     <!-- <a class="nav-link position-relative" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-user-plus"></i>
                                     Añadir subcuenta
                                      </a> -->
 
-                                          <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
+                                    <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
                                         <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success"> <i class="fas fa-user-plus"></i> Agregar nueva subcuenta</button>
 
                                     </div>
@@ -45,25 +51,25 @@
                                 <thead class="">
                                     <tr class="t-head-table">
                                         <th scope="col">ID_Subcuenta</th>
-                                        <th scope="col">Cuenta_principal</th>
                                         <th scope="col">Subcuenta</th>
                                         <th scope="col">País</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Ciudad</th>
+                                        <th scope="col">Cuenta_principal</th>
                                         <th scope="col">Detalles</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="t-body-table" v-for="item in filterDataSubAccounts" :key="item.idsCuent">
                                         <th scope="row">{{item.idsCuent}}</th>
-                                        <td>{{item.sCuentName}}</td>
                                         <td>{{item.NameUbica}}</td>
                                         <td>{{item.pais}}</td>
                                         <td>{{item.estado}}</td>
                                         <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td>
+                                        <td>{{item.sCuentName}}</td>
                                         <td>
                                             <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button> -->
-                                            <i type="button" v-on:click="detalles(item.idsCuent)"  class="fas fa-file-user fa-bounce"></i>
+                                            <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -133,7 +139,74 @@
                     </div>
 
                     <div class="col-12 text-end">
-                        <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane" ></i> Envíar</button>
+                        <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
+                    </div>
+                </form>
+
+            </div>
+            <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+        </div>
+    </div>
+</div>
+<!--//? ************* Modal Sensor ********************** -->
+<div class="modal fade" id="exampleModalSensor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Sensor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" v-on:submit.prevent="NuevaCuenta">
+                    <div class="col-md-6">
+                        <label for="validationCustom04" class="form-label">Cuenta de vinculación</label>
+                        <select class="form-select" id="validationCustom04" required v-model="FormCuenta">
+                            <option selected disabled value="">Seleccione una cuenta</option>
+                            <option value="1">Sisec</option>
+                            <option value="19">Grupo Zigbmax</option>
+                            <option value="4">Grupo Oxxo</option>
+                            <option value="7">Grupo Cumbres</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom01" class="form-label">Nombre de la Subcuenta</label>
+                        <input type="text" class="form-control" placeholder="Nombre de la subcuenta" id="validationCustom01" v-model="FormNombreSub" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="validationCustom02" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" placeholder="Dirección" id="validationCustom02" v-model="FormDireccion" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="validationCustom04" class="form-label">Estado</label>
+                        <select class="form-select" id="validationCustom04" v-model="FormEstado" required>
+                            <option selected disabled value="">Seleccione un estado</option>
+                            <option value="1589">Quintana Roo</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="validationCustom04" class="form-label">País</label>
+                        <select class="form-select" id="validationCustom04" v-model="FormPais" required>
+                            <option selected disabled value="">Seleccione un país</option>
+                            <option value="42">México</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom03" class="form-label">Ciudad</label>
+                        <input type="text" class="form-control" placeholder="Nombre de la ciudad" id="validationCustom03" v-model="FormCiudad" required>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="validationCustom05" class="form-label">Código postal</label>
+                        <input type="text" class="form-control" placeholder="Código postal" id="validationCustom05" v-model="FormCodigoPostal" required>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
                     </div>
                 </form>
 
@@ -427,7 +500,7 @@ tr {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color:#26283b;
+    background-color: #26283b;
     /* background-color: #27293d; */
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.2);

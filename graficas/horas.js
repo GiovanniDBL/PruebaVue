@@ -4,12 +4,19 @@ export const ChartHoras = {
         labels: ["9-1", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         datasets: [{
                 label: "Horas",
-                data: [100, 200, 300, 400, 500, 100, 200, 300, 400, 500, 600, 700],
+                data: [100, 300, 100, 300, 100, 300, 100, 300, 100, 300, 100, 300],
                 // backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 // borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: '#293341',
                 borderColor: '#42b883',
                 borderWidth: 2,
+
+                pointBorderColor: '#42b883',
+                pointBackgroundColor: '#42b883',
+                pointHoverBackgroundColor: '#42b883',
+                pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2,
+                pointHitRadius: 10,
             },
 
         ]
@@ -38,7 +45,7 @@ export const ChartHoras = {
             yAxes: [{
                 gridLines: {
                     display: true,
-                    color: '#27293d'
+                    color: '#1a2130'
                 },
                 // stacked: true,
                 ticks: {

@@ -204,10 +204,14 @@ header .image-text .header-text{
     background:#1b1b27;
     border-radius: 50%;
     transition: all 0.3s ease;
+    cursor: pointer;
+    
+    
 }
 .sidebar.close header .toggle{
     transform: translateY(-50%);
 }
+
 
 .sidebar .search-box{
     background-color: #ffffff;

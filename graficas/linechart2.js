@@ -4,12 +4,18 @@ export const planetChartData2 = {
         labels: ["9-1", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         datasets: [{
                 label: "Horas",
-                data: [600, 100, 600, 400, 500, 100, 200, 300, 100, 500, 600, 700],
+                data: [100, 100, 70, 100, 100, 100, 100, 70, 100, 100, 70, 100],
                 backgroundColor: '#2e3054',
                 borderColor: '#1d8cf8',
                 // backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 // borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
+                pointBorderColor: '#1d8cf8',
+                pointBackgroundColor: '#1d8cf8',
+                pointHoverBackgroundColor: '#1d8cf8',
+                pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2,
+                pointHitRadius: 10,
             },
 
         ]
@@ -38,7 +44,7 @@ export const planetChartData2 = {
             yAxes: [{
                 gridLines: {
                     display: true,
-                    color: '#27293d'
+                    color: '#1a2130'
                 },
                 // stacked: true,
                 ticks: {

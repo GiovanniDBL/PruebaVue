@@ -650,11 +650,12 @@ export default {
                     var msg = {
                         "action": "setNotifications",
                         "ActiveNotifications": 1,
-                        "userID": idUsuario,
-                        "topic": "/tablaMonitor"
+                        "userID": 1,
+                        "topic": "central/tablaMonitor"
                     }
                     // Web Socket is connected, send data using send()
                     ws.send(JSON.stringify(msg));
+                    console.log(msg);
                     console.log("Enviamdo Mensaje...");
                 };
 

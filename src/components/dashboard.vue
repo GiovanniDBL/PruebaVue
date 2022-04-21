@@ -21,7 +21,7 @@
                         <div class="card-header">
                             Supervisión por hora
                             <div class="card-body text-end">
-                                <canvas id="linechart-horas" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="linechart-horas" style="position: relative; height:25vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -32,7 +32,7 @@
                         <div class="card-header">
                             Supervisión por hora
                             <div class="card-body text-end">
-                                <canvas id="linechart-pendiente" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="linechart-pendiente" style="position: relative; height:25vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -127,7 +127,8 @@ export default {
 }
 
 .card {
-    background: #27293d;
+    background: #1a2130;
+    /* background: #27293d; */
 }
 
 .card2 {
