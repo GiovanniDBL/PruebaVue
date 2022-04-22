@@ -4,7 +4,7 @@ export const planetChartData2 = {
         labels: ["9-1", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         datasets: [{
                 label: "Horas",
-                data: [100, 100, 70, 100, 100, 100, 100, 70, 100, 100, 70, 100],
+                data: [100, 300, 100, 300, 100, 300, 100, 300, 100, 300, 100, 300, 100, 300, ],
                 backgroundColor: '#2e3054',
                 borderColor: '#1d8cf8',
                 // backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -16,6 +16,7 @@ export const planetChartData2 = {
                 pointHoverBorderColor: 'rgba(220,220,220,1)',
                 pointHoverBorderWidth: 2,
                 pointHitRadius: 10,
+                pointRadius: 0,
             },
 
         ]
@@ -31,6 +32,12 @@ export const planetChartData2 = {
         //     fontColor: "#ffffff",
         //     position: 'left',
         // },
+        elements: {
+            line: {
+                tension: 0
+
+            }
+        },
         legend: {
             labels: {
                 fontColor: "#ffffffbd",

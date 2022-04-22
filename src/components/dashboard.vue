@@ -3,6 +3,7 @@
     <sidebar></sidebar>
     <section class="home animated fadeIn">
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
+ <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
 
         <div class="card ">
             <div class="card-header">
@@ -42,6 +43,20 @@
             </div>
 
         </div>
+ <div class="card ">
+  <vue-gauge :refid="'type-unique-id'" :options="{'chartWidth':'350','needleValue':ada,'arcDelimiters':[40,60],
+  'centralLabel':ada+'%','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
+  'rangeLabel':['0%','100%'],'needleStartValue':'0','fill':'#fff'}"></vue-gauge>
+  <vue-gauge :refid="'type-unique-id'" :options="{'chartWidth':'350','needleValue':adaa,'arcDelimiters':[40,60],
+  'centralLabel':adaa+'%','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
+  'rangeLabel':['0%','100%'],'needleStartValue':'0','fill':'#fff'}"></vue-gauge>
+  <vue-gauge :refid="'type-unique-id'" :options="{'chartWidth':'350','needleValue':adaaa,'arcDelimiters':[40,60],
+  'centralLabel':adaaa+'%','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
+  'rangeLabel':['0%','100%'],'needleStartValue':'0','fill':'#fff'}"></vue-gauge>
+ </div>
+
+
+  
 
     </section>
 </div>
@@ -49,6 +64,7 @@
 
 <script>
 import sidebar from './Sidebar';
+import VueGauge from 'vue-gauge';
 import {
     Chart
 } from 'chart.js';
@@ -61,9 +77,22 @@ let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
     name: "dashboardComponent",
     components: {
-        sidebar
+        sidebar,
+        VueGauge
     },
-    mounted() {
+
+    data() {
+        return {
+            ChartAlarmas: ChartAlarmas,
+            ChartHoras: ChartHoras,
+            planetChartData2: planetChartData2,
+            ada:Math.floor(Math.random()*100),
+            adaa:Math.floor(Math.random()*100),
+            adaaa:Math.floor(Math.random()*100),
+            // aleatorrio: Math.floor(Math.random()*100)
+        }
+    },
+        mounted() {
         const ctx = document.getElementById('linechart-alarmas');
         new Chart(ctx, this.ChartAlarmas);
 
@@ -73,13 +102,11 @@ export default {
         const ctxxx = document.getElementById('linechart-pendiente');
         new Chart(ctxxx, this.planetChartData2);
 
-    },
-    data() {
-        return {
-            ChartAlarmas: ChartAlarmas,
-            ChartHoras: ChartHoras,
-            planetChartData2: planetChartData2
-        }
+        setTimeout(() => {
+            this.ada();
+  console.log("Delayed for 1 second.");
+}, "1000")
+
     },
     methods: {
         clickprueba() {
@@ -110,6 +137,7 @@ export default {
 </script>
 
 <style scoped>
+
 .home {
     position: relative;
     /* height: 100vh; */

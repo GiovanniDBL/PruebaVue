@@ -17,7 +17,7 @@ export const ChartAlarmas = {
                 pointHitRadius: 10,
                 // pointBorderWidth: 1,
                 // pointHoverRadius: 5,
-                // pointRadius: 2,
+                pointRadius: 2,
             },
             {
                 label: "Alertas",
