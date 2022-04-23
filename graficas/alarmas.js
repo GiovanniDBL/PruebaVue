@@ -36,6 +36,21 @@ export const ChartAlarmas = {
                 // pointHoverRadius: 5,
                 // pointRadius: 2,
             },
+            // {
+            //     label: "prueb",
+            //     data: [100, 300, 100, 300, 100, 300, 100, 300, 100, 300, 100, 300],
+            //     backgroundColor: '#2e3054',
+            //     borderColor: '#1d8cf8',
+            //     borderWidth: 2,
+
+            //     pointBorderColor: '#1d8cf8',
+            //     pointBackgroundColor: '#1d8cf8',
+            //     pointHoverBackgroundColor: '#1d8cf8',
+            //     pointHoverBorderColor: 'rgba(220,220,220,1)',
+            //     pointHoverBorderWidth: 2,
+            //     pointHitRadius: 10,
+
+            // },
         ]
 
     },
