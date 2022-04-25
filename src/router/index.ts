@@ -13,11 +13,17 @@ import detalles from '@/components/detalles.vue';
 import devices from '@/components/devices.vue';
 import sidebarr from '@/components/sidebarr.vue';
 import cuentaDetalles from '@/components/detallesCuenta.vue';
+import login from '@/components/login.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    name: 'loginComponent',
+    component: login
+  },
+  {
+    path: '/dashboard',
     name: 'dashboardComponent',
     component: dashboard
   },

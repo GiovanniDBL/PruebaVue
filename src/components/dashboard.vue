@@ -10,7 +10,7 @@
                 <div class="col-4">
                     <div class="card">
                         <div class="card-header">
-                            Temperatura
+                            Temperatura {{asdf}}
                         </div>
 
                         <vue-gauge :refid="'area1'" :options="{'chartWidth':'390','needleValue':ada,'arcDelimiters':[49,79],
@@ -59,34 +59,21 @@
                     <div class="card" style="">
                         <div class="card-header">
                             Alarmas de la semana
+                          <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
+                          <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i>
 
                         </div>
                         <div class="card-body ">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Enero:
-                                    <span class="">{{ultimoarrayn}}</span>
+                                    Últimas Alarmas:
+                                    <span class="badge bg-primary">{{UltimasAlarmas}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Enero:
-                                    <span class="">asdasd</span>
+                                    Últimas Alertas:
+                                    <span class="badge bg-primary">{{UltimasAlertas}}</span>
                                 </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Enero:
-                                    <span class="">asdasd</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Enero:
-                                    <span class="">asdasd</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Enero:
-                                    <span class="">asdasd</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Enero:
-                                    <span class="">asdasd</span>
-                                </li>
+
                             </ul>
                         </div>
 
@@ -166,6 +153,7 @@ import ChartAlarmas from '../../graficas/alarmas.js'
 import ChartHoras from '../../graficas/horas.js'
 import planetChartData2 from '../../graficas/linechart2.js'
 import axios from 'axios'
+import jsPDF from 'jspdf'
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
@@ -183,87 +171,90 @@ export default {
             ada: Math.floor(Math.random() * 100),
             adaa: Math.floor(Math.random() * 100),
             adaaa: Math.floor(Math.random() * 100),
+            asdf: '',
             items: [{
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
             ],
             items2: [{
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
                 {
                     a: Math.floor(Math.random() * 300)
                 },
                 {
-                    a: Math.floor(Math.random() * 300)
+                    a: Math.floor(Math.random() * 100)
                 },
             ],
-            AlarmasDevice:[],
-            AlertasDevice:[],
-            ultimoarrayn:'',
-            // aleatorrio: Math.floor(Math.random()*100)
+            AlarmasDevice: [],
+            AlertasDevice: [],
+            UltimasAlarmas: [],
+            UltimasAlertas: [],
+
         }
     },
     mounted() {
+
         // const ctx = document.getElementById('linechart-alarmas');
         // new Chart(ctx, this.ChartAlarmas);
 
@@ -275,8 +266,17 @@ export default {
         this.GraficaAlarmas();
         this.GraficaHora();
         this.GraficaHora2();
+
     },
     methods: {
+        dowloadPdf() {
+
+            var pdf = new jsPDF();
+            pdf.text(35, 25, 'Alarmas de la semanas');
+            pdf.text(35, 30, 'Últimas alarmas:' + this.UltimasAlarmas );
+            pdf.text(35, 35, 'Últimas alertas:' + this.UltimasAlertas );
+            pdf.save('Info.pdf');
+        },
         clickprueba() {
             this.$toast.open({
                 message: 'Correo enviado correctamente',
@@ -302,10 +302,13 @@ export default {
 
         // ************ GRAFICAS ************************
         GraficaAlarmas() {
-            this.AlarmasDevice= this.items.map( resp => (resp.a));
-            this.AlarmasAlertas= this.items2.map( resp => (resp.a));
-            this.ultimoarrayn = this.items.map.map( resp => (resp.a));
-          
+            this.AlarmasDevice = this.items.map(resp => (resp.a));
+            let ultimasAlarmas = this.items.map(resp => (resp.a));
+            this.UltimasAlarmas = ultimasAlarmas.pop();
+            this.AlarmasAlertas = this.items2.map(resp => (resp.a));
+            let ultimasAlertas = this.items2.map(resp => (resp.a));
+            this.UltimasAlertas = ultimasAlertas.pop();
+
             var ctx = document.getElementById('myChartAlarmas').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
@@ -385,7 +388,7 @@ export default {
                     labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
                     datasets: [{
                         label: 'Horas',
-                        data:this.AlarmasDevice,
+                        data: this.AlarmasDevice,
                         backgroundColor: '#293341',
                         borderColor: '#42b883',
                         borderWidth: 2,
@@ -534,7 +537,7 @@ export default {
 }
 
 .gauges .card {
-    height: 18rem
+    height: 16.5rem
 }
 
 .gauges h3 {
@@ -560,6 +563,24 @@ export default {
 .card-header {
     color: #ffffffbd;
     text-transform: uppercase;
+}
+
+.list-group-item {
+
+    color: #ffffff;
+    background-color: #1a2130;
+    border-bottom: 1px solid #ffffff14;
+}
+
+.btn-pdf {
+  font-size: 1.5rem;
+    float: right;
+  color: #3dcc5b;
+
+}
+.btn-pdf:hover {
+color: #00ff35;
+
 }
 
 @media only screen and (min-width: 1800px) {

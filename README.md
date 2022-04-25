@@ -17,3 +17,9 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Libreria para generar PDF 
+```
+npm i jspdf --save
+https://www.npmjs.com/package/jspdf
+```

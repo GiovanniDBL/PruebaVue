@@ -5,11 +5,11 @@
      <header>
          <div class="image-text">
              <span class="image">
-                 <img src="../assets/logo.webp" alt="logo">
+                 <img src="../assets/avatar.webp" alt="logo">
                  <!-- <img src="../assets/logo.webp" alt="logo"> -->
              </span>
              <div class="text header-text">
-                 <span class="name">ATMSense</span>
+                 <span class="name">{{usuario}}</span>
                  <span class="profession">Web developer</span>
              </div>
          </div>
@@ -20,7 +20,7 @@
          <div class="menu">     
              <ul class="menu-links">
                  <li class="">
-                      <router-link class="nav-link" to="/">
+                      <router-link class="nav-link" to="/dashboard">
                        <i class="fas fa-analytics icon"></i>
                         <span class="text nav-text">Dashboard</span>
                      </router-link>
@@ -61,7 +61,7 @@
 
          <div class="bottom-content" style="margin-bottom: 2rem;">
                   <li class="">
-                     <a href="#">
+                     <a @click="logout();" type="button">
                          <i class="fas fa-sign-out icon"></i>
                          <span class="text nav-text">Cerrar Sesión</span>
                      </a>
@@ -78,10 +78,15 @@
 <script>
 
 import navbar from './navbar';
-
+import Swal from 'sweetalert2';
 export default {
   components: { navbar },
     name: 'SidebarComponent',
+    data(){
+        return{
+            usuario: localStorage.getItem('usuario')
+        }
+    },
 
     mounted(){
 const body = document.querySelector("body"),
@@ -90,6 +95,66 @@ toggle = body.querySelector(".toggle");
 toggle.addEventListener("click", () =>{
     sidebar.classList.toggle("close");
 });
+    },
+    methods:{
+        logout(){
+    //           Swal.fire({
+    //                 icon: 'warning',
+    //                 title: '¿Desea cerrar la sesión?',
+    //                 allowOutsideClick: false,
+    //                 confirmButtonText: 'Confirmar',
+    //         showCancelButton: true,
+    //         cancelButtonText:'Cancelar',
+
+                   
+    //             }).then((result)=>{
+    //               if (result.isConfirmed) {
+    //                    swalWithBootstrapButtons.fire(
+    //   'Deleted!',
+    //   'Your file has been deleted.',
+    //   'success'
+    // )
+    //                    localStorage.removeItem('usuario')
+    //         this.$router.push('/');
+    //               }
+    //             });
+
+    const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  title: '¿Estás seguro?',
+  icon: 'warning',
+  text: 'Al cerrar la sesión tendrás que volver a ingresar con tu usuario y contraseña',
+  showCancelButton: true,
+  cancelButtonText: 'Cancelar',
+  confirmButtonText: 'Confirmar',
+  reverseButtons: false
+}).then((result) => {
+  if (result.isConfirmed) {
+    swalWithBootstrapButtons.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+  } else if (
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+  }
+})
+           
+        }
     }
 
 }
@@ -184,6 +249,7 @@ header .image-text .header-text{
 }
 .header-text .name{
     font-weight: 600;
+    text-transform: uppercase;
 }
 .header-text .profession{
    margin-top: -2px;
