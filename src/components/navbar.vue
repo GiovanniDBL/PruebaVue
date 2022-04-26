@@ -1,9 +1,9 @@
 <template>
-<div>
+<div class="">
     <!-- sticky-top -->
     <nav class="navbar  navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" >ATMSense <span class="span-brand">Software</span></a>
+            <a class="navbar-brand">ATMSense <span class="span-brand">Software</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -12,21 +12,22 @@
                     <!-- <li class="nav-item">
           <button @click="popup()" type="button" class="btn btn-outline-info ">Central de monitoreo</button>
         </li> -->
+                    <!-- <li class="nav-item" v-if="rol !== 'admin'"> -->
                     <li class="nav-item">
                         <a class="nav-link monitoreo-link active" @click="popup()" aria-current="page" href="#">
                             <i class="fas fa-play"></i> Iniciar monitoreo en tiempo real</a>
                     </li>
                     <li class="nav-item dropdown dropstart">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           <img class="card-img-top img-fluid" src="../assets/avatar.webp" alt="imagen">
+                            <img class="card-img-top img-fluid" src="../assets/avatar.webp" alt="imagen">
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Perfil</a></li>
                             <li><a class="dropdown-item" href="#">Configuración</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" type="button" @click="logout();">Cerrar sesión</a></li>
+                            <li><a class="dropdown-item" type="button" @click="logout();">Cerrar sesión <i class="fad fa-sign-in-alt"></i></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -41,13 +42,22 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 export default {
     name: 'navbarComponent',
 
     data() {
         return {
             // msg: 0,
+            rol:'',
         }
+    },
+    mounted(){
+         if (localStorage.getItem('rol')) {
+          this.rol = localStorage.getItem('rol');
+      } else {
+          this.$router.push("/");
+      }
     },
     methods: {
         popup() {
@@ -55,9 +65,25 @@ export default {
             // this.ms = 1;
             // this.$root.$emit("send", this.msg)
         },
-           logout(){
-            localStorage.removeItem('usuario')
-            this.$router.push('/');
+        logout() {
+            Swal.fire({
+                icon: 'warning',
+                title: '¿Estás seguro?',
+                text: 'Al cerrar la sesión tendrás que volver a ingresar con tu usuario y contraseña',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                confirmButtonColor: '#157347',
+                confirmButtonText: 'Confirmar',
+                cancelButtonColor: '#dc3545',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('usuario')
+                    localStorage.removeItem('rol')
+                    this.$router.push('/');
+                }
+            })
+
         }
     }
 
@@ -86,14 +112,14 @@ export default {
     color: #ffffff !important;
     text-transform: uppercase;
     font-weight: bold;
-margin-top: 2px;
+    margin-top: 2px;
     background-color: #af2b2b;
     border-radius: 22px;
     margin-right: 1rem;
     padding: 5px;
 
-
 }
+
 .nav-link {
 
     color: #ffffff !important;
@@ -110,6 +136,7 @@ margin-top: 2px;
 .span-brand {
     color: #1abb97;
 }
+
 img {
     width: 30px;
     height: 30px;
@@ -119,5 +146,10 @@ img {
     position: relative;
     border-radius: 50%;
     max-width: 100%;
+}
+
+.dropdown-menu {
+    /* background-color: rgba(0, 0, 0, .9) !important; */
+
 }
 </style>

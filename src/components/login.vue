@@ -1,4 +1,5 @@
 <template>
+<div class="body">
 <section class="animated fadeIn">
 <div class="card">
     <div class="card-header">
@@ -21,8 +22,12 @@
             </div>
         </form>
     </div>
+    <div class="card-footer text-center">
+        Proporcionado por ZigbMax <br> Versión Alpha
+    </div>
 </div>
 </section>
+</div>
 </template>
 
 <script>
@@ -31,27 +36,107 @@ export default {
     name: 'loginComponent',
     data() {
         return {
-            usuario: 'daniel',
+            usuarioAdmin: 'admin',
+            usuarioMonitor: 'monitorista',
             password: '1234',
             usuarioForm: '',
             passwordForm: '',
+            GlobalApi: this.globalVar,
 
         }
     },
 
-    mounted() {},
+    mounted() {
+        // this.prueba();
+    },
     methods: {
 
         login() {
-            // Swal.fire({
-            //     allowOutsideClick: false,
-            //     icon: 'info',
-            //     text: 'Espere por favor...',
-            // });
-            // Swal.showLoading();
-            if (this.usuarioForm == this.usuario && this.passwordForm == this.password) {
+             this.$router.push('/dashboard');
+//             Swal.fire({
+//                 allowOutsideClick: false,
+//                 icon: 'info',
+//                 text: 'Espere por favor...',
+//             });
+//             Swal.showLoading();
+//             if (this.usuarioForm == this.usuarioAdmin && this.passwordForm == this.password) {
+//  Swal.close();
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'ACCESO CORRECTO',
+//                     text: '¡Bienvenido ' + this.usuarioForm + '!',
+//                     allowOutsideClick: false,
+//                     showConfirmButton: false,
+//                      timer: 1800,
+//                      showClass: {
+//                             popup: 'animate__animated animate__fadeInDown'
+//                         },
+//                         hideClass: {
+//                             popup: 'animate__animated animate__fadeOutUp'
+//                         }
+                        
+//                 }).then(()=>{
+//                     localStorage.setItem('usuario', this.usuarioForm)
+//                     localStorage.setItem('rol', this.usuarioForm)
+//                     this.$router.push('/dashboard');
+                    
+//                 });
+                
+//             } else if (this.usuarioForm == this.usuarioMonitor && this.passwordForm == this.password) {
+//                 Swal.close();
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'ACCESO CORRECTO',
+//                     text: '¡Bienvenido ' + this.usuarioForm + '!',
+//                     allowOutsideClick: false,
+//                     showConfirmButton: false,
+//                      timer: 1800,
+//                      showClass: {
+//                             popup: 'animate__animated animate__fadeInDown'
+//                         },
+//                         hideClass: {
+//                             popup: 'animate__animated animate__fadeOutUp'
+//                         }
+                        
+//                 }).then(()=>{
+//                     localStorage.setItem('rol', this.usuarioForm)
+//                     localStorage.setItem('usuario', this.usuarioForm)
+//                     this.$router.push('/dashboard');
+//                 });
+            
+//             }else{
+//                      Swal.fire({
+//                     icon: 'error',
+//                     title: 'ACCESO INCORRECTO',
+//                     text: 'Asegurese de que el usuario y contraseña estén escritos correctamente.',
+//                     confirmButtonText: 'Entendido',
+//                     confirmButtonColor: '#157347',
+                 
+//                 });
+//             }
+        },
+        loginn(){
+        // this.$router.push('/cuentas');
+                 var data = {
+                "user": this.usuarioForm,
+                "pass": this.passwordForm,
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'LoginAuth',
+            );
 
-                Swal.fire({
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request Login", resp);
+                var json = resp;
+        if (json.data.code == 200) {
+                
+                     Swal.fire({
                     icon: 'success',
                     title: 'ACCESO CORRECTO',
                     text: '¡Bienvenido ' + this.usuarioForm + '!',
@@ -64,25 +149,73 @@ export default {
                         hideClass: {
                             popup: 'animate__animated animate__fadeOutUp'
                         }
+                        
                 }).then(()=>{
-                    localStorage.setItem('usuario', this.usuarioForm)
+                    // localStorage.setItem('usuario', this.usuarioForm);
+                    // localStorage.setItem('id_usuario', json.data.idUsuarios);
+                    // localStorage.setItem('id_tipousuario', json.data.TipoUsuario_idTipoUsuario);
+                    // localStorage.setItem('token', json.data.token);
                     this.$router.push('/dashboard');
+                    
                 });
-            } else {
-                 Swal.fire({
+
+                } else {
+                   Swal.fire({
                     icon: 'error',
                     title: 'ACCESO INCORRECTO',
                     text: 'Asegurese de que el usuario y contraseña estén escritos correctamente.',
                     confirmButtonText: 'Entendido',
+                    confirmButtonColor: '#157347',
                  
                 });
+                }
+            }
+        },
+        prueba(){
+
+  
+    //   }
+             var data = {
+                "typeFunction": "getStatusDevice",
+                "idDevice": 6,
+                "timeEnd": "12 hours",
+                "idUserLoged": 1,
+                "typeUserLoged": 1,
+
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'managerDevices',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request vice", resp);
             }
         }
+
+
+
     }
 }
 </script>
 
 <style scoped>
+.body{
+     /* background-image: url('../assets/fondo-login.webp'); */
+    background:  linear-gradient(to right, #10141df2, #10141df2), url('../assets/fondo-login.webp') !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    position: relative !important;
+    height: 100vh !important;
+    width: 100%;
+}
+
 .card {
     /* background: #fff; */
     position: absolute;
@@ -106,9 +239,19 @@ export default {
     background:#0a6e0b;
     border-bottom: 0;
 }
+.card-footer{
+    color: #6c757d;
+    font-size: 15px;
+}
 
 form {
     /* text-align: center; */
     /* color: #000; */
 }
+/* section{
+    background-image: url('../assets/logo.jpg');
+    background-position: center center;
+    background-size: cover;
+    background: #0a6e0b !important;
+} */
 </style>

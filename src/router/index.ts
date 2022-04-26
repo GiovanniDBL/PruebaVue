@@ -13,6 +13,7 @@ import detalles from '@/components/detalles.vue';
 import devices from '@/components/devices.vue';
 import sidebarr from '@/components/sidebarr.vue';
 import cuentaDetalles from '@/components/detallesCuenta.vue';
+import DispositivoDetalles from '@/components/detallesDisp.vue';
 import login from '@/components/login.vue';
 
 
@@ -76,6 +77,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/devices',
     name: 'Devices',
     component: devices
+  },
+
+  {
+    path: '/detalles-devices/:id',
+    name: 'detallesDispComponent',
+    component: DispositivoDetalles
   },
   {
     path: '/sidebarr',

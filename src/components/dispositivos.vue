@@ -86,7 +86,8 @@
                                             <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
                                             <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
                                             <td>{{item.nameCuenta}}</td>
-                                            <td><i class="fas fa-file-alt"></i></td>
+
+                                            <td><i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i></td>
 
                                         </tr>
                                     </tbody>
@@ -136,7 +137,7 @@
                                             <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
                                             <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
                                             <td>{{item.nameCuenta}}</td>
-                                            <td><i class="fas fa-file-alt"></i></td>
+                                            <td><i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i></td>
 
                                         </tr>
                                     </tbody>
@@ -199,6 +200,10 @@ export default {
         console.log('variable globar', this.myvar);
     },
     methods: {
+        detalles(id) {
+            console.log(id);
+            this.$router.push('/detalles-devices/' + id)
+        },
         getAllDevices() {
 
             //var idUbicacion =this.$route.params.idSubAccount;
@@ -313,7 +318,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
-/* margin-top: 2rem; */
+    /* margin-top: 2rem; */
 }
 
 .home .text {
@@ -396,7 +401,7 @@ tr {
 
     /* color: #1abb97;
     background-color: rgba(26, 187, 151, .08); */
-    background-color:#198754;
+    background-color: #198754;
     border: #198754;
 
 }
@@ -419,6 +424,7 @@ tr {
     margin: 0 auto;
     width: 50%;
 }
+
 .t-head-table {
     font-size: 13px;
     text-transform: uppercase;
@@ -430,6 +436,7 @@ tr {
     font-size: 15px;
     /* color: #ffffffbd; */
 }
+
 @media only screen and (min-width: 1800px) {
     .scrollable {
         height: 550px;
