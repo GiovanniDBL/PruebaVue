@@ -33,9 +33,9 @@
                 <div class="card-body">
                     <div class="tab-content" id="pills-tabContent">
                         <div class="scrollable">
-                            <div v-if="filterDataAccounts == 0 " class="alert animated fadeIn fast" role="alert">
+                            <!-- <div v-if="filterDataAccounts == 0 " class="alert animated fadeIn fast" role="alert">
                                 No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
-                            </div>
+                            </div> -->
                             <!-- <table cellspacing="1" cellpadding="1" class="table table-success  table-bordered   table-hover  table-striped table-borderless table-tamaño" > -->
                             <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                 <thead class="">
@@ -51,7 +51,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="t-body-table" v-for="item in filterDataAccounts" :key="item.idsCuent">
+                                    <tr class="t-body-table" v-for="item in itemsAccounts" :key="item.idsCuent">
                                         <th scope="row">{{item.idsCuent}}</tH>
                                         <td>{{item.sCuentName}}</td>
                                         <td>{{item.nombreContacto}} <span v-if="item.nombreContacto == null">Jose Perez</span> </td>
@@ -90,6 +90,7 @@ export default {
             itemsAccounts: [],
             search: '',
             GlobalApi: this.globalVar,
+            id_usuario:localStorage.getItem('id_usuario')
 
         }
     },
@@ -97,7 +98,7 @@ export default {
         filterDataAccounts() {
             return this.itemsAccounts.filter(blog => {
 
-                return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
+                // return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
                 // return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) ||
                 //     blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentStatus.toString().toLowerCase().includes(this.search.toLowerCase())
             });
@@ -114,7 +115,8 @@ export default {
             var data = {
                 "typeFunction": "GetAllSubAcc",
                 "cPrincipal": 1,
-                "idUser": 1,
+                "idUser": this.id_usuario,
+                // "idUser": 1,
                 "page": 1,
                 "perPage": 10,
             };
@@ -129,7 +131,7 @@ export default {
 
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
-                console.log("xml request all devices", resp);
+                console.log("xml request all acounts", resp);
                 var json = resp;
 
                 for (var index in json) {
@@ -193,7 +195,8 @@ export default {
 }
 
 .card {
-    background: #27293d;
+    background: #1a2130;
+    /* background: #27293d; */
 }
 
 .card-header {

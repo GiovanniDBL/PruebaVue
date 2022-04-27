@@ -97,28 +97,30 @@ export default {
             sidebar.classList.toggle("close");
         });
     },
-    // methods: {
-    //     logout() {
-    //         Swal.fire({
-    //             icon: 'warning',
-    //             title: '¿Estás seguro?',
-    //             text: 'Al cerrar la sesión tendrás que volver a ingresar con tu usuario y contraseña',
-    //             allowOutsideClick: false,
-    //             showCancelButton: true,
-    //             confirmButtonColor: '#157347',
-    //             confirmButtonText: 'Confirmar',
-    //             cancelButtonColor: '#dc3545',
-    //             cancelButtonText: 'Cancelar',
-    //         }).then((result) => {
-    //             if (result.isConfirmed) {
-    //                 localStorage.removeItem('usuario')
-    //                 localStorage.removeItem('rol')
-    //                 this.$router.push('/');
-    //             } 
-    //         })
+    methods: {
+        logout() {
+            Swal.fire({
+                icon: 'warning',
+                title: '¿Estás seguro?',
+                text: 'Al cerrar la sesión tendrás que volver a ingresar con tu usuario y contraseña',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                confirmButtonColor: '#157347',
+                confirmButtonText: 'Confirmar',
+                cancelButtonColor: '#dc3545',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('usuario')
+                    localStorage.removeItem('id_usuario')
+                    localStorage.removeItem('id_tipousuario')
+                    localStorage.removeItem('token')
+                    this.$router.push('/');
+                } 
+            })
 
-    //     }
-    // }
+        }
+    }
 
 }
 </script>

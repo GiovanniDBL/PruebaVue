@@ -53,11 +53,11 @@ export default {
         }
     },
     mounted(){
-         if (localStorage.getItem('rol')) {
-          this.rol = localStorage.getItem('rol');
-      } else {
-          this.$router.push("/");
-      }
+    //      if (localStorage.getItem('rol')) {
+    //       this.rol = localStorage.getItem('rol');
+    //   } else {
+    //       this.$router.push("/");
+    //   }
     },
     methods: {
         popup() {
@@ -79,7 +79,9 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     localStorage.removeItem('usuario')
-                    localStorage.removeItem('rol')
+                    localStorage.removeItem('id_usuario')
+                    localStorage.removeItem('id_tipousuario')
+                    localStorage.removeItem('token')
                     this.$router.push('/');
                 }
             })

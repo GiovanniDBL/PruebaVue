@@ -12,10 +12,11 @@
                         <div class="card-header">
                             Temperatura {{asdf}}
                         </div>
-
-                        <vue-gauge :refid="'area1'" :options="{'chartWidth':'390','needleValue':ada,'arcDelimiters':[49,79],
+ <canvas id="gaugeTemp" style="position: relative; height:26vh; width:30vw;"></canvas>
+                        <!-- <vue-gauge :refid="'area1'" :options=options></vue-gauge> -->
+                        <!-- <vue-gauge :refid="'area1'" :options="{'chartWidth':'390','needleValue':ada,'arcDelimiters':[49,79],
   'centralLabel':ada+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0', 'arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge>
+  'rangeLabel':['0','100'],'needleStartValue':'0', 'arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge> -->
                     </div>
                 </div>
                 <div class="col-4">
@@ -23,9 +24,10 @@
                         <div class="card-header">
                             Vibración
                         </div>
-                        <vue-gauge :refid="'area2'" :options="{'chartWidth':'390','needleValue':adaa,'arcDelimiters':[49,79],
+                         <canvas id="gaugeVib" style="position: relative; height:26vh; width:30vw;"></canvas>
+                        <!-- <vue-gauge :refid="'area2'" :options="{'chartWidth':'390','needleValue':adaa,'arcDelimiters':[49,79],
   'centralLabel':adaa+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge>
+  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge> -->
                     </div>
                 </div>
                 <div class="col-4">
@@ -33,9 +35,10 @@
                         <div class="card-header">
                             Gas
                         </div>
-                        <vue-gauge :refid="'area3'" :options="{'chartWidth':'390','needleValue':adaaa,'arcDelimiters':[49,79],
+                         <canvas id="gaugeGas" style="position: relative; height:26vh; width:30vw;"></canvas>
+                        <!-- <vue-gauge :refid="'area3'" :options="{'chartWidth':'390','needleValue':adaaa,'arcDelimiters':[49,79],
   'centralLabel':adaaa+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge>
+  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge> -->
                     </div>
                 </div>
             </div>
@@ -43,53 +46,13 @@
 
         <div class=" top-bottom-graficas">
             <div class="row">
-                <div class="col-8">
+                <div class="col-6">
                     <div class="card ">
                         <div class="card-header">
-                            Grafica Alarmas de la semana
+                            Grafica de Temperatura
                             <div class="card-body text-end">
                                 <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
-                                <canvas id="myChartAlarmas" style="position: relative; height:20vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card" style="">
-                        <div class="card-header">
-                            Alarmas de la semana
-                          <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
-                          <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i>
-
-                        </div>
-                        <div class="card-body ">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Últimas Alarmas:
-                                    <span class="badge bg-primary">{{UltimasAlarmas}}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Últimas Alertas:
-                                    <span class="badge bg-primary">{{UltimasAlertas}}</span>
-                                </li>
-
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="top-bottom-graficas">
-            <div class="row">
-                <div class="col-6">
-                    <div class="card ">
-                        <div class="card-header">
-                            Grafica Alarmas de la semana
-                            <div class="card-body text-end">
-                                <canvas id="myChartHora" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="GraficaTemp" style="position: relative; height:20vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -98,9 +61,9 @@
                 <div class="col-6">
                     <div class="card ">
                         <div class="card-header">
-                            Grafica Alarmas de la semana
+                            Grafica de vibración
                             <div class="card-body text-end">
-                                <canvas id="myChartHora2" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="GraficaVib" style="position: relative; height:20vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -109,26 +72,25 @@
 
             </div>
         </div>
-        <!-- <div>
+        <div class=" top-bottom-graficas">
             <div class="row">
-                <div class="col">
-                    <div class="card card2">
+                <div class="col-6">
+                    <div class="card ">
                         <div class="card-header">
-                            Supervisión por hora
+                            Grafica de gas
                             <div class="card-body text-end">
-                                <canvas id="linechart-horas" style="position: relative; height:25vh; width:30vw;"></canvas>
-
+                                <canvas id="GraficaGas" style="position: relative; height:20vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card card2">
+                <div class="col-6">
+                    <div class="card ">
                         <div class="card-header">
-                            Supervisión por hora
+                            Grafica de voltaje
                             <div class="card-body text-end">
-                                <canvas id="linechart-pendiente" style="position: relative; height:25vh; width:30vw;"></canvas>
+                                <canvas id="GraficaVolt" style="position: relative; height:20vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -136,9 +98,11 @@
                 </div>
 
             </div>
+        </div>
+        <!-- <div style="margin-bottom:10rem" >
 
+ <canvas id="canvas" style="position: relative; height:20vh; width:30vw;"></canvas>
         </div> -->
-
     </section>
 </div>
 </template>
@@ -146,6 +110,9 @@
 <script>
 import sidebar from './Sidebar';
 import VueGauge from 'vue-gauge';
+import GaugeController from 'chartjs-gauge';
+import 'chartjs-plugin-labels';
+
 import {
     Chart
 } from 'chart.js';
@@ -154,13 +121,19 @@ import ChartHoras from '../../graficas/horas.js'
 import planetChartData2 from '../../graficas/linechart2.js'
 import axios from 'axios'
 import jsPDF from 'jspdf'
+import moment from 'moment'
+import datalabels from 'chartjs-plugin-labels'
+import datalabelss from 'chartjs-plugin-datalabels'
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
     name: "detallesDispComponent",
     components: {
         sidebar,
-        VueGauge
+        VueGauge,
+        GaugeController,
+        datalabels,
+        datalabelss,
     },
 
     data() {
@@ -250,11 +223,37 @@ export default {
             AlertasDevice: [],
             UltimasAlarmas: [],
             UltimasAlertas: [],
-
+            timedevice: [],
+            tempdevice: [],
+            vibraciondevice: [],
+            gasdevice: [],
+            voltdevice: [],
+            ultimatemp: '',
+            ultimavib: '',
+            ultimagas: '',
+            options:{
+                
+                      chartWidth:400,
+                needleValue:  30,
+                arcColors: ['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
+                arcDelimiters: [49,79],
+                rangeLabel: ['0','100'],
+                centralLabel: "30°C",
+                needleColor:'#1abb97',
+                needleStartValue: 0,
+                arcLabels:['49','79'],
+                arcPaddingColor: '#1a2130',
+                arcPadding: 7
+            },
+            idDevice: '',
+            idUserLoged: localStorage.getItem('id_usuario'),
+            typeUserLoged: localStorage.getItem('id_tipousuario'),
+            GlobalApi: this.globalVar,
+            
         }
     },
     mounted() {
-
+        this.idDevice = this.$route.params.id;
         // const ctx = document.getElementById('linechart-alarmas');
         // new Chart(ctx, this.ChartAlarmas);
 
@@ -263,9 +262,8 @@ export default {
 
         // const ctxxx = document.getElementById('linechart-pendiente');
         // new Chart(ctxxx, this.planetChartData2);
-        this.GraficaAlarmas();
-        this.GraficaHora();
-        this.GraficaHora2();
+
+        this.GetinfoDevice();
 
     },
     methods: {
@@ -273,8 +271,8 @@ export default {
 
             var pdf = new jsPDF();
             pdf.text(35, 25, 'Alarmas de la semanas');
-            pdf.text(35, 30, 'Últimas alarmas:' + this.UltimasAlarmas );
-            pdf.text(35, 35, 'Últimas alertas:' + this.UltimasAlertas );
+            pdf.text(35, 30, 'Últimas alarmas:' + this.UltimasAlarmas);
+            pdf.text(35, 35, 'Últimas alertas:' + this.UltimasAlertas);
             pdf.save('Info.pdf');
         },
         clickprueba() {
@@ -299,50 +297,96 @@ export default {
             });
 
         },
+        GetinfoDevice() {
+
+            var data = {
+                "typeFunction": "getStatusDevice",
+                "idDevice": this.idDevice,
+                "timeEnd": "12 hours",
+                "idUserLoged": this.idUserLoged,
+                "typeUserLoged": this.typeUserLoged,
+
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'managerDevices',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+            console.log('Contenido Data', data);
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request DetallesDevice", resp);
+
+                if (resp.data !== undefined) {
+                    var Reverse = resp.data.reverse();
+                    //* HORA
+                    this.timedevice = Reverse.map(resp => moment.utc(resp.timeStatus).locale('es-mx').format('h:mm a'));
+                    console.log(this.timedevice);
+                    //* Temperatura
+                    this.tempdevice = resp.data.map(resp => (resp.tempAmb));
+                    console.log('temperatura', this.tempdevice);
+                    //* Vibración
+                    this.vibraciondevice = resp.data.map(resp => (resp.vibDevice));
+                    console.log('vibración', this.vibraciondevice);
+                    //* Gas
+                    this.gasdevice = resp.data.map(resp => (resp.gasDevice));
+                    console.log('gas', this.gasdevice);
+                    //* Voltaje
+                    this.voltdevice = resp.data.map(resp => (resp.voltDevice));
+                    console.log('voltaje', this.voltdevice);
+                    //* Ultima temperatura
+                    let ultimatempp = resp.data.map(resp => (resp.tempAmb));
+                    this.ultimatemp = ultimatempp.pop();
+                    console.log('ultima temp', this.ultimatemp);
+                    //* Ultima vibración
+                    let ultimavibb = resp.data.map(resp => (resp.vibDevice));
+                    this.ultimavib = ultimavibb.pop();
+                    console.log('ultima vib', this.ultimavib);
+                    //* Ultimo gas
+                    let ultimagass = resp.data.map(resp => (resp.gasDevice));
+                    this.ultimagas = ultimagass.pop();
+                    console.log('ultima gas', this.ultimagas);
+               
+           
+                }
+
+                this.GraficaTemp();
+                this.GraficaVib();
+                this.GraficaGas();
+                this.GraficaVolt();
+                this.gaugeTemp();
+                this.gaugeVib();
+                this.gaugeGas();
+            }
+        },
 
         // ************ GRAFICAS ************************
-        GraficaAlarmas() {
-            this.AlarmasDevice = this.items.map(resp => (resp.a));
-            let ultimasAlarmas = this.items.map(resp => (resp.a));
-            this.UltimasAlarmas = ultimasAlarmas.pop();
-            this.AlarmasAlertas = this.items2.map(resp => (resp.a));
-            let ultimasAlertas = this.items2.map(resp => (resp.a));
-            this.UltimasAlertas = ultimasAlertas.pop();
-
-            var ctx = document.getElementById('myChartAlarmas').getContext('2d');
+        GraficaTemp() {
+            var ctx = document.getElementById('GraficaTemp').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    labels: this.timedevice,
                     datasets: [{
-                            label: 'Alarmas',
-                            data: this.AlarmasDevice,
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255,99,132,1)',
-                            borderWidth: 2,
-                            pointBorderColor: 'rgba(255,99,132,1)',
-                            pointBackgroundColor: 'rgba(255,99,132,1)',
-                            pointHoverBackgroundColor: 'rgba(255,99,132,1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                            pointHoverBorderWidth: 2,
-                            pointHitRadius: 10,
-                            pointRadius: 2,
-                        },
-                        {
-                            label: 'Alertas',
-                            data: this.AlarmasAlertas,
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            borderColor: 'rgba(255, 206, 86, 1)',
-                            borderWidth: 2,
+                        label: 'Temperatura',
+                        data: this.tempdevice,
+                        backgroundColor: '#fd202033',
+                        borderColor: 'rgb(203 53 87)',
+                        borderWidth: 2,
+                        pointBorderColor: 'rgb(203 53 87)',
+                        pointBackgroundColor: '#FFF',
+                        pointHoverBackgroundColor: 'rgb(203 53 87)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointHitRadius: 10,
+                        pointRadius: 3,
+                        pointBorderWidth: 1,
+                        lineTension: 0.1,
 
-                            pointBorderColor: 'rgba(255, 206, 86, 1)',
-                            pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-                            pointHoverBackgroundColor: 'rgba(255, 206, 86, 1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                            pointHoverBorderWidth: 2,
-                            pointHitRadius: 10,
-                        }
-                    ]
+                    }, ]
                 },
                 options: {
                     legend: {
@@ -380,24 +424,29 @@ export default {
                 }
             });
         },
-        GraficaHora() {
-            var ctx = document.getElementById('myChartHora').getContext('2d');
+        GraficaVib() {
+
+            var ctx = document.getElementById('GraficaVib').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    labels: this.timedevice,
                     datasets: [{
-                        label: 'Horas',
-                        data: this.AlarmasDevice,
-                        backgroundColor: '#293341',
-                        borderColor: '#42b883',
+                        label: 'Vibración',
+                        data: this.vibraciondevice,
+                        backgroundColor: 'rgba(75,192,192,0.4)',
+                        borderColor: 'rgba(75,192,192,1)',
                         borderWidth: 2,
-                        pointBorderColor: '#42b883',
-                        pointBackgroundColor: '#42b883',
-                        pointHoverBackgroundColor: '#42b883',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#FFF',
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
                         pointHitRadius: 10,
+                        pointRadius: 3,
+                        pointBorderWidth: 1,
+                        lineTension: 0.1,
+
                     }]
                 },
                 options: {
@@ -436,25 +485,27 @@ export default {
                 }
             });
         },
-        GraficaHora2() {
-            var ctx = document.getElementById('myChartHora2').getContext('2d');
+        GraficaGas() {
+            var ctx = document.getElementById('GraficaGas').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    labels: this.timedevice,
                     datasets: [{
-                        label: 'Horas',
-                        data: this.AlarmasAlertas,
-                        backgroundColor: '#2e3054',
-                        borderColor: '#1d8cf8',
+                        label: 'Gas',
+                        data: this.gasdevice,
+                        backgroundColor: '#3a3c3c66',
+                        borderColor: 'rgb(86 86 86)',
                         borderWidth: 2,
-                        pointBorderColor: '#1d8cf8',
-                        pointBackgroundColor: '#1d8cf8',
-                        pointHoverBackgroundColor: '#1d8cf8',
+                        pointBorderColor: 'rgb(86 86 86)',
+                        pointBackgroundColor: '#FFF',
+                        pointHoverBackgroundColor: 'rgb(86 86 86)',
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
                         pointHitRadius: 10,
-                        pointRadius: 0,
+                        pointRadius: 3,
+                        pointBorderWidth: 1,
+                        lineTension: 0.1,
                     }]
                 },
                 options: {
@@ -499,6 +550,218 @@ export default {
                 }
             });
         },
+        GraficaVolt() {
+            var ctx = document.getElementById('GraficaVolt').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: this.timedevice,
+                    datasets: [{
+                        label: 'Voltaje',
+                        data: this.voltdevice,
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 2,
+                        pointBorderColor: 'rgba(255, 206, 86, 1)',
+                        pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                        pointHoverBackgroundColor: 'rgba(255, 206, 86, 1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointHitRadius: 10,
+                        pointRadius: 3,
+                        pointBorderWidth: 1,
+                        lineTension: 0.1,
+                    }]
+                },
+                options: {
+                    elements: {
+                        line: {
+                            tension: 0
+
+                        }
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: "#ffffffbd",
+                            fontSize: 15,
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: true,
+                                color: '#1a2130',
+                            },
+                            ticks: {
+                                padding: 25,
+                                fontColor: '#858689',
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            gridLines: {
+                                display: true,
+                                color: '#3a2d4c',
+                                drawBorder: true
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 5,
+                                fontColor: '#858689'
+
+                            },
+                        }]
+                    }
+                }
+            });
+        },
+        gaugeTemp(){
+            var ctx = document.getElementById("gaugeTemp").getContext("2d");
+
+var chart = new Chart(ctx, {
+  type: 'gauge',
+  data: {
+    datasets: [{
+      value: this.ultimatemp,
+      minValue: 0,
+      data: [49, 79,100],
+      backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+      borderColor: "#1a2130",
+      borderWidth: 7
+    }]
+  },
+  options: {
+
+responsive: true,
+ cutoutPercentage: 65,
+    needle: {
+      radiusPercentage: 2,
+      widthPercentage: 5,
+      lengthPercentage:20,
+      color: '#1abb97'
+    },
+    valueLabel: {
+      display: true,
+      formatter: (value) => {
+        return Math.round(value) + '°C';
+      },
+      fontSize: 37.5,
+      color: 'rgba(255, 255, 255, 1)',
+      backgroundColor: '#1a2130',
+      borderRadius: 50,
+      padding: {
+        top: 20,
+        bottom: 10,
+      },
+
+    },
+   
+
+    
+  }
+});
+        },
+        gaugeVib(){
+            var ctx = document.getElementById("gaugeVib").getContext("2d");
+
+var chart = new Chart(ctx, {
+  type: 'gauge',
+  data: {
+    datasets: [{
+      value: this.ultimavib,
+      minValue: 0,
+      data: [this.ultimavib, 100],
+      backgroundColor: ['#009ad9', 'gray','gray'],
+      borderColor: "#1a2130",
+      borderWidth: 0
+    }]
+  },
+  options: {
+responsive: true,
+ cutoutPercentage: 65,
+    needle: {
+      radiusPercentage: 2,
+      widthPercentage: 5,
+      lengthPercentage:20,
+      color: '#1abb97'
+    },
+    valueLabel: {
+      display: true,
+      formatter: (value) => {
+        return Math.round(value) + '°C';
+      },
+      fontSize: 37.5,
+      color: 'rgba(255, 255, 255, 1)',
+      backgroundColor: '#1a2130',
+      borderRadius: 50,
+      padding: {
+        top: 20,
+        bottom: 10,
+      },
+
+    },
+
+
+    
+  }
+});
+        },
+        gaugeGas(){
+            var ctx = document.getElementById("gaugeGas").getContext("2d");
+
+var chart = new Chart(ctx, {
+  type: 'gauge',
+  data: {
+    datasets: [{
+      value: this.ultimagas,
+      minValue: 0,
+      data: [49, 79,100],
+      backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+      borderColor: "#1a2130",
+      borderWidth: 7
+    }]
+  },
+  options: {
+responsive: true,
+ cutoutPercentage: 65,
+    needle: {
+      radiusPercentage: 2,
+      widthPercentage: 5,
+      lengthPercentage:20,
+      color: '#1abb97'
+    },
+    valueLabel: {
+      display: true,
+      formatter: (value) => {
+        return Math.round(value) + '°C';
+      },
+      fontSize: 37.5,
+      color: 'rgba(255, 255, 255, 1)',
+      backgroundColor: '#1a2130',
+      borderRadius: 50,
+      padding: {
+        top: 20,
+        bottom: 10,
+      },
+
+    },
+     plugins:{
+            labels: {
+              render: 'value',
+              fontSize: 20,
+              fontColor: '#ffffff',
+              fontStyle: 'bold',
+              shadowColor: 'rgba(255,0,0,0.75)',
+              arc: false,
+            
+            },
+       
+          },
+
+    
+  }
+});
+        }
 
     }
 
@@ -573,13 +836,14 @@ export default {
 }
 
 .btn-pdf {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
     float: right;
-  color: #3dcc5b;
+    color: #3dcc5b;
 
 }
+
 .btn-pdf:hover {
-color: #00ff35;
+    color: #00ff35;
 
 }
 

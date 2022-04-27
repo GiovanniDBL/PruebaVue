@@ -23,3 +23,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 npm i jspdf --save
 https://www.npmjs.com/package/jspdf
 ```
+### Libreria para generar grafica gauge
+```
+npm i chartjs-gauge utilizar este de preferencia
+https://www.npmjs.com/package/chartjs-gauge
+npm install vue-gauge
+https://www.npmjs.com/package/vue-gauge
+```
