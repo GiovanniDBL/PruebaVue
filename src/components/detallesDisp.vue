@@ -5,24 +5,54 @@
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
         <div class="card resumen-card">
-
+<div class="card-header">
+    <!-- <span style="float:right">Descargar documento PDF  <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i></span> -->
+<button  @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF  <i class="fas fa-download btn-pdf"></i></button>
+   
+</div>
             <div class="card-body">
                 <form class="row g-3">
                     <div class="col-md-3">
+                        <label for="validationDefault01" class="form-label">NameDevice</label>
+                        <input type="text" class="form-control" id="validationDefault01" value="414150" placeholder="414150" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">NameUbica</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Sucursal 1" placeholder="Sucursal 1" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">cuentasCreatedDate</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="pruebafecha" placeholder="2021-11-19T11:12:56.000Z" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">direccionUbiInt</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Cajero 5" placeholder="Cajero 5" disabled>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">nombCuidadUbic</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Cancún" placeholder="Cancún" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">ubicacionDir</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Plaza las américas" placeholder="Plaza las américas" disabled>
+                    </div>
+                    <div class="col-md-2">
                         <label for="validationDefault01" class="form-label">Temperatura</label>
                         <input type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="validationDefault02" class="form-label">Vibración</label>
                         <input type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <label for="validationDefault02" class="form-label">Gas</label>
                         <input type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-1">
                         <label for="validationDefault02" class="form-label">Voltaje</label>
-                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimavolt" disabled>
+                        <input type="text" class="form-control" id="validationDefault02" value="0" disabled>
+                        <!-- <input type="text" class="form-control" id="validationDefault02" v-model="ultimavolt" disabled> -->
                     </div>
 
                 </form>
@@ -157,84 +187,7 @@ export default {
             ChartAlarmas: ChartAlarmas,
             ChartHoras: ChartHoras,
             planetChartData2: planetChartData2,
-            ada: Math.floor(Math.random() * 100),
-            adaa: Math.floor(Math.random() * 100),
-            adaaa: Math.floor(Math.random() * 100),
-            asdf: '',
-            items: [{
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-            ],
-            items2: [{
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 300)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-            ],
+            // ada: Math.floor(Math.random() * 100),
             AlarmasDevice: [],
             AlertasDevice: [],
             UltimasAlarmas: [],
@@ -265,6 +218,7 @@ export default {
             idDevice: '',
             idUserLoged: localStorage.getItem('id_usuario'),
             typeUserLoged: localStorage.getItem('id_tipousuario'),
+            pruebafecha: moment.utc('2021-11-19T11:12:56.000Z').locale('es-mx').format('DD/MM/YYYY HH:mm:ss'),
             GlobalApi: this.globalVar,
 
         }
@@ -285,34 +239,39 @@ export default {
     },
     methods: {
         dowloadPdf() {
-
             var pdf = new jsPDF();
-            pdf.text(35, 25, 'Alarmas de la semanas');
-            pdf.text(35, 30, 'Últimas alarmas:' + this.UltimasAlarmas);
-            pdf.text(35, 35, 'Últimas alertas:' + this.UltimasAlertas);
+            pdf.setFont("Arial");
+
+            pdf.setFontSize(22);
+            pdf.setTextColor('#70AD47')
+            pdf.text(20, 20, 'Alarmas de la semanas');
+
+            pdf.setFontSize(18);
+            pdf.setTextColor('#44546A')
+            // pdf.text(35, 30, 'Últimas alarmas:' + this.UltimasAlarmas);
+            pdf.text(20, 30, 'Dispositivo:');
+            pdf.text(20, 40, 'Ubicación:');
+            pdf.text(20, 50, 'Fecha de creación:');
+            pdf.text(20, 60, 'Cajero:');
+            pdf.text(20, 70, 'Ciudad:');
+            pdf.text(20, 80, 'Dirección:');
+            pdf.text(20, 90, 'Temperatura:');
+            pdf.text(20, 100, 'Vibración:');
+            pdf.text(20, 110, 'Gas:');
+            pdf.text(20, 120, 'Voltaje:');
+            
+            pdf.setTextColor('#4472C4')
+            pdf.text(53, 30, '414150');
+            pdf.text(51, 40, 'Sucursal 1');
+            pdf.text(65, 50, '19/11/2021 11:12:56');
+            pdf.text(40, 60, 'Cajero 5');
+            pdf.text(41, 70, 'Cancún');
+            pdf.text(49, 80, 'Plaza las américas');
+            pdf.text(56, 90, '29');
+            pdf.text(50, 100, '57');
+            pdf.text(30, 110, '0');
+            pdf.text(42, 120, '0');
             pdf.save('Info.pdf');
-        },
-        clickprueba() {
-            this.$toast.open({
-                message: 'Correo enviado correctamente',
-                type: "info",
-                duration: 10000,
-                dismissible: true,
-                position: "top-right",
-            });
-            let json = {
-                // "nombre": "Giovanni",
-                // "email": "donitho@hotmail.com"
-                "numero": "+5219988443544"
-            };
-            // axios.post(messageApi, json).then(data =>{
-            //   console.log(data);
-            // });
-
-            axios.post(messageWs, json).then(data => {
-                console.log(data);
-            });
-
         },
         GetinfoDevice() {
 
@@ -645,7 +604,8 @@ export default {
                     datasets: [{
                         value: this.ultimatemp,
                         minValue: 0,
-                        data: [49, 79, 100],
+                        data: [60, 120, 180],
+                        // data: [49, 79, 100],
                         backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
                         borderColor: "#1a2130",
                         borderWidth: 7
@@ -698,10 +658,11 @@ export default {
 
                         value: this.ultimavib,
                         minValue: 0,
-                        data: [this.ultimavib, 100],
-                        backgroundColor: ['#009ad9', '#8080802b', '#8080802b'],
+                        data: [499,799, 1023],
+                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+                        // backgroundColor: ['#009ad9', '#8080802b', '#8080802b'],
                         borderColor: "#1a2130",
-                        borderWidth: 0
+                        borderWidth: 7
                     }]
                 },
                 options: {
@@ -878,9 +839,9 @@ export default {
 }
 
 .btn-pdf {
-    font-size: 1.5rem;
-    float: right;
-    color: #3dcc5b;
+    font-size: 1rem;
+    /* float: right; */
+    /* color: #3dcc5b; */
 
 }
 
@@ -888,22 +849,26 @@ export default {
     color: #00ff35;
 
 }
-label{
-  /* color: #ffffff99; */
-  font-size: 1.5rem;
+
+label {
+    /* color: #ffffff99; */
+    /* font-size: 1rem; */
 }
+
 input {
     background-color: #7d80920d !important;
-    border: 1px solid #79c6ba !important;
-   color: #ffffff99;
-   font-size: 2rem;
+    /* border: 1px solid #79c6ba !important; */
+    border: 1px solid #799cc6a1 !important;
+    color: #ffffff99;
+    /* font-size: 1rem; */
 }
+
 input:disabled {
- 
+
     color: #fff
-  
 }
-.form-control{
+
+.form-control {
     text-align: center;
 }
 
@@ -915,9 +880,10 @@ input:disabled {
     .gauges .card {
         height: 20.5rem
     }
-    label{
 
-  font-size: 2rem;
-}
+    label {
+
+        font-size: 2rem;
+    }
 }
 </style>

@@ -4,43 +4,59 @@
     <section class="home animated fadeIn">
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
+        <!-- <div class="card resumen-card">
+<div class="card-header">
+<button  @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF  <i class="fas fa-download btn-pdf"></i></button>
 
-        <div class="gauges">
-            <div class="row">
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            Temperatura {{asdf}}
-                        </div>
+</div>
+            <div class="card-body">
+                <form class="row g-3">
+                    <div class="col-md-3">
+                        <label for="validationDefault01" class="form-label">NameDevice</label>
+                        <input type="text" class="form-control" id="validationDefault01" value="414150" placeholder="414150" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">NameUbica</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Sucursal 1" placeholder="Sucursal 1" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">cuentasCreatedDate</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="pruebafecha" placeholder="2021-11-19T11:12:56.000Z" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">direccionUbiInt</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Cajero 5" placeholder="Cajero 5" disabled>
+                    </div>
 
-                        <vue-gauge :refid="'area1'" :options="{'chartWidth':'390','needleValue':ada,'arcDelimiters':[49,79],
-  'centralLabel':ada+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0', 'arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">nombCuidadUbic</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Cancún" placeholder="Cancún" disabled>
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            Temperatura
-                        </div>
-                        <vue-gauge :refid="'area2'" :options="{'chartWidth':'390','needleValue':adaa,'arcDelimiters':[49,79],
-  'centralLabel':adaa+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">ubicacionDir</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="Plaza las américas" placeholder="Plaza las américas" disabled>
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            Temperatura
-                        </div>
-                        <vue-gauge :refid="'area3'" :options="{'chartWidth':'390','needleValue':adaaa,'arcDelimiters':[49,79],
-  'centralLabel':adaaa+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge>
+                    <div class="col-md-2">
+                        <label for="validationDefault01" class="form-label">Temperatura</label>
+                        <input type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
                     </div>
-                </div>
+                    <div class="col-md-2">
+                        <label for="validationDefault02" class="form-label">Vibración</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="validationDefault02" class="form-label">Gas</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <label for="validationDefault02" class="form-label">Voltaje</label>
+                        <input type="text" class="form-control" id="validationDefault02" value="0" disabled>
+                    </div>
+
+                </form>
             </div>
         </div>
-
+    -->
         <div class=" top-bottom-graficas">
             <div class="row">
                 <div class="col-8">
@@ -49,6 +65,7 @@
                             Grafica Alarmas de la semana
                             <div class="card-body text-end">
                                 <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
+                                <!-- <div style="background:rgba(255, 206, 86, 0.2);border:2px solid rgba(255, 206, 86, 1)" ><br> <br></div> -->
                                 <canvas id="myChartAlarmas" style="position: relative; height:20vh; width:30vw;"></canvas>
                             </div>
                         </div>
@@ -59,8 +76,8 @@
                     <div class="card" style="">
                         <div class="card-header">
                             Alarmas de la semana
-                          <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
-                          <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i>
+                            <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
+                            <i type="button" class="fas fa-file-pdf btn-pdf" @click="dowloadPdf"></i>
 
                         </div>
                         <div class="card-body ">
@@ -82,7 +99,235 @@
 
             </div>
         </div>
-        <div class="top-bottom-graficas">
+
+        <div class=" top-bottom-graficas">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card ">
+                        <div class="card-header card-header-tables">
+                            Cuentas con más actividad
+
+                        </div>
+                        <div class="card-body text-end">
+                            <div class="scrollable">
+                                <table class="table table-tamaño table-hover">
+                                    <thead>
+                                        <tr class="t-head-table">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="t-body-table">
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card" style="">
+                        <div class="card-header card-header-tables">
+                            Empleados con mayor productividad
+                            <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
+                            <!-- <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i> -->
+
+                        </div>
+                        <div class="card-body ">
+                            <div class="scrollable">
+                               <table class="table table-tamaño table-hover">
+                                    <thead>
+                                        <tr class="t-head-table">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="t-body-table">
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card" style="">
+                        <div class="card-header card-header-tables">
+                            Dispositivos fuera de línea
+                            <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
+                            <!-- <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i> -->
+
+                        </div>
+                        <div class="card-body ">
+                            <div class="scrollable">
+                               <table class="table table-tamaño table-hover">
+                                    <thead>
+                                        <tr class="t-head-table">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="t-body-table">
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- <div class="top-bottom-graficas">
             <div class="row">
                 <div class="col-6">
                     <div class="card ">
@@ -108,35 +353,6 @@
                 </div>
 
             </div>
-        </div>
-        <!-- <div>
-            <div class="row">
-                <div class="col">
-                    <div class="card card2">
-                        <div class="card-header">
-                            Supervisión por hora
-                            <div class="card-body text-end">
-                                <canvas id="linechart-horas" style="position: relative; height:25vh; width:30vw;"></canvas>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card card2">
-                        <div class="card-header">
-                            Supervisión por hora
-                            <div class="card-body text-end">
-                                <canvas id="linechart-pendiente" style="position: relative; height:25vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
         </div> -->
 
     </section>
@@ -264,8 +480,8 @@ export default {
         // const ctxxx = document.getElementById('linechart-pendiente');
         // new Chart(ctxxx, this.planetChartData2);
         this.GraficaAlarmas();
-        this.GraficaHora();
-        this.GraficaHora2();
+        // this.GraficaHora();
+        // this.GraficaHora2();
 
     },
     methods: {
@@ -273,8 +489,8 @@ export default {
 
             var pdf = new jsPDF();
             pdf.text(35, 25, 'Alarmas de la semanas');
-            pdf.text(35, 30, 'Últimas alarmas:' + this.UltimasAlarmas );
-            pdf.text(35, 35, 'Últimas alertas:' + this.UltimasAlertas );
+            pdf.text(35, 30, 'Últimas alarmas:' + this.UltimasAlarmas);
+            pdf.text(35, 35, 'Últimas alertas:' + this.UltimasAlertas);
             pdf.save('Info.pdf');
         },
         clickprueba() {
@@ -311,36 +527,44 @@ export default {
 
             var ctx = document.getElementById('myChartAlarmas').getContext('2d');
             var myChart = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
-                    labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    labels: ["8:49 am", "10:49 am", "11:49 am", "12:49 am", "4:49 pm", "6:49 pm", "7:49 pm"],
                     datasets: [{
                             label: 'Alarmas',
                             data: this.AlarmasDevice,
-                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255,99,132,1)',
-                            borderWidth: 2,
-                            pointBorderColor: 'rgba(255,99,132,1)',
-                            pointBackgroundColor: 'rgba(255,99,132,1)',
-                            pointHoverBackgroundColor: 'rgba(255,99,132,1)',
+                            backgroundColor: '#fd202033',
+                            borderColor: 'rgb(203 53 87)',
+                            borderWidth: 1,
+                            pointBorderColor: 'rgb(203 53 87)',
+                            pointBackgroundColor: 'rgb(203 53 87)',
+                            pointHoverBackgroundColor: 'rgb(203 53 87)',
                             pointHoverBorderColor: 'rgba(220,220,220,1)',
                             pointHoverBorderWidth: 2,
                             pointHitRadius: 10,
-                            pointRadius: 2,
+                            pointRadius: 3,
+                            pointBorderWidth: 1,
+                            lineTension: 0.1,
+
+                            
                         },
                         {
                             label: 'Alertas',
                             data: this.AlarmasAlertas,
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            borderColor: 'rgba(255, 206, 86, 1)',
-                            borderWidth: 2,
+                            // backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            backgroundColor: '#474420',
+                            borderColor: '#cbb035',
+                            borderWidth: 1,
 
-                            pointBorderColor: 'rgba(255, 206, 86, 1)',
-                            pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-                            pointHoverBackgroundColor: 'rgba(255, 206, 86, 1)',
+                            pointBorderColor: '#cbb035',
+                            pointBackgroundColor: '#cbb035',
+                            pointHoverBackgroundColor: '#cbb035',
                             pointHoverBorderColor: 'rgba(220,220,220,1)',
                             pointHoverBorderWidth: 2,
                             pointHitRadius: 10,
+                            pointRadius: 3,
+                            pointBorderWidth: 1,
+                            lineTension: 0.1
                         }
                     ]
                 },
@@ -513,8 +737,13 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
-    /* margin-top: 2rem; */
+    margin-top: 1rem;
 
+}
+
+.scrollable {
+    height: 300px;
+    overflow: scroll;
 }
 
 .home .text {
@@ -564,6 +793,11 @@ export default {
     color: #ffffffbd;
     text-transform: uppercase;
 }
+.card-header-tables {
+    color: #ffffffbd;
+    text-transform: uppercase;
+    font-size: 14px;
+}
 
 .list-group-item {
 
@@ -573,19 +807,83 @@ export default {
 }
 
 .btn-pdf {
-  font-size: 1.5rem;
+    font-size: 1rem;
+    /* font-size: 1.5rem;
     float: right;
-  color: #3dcc5b;
+  color: #3dcc5b; */
 
 }
-.btn-pdf:hover {
-color: #00ff35;
 
+.btn-pdf:hover {
+    color: #00ff35;
+
+}
+
+.resumen-card {
+    margin-bottom: 1rem;
+    color: #fff;
+    text-align: center;
+}
+
+input {
+    background-color: #7d80920d !important;
+    /* border: 1px solid #79c6ba !important; */
+    border: 1px solid #799cc6a1 !important;
+    color: #ffffff99;
+    /* font-size: 1rem; */
+}
+
+input:disabled {
+
+    color: #fff
+}
+
+.form-control {
+    text-align: center;
+}
+
+Table {
+    border-color: #ffffff1a;
+}
+
+tr {
+    color: #ffffffb3;
+}
+
+.table> :not(:first-child) {
+    border-top: 0px solid #ffffff1a;
+    /* padding: 12px 7px; */
+}
+
+.table-hover>tbody>tr:hover>* {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: #ffffff;
+}
+
+.t-head-table {
+    font-size: 13px;
+    text-transform: uppercase;
+    /* color: #ffffff99; */
+    color: #ffffffbd;
+}
+
+.t-body-table {
+    font-size: 15px;
+    /* color: #ffffffbd; */
 }
 
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;
+    }
+
+    .gauges .card {
+        height: 20.5rem
+    }
+
+    label {
+
+        font-size: 2rem;
     }
 }
 </style>
