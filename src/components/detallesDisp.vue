@@ -4,19 +4,39 @@
     <section class="home animated fadeIn">
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
+        <div class="card resumen-card">
 
+            <div class="card-body">
+                <form class="row g-3">
+                    <div class="col-md-3">
+                        <label for="validationDefault01" class="form-label">Temperatura</label>
+                        <input type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">Vibración</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">Gas</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault02" class="form-label">Voltaje</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimavolt" disabled>
+                    </div>
+
+                </form>
+            </div>
+        </div>
         <div class="gauges">
             <div class="row">
                 <div class="col-4">
                     <div class="card">
                         <div class="card-header">
-                            Temperatura {{asdf}}
+                            Temperatura
                         </div>
- <canvas id="gaugeTemp" style="position: relative; height:26vh; width:30vw;"></canvas>
-                        <!-- <vue-gauge :refid="'area1'" :options=options></vue-gauge> -->
-                        <!-- <vue-gauge :refid="'area1'" :options="{'chartWidth':'390','needleValue':ada,'arcDelimiters':[49,79],
-  'centralLabel':ada+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0', 'arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge> -->
+                        <canvas id="gaugeTemp" style="position: relative; height:26vh; width:30vw;"></canvas>
+
                     </div>
                 </div>
                 <div class="col-4">
@@ -24,10 +44,8 @@
                         <div class="card-header">
                             Vibración
                         </div>
-                         <canvas id="gaugeVib" style="position: relative; height:26vh; width:30vw;"></canvas>
-                        <!-- <vue-gauge :refid="'area2'" :options="{'chartWidth':'390','needleValue':adaa,'arcDelimiters':[49,79],
-  'centralLabel':adaa+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge> -->
+                        <canvas id="gaugeVib" style="position: relative; height:26vh; width:30vw;"></canvas>
+
                     </div>
                 </div>
                 <div class="col-4">
@@ -35,10 +53,8 @@
                         <div class="card-header">
                             Gas
                         </div>
-                         <canvas id="gaugeGas" style="position: relative; height:26vh; width:30vw;"></canvas>
-                        <!-- <vue-gauge :refid="'area3'" :options="{'chartWidth':'390','needleValue':adaaa,'arcDelimiters':[49,79],
-  'centralLabel':adaaa+'°'+'C','needleColor':'#1abb97','arcColors':['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-  'rangeLabel':['0','100'],'needleStartValue':'0','arcLabels':['49','79'],'arcPaddingColor':'#1a2130','arcPadding':7}"></vue-gauge> -->
+                        <canvas id="gaugeGas" style="position: relative; height:26vh; width:30vw;"></canvas>
+
                     </div>
                 </div>
             </div>
@@ -52,7 +68,7 @@
                             Grafica de Temperatura
                             <div class="card-body text-end">
                                 <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
-                                <canvas id="GraficaTemp" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="GraficaTemp" style="position: relative; height:25vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -63,7 +79,7 @@
                         <div class="card-header">
                             Grafica de vibración
                             <div class="card-body text-end">
-                                <canvas id="GraficaVib" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="GraficaVib" style="position: relative; height:25vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -79,7 +95,7 @@
                         <div class="card-header">
                             Grafica de gas
                             <div class="card-body text-end">
-                                <canvas id="GraficaGas" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="GraficaGas" style="position: relative; height:25vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -90,7 +106,7 @@
                         <div class="card-header">
                             Grafica de voltaje
                             <div class="card-body text-end">
-                                <canvas id="GraficaVolt" style="position: relative; height:20vh; width:30vw;"></canvas>
+                                <canvas id="GraficaVolt" style="position: relative; height:25vh; width:30vw;"></canvas>
                             </div>
                         </div>
 
@@ -231,17 +247,18 @@ export default {
             ultimatemp: '',
             ultimavib: '',
             ultimagas: '',
-            options:{
-                
-                      chartWidth:400,
-                needleValue:  30,
-                arcColors: ['rgb(61,204,91','rgb(239,214,19)','rgb(255,84,84)'],
-                arcDelimiters: [49,79],
-                rangeLabel: ['0','100'],
+            ultimavolt: '',
+            options: {
+
+                chartWidth: 400,
+                needleValue: 30,
+                arcColors: ['rgb(61,204,91', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+                arcDelimiters: [49, 79],
+                rangeLabel: ['0', '100'],
                 centralLabel: "30°C",
-                needleColor:'#1abb97',
+                needleColor: '#1abb97',
                 needleStartValue: 0,
-                arcLabels:['49','79'],
+                arcLabels: ['49', '79'],
                 arcPaddingColor: '#1a2130',
                 arcPadding: 7
             },
@@ -249,7 +266,7 @@ export default {
             idUserLoged: localStorage.getItem('id_usuario'),
             typeUserLoged: localStorage.getItem('id_tipousuario'),
             GlobalApi: this.globalVar,
-            
+
         }
     },
     mounted() {
@@ -349,8 +366,11 @@ export default {
                     let ultimagass = resp.data.map(resp => (resp.gasDevice));
                     this.ultimagas = ultimagass.pop();
                     console.log('ultima gas', this.ultimagas);
-               
-           
+                    //* Ultimo volt
+                    let ultimavoltt = resp.data.map(resp => (resp.voltDevice));
+                    this.ultimavolt = ultimavoltt.pop();
+                    console.log('ultima voltaje', this.ultimavolt);
+
                 }
 
                 this.GraficaTemp();
@@ -363,7 +383,7 @@ export default {
             }
         },
 
-        // ************ GRAFICAS ************************
+        // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
             var ctx = document.getElementById('GraficaTemp').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -615,152 +635,168 @@ export default {
                 }
             });
         },
-        gaugeTemp(){
+        // ************ GRAFICAS GAUGES CHART ************************
+        gaugeTemp() {
             var ctx = document.getElementById("gaugeTemp").getContext("2d");
 
-var chart = new Chart(ctx, {
-  type: 'gauge',
-  data: {
-    datasets: [{
-      value: this.ultimatemp,
-      minValue: 0,
-      data: [49, 79,100],
-      backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
-      borderColor: "#1a2130",
-      borderWidth: 7
-    }]
-  },
-  options: {
+            var chart = new Chart(ctx, {
+                type: 'gauge',
+                data: {
+                    datasets: [{
+                        value: this.ultimatemp,
+                        minValue: 0,
+                        data: [49, 79, 100],
+                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+                        borderColor: "#1a2130",
+                        borderWidth: 7
+                    }]
+                },
+                options: {
+                    //       layout: {
+                    //     padding: {
 
-responsive: true,
- cutoutPercentage: 65,
-    needle: {
-      radiusPercentage: 2,
-      widthPercentage: 5,
-      lengthPercentage:20,
-      color: '#1abb97'
-    },
-    valueLabel: {
-      display: true,
-      formatter: (value) => {
-        return Math.round(value) + '°C';
-      },
-      fontSize: 37.5,
-      color: 'rgba(255, 255, 255, 1)',
-      backgroundColor: '#1a2130',
-      borderRadius: 50,
-      padding: {
-        top: 20,
-        bottom: 10,
-      },
+                    //         top: 10,
 
-    },
-   
+                    //     }
+                    // },
 
-    
-  }
-});
+                    responsive: true,
+                    cutoutPercentage: 65,
+                    needle: {
+                        radiusPercentage: 2,
+                        widthPercentage: 5,
+                        lengthPercentage: 20,
+                        color: '#1abb97'
+                    },
+                    valueLabel: {
+                        display: true,
+                        formatter: (value) => {
+                            return Math.round(value) + '°C';
+                        },
+                        fontSize: 37.5,
+                        color: 'rgba(255, 255, 255, 1)',
+                        backgroundColor: '#1a2130',
+                        borderRadius: 0,
+                        padding: {
+                            top: 20,
+                            bottom: 15,
+                            left: 20
+                        },
+
+                    },
+
+                }
+            });
         },
-        gaugeVib(){
+        gaugeVib() {
             var ctx = document.getElementById("gaugeVib").getContext("2d");
 
-var chart = new Chart(ctx, {
-  type: 'gauge',
-  data: {
-    datasets: [{
-      value: this.ultimavib,
-      minValue: 0,
-      data: [this.ultimavib, 100],
-      backgroundColor: ['#009ad9', 'gray','gray'],
-      borderColor: "#1a2130",
-      borderWidth: 0
-    }]
-  },
-  options: {
-responsive: true,
- cutoutPercentage: 65,
-    needle: {
-      radiusPercentage: 2,
-      widthPercentage: 5,
-      lengthPercentage:20,
-      color: '#1abb97'
-    },
-    valueLabel: {
-      display: true,
-      formatter: (value) => {
-        return Math.round(value) + '°C';
-      },
-      fontSize: 37.5,
-      color: 'rgba(255, 255, 255, 1)',
-      backgroundColor: '#1a2130',
-      borderRadius: 50,
-      padding: {
-        top: 20,
-        bottom: 10,
-      },
+            var chart = new Chart(ctx, {
+                type: 'gauge',
+                data: {
+                    datasets: [{
 
-    },
+                        value: this.ultimavib,
+                        minValue: 0,
+                        data: [this.ultimavib, 100],
+                        backgroundColor: ['#009ad9', '#8080802b', '#8080802b'],
+                        borderColor: "#1a2130",
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    //       layout: {
+                    //     padding: {
 
+                    //         top: 10,
 
-    
-  }
-});
+                    //     }
+                    // },
+
+                    responsive: true,
+                    cutoutPercentage: 65,
+                    needle: {
+                        radiusPercentage: 2,
+                        widthPercentage: 5,
+                        lengthPercentage: 20,
+                        color: '#1abb97'
+                    },
+                    valueLabel: {
+                        display: true,
+                        formatter: (value) => {
+                            return Math.round(value);
+                        },
+                        fontSize: 37.5,
+                        color: 'rgba(255, 255, 255, 1)',
+                        backgroundColor: '#1a2130',
+                        borderRadius: 0,
+                        padding: {
+                            top: 20,
+                            bottom: 15,
+                            left: 20
+                        },
+
+                    },
+
+                }
+            });
         },
-        gaugeGas(){
+
+        gaugeGas() {
             var ctx = document.getElementById("gaugeGas").getContext("2d");
 
-var chart = new Chart(ctx, {
-  type: 'gauge',
-  data: {
-    datasets: [{
-      value: this.ultimagas,
-      minValue: 0,
-      data: [49, 79,100],
-      backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
-      borderColor: "#1a2130",
-      borderWidth: 7
-    }]
-  },
-  options: {
-responsive: true,
- cutoutPercentage: 65,
-    needle: {
-      radiusPercentage: 2,
-      widthPercentage: 5,
-      lengthPercentage:20,
-      color: '#1abb97'
-    },
-    valueLabel: {
-      display: true,
-      formatter: (value) => {
-        return Math.round(value) + '°C';
-      },
-      fontSize: 37.5,
-      color: 'rgba(255, 255, 255, 1)',
-      backgroundColor: '#1a2130',
-      borderRadius: 50,
-      padding: {
-        top: 20,
-        bottom: 10,
-      },
+            var chart = new Chart(ctx, {
+                type: 'gauge',
+                data: {
+                    datasets: [{
+                        value: this.ultimagas,
+                        minValue: 0,
+                        data: [49, 79, 100],
+                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+                        borderColor: "#1a2130",
+                        borderWidth: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutoutPercentage: 65,
+                    needle: {
+                        radiusPercentage: 2,
+                        widthPercentage: 5,
+                        lengthPercentage: 20,
+                        color: '#1abb97'
+                    },
+                    valueLabel: {
+                        display: true,
+                        formatter: (value) => {
+                            return Math.round(value);
+                        },
+                        fontSize: 37.5,
+                        color: 'rgba(255, 255, 255, 1)',
+                        backgroundColor: '#1a2130',
+                        borderRadius: 0,
+                        padding: {
+                            top: 20,
+                            bottom: 15,
+                            left: 20
+                        },
 
-    },
-     plugins:{
-            labels: {
-              render: 'value',
-              fontSize: 20,
-              fontColor: '#ffffff',
-              fontStyle: 'bold',
-              shadowColor: 'rgba(255,0,0,0.75)',
-              arc: false,
-            
-            },
-       
-          },
+                    },
+                    plugins: {
+                        labels: {
+                            render: 'value',
+                            fontSize: 20,
+                            fontColor: '#ffffff',
+                            fontStyle: 'bold',
+                            shadowColor: 'rgba(255,0,0,0.75)',
+                            arc: false,
 
-    
-  }
-});
+                        },
+
+                    },
+
+                }
+            });
         }
 
     }
@@ -776,7 +812,7 @@ responsive: true,
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
-    /* margin-top: 2rem; */
+    margin-top: 1rem;
 
 }
 
@@ -795,12 +831,18 @@ responsive: true,
     margin-bottom: 1rem;
 }
 
+.resumen-card {
+    margin-bottom: 1rem;
+    color: #fff;
+    text-align: center;
+}
+
 .gauges {
     margin-bottom: 1rem;
 }
 
 .gauges .card {
-    height: 16.5rem
+    height: 15rem
 }
 
 .gauges h3 {
@@ -846,10 +888,36 @@ responsive: true,
     color: #00ff35;
 
 }
+label{
+  /* color: #ffffff99; */
+  font-size: 1.5rem;
+}
+input {
+    background-color: #7d80920d !important;
+    border: 1px solid #79c6ba !important;
+   color: #ffffff99;
+   font-size: 2rem;
+}
+input:disabled {
+ 
+    color: #fff
+  
+}
+.form-control{
+    text-align: center;
+}
 
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;
     }
+
+    .gauges .card {
+        height: 20.5rem
+    }
+    label{
+
+  font-size: 2rem;
+}
 }
 </style>
