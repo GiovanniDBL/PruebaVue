@@ -95,7 +95,7 @@
                 <div class="col-6">
                     <div class="card ">
                         <div class="card-header">
-                            Grafica de Temperatura
+                            Variaciones de Temperatura
                             <div class="card-body text-end">
                                 <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
                                 <canvas id="GraficaTemp" style="position: relative; height:25vh; width:30vw;"></canvas>
@@ -107,7 +107,7 @@
                 <div class="col-6">
                     <div class="card ">
                         <div class="card-header">
-                            Grafica de vibración
+                            Variaciones de vibración
                             <div class="card-body text-end">
                                 <canvas id="GraficaVib" style="position: relative; height:25vh; width:30vw;"></canvas>
                             </div>

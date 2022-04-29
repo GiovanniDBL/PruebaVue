@@ -65,7 +65,8 @@
                                         <td>{{item.NameUbica}}</td>
                                         <td>{{item.pais}}</td>
                                         <td>{{item.estado}}</td>
-                                        <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td>
+                                        <td>{{item.ciudad}}</td>
+                                        <!-- <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td> -->
                                         <td>{{item.sCuentName}}</td>
                                         <td>
                                             <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button> -->
@@ -410,7 +411,8 @@ export default {
 }
 
 .card {
-    background: #27293d;
+    /* background: #27293d; */
+    background: #1a2130;
 }
 
 .card-header {

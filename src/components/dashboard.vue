@@ -8,8 +8,21 @@
                 <div class="col-8">
                     <div class="card ">
                         <div class="card-header">
-                            Grafica Alarmas de la semana
+                            Grafica de Alarmas
+                            <div class="btn-group" style="float:right" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio1" id="btnradio1" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" @click="randomdata();" for="btnradio1">Día</label>
 
+                                <input type="radio" class="btn-check" name="btnradio1" id="btnradio2" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" @click="randomdata();" for="btnradio2">Semana</label>
+
+                                <input type="radio" class="btn-check" name="btnradio1" id="btnradio3" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" @click="randomdata();" for="btnradio3">Mes</label>
+
+                                <input type="radio" class="btn-check" name="btnradio1" id="btnradio4" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" @click="randomdata();" for="btnradio4">Año</label>
+
+                            </div>
                         </div>
                         <div class="card-body text-end">
                             <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
@@ -22,31 +35,30 @@
                     <div class="card" style="">
                         <div class="card-header">
                             Alarmas de la semana
-                            <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
-                            <i type="button" class="fas fa-file-pdf btn-pdf" @click="dowloadPdf"></i>
+                            <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
 
                         </div>
                         <div class="card-body ">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Últimas Alarmas:
-                                    <span class="badge bg-primary">{{UltimasAlarmas}}</span>
+                                    <span class="badge rounded-pill bg-primary ">{{UltimasAlarmas}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Últimas Alertas:
-                                    <span class="badge bg-primary">{{UltimasAlertas}}</span>
+                                    <span class="badge rounded-pill bg-primary">{{UltimasAlertas}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Cuentas con más actividad:
-                                    <span class="badge bg-primary">4</span>
+                                    <span class="badge rounded-pill bg-primary">4</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Empleados con mayor productividad:
-                                    <span class="badge bg-primary">7</span>
+                                    <span class="badge rounded-pill bg-primary">7</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Dispositivos fuera de línea:
-                                    <span class="badge bg-primary">7</span>
+                                    <span class="badge rounded-pill bg-primary">7</span>
                                 </li>
 
                             </ul>
@@ -57,14 +69,16 @@
 
             </div>
         </div>
-
-        <div class=" top-bottom-graficas">
+        <!-- v-if="rol !== '2'" -->
+        <!-- //*TABLAS ADMINISTRADOR -->
+        <!-- //TODO Mostrar si es diferente a un monitorista (es administrador) -->
+        <div v-if="rol !== '2'" class=" top-bottom-graficas">
             <div class="row">
                 <div class="col-4">
                     <div class="card ">
                         <div class="card-header card-header-tables">
                             Cuentas con más actividad
-
+                            <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
                         </div>
                         <div class="card-body">
                             <div class="scrollable">
@@ -112,8 +126,7 @@
                     <div class="card" style="">
                         <div class="card-header card-header-tables">
                             Empleados con mayor productividad
-                            <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
-                            <!-- <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i> -->
+                            <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
 
                         </div>
                         <div class="card-body ">
@@ -181,8 +194,7 @@
                     <div class="card" style="">
                         <div class="card-header card-header-tables">
                             Dispositivos fuera de línea
-                            <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
-                            <!-- <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i> -->
+                            <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
 
                         </div>
                         <div class="card-body ">
@@ -250,13 +262,153 @@
 
             </div>
         </div>
-        <div class=" top-bottom-graficas">
+        <!-- //*TABLAS MONITORISTA-->
+        <!-- //TODO Mostrar si es un monitorista -->
+        <div v-if="rol == '2'" class=" top-bottom-graficas">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card ">
+                        <div class="card-header card-header-tables">
+                            Cuentas con más actividad
+                            <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <div class="scrollable">
+                                <table class="table table-tamaño table-hover">
+                                    <thead>
+                                        <tr class="t-head-table">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="t-body-table">
+                                            <th scope="row">1</th>
+                                            <td>Sisec</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>GrupoOxxo</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>GrupoZigbmax</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td>GrupoCumbres</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card" style="">
+                        <div class="card-header card-header-tables">
+                            Dispositivos fuera de línea
+                            <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
+
+                        </div>
+                        <div class="card-body ">
+                            <div class="scrollable">
+                                <table class="table table-tamaño table-hover">
+                                    <thead>
+                                        <tr class="t-head-table">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Dispositivo</th>
+                                            <th scope="col">Cuenta</th>
+                                            <th scope="col">Señal</th>
+                                            <!-- fad fa-signal-alt-slash -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="t-body-table">
+                                            <th scope="row">1</th>
+                                            <td>4140AF</td>
+                                            <td>Otto</td>
+                                            <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">7</th>
+                                            <td>40EEB9</td>
+                                            <td>Thornton</td>
+                                            <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">8</th>
+                                            <td>413EBE</td>
+                                            <td>Thornton</td>
+                                            <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">9</th>
+                                            <td>414007</td>
+                                            <td>Thornton</td>
+                                            <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">11</th>
+                                            <td>4140C2</td>
+                                            <td>Thornton</td>
+                                            <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">12</th>
+                                            <td>41511C</td>
+                                            <td>Thornton</td>
+                                            <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">13</th>
+                                            <td>41511E</td>
+                                            <td>Thornton</td>
+                                            <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- //TODO Mostrar si es diferente a un monitorista (es administrador) -->
+        <div v-if="rol !== '2'" class=" top-bottom-graficas">
             <div class="row">
                 <div class="col-6">
                     <div class="card ">
                         <div class="card-header">
                             Cuentas con más actividad
+                            <div class="btn-group" style="float:right" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio2" id="btnradio5" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio5">Día</label>
 
+                                <input type="radio" class="btn-check" name="btnradio2" id="btnradio6" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio6">Semana</label>
+
+                                <input type="radio" class="btn-check" name="btnradio2" id="btnradio7" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio7">Mes</label>
+
+                                <input type="radio" class="btn-check" name="btnradio2" id="btnradio8" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio8">Año</label>
+
+                            </div>
                         </div>
                         <div class="card-body text-end">
                             <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
@@ -269,9 +421,20 @@
                     <div class="card" style="">
                         <div class="card-header">
                             Empleados con mayor productividad
-                            <!-- <i class="fas fa-file-download btn-pdf" @click="dowloadPdf"></i> -->
-                            <!-- <i type="button" class="fas fa-file-pdf btn-pdf" @click="dowloadPdf"></i> -->
+                            <div class="btn-group" style="float:right" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btnradio3" id="btnradio9" autocomplete="off" checked>
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio9">Día</label>
 
+                                <input type="radio" class="btn-check" name="btnradio3" id="btnradio10" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio10">Semana</label>
+
+                                <input type="radio" class="btn-check" name="btnradio3" id="btnradio11" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio11">Mes</label>
+
+                                <input type="radio" class="btn-check" name="btnradio3" id="btnradio12" autocomplete="off">
+                                <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio12">Año</label>
+
+                            </div>
                         </div>
                         <div class="card-body ">
                             <canvas id="productividad" style="position: relative; height:20vh; width:30vw;"></canvas>
@@ -282,34 +445,6 @@
 
             </div>
         </div>
-        <!-- <div class="top-bottom-graficas">
-            <div class="row">
-                <div class="col-6">
-                    <div class="card ">
-                        <div class="card-header">
-                            Grafica Alarmas de la semana
-                            <div class="card-body text-end">
-                                <canvas id="myChartHora" style="position: relative; height:20vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="card ">
-                        <div class="card-header">
-                            Grafica Alarmas de la semana
-                            <div class="card-body text-end">
-                                <canvas id="myChartHora2" style="position: relative; height:20vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div> -->
-
     </section>
 </div>
 </template>
@@ -365,21 +500,7 @@ export default {
                 {
                     a: Math.floor(Math.random() * 100)
                 },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
+
             ],
             items2: [{
                     a: Math.floor(Math.random() * 100)
@@ -402,26 +523,13 @@ export default {
                 {
                     a: Math.floor(Math.random() * 100)
                 },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
-                {
-                    a: Math.floor(Math.random() * 100)
-                },
+
             ],
             AlarmasDevice: [],
             AlertasDevice: [],
             UltimasAlarmas: [],
             UltimasAlertas: [],
+            rol: localStorage.getItem('id_tipousuario')
 
         }
     },
@@ -436,13 +544,18 @@ export default {
         // const ctxxx = document.getElementById('linechart-pendiente');
         // new Chart(ctxxx, this.planetChartData2);
         this.GraficaAlarmas();
-        this.GraficaHorizontalCuentas();
-        this.GraficaHorizontalEmpleados();
-        // this.GraficaHora();
-        // this.GraficaHora2();
+
+        // *Mostrar grafica de productividad solo si son administradores
+        if (this.rol !== '2') {
+            this.GraficaHorizontalEmpleados();
+            this.GraficaHorizontalCuentas();
+        }
 
     },
     methods: {
+        randomdata() {
+
+        },
         dowloadPdf() {
 
             var pdf = new jsPDF();
@@ -476,6 +589,7 @@ export default {
 
         // ************ GRAFICAS ************************
         GraficaAlarmas() {
+
             this.AlarmasDevice = this.items.map(resp => (resp.a));
             let ultimasAlarmas = this.items.map(resp => (resp.a));
             this.UltimasAlarmas = ultimasAlarmas.pop();
@@ -580,7 +694,8 @@ export default {
                     labels: ["Sisec", "GrupoOxxo", "GrupoZigbmax", "GrupoCumbres"],
                     datasets: [{
                         label: 'Horas',
-                        data: this.AlarmasDevice,
+                        // data: this.AlarmasDevice,
+                        data: [100, 70, 50, 30, 10],
                         backgroundColor: '#42b883',
                         borderColor: '#42b883',
                         borderWidth: 2,
@@ -613,7 +728,10 @@ export default {
                                 padding: 25,
                                 fontColor: '#ffffffb3',
                                 beginAtZero: true,
-                                // mirror:true
+                                // mirror:true,
+                                // padding:1,
+                                // showLabelBackdrop: false
+
                             }
                         }],
                         xAxes: [{
@@ -642,7 +760,8 @@ export default {
                     labels: ["Mark", "Juan", "Pedro", "Jacobo", "Daniel", "Juan", "Melchor"],
                     datasets: [{
                         label: 'Horas',
-                        data: this.AlarmasAlertas,
+                        data: [100, 80, 70, 60, 50, 40, 30],
+                        // data: this.AlarmasAlertas,
                         backgroundColor: '#1d8cf8',
                         borderColor: '#1d8cf8',
                         borderWidth: 2,
@@ -773,19 +892,22 @@ export default {
 }
 
 .card-header {
-    color: #ffffffbd;
+    /* color: #ffffffbd; */
+    color: #ffffff;
     text-transform: uppercase;
 }
 
 .card-header-tables {
-    color: #ffffffbd;
+    /* color: #ffffffbd; */
+    color: #ffffff;
     text-transform: uppercase;
     font-size: 14px;
 }
 
 .list-group-item {
 
-    color: #ffffffb3;
+    /* color: #ffffffb3; */
+    color: #ffffff;
     background-color: #1a2130;
     border-bottom: 1px solid #ffffff14;
     font-size: 1rem;
@@ -793,14 +915,14 @@ export default {
 
 .btn-pdf {
     font-size: 1rem;
-    /* font-size: 1.5rem;
+    /* font-size: 1.5rem; */
     float: right;
-  color: #3dcc5b; */
+    /* color: #3dcc5b; */
 
 }
 
 .btn-pdf:hover {
-    color: #00ff35;
+    /* color: #00ff35; */
 
 }
 
@@ -856,9 +978,53 @@ tr {
     font-size: 15px;
     /* color: #ffffffbd; */
 }
-.badge{
+
+.badge {
     font-size: 1rem;
 }
+
+.btn-successs {
+    color: #fff;
+    background-color: #242c3c;
+    border-color: #6cc7eb;
+    /* border-color: #146c43; */
+}
+
+.btn-successs:hover {
+    color: #000;
+    background-color: #31d2f2;
+    border-color: #31d2f2;
+
+}
+
+.btn-dangerr {
+    color: #fff;
+    background-color: #242c3c;
+    border-color: #8c6ceb;
+    text-transform: capitalize;
+}
+
+.btn-dangerr:hover {
+    color: #fff;
+    background-color: #8c6ceb;
+    border-color: #8c6ceb;
+}
+
+/* .btn.btn-dangerr:focus {
+ border-color: #8c6ceb;
+        box-shadow: 0 0 5px 0.3rem rgba(83, 33, 177, 0.486);
+} */
+.btn-check:checked+.btn-outline-primary,
+.btn-check:active+.btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show {
+    color: #fff;
+    background-color: #7357c5;
+    border-color: #7357c5;
+    box-shadow: 0 0 9px 0.3rem rgba(83, 33, 177, 0.486);
+}
+
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;
@@ -877,8 +1043,9 @@ tr {
 
         font-size: 1.1rem;
     }
-    .badge{
-    font-size: 1.1rem;
-}
+
+    .badge {
+        font-size: 1.1rem;
+    }
 }
 </style>

@@ -54,10 +54,14 @@
                                     <tr class="t-body-table" v-for="item in itemsAccounts" :key="item.idsCuent">
                                         <th scope="row">{{item.idsCuent}}</tH>
                                         <td>{{item.sCuentName}}</td>
-                                        <td>{{item.nombreContacto}} <span v-if="item.nombreContacto == null">Jose Perez</span> </td>
+                                        <td>{{item.nombreContacto}} </td>
+                                        <td>{{item.subCuentaPais}}</td>
+                                        <td>{{item.subCuentaEstado}}</td>
+                                        <td>{{item.subCuentaCuidad}}</td>
+                                        <!-- <td>{{item.nombreContacto}} <span v-if="item.nombreContacto == null">Jose Perez</span> </td>
                                         <td>{{item.subCuentaPais}} <span v-if="item.subCuentaPais == null">México</span></td>
                                         <td>{{item.subCuentaEstado}} <span v-if="item.subCuentaEstado == null">Quintana Roo</span></td>
-                                        <td>{{item.subCuentaCuidad}} <span v-if="item.subCuentaCuidad == null">Cancún</span></td>
+                                        <td>{{item.subCuentaCuidad}} <span v-if="item.subCuentaCuidad == null">Cancún</span></td> -->
 
                                         <!-- <td>{{item.suCuentaCorreo}}</td> -->
                                         <td>

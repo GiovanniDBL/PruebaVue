@@ -346,7 +346,8 @@ export default {
 }
 
 .card {
-    background: #27293d;
+    /* background: #27293d; */
+    background: #1a2130;
 }
 
 .card-header {

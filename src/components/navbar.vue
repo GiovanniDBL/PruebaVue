@@ -13,7 +13,8 @@
           <button @click="popup()" type="button" class="btn btn-outline-info ">Central de monitoreo</button>
         </li> -->
                     <!-- <li class="nav-item" v-if="rol !== 'admin'"> -->
-                    <li class="nav-item">
+           
+                    <li class="nav-item" v-if="rol == '2'">
                         <a class="nav-link monitoreo-link active" @click="popup()" aria-current="page" href="#">
                             <i class="fas fa-play"></i> Iniciar monitoreo en tiempo real</a>
                     </li>
@@ -53,11 +54,11 @@ export default {
         }
     },
     mounted(){
-    //      if (localStorage.getItem('rol')) {
-    //       this.rol = localStorage.getItem('rol');
-    //   } else {
-    //       this.$router.push("/");
-    //   }
+         if (localStorage.getItem('id_tipousuario')) {
+          this.rol = localStorage.getItem('id_tipousuario');
+      } else {
+          this.$router.push("/");
+      }
     },
     methods: {
         popup() {

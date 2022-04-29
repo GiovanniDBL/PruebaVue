@@ -10,7 +10,9 @@
                 </span>
                 <div class="text header-text">
                     <span class="name">{{usuario}}</span>
-                    <span class="profession">Web developer</span>
+                    <span class="profession" v-if="rol == '2'">Monitorista</span>
+                    <span class="profession" v-if="rol == '1'">Administrador</span>
+                    <span class="profession" v-if="rol == '6'">Administrador</span>
                 </div>
             </div>
             <i class="fas fa-arrow-right toggle"></i>
@@ -85,7 +87,8 @@ export default {
     name: 'SidebarComponent',
     data() {
         return {
-            usuario: localStorage.getItem('usuario')
+            usuario: localStorage.getItem('usuario'),
+            rol: localStorage.getItem('id_tipousuario')
         }
     },
 
