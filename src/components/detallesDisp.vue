@@ -168,8 +168,8 @@ import planetChartData2 from '../../graficas/linechart2.js'
 import axios from 'axios'
 import jsPDF from 'jspdf'
 import moment from 'moment'
-import datalabels from 'chartjs-plugin-labels'
-import datalabelss from 'chartjs-plugin-datalabels'
+// import datalabels from 'chartjs-plugin-labels'
+// import datalabelss from 'chartjs-plugin-datalabels'
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
@@ -178,8 +178,8 @@ export default {
         sidebar,
         VueGauge,
         GaugeController,
-        datalabels,
-        datalabelss,
+        // datalabels,
+        // datalabelss,
     },
 
     data() {
@@ -619,6 +619,7 @@ export default {
 
                     //     }
                     // },
+                    
 
                     responsive: true,
                     cutoutPercentage: 65,
@@ -883,7 +884,7 @@ input:disabled {
 
     label {
 
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
 }
 </style>
