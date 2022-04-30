@@ -14,7 +14,8 @@
         </li> -->
                     <!-- <li class="nav-item" v-if="rol !== 'admin'"> -->
            
-                    <li class="nav-item" v-if="rol == '2'">
+                    <!-- <li class="nav-item" v-if="rol == '2'"> -->
+                    <li class="nav-item">
                         <a class="nav-link monitoreo-link active" @click="popup()" aria-current="page" href="#">
                             <i class="fas fa-play"></i> Iniciar monitoreo en tiempo real</a>
                     </li>
@@ -50,15 +51,15 @@ export default {
     data() {
         return {
             // msg: 0,
-            rol:'',
+            rol:localStorage.getItem('id_tipousuario')
         }
     },
     mounted(){
-         if (localStorage.getItem('id_tipousuario')) {
-          this.rol = localStorage.getItem('id_tipousuario');
-      } else {
-          this.$router.push("/");
-      }
+    //      if (localStorage.getItem('id_tipousuario')) {
+    //       this.rol = localStorage.getItem('id_tipousuario');
+    //   } else {
+    //       this.$router.push("/");
+    //   }
     },
     methods: {
         popup() {

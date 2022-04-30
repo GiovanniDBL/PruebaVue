@@ -22,6 +22,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ```
 npm i jspdf --save
 https://www.npmjs.com/package/jspdf
+
+npm i jspdf-autotable
+https://www.npmjs.com/package/jspdf-autotable
 ```
 ### Libreria para generar grafica gauge
 ```
