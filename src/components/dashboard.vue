@@ -447,6 +447,7 @@
         </div>
     </section>
 </div>
+
 </template>
 
 <script>
@@ -1002,6 +1003,7 @@ tr {
     background-color: #242c3c;
     border-color: #8c6ceb;
     text-transform: capitalize;
+    font-size: 1rem;
 }
 
 .btn-dangerr:hover {
@@ -1047,5 +1049,8 @@ tr {
     .badge {
         font-size: 1.1rem;
     }
+    .btn-dangerr {
+    font-size: 0.980rem;
+}
 }
 </style>
