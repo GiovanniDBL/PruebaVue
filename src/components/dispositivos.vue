@@ -29,13 +29,15 @@
                             </ul>
                             <form class="d-flex" style="margin-left:1rem">
                                 <!-- <input class="form-control me-2" type="search" placeholder="Buscar Dispositivos" aria-label="Search"> -->
-                                <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar Dispositivos" aria-label="Search">
+                                <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search">
                                 <button class="btn btn-outline-success" type="submit" disabled><i class="fas fa-search"></i></button>
                             </form>
                         </div>
                     </div>
                 </nav>
-                <div class="card-body">
+     
+            </div>
+           <div class="card-body">
                     <!-- <div v-if="filteredBlogs == 0 " class="alert alert-danger" role="alert">
   No existen resultados con el termino: {{search}}
 </div> -->
@@ -87,7 +89,18 @@
                                             <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
                                             <td>{{item.nameCuenta}}</td>
 
-                                            <td><i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i></td>
+                                            <td>
+                                                <!-- <i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i> -->
+                                                         <button class="btn btn-success " v-on:click="detalles(item.idDevice)">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger ">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                                </td>
 
                                         </tr>
                                     </tbody>
@@ -137,7 +150,20 @@
                                             <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
                                             <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
                                             <td>{{item.nameCuenta}}</td>
-                                            <td><i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i></td>
+                                            <td>
+                                                <!-- <i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i> -->
+                                            
+                                                     <button class="btn btn-success " v-on:click="detalles(item.idDevice)">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger ">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                            
+                                            </td>
 
                                         </tr>
                                     </tbody>
@@ -148,8 +174,6 @@
                     </div>
 
                 </div>
-            </div>
-
         </div>
 
     </section>
@@ -318,7 +342,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
-    /* margin-top: 2rem; */
+    margin-top: 1rem;
 }
 
 .home .text {
@@ -430,7 +454,8 @@ tr {
     font-size: 13px;
     text-transform: uppercase;
     /* color: #ffffff99; */
-    color: #ffffffbd;
+    /* color: #ffffffbd; */
+     color: #ffffffb3;
 }
 
 .t-body-table {
@@ -440,8 +465,17 @@ tr {
 
 @media only screen and (min-width: 1800px) {
     .scrollable {
-        height: 550px;
+        height: 765px;
         overflow: scroll;
+    }
+        .t-head-table {
+        font-size: 16px;
+
+    }
+
+    .t-body-table {
+        font-size: 17px;
+
     }
 }
 </style>

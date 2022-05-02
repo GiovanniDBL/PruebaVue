@@ -77,7 +77,7 @@
                 <div class="col-4">
                     <div class="card ">
                         <div class="card-header card-header-tables">
-                            Cuentas con más actividad
+                            Cuentas con más actividad 
                             <button @click="PDF_Actividad" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
                         </div>
                         <div class="card-body">
@@ -125,7 +125,7 @@
                 <div class="col-4">
                     <div class="card" style="">
                         <div class="card-header card-header-tables">
-                            Empleados con mayor productividad
+                            Productividad de Empleados
                             <button @click="PDF_Productividad" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
 
                         </div>

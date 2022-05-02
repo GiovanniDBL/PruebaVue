@@ -180,7 +180,8 @@ export default {
     left: 88px;
     width: calc(100% - 88px);
     transition: all 0.5s ease;
-    padding: 8px 40px;
+    /* padding: 8px 40px; */
+    margin-top: 1rem;
 }
 
 .home .text {
@@ -189,10 +190,15 @@ export default {
 }
 
 .card {
-    background: #27293d;
+    /* background: #27293d; */
+    background: #1a2130;
     color: #fff;
-    display: block;
-    margin: 0 auto;
+    /* display: block;
+    margin: 0 auto; */
+      position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .card-header {
@@ -226,8 +232,8 @@ h4 span {
     border: 0;
 }
 input {
-    background-color: #222434 !important;
-    border: 1px solid #2b534d !important;
+    background-color: #1e2637 !important;
+    border: 1px solid #3e3a5e !important;
    color: #ffffff99;
 }
 label{
@@ -237,4 +243,24 @@ label{
 
     color: #fff;
 } */
+
+@media only screen and (min-width: 1800px) {
+img {
+    width: 170px;
+    height: 170px;
+    border: 5px solid #2b3553;
+    border-bottom-color: transparent;
+    background-color: transparent;
+    position: relative;
+    border-radius: 50%;
+    max-width: 100%;
+}
+h4 {
+    font-size: 1.5rem;
+}
+
+h4 span {
+    font-size: 1.8rem;
+}
+}
 </style>

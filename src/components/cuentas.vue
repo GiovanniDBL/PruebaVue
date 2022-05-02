@@ -10,11 +10,13 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand"> <i class="fad fa-users icon"></i> Cuentas <span class="span-brand">ATMsense</span></a>
+                            <!-- <a class="navbar-brand"> <i class="fad fa-users icon"></i> Cuentas <span class="span-brand">ATMsense</span></a> -->
+                            <a class="navbar-brand"> <i class="fad fa-users icon"></i> Cuentas </a>
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                                 <li class="nav-item">
-                                    <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
+                                    <!-- <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example"> -->
+                                    <div class="btn-group " style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
                                         <button type="button" class="btn btn-success"> <i class="fas fa-user-plus"></i> Agregar nueva cuenta</button>
 
                                     </div>
@@ -23,56 +25,70 @@
                             </ul>
                             <form class="d-flex">
                                 <!-- <input class="form-control me-2" type="search" placeholder="Buscar Dispositivos" aria-label="Search"> -->
-                                <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar Cuenta" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit" disabled><i class="fas fa-search"></i></button>
+                                <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search">
+                                <button class="btn btn-secondary" type="submit" disabled><i class="fas fa-search"></i></button>
                             </form>
                         </div>
                     </div>
                 </nav>
 
-                <div class="card-body">
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="scrollable">
-                            <!-- <div v-if="filterDataAccounts == 0 " class="alert animated fadeIn fast" role="alert">
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="scrollable">
+                        <!-- <div v-if="filterDataAccounts == 0 " class="alert animated fadeIn fast" role="alert">
                                 No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                             </div> -->
-                            <!-- <table cellspacing="1" cellpadding="1" class="table table-success  table-bordered   table-hover  table-striped table-borderless table-tamaño" > -->
-                            <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
-                                <thead class="">
-                                    <tr class="t-head-table">
-                                        <th scope="col">ID_cuenta</th>
-                                        <th scope="col">Nombre de cuenta</th>
-                                        <th scope="col">Contacto</th>
-                                        <th scope="col">País</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Ciudad</th>
-                                        <th scope="col">Detalles</th>
-                                        <!-- <th scope="col">Correo</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="t-body-table" v-for="item in itemsAccounts" :key="item.idsCuent">
-                                        <th scope="row">{{item.idsCuent}}</tH>
-                                        <td>{{item.sCuentName}}</td>
-                                        <td>{{item.nombreContacto}} </td>
-                                        <td>{{item.subCuentaPais}}</td>
-                                        <td>{{item.subCuentaEstado}}</td>
-                                        <td>{{item.subCuentaCuidad}}</td>
-                                        <!-- <td>{{item.nombreContacto}} <span v-if="item.nombreContacto == null">Jose Perez</span> </td>
+                        <!-- <table cellspacing="1" cellpadding="1" class="table table-success  table-bordered   table-hover  table-striped table-borderless table-tamaño" > -->
+                        <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+                            <thead class="">
+                                <tr class="t-head-table">
+                                    <th scope="col">ID_cuenta</th>
+                                    <th scope="col">Nombre de cuenta</th>
+                                    <th scope="col">Contacto</th>
+                                    <th scope="col">País</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Ciudad</th>
+                                    <th scope="col">Acciones</th>
+                                    <!-- <th scope="col">Correo</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="t-body-table" v-for="item in itemsAccounts" :key="item.idsCuent">
+                                    <th scope="row">{{item.idsCuent}}</tH>
+                                    <td>{{item.sCuentName}}</td>
+                                    <td>{{item.nombreContacto}} </td>
+                                    <td>{{item.subCuentaPais}}</td>
+                                    <td>{{item.subCuentaEstado}}</td>
+                                    <td>{{item.subCuentaCuidad}}</td>
+                                    <!-- <td>{{item.nombreContacto}} <span v-if="item.nombreContacto == null">Jose Perez</span> </td>
                                         <td>{{item.subCuentaPais}} <span v-if="item.subCuentaPais == null">México</span></td>
                                         <td>{{item.subCuentaEstado}} <span v-if="item.subCuentaEstado == null">Quintana Roo</span></td>
                                         <td>{{item.subCuentaCuidad}} <span v-if="item.subCuentaCuidad == null">Cancún</span></td> -->
 
-                                        <!-- <td>{{item.suCuentaCorreo}}</td> -->
-                                        <td>
+                                    <!-- <td>{{item.suCuentaCorreo}}</td> -->
+                                    <td>
 
-                                            <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)">Detalles</button> -->
-                                            <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                        <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)">Detalles</button> -->
+                                        <button class="btn btn-success " v-on:click="detalles(item.idsCuent)">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger ">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <!-- <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+  <button type="button" class="btn btn-danger"><i class="fas fa-receipt"></i></button>
+  <button type="button" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+  <button type="button" class="btn btn-success"><i class="fas fa-trash-alt"></i></button>
+</div> -->
+                                        <!-- <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -94,7 +110,7 @@ export default {
             itemsAccounts: [],
             search: '',
             GlobalApi: this.globalVar,
-            id_usuario:localStorage.getItem('id_usuario')
+            id_usuario: localStorage.getItem('id_usuario')
 
         }
     },
@@ -170,7 +186,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
-    /* margin-top: 2rem; */
+    margin-top: 1rem;
 }
 
 .home .text {
@@ -214,6 +230,7 @@ Table {
 
 tr {
     color: #fff;
+    /* color: #ffffffb3; */
 }
 
 .table> :not(:first-child) {
@@ -275,8 +292,6 @@ tr {
 
 }
 
-
-
 .nav-link:hover {
 
     background-color: #00ffc833;
@@ -287,7 +302,8 @@ tr {
     font-size: 13px;
     text-transform: uppercase;
     /* color: #ffffff99; */
-    color: #ffffffbd;
+    /* color: #ffffffbd; */
+    color: #ffffffb3;
 }
 
 .t-body-table {
@@ -297,8 +313,18 @@ tr {
 
 @media only screen and (min-width: 1800px) {
     .scrollable {
-        height: 550px;
+        height: 765px;
         overflow: scroll;
+    }
+
+    .t-head-table {
+        font-size: 16px;
+
+    }
+
+    .t-body-table {
+        font-size: 17px;
+
     }
 
 }

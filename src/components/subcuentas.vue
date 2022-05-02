@@ -10,11 +10,12 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand"><i class="fas fa-users-class icon"></i> SubCuentas <span class="span-brand">ATMSense</span></a>
+                            <!-- <a class="navbar-brand"><i class="fas fa-users-class icon"></i> SubCuentas <span class="span-brand">ATMSense</span></a> -->
+                            <a class="navbar-brand"><i class="fas fa-users-class icon"></i> SubCuentas</a>
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                                 <li class="nav-item">
-                                    <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
+                                    <div class="btn-group " style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
                                         <button data-bs-toggle="modal" data-bs-target="#exampleModalSensor" type="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Añadir nuevo sensor</button>
                                     </div>
                                 </li>
@@ -25,7 +26,7 @@
                                     Añadir subcuenta
                                      </a> -->
 
-                                    <div class="btn-group btn-group-sm" style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
+                                    <div class="btn-group " style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
                                         <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success"> <i class="fas fa-user-plus"></i> Agregar nueva subcuenta</button>
 
                                     </div>
@@ -33,49 +34,59 @@
                             </ul>
                             <form class="d-flex">
 
-                                <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar Cuenta" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit" disabled><i class="fas fa-search"></i></button>
+                                <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search">
+                                <button class="btn btn-secondary" type="submit" disabled><i class="fas fa-search"></i></button>
                             </form>
                         </div>
                     </div>
                 </nav>
 
-                <div class="card-body">
-                    <div class="tab-content" id="pills-tabContent">
-                        <div class="scrollable">
-                            <div v-if="filterDataSubAccounts == 0 " class="alert animated fadeIn fast" role="alert">
-                                No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
-                            </div>
+            </div>
 
-                            <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
-                                <thead class="">
-                                    <tr class="t-head-table">
-                                        <th scope="col">ID_Subcuenta</th>
-                                        <th scope="col">Subcuenta</th>
-                                        <th scope="col">País</th>
-                                        <th scope="col">Estado</th>
-                                        <th scope="col">Ciudad</th>
-                                        <th scope="col">Cuenta_principal</th>
-                                        <th scope="col">Detalles</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="t-body-table" v-for="item in filterDataSubAccounts" :key="item.idsCuent">
-                                        <th scope="row">{{item.idsCuent}}</th>
-                                        <td>{{item.NameUbica}}</td>
-                                        <td>{{item.pais}}</td>
-                                        <td>{{item.estado}}</td>
-                                        <td>{{item.ciudad}}</td>
-                                        <!-- <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td> -->
-                                        <td>{{item.sCuentName}}</td>
-                                        <td>
-                                            <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button> -->
-                                            <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="card-body">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="scrollable">
+                        <div v-if="filterDataSubAccounts == 0 " class="alert animated fadeIn fast" role="alert">
+                            No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                         </div>
+
+                        <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+                            <thead class="">
+                                <tr class="t-head-table">
+                                    <th scope="col">ID_Subcuenta</th>
+                                    <th scope="col">Subcuenta</th>
+                                    <th scope="col">País</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Ciudad</th>
+                                    <th scope="col">Cuenta_principal</th>
+                                    <th scope="col">Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="t-body-table" v-for="item in filterDataSubAccounts" :key="item.idsCuent">
+                                    <th scope="row">{{item.idsCuent}}</th>
+                                    <td>{{item.NameUbica}}</td>
+                                    <td>{{item.pais}}</td>
+                                    <td>{{item.estado}}</td>
+                                    <td>{{item.ciudad}}</td>
+                                    <!-- <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td> -->
+                                    <td>{{item.sCuentName}}</td>
+                                    <td>
+                                        <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button> -->
+                                        <!-- <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i> -->
+                                        <button class="btn btn-success " v-on:click="detalles(item.idsCuent)">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger ">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -382,7 +393,7 @@ export default {
     width: calc(100% - 88px);
     transition: all 0.5s ease;
     padding: 8px 40px;
-    /* margin-top: 2rem; */
+    margin-top: 1rem;
 }
 
 .home .text {
@@ -575,7 +586,9 @@ option:hover {
     font-size: 13px;
     text-transform: uppercase;
     /* color: #ffffff99; */
-    color: #ffffffbd;
+    /* color: #ffffff; */
+    /* font-weight: bold; */
+     color: #ffffffb3;
 }
 
 .t-body-table {
@@ -585,8 +598,18 @@ option:hover {
 
 @media only screen and (min-width: 1800px) {
     .scrollable {
-        height: 550px;
+        height: 765px;
         overflow: scroll;
+    }
+
+    .t-head-table {
+        font-size: 16px;
+
+    }
+
+    .t-body-table {
+        font-size: 17px;
+
     }
 }
 </style>
