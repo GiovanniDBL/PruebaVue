@@ -105,7 +105,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="row g-3" v-on:submit.prevent="NuevaCuenta">
+                <form class="row g-3" v-on:submit.prevent="NuevaSubcuenta">
                     <div class="col-md-6">
                         <label for="validationCustom04" class="form-label">Cuenta de vinculación</label>
                         <select class="form-select" id="validationCustom04" required v-model="FormCuenta">
@@ -308,7 +308,7 @@ export default {
             }
         },
 
-        NuevaCuenta() {
+        NuevaSubcuenta() {
 
             var data = {
                 "typeFunction": "crearUbication",

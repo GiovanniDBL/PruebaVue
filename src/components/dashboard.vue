@@ -40,21 +40,25 @@
                         </div>
                         <div class="card-body ">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Últimas Alarmas:
                                     <span class="badge rounded-pill bg-danger ">{{UltimasAlarmas}}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Últimas Alertas:
                                     <span class="badge rounded-pill bg-warning" style="color:#000">{{UltimasAlertas}}</span>
-                                </li>
-                                   <li class="list-group-item d-flex justify-content-between align-items-center">
+                                </li> -->
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Alarmas pendientes:
-                                    <span class="badge rounded-pill bg-danger ">{{UltimasAlarmas}}</span>
+                                    <span class="badge rounded-pill bg-danger ">{{AlarmasPendientes.length}}</span>
                                 </li>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                   Alertas pendientes:
-                                    <span class="badge rounded-pill bg-warning" style="color:#000">{{UltimasAlertas}}</span>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Alertas pendientes:
+                                    <span class="badge rounded-pill bg-warning" style="color:#000">{{AlertasPendientes.length}}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                   Alarmas en progreso:
+                                    <span class="badge rounded-pill bg-success">{{AlarmasEnProgreso}}</span>
                                 </li>
                                 <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Cuentas con más actividad:
@@ -140,7 +144,7 @@
                     <div class="card" style="">
                         <div class="card-header card-header-tables">
                             <!-- Productividad de Empleados -->
-                               <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
+                            <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
                                 Productividad de Empleados
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     7
@@ -214,7 +218,7 @@
                     <div class="card" style="">
                         <div class="card-header card-header-tables">
                             <!-- Dispositivos fuera de línea -->
-                              <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
+                            <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
                                 Dispositivos fuera de línea
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     7
@@ -297,7 +301,7 @@
                     <div class="card ">
                         <div class="card-header card-header-tables">
                             <!-- Cuentas con más actividad -->
-                                 <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
+                            <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
                                 Cuentas con más actividad
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     4
@@ -352,7 +356,7 @@
                     <div class="card" style="">
                         <div class="card-header card-header-tables">
                             <!-- Dispositivos fuera de línea -->
-                                 <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
+                            <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
                                 Dispositivos fuera de línea
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     7
@@ -569,9 +573,10 @@ export default {
             AlertasDevice: [],
             UltimasAlarmas: [],
             UltimasAlertas: [],
-            AlarmasPendientes:[],
-            AlarmasPendientess:[],
-            AlertasPendientes:[],
+            AlarmasPendientes: [],
+            AlertasPendientes: [],
+            AllAlarms: [],
+            AlarmasEnProgreso:[],
             rol: localStorage.getItem('id_tipousuario'),
             GlobalApi: this.globalVar,
 
@@ -588,7 +593,8 @@ export default {
         // const ctxxx = document.getElementById('linechart-pendiente');
         // new Chart(ctxxx, this.planetChartData2);
         this.GraficaAlarmas();
-this.getAlarmasFromHttp()
+        this.getAlarmasFromHttp();
+        this.getProgresoAlarmasFromHttp();
         // *Mostrar grafica de productividad solo si son administradores
         if (this.rol !== '2') {
             this.GraficaHorizontalEmpleados();
@@ -709,11 +715,11 @@ this.getAlarmasFromHttp()
             });
 
         },
-// ************ TRAER TODAS LAS ALARMAS Y ALERTAS ************************
-  getAlarmasFromHttp() {
+        // ************ TRAER TODAS LAS ALARMAS Y ALERTAS PENDIENTES Y EN PROGRESO ************************
+        getAlarmasFromHttp() {
 
             var page = 1;
-            var perPage = 10;
+            var perPage = 1000;
 
             var idUser = 1; //cambiarlo despues por el state
             var typeUser = 1; // cambiarlo luego por el state
@@ -739,27 +745,61 @@ this.getAlarmasFromHttp()
 
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText)
-                console.log("xml request AllAlarms", resp);
-            var json = resp;
+                console.log("xml request AllAlarms", resp.data);
 
-     resp.data.map((data) =>{
+                this.AllAlarms = resp.data
 
-             if (data.id_clasificacion_alarma == 1) {
-                 this.AlarmasPendientes = data;
+                var alarmaspendientes = this.AllAlarms.filter(estado => estado.id_clasificacion_alarma == 1);
+                this.AlarmasPendientes = alarmaspendientes;
+                console.log('Alarmas pendientes:', this.AlarmasPendientes.length);
 
-                 this.AlarmasPendientes.map((asd) =>{console.log(asd)})
-                 
-            //  console.log(this.AlarmasPendientes);
-             }
-         });
+                var alertaspendientes = this.AllAlarms.filter(estado => estado.id_clasificacion_alarma == 2);
+                this.AlertasPendientes = alertaspendientes
+                console.log('Alertas pendientes:', this.AlertasPendientes.length);
 
-        
+            }
 
-                }
+        },
+        getProgresoAlarmasFromHttp() {
 
-    
+            var page = 1;
+            var perPage = 1000;
 
-            
+            var idUser = 1; //cambiarlo despues por el state
+            var typeUser = 1; // cambiarlo luego por el state
+
+            console.log("idUser es", idUser);
+            console.log("idUser es", typeUser);
+
+            var data = {
+                "typeFunction": "getAlarmasProgreso",
+                "idcPrincipal": "1",
+                "idcSecundaria": "null",
+                "page": page,
+                "perPage": perPage,
+                "idUserLoged": idUser,
+                "typeUserLoged": typeUser
+            }
+
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', this.GlobalApi + 'alarmas');
+            // prepare form data
+
+            // set headers (arreglalo porque lo envia too weird el form sjaskj)
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            //xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+            // send request
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText)
+                console.log("xml request AlarmsProgreso", resp);
+                var json = resp.data;
+                
+                this.AlarmasEnProgreso = json.length;
+            }
         },
         // ************ GRAFICAS ************************
         GraficaAlarmas() {
@@ -1222,12 +1262,13 @@ tr {
     color: #fff;
     text-transform: uppercase;
     cursor: unset;
-    
+
 }
+
 .btn.btn-texto-cards-bage:focus {
     border-color: #1a2130;
     box-shadow: 0 0 3px 0.1rem #1a2130;
-    
+
 }
 
 .btn-texto-cards-bage span {
