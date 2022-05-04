@@ -85,7 +85,7 @@
                                         <button class="btn btn-success " v-on:click="detalles(item.idsCuent)">
                                             <i class="fas fa-receipt"></i>
                                         </button>
-                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                        <button style="margin:0 5px 0 5px" v-on:click="DatosModalEditar(item)" data-bs-toggle="modal" data-bs-target="#exampleModalEditar" class="btn btn-warning ">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button class="btn btn-danger " v-on:click="EliminarCuenta(item.idsCuent)">
@@ -113,20 +113,20 @@
         </div>
     </section>
 
-    <!--//? ************* Modal ********************** -->
+    <!--//? ************* Modal Nueva Cuenta********************** -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Nueva Cuenta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row" v-on:submit.prevent="NuevaCuenta">
 
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Nombre de la cuenta</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="FormNombre" placeholder="Nombre de cuenta" required>
+                            <input type="text" class="form-control" id="exampleFormControlInput1"  v-model="FormNombre" placeholder="Nombre de cuenta" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput2" class="form-label">Correo electrónico</label>
@@ -141,7 +141,53 @@
                             <input type="text" class="form-control" id="exampleFormControlInput4" v-model="FormTelefono" placeholder="Teléfono" required>
                         </div>
                         <div class="mb-3">
-                            <button style="width:100%" class="btn btn-success">Enviar</button>
+                            <button style="width:100%" data-bs-dismiss="modal" class="btn btn-success">Enviar</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+            </div>
+        </div>
+    </div>
+    <!--//? ************* Modal Editar cuenta********************** -->
+    <div class="modal fade" id="exampleModalEditar" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Cuenta</h5>
+                    <button type="button"  v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" v-on:submit.prevent="EditarCuenta">
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Nombre de la cuenta</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="FormNombre" placeholder="Nombre de cuenta" required>
+                        </div>
+                     
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput2" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput2" v-model="FormCorreo" placeholder="Correo electrónico" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput4" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput4" v-model="FormTelefono" placeholder="Teléfono" required>
+                        </div>
+                               <div class="mb-3">
+                        <label for="validationCustom04" class="form-label">Estado de cuenta</label>
+                        <select class="form-select" id="validationCustom04" v-model="FormEstadoCuenta" required>
+                            <option selected disabled value="">Seleccionar estado de cuenta</option>
+                            <option value="1">Activo</option>
+                            <option value="2">Inactivo</option>
+                        </select>
+                    </div>
+                        <div class="mb-3">
+                            <button style="width:100%" data-bs-dismiss="modal" class="btn btn-success">Enviar</button>
                         </div>
 
                     </form>
@@ -177,6 +223,7 @@ export default {
             FormCorreo: '',
             FormDireccion: '',
             FormTelefono: '',
+            FormEstadoCuenta:'',
             perPage: '',
             newPagesLiEvents: [], //array que forma la paginacion
             page: 1, //determinar cual es la siguiente página o movimiento
@@ -189,6 +236,7 @@ export default {
             totalPages: 0,
             totalPagesEvent: 0,
             perPage: 0,
+            idEditt: ''
 
         }
     },
@@ -361,6 +409,7 @@ export default {
                         this.FormCorreo = '';
                         this.FormDireccion = '';
                         this.FormTelefono = '';
+                       
 
                     });
 
@@ -379,16 +428,27 @@ export default {
 
             }
         },
-        EditarCuenta(){
+        DatosModalEditar(item){
+
+this.idEditt = item.idsCuent;
+this.FormNombre = item.sCuentName;
+this.FormCorreo = item.suCuentaCorreo;
+this.FormTelefono = item.subCuentaTelefono;
+        },
+        CerrarModal(){
+             this.FormNombre = '';
+                        this.FormCorreo = '';
+                        this.FormTelefono = '';
+        },
+        EditarCuenta(id){
              var data = {
                 "typeFunction": "editarCuenta",
                 "idUser": this.id_usuario,
                 "nombreCuenta": this.FormNombre,
-                "cuentaStatus": this.FormNombre,
+                "cuentaStatus": this.FormEstadoCuenta,
                 "correo": this.FormCorreo,
                 "tel": this.FormTelefono,
-                // "cPrincipal": this.id_cPrincipal,
-                // "direccion": this.FormDireccion,
+                "idCuenta": this.idEditt
             }
 
             const xhr = new XMLHttpRequest();
@@ -401,50 +461,31 @@ export default {
 
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText)
-                console.log("respuesta CuentaNueva", resp);
+                console.log("respuesta EditarCuenta", resp);
                 console.log(data);
-                if (resp["message"] == 'Internal Server Error') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hay un problema con el servidor',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-                    });
-                } else {
 
+                
                     Swal.fire({
                         icon: 'success',
-                        title: 'Cuenta creada correctamente',
+                        title: 'Cuenta editada correctamente',
                         showClass: {
                             popup: 'animate__animated animate__fadeInDown'
                         },
                         hideClass: {
                             popup: 'animate__animated animate__fadeOutUp'
                         }
-                    }).then(() => {
+                    }).then((result) => {
                         this.FormNombre = '';
                         this.FormCorreo = '';
-                        this.FormDireccion = '';
                         this.FormTelefono = '';
 
+    if (result.isConfirmed) {
+                        this.itemsAccounts.length = 0;
+                        this.getAllAccounts();
+                        // console.log('asd');
+                    }
                     });
 
-                    var json = resp;
-                    var id = json["insertId"] /* valor agarrado de la respuesta del servidor */
-
-                    let jSON = {
-                        idsCuent: id,
-                        sCuentName: this.FormNombre,
-                        suCuentaCorreo: this.FormCorreo,
-                        sCuentaDir: this.FormDireccion,
-                        subCuentaTelefono: this.FormTelefono,
-                    };
-                    this.itemsAccounts.splice(0, 0, jSON);
-                }
 
             }
         },
