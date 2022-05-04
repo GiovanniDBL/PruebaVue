@@ -60,7 +60,9 @@
                                             <th>Nivel de señal</th>
                                             <th>Estado Comunicación</th>
                                             <th>Temp</th>
-                                            <th>Voltaje</th>
+                                            <!-- <th>Voltaje</th> -->
+                                            <th>Ubicación</th>
+                                            <th>Subcuenta</th>
                                             <th>Cuenta</th>
                                             <th>Detalles</th>
                                         </tr>
@@ -86,18 +88,20 @@
                                             </td>
 
                                             <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
-                                            <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
+                                            <!-- <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td> -->
+                                            <td>{{item.nameUbiInt}}</td>
                                             <td>{{item.nameCuenta}}</td>
+                                            <td>{{item.sCuentName}}</td>
 
                                             <td>
                                                 <!-- <i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i> -->
                                                          <button class="btn btn-success " v-on:click="detalles(item.idDevice)">
                                             <i class="fas fa-receipt"></i>
                                         </button>
-                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                        <button style="margin:0 5px 0 5px" class="btn btn-warning " disabled>
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger ">
+                                        <button class="btn btn-danger " disabled>
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                                 </td>
@@ -156,10 +160,10 @@
                                                      <button class="btn btn-success " v-on:click="detalles(item.idDevice)">
                                             <i class="fas fa-receipt"></i>
                                         </button>
-                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                        <button style="margin:0 5px 0 5px" class="btn btn-warning " disabled>
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger ">
+                                        <button class="btn btn-danger " disabled>
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                             
@@ -182,6 +186,7 @@
 
 <script>
 import sidebar from './Sidebar';
+import 'chartjs-plugin-labels';
 export default {
     name: "dispositivosComponent",
     components: {
@@ -201,6 +206,8 @@ export default {
             totalOffline: '',
             search: '',
             GlobalApi: this.globalVar,
+            id_tipoUsuario: localStorage.getItem('id_tipousuario'),
+            id_usuario: localStorage.getItem('id_usuario')
         };
     },
     computed: {
@@ -237,8 +244,8 @@ export default {
                 //idUbic: idUbicInt,
                 "page": 1,
                 "perPage": 10,
-                "idUserLoged": 1,
-                "typeUserLoged": 1
+                "idUserLoged": this.id_usuario,
+                "typeUserLoged": this.id_tipoUsuario
             };
             const xhr = new XMLHttpRequest();
             xhr.open(
@@ -255,7 +262,7 @@ export default {
             // listen for `load` event
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
-                console.log("xml request all devices", resp);
+                console.log("xml request all devicess", resp);
                 var json = resp;
                 for (var index in json.data) {
                     console.log(json.data[index]["NameDevice"]);
@@ -267,7 +274,9 @@ export default {
                         linkQuality: json.data[index]["linkQuality"],
                         com_status: json.data[index]["comun_status"],
                         tempAmb: json.data[index]["tempAmb"],
-                        voltDevice: json.data[index]["voltDevice"]
+                        voltDevice: json.data[index]["voltDevice"],
+                        nameUbiInt: json.data[index]["nameUbiInt"],
+                        sCuentName: json.data[index]["sCuentName"]
                     });
 
                 }

@@ -5,11 +5,11 @@
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
         <div class="card resumen-card">
-<div class="card-header">
-    <!-- <span style="float:right">Descargar documento PDF  <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i></span> -->
-<button  @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF  <i class="fas fa-download btn-pdf"></i></button>
-   
-</div>
+            <div class="card-header">
+                <!-- <span style="float:right">Descargar documento PDF  <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i></span> -->
+                <button @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF <i class="fas fa-download btn-pdf"></i></button>
+
+            </div>
             <div class="card-body">
                 <form class="row g-3">
                     <div class="col-md-3">
@@ -157,7 +157,7 @@
 import sidebar from './Sidebar';
 import VueGauge from 'vue-gauge';
 import GaugeController from 'chartjs-gauge';
-import 'chartjs-plugin-labels';
+// import 'chartjs-plugin-labels';
 
 import {
     Chart
@@ -168,7 +168,8 @@ import planetChartData2 from '../../graficas/linechart2.js'
 import axios from 'axios'
 import jsPDF from 'jspdf'
 import moment from 'moment'
-// import datalabels from 'chartjs-plugin-labels'
+
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 // import datalabelss from 'chartjs-plugin-datalabels'
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
@@ -178,7 +179,7 @@ export default {
         sidebar,
         VueGauge,
         GaugeController,
-        // datalabels,
+        ChartDataLabels,
         // datalabelss,
     },
 
@@ -259,7 +260,7 @@ export default {
             pdf.text(20, 100, 'Vibración:');
             pdf.text(20, 110, 'Gas:');
             pdf.text(20, 120, 'Voltaje:');
-            
+
             pdf.setTextColor('#4472C4')
             pdf.text(53, 30, '414150');
             pdf.text(51, 40, 'Sucursal 1');
@@ -601,16 +602,23 @@ export default {
             var chart = new Chart(ctx, {
                 type: 'gauge',
                 data: {
+                    // labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110'],
+                    labels: ['40', '50', '60', '70', '80', '100'],
                     datasets: [{
+
+                        // value: 55,
                         value: this.ultimatemp,
                         minValue: 0,
-                        data: [60, 120, 180],
+                        // data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110],
+                        data: [50, 60, 70, 80, 90, 100],
+                        // data: [0, 30,40,50,70,100],
                         // data: [49, 79, 100],
-                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         borderColor: "#1a2130",
-                        borderWidth: 7
+                        borderWidth: 9
                     }]
                 },
+                plugins: [ChartDataLabels],
                 options: {
                     //       layout: {
                     //     padding: {
@@ -619,8 +627,24 @@ export default {
 
                     //     }
                     // },
-                    
 
+                    plugins: {
+                        // Change options for ALL labels of THIS CHART
+                        datalabels: {
+                            display: true,
+                            render: 'value',
+                            color: '#000',
+                            Size: 37.5,
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex];
+                            },
+                            font: {
+                                size: 20,
+                                weight: 'bold'
+                            }
+                        },
+
+                    },
                     responsive: true,
                     cutoutPercentage: 65,
                     needle: {
@@ -631,9 +655,9 @@ export default {
                     },
                     valueLabel: {
                         display: true,
-                        formatter: (value) => {
-                            return Math.round(value) + '°C';
-                        },
+                        // formatter: (value) => {
+                        //     return Math.round(value) + '°C';
+                        // },
                         fontSize: 37.5,
                         color: 'rgba(255, 255, 255, 1)',
                         backgroundColor: '#1a2130',
@@ -651,7 +675,13 @@ export default {
         },
         gaugeVib() {
             var ctx = document.getElementById("gaugeVib").getContext("2d");
+            //   labels: ['40', '50','60','70','80','100'],
+            //                 datasets: [{
 
+            //                     value: this.ultimatemp,
+            //                     minValue: 0,
+            //                  ,
+            //                     data: [50, 60, 70, 80, 90,100],
             var chart = new Chart(ctx, {
                 type: 'gauge',
                 data: {
@@ -659,7 +689,7 @@ export default {
 
                         value: this.ultimavib,
                         minValue: 0,
-                        data: [499,799, 1023],
+                        data: [499, 799, 1023],
                         backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
                         // backgroundColor: ['#009ad9', '#8080802b', '#8080802b'],
                         borderColor: "#1a2130",

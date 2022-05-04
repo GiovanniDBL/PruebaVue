@@ -183,7 +183,7 @@
                         <select class="form-select" id="validationCustom04" v-model="FormEstadoCuenta" required>
                             <option selected disabled value="">Seleccionar estado de cuenta</option>
                             <option value="1">Activo</option>
-                            <option value="2">Inactivo</option>
+                            <option value="0">Inactivo</option>
                         </select>
                     </div>
                         <div class="mb-3">
@@ -299,7 +299,7 @@ export default {
                 "cPrincipal": this.id_cPrincipal,
                 "idUser": this.id_usuario,
                 "page": 1,
-                "perPage": 10,
+                "perPage": 20,
             };
             const xhr = new XMLHttpRequest();
             xhr.open(

@@ -16,7 +16,7 @@
 
                                 <li class="nav-item">
                                     <div class="btn-group " style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
-                                        <button data-bs-toggle="modal" data-bs-target="#exampleModalSensor" type="button" class="btn btn-success"><i class="fas fa-plus-circle"></i> Añadir nuevo sensor</button>
+                                        <button data-bs-toggle="modal" data-bs-target="#exampleModalSensor" type="button" class="btn btn-success" disabled><i class="fas fa-plus-circle"></i> Añadir nuevo sensor</button>
                                     </div>
                                 </li>
 
@@ -28,7 +28,6 @@
 
                                     <div class="btn-group " style=" margin-right: 1rem;" role="group" aria-label="Basic mixed styles example">
                                         <button data-bs-toggle="modal" data-bs-target="#exampleModal" type="button" class="btn btn-success"> <i class="fas fa-user-plus"></i> Agregar nueva subcuenta</button>
-
                                     </div>
                                 </li>
                             </ul>
@@ -252,6 +251,8 @@ export default {
             FormPais: '',
             FormCiudad: '',
             FormCodigoPostal: '',
+            id_cPrincipal: localStorage.getItem('id_cPrincipal'),
+            id_usuario: localStorage.getItem('id_usuario'),
 
         }
     },
@@ -273,15 +274,15 @@ export default {
 
             var data = {
                 "typeFunction": "getUbicationByIDpCuenta",
-                "cPrincipal": 1,
-                "idUser": 1,
+                "cPrincipal": this.id_cPrincipal,
+                "idUser": this.id_usuario,
                 "page": 1,
                 "perPage": 10,
             };
             const xhr = new XMLHttpRequest();
             xhr.open(
                 "POST",
-                this.GlobalApi + 'cuentas',
+                this.GlobalApi + 'subcuentas',
             );
 
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
@@ -290,7 +291,7 @@ export default {
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all SubAccounts", resp);
-                var json = resp;
+                var json = resp.data;
 
                 for (var index in json) {
 
@@ -513,7 +514,8 @@ tr {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #26283b;
+    background-color: #1a2130;
+    /* background-color: #26283b; */
     /* background-color: #27293d; */
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -542,8 +544,10 @@ tr {
     font-weight: 400;
     line-height: 1.5;
     color: #fff;
-    background-color: #222332 !important;
+    /* background-color: #222332 !important; */
+    background-color: #212b3d !important;
     border: 1px solid #2b3553;
+    /* background-image: url('../assets/flecha_select.webp') */
 
 }
 
@@ -553,7 +557,8 @@ tr {
         box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 } */
 .modal input {
-    background-color: #222332 !important;
+    background-color: #212b3d !important;
+    /* background-color: #222332 !important; */
     border: 1px solid #2b3553 !important;
     color: #fff;
 }

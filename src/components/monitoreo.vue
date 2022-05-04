@@ -211,8 +211,8 @@ export default {
         this.getAlarmasFromHttp();
         this.getEventosFromHttp();
         this.getProgresoAlarmasFromHttp();
-        this.getDataFromSocket();
-
+        // this.getDataFromSocket();
+        this.SocketOnInit();
         // console.log('variable global',this.myVar);
 
     },
@@ -325,6 +325,8 @@ export default {
             flagRegistro: 0,
             fechaConexion: '0',
             fechaConexionStorage: localStorage.getItem('localsocket'),
+            id_usuario: localStorage.getItem('id_usuario'),
+            id_tipoUsuario: localStorage.getItem('id_tipousuario'),
             idConexion: '',
             clasificacion: '',
             totalAlarmas: 0,
@@ -433,10 +435,10 @@ export default {
         getAlarmasFromHttp() {
 
             var page = 1;
-            var perPage = 10;
+            var perPage = 200;
 
-            var idUser = 1; //cambiarlo despues por el state
-            var typeUser = 1; // cambiarlo luego por el state
+            var idUser = this.id_usuario; //cambiarlo despues por el state
+            var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
 
             console.log("idUser es", idUser);
             console.log("idUser es", typeUser);
@@ -498,10 +500,10 @@ export default {
         getProgresoAlarmasFromHttp() {
 
             var page = 1;
-            var perPage = 10;
+            var perPage = 200;
 
-            var idUser = 1; //cambiarlo despues por el state
-            var typeUser = 1; // cambiarlo luego por el state
+           var idUser = this.id_usuario; //cambiarlo despues por el state
+            var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
 
             console.log("idUser es", idUser);
             console.log("idUser es", typeUser);
@@ -560,10 +562,10 @@ export default {
         getEventosFromHttp() {
 
             var page = 1;
-            var perPage = 10;
+            var perPage = 200;
 
-            var idUser = 1; //cambiarlo despues por el state
-            var typeUser = 1; // cambiarlo luego por el state
+            var idUser = this.id_usuario; //cambiarlo despues por el state
+            var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
 
             // console.log("idUser es",idUser);
             // console.log("idUser es",typeUser);
@@ -624,40 +626,42 @@ export default {
             this.WebSocketTest();
         },
 
-        WebSocketTest() {
-            if ("WebSocket" in window) {
-                // alert("WebSocket is supported by your Browser!");
+        SocketOnInit(){
+              if ("WebSocket" in window) {
+                console.log("Conectando socket...");
                 var data = "";
-                // Let us open a web socket
-                /*var ws = new WebSocket(
-                  "wss://2uxmgq5r4j.execute-api.us-east-1.amazonaws.com/Dev"
-                );*/
-
-                //conexion al socket el cual genera un idConexion
                 var ws = new WebSocket(
                     "wss://2uxmgq5r4j.execute-api.us-east-1.amazonaws.com/Dev"
                 );
 
-                console.log("IdUser es ", this.idUser);
-                var idUsuario = this.idUser;
-
-                ws.onopen = function () {
-                    /*var msg = {
-                      action: "getData",
-                    };*/
-
-                    //se suscribe al topic tablaMonitor
+                // console.log("IdUser es ", this.idUser);
+                // var idUsuario = this.idUser;
+// 1 admin
+// 2 centralista
+// 6 clientes
+                ws.onopen = event => {
+            
                     var msg = {
                         "action": "setNotifications",
                         "ActiveNotifications": 1,
-                        "userID": 1,
+                        "userID": this.id_usuario,
+                        // "userID": this.id_usuario,
                         "topic": "central/tablaMonitor"
                     }
-                    // Web Socket is connected, send data using send()
                     ws.send(JSON.stringify(msg));
                     console.log(msg);
-                    console.log("Enviamdo Mensaje...");
+                    this.WebSocketTest(ws);
                 };
+                } else {
+        // The browser doesn't support WebSocket
+        alert("WebSocket NOT supported by your Browser!");
+      }
+
+
+        },
+        WebSocketTest(ws) {
+            var data = "";
+           
 
                 ws.onmessage = (evt) => {
                     var received_msg = evt.data;
@@ -728,17 +732,15 @@ export default {
 
                 this.setAlive(ws);
 
-                ws.onclose = function () {
+                ws.onclose = event =>  {
                     // websocket is closed.
                     // alert("Connection is closed...");
                     localStorage.setItem('IniciarSocket', '0')
                     this.flagRegistro = 0;
                     console.log("Bandera", this.flagRegistro);
+                    this.SocketOnInit();
                 };
-            } else {
-                // The browser doesn't support WebSocket
-                alert("WebSocket NOT supported by your Browser!");
-            }
+      
         },
 
         setAlive(socketConn) {
@@ -916,12 +918,13 @@ export default {
             this.itemsAlerts.splice(0, 0, jSON);
             console.log('handAlert', this.itemsAlerts);
 
-            axios.post(messageApi, mensaje).then(data => {
-                console.log('AXIOS messageApi DATA',data);
-            });
-            axios.post(messageWs, mensaje).then(data => {
-                console.log('AXIOS messageWs DATA',data);
-            });
+//TODO MENSAJES PARA WASAP Y CORREO
+            // axios.post(messageApi, mensaje).then(data => {
+            //     console.log('AXIOS messageApi DATA',data);
+            // });
+            // axios.post(messageWs, mensaje).then(data => {
+            //     console.log('AXIOS messageWs DATA',data);
+            // });
             //  this.totalAlarmas = this.totalAlarmas + 1;; 
 
             if (clasificacion == "Alarma") {
