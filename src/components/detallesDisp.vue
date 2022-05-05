@@ -4,88 +4,127 @@
     <section class="home animated fadeIn">
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
-        <div class="card resumen-card">
-            <div class="card-header">
-                <!-- <span style="float:right">Descargar documento PDF  <i type="button" class="fas fa-file-pdf btn-pdf"  @click="dowloadPdf"></i></span> -->
-                <button @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF <i class="fas fa-download btn-pdf"></i></button>
-
-            </div>
-            <div class="card-body">
-                <form class="row g-3">
-                    <div class="col-md-3">
-                        <label for="validationDefault01" class="form-label">NameDevice</label>
-                        <input type="text" class="form-control" id="validationDefault01" value="414150" placeholder="414150" disabled>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="validationDefault02" class="form-label">NameUbica</label>
-                        <input type="text" class="form-control" id="validationDefault02" value="Sucursal 1" placeholder="Sucursal 1" disabled>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="validationDefault02" class="form-label">cuentasCreatedDate</label>
-                        <input type="text" class="form-control" id="validationDefault02" v-model="pruebafecha" placeholder="2021-11-19T11:12:56.000Z" disabled>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="validationDefault02" class="form-label">direccionUbiInt</label>
-                        <input type="text" class="form-control" id="validationDefault02" value="Cajero 5" placeholder="Cajero 5" disabled>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label for="validationDefault02" class="form-label">nombCuidadUbic</label>
-                        <input type="text" class="form-control" id="validationDefault02" value="Cancún" placeholder="Cancún" disabled>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="validationDefault02" class="form-label">ubicacionDir</label>
-                        <input type="text" class="form-control" id="validationDefault02" value="Plaza las américas" placeholder="Plaza las américas" disabled>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="validationDefault01" class="form-label">Temperatura</label>
-                        <input type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="validationDefault02" class="form-label">Vibración</label>
-                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
-                    </div>
-                    <div class="col-md-1">
-                        <label for="validationDefault02" class="form-label">Gas</label>
-                        <input type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
-                    </div>
-                    <div class="col-md-1">
-                        <label for="validationDefault02" class="form-label">Voltaje</label>
-                        <input type="text" class="form-control" id="validationDefault02" value="0" disabled>
-                        <!-- <input type="text" class="form-control" id="validationDefault02" v-model="ultimavolt" disabled> -->
-                    </div>
-
-                </form>
-            </div>
-        </div>
         <div class="gauges">
             <div class="row">
-                <div class="col-4">
+                <div class="col-5">
                     <div class="card">
                         <div class="card-header">
                             Temperatura
+                            <div style="float:right" class="dropdown">
+
+                                <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                    <li><a class="dropdown-item" href="#">Reglas</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <canvas id="gaugeTemp" style="position: relative; height:26vh; width:30vw;"></canvas>
+                        <canvas id="gaugeTemp" style="position: relative; height:22vh; width:30vw;"></canvas>
 
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header">
-                            Vibración
-                        </div>
-                        <canvas id="gaugeVib" style="position: relative; height:26vh; width:30vw;"></canvas>
 
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
+                    <div style="margin-top:1rem" class="card">
                         <div class="card-header">
                             Gas
+                            <div style="float:right" class="dropdown">
+
+                                <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsGas" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsGas">
+                                    <li><a class="dropdown-item" href="#">Reglas</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <canvas id="gaugeGas" style="position: relative; height:26vh; width:30vw;"></canvas>
+                        <canvas id="gaugeGas" style="position: relative; height:22vh; width:30vw;"></canvas>
 
                     </div>
+                </div>
+
+                <div class="col-7">
+                    <div class="card resumen-card">
+                        <div class="card-header text-">
+                            Detalles del dispositivo
+                            <!-- <button @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF <i class="fas fa-download btn-pdf"></i></button> -->
+                            <div style="float:right" class="dropdown">
+
+                                <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsDetalles" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsDetalles">
+                                    <li><a class="dropdown-item" type="button" @click="dowloadPdf">Generar PDF</a></li>
+                                    <li><a class="dropdown-item" href="#" @click="disabled();">Editar información</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <form class="row g-3" style="margin-bottom:1rem">
+                                <div class="col-md-4">
+                                    <label for="inputDispositivo" class="form-label">Dispositivo</label>
+                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" placeholder="414150" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputDispUbic" class="form-label">Ubicación del dispositivo</label>
+                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" placeholder="Cajero 5" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputSucursal" class="form-label">Sucursal</label>
+                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" placeholder="Sucursal 1" disabled>
+                                </div>
+
+                                <!-- <div class="col-md-4">
+                        <label for="validationDefault02" class="form-label">cuentasCreatedDate</label>
+                        <input type="text" class="form-control" id="validationDefault02" v-model="pruebafecha" placeholder="2021-11-19T11:12:56.000Z" disabled>
+                    </div> -->
+
+                                <div class="col-md-4">
+                                    <label for="inputPais" class="form-label">País</label>
+                                    <input type="text" class="form-control" id="inputPais" v-model="PaisForm" placeholder="2021-11-19T11:12:56.000Z" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputCiudad" class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" placeholder="Cancún" disabled>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputUbicacion" class="form-label">Ubicación</label>
+                                    <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" placeholder="Plaza las américas" disabled>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="validationDefault01" class="form-label">Temperatura</label>
+                                    <input type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="validationDefault02" class="form-label">Vibración</label>
+                                    <input type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="validationDefault02" class="form-label">Gas</label>
+                                    <input type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="validationDefault02" class="form-label">Voltaje</label>
+                                    <input type="text" class="form-control" id="validationDefault02" value="0" disabled>
+
+                                </div>
+                                <div class="col-md-12"  v-if="btnSave == true">
+                                  <button style="margin-right:1rem"   type="button" class="btn btn-success">Guardar</button>
+                                  <button  @click="CancelDisabledInput()" type="button" class="btn btn-danger">Cancelar</button>
+                                </div>
+                                <!-- <div class="col-md-12">
+                                    <div class="row ">
+
+                                        <iframe class="responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19933.301532351026!2d-82.78655246384491!3d27.971150750406643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f10251970cd5%3A0x2031decc127aa31e!2s1200%20Eldridge%20St%2C%20Clearwater%2C%20FL%2033755%2C%20EE.%20UU.!5e0!3m2!1ses-419!2smx!4v1621358511643!5m2!1ses-419!2smx" width="900" height="100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+                                    </div>
+                                </div> -->
+
+                            </form>
+                            <!-- <hr> -->
+                            <div class="row ">
+
+                                <iframe class="responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19933.301532351026!2d-82.78655246384491!3d27.971150750406643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f10251970cd5%3A0x2031decc127aa31e!2s1200%20Eldridge%20St%2C%20Clearwater%2C%20FL%2033755%2C%20EE.%20UU.!5e0!3m2!1ses-419!2smx!4v1621358511643!5m2!1ses-419!2smx" width="900" height="140" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -180,6 +219,7 @@ export default {
         VueGauge,
         GaugeController,
         ChartDataLabels,
+        btnSave: false,
         // datalabelss,
     },
 
@@ -221,6 +261,13 @@ export default {
             typeUserLoged: localStorage.getItem('id_tipousuario'),
             pruebafecha: moment.utc('2021-11-19T11:12:56.000Z').locale('es-mx').format('DD/MM/YYYY HH:mm:ss'),
             GlobalApi: this.globalVar,
+            NameDeviceForm: '',
+            SucursalForm: '',
+            UbicSensorForm: '',
+            CiudadForm: '',
+            EstadoForm: '',
+            PaisForm: '',
+            UbicacionForm: '',
 
         }
     },
@@ -239,6 +286,18 @@ export default {
 
     },
     methods: {
+        disabled(){
+            document.getElementById('inputDispositivo').disabled = false;
+            document.getElementById('inputDispUbic').disabled = false;
+            document.getElementById('inputSucursal').disabled = false;
+            document.getElementById('inputPais').disabled = false;
+            document.getElementById('inputCiudad').disabled = false;
+            document.getElementById('inputUbicacion').disabled = false;
+            this.btnSave = true;
+        },
+        CancelDisabledInput(){
+            this.btnSave = false;
+        },
         dowloadPdf() {
             var pdf = new jsPDF();
             pdf.setFont("Arial");
@@ -297,6 +356,14 @@ export default {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request DetallesDevice", resp);
 
+                this.NameDeviceForm = resp.data[0].NameDevice;
+                this.SucursalForm = resp.data[0].NameUbica;
+                this.UbicSensorForm = resp.data[0].nameUbiInt;
+                this.CiudadForm = resp.data[0].nombCuidadUbic;
+                this.EstadoForm = resp.data[0].estadoNombre;
+                this.PaisForm = resp.data[0].paisNombre;
+                this.UbicacionForm = resp.data[0].ubicacionDir;
+
                 if (resp.data !== undefined) {
                     var Reverse = resp.data.reverse();
                     //* HORA
@@ -338,7 +405,7 @@ export default {
                 this.GraficaGas();
                 this.GraficaVolt();
                 this.gaugeTemp();
-                this.gaugeVib();
+                // this.gaugeVib();
                 this.gaugeGas();
             }
         },
@@ -603,10 +670,10 @@ export default {
                 type: 'gauge',
                 data: {
                     // labels: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110'],
-                    labels: ['40', '50', '60', '70', '80', '100'],
+                    labels: ['40°', '50°', '60°', '70°', '80°', '100°'],
                     datasets: [{
 
-                        // value: 55,
+                        // value: 99,
                         value: this.ultimatemp,
                         minValue: 0,
                         // data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110],
@@ -615,7 +682,7 @@ export default {
                         // data: [49, 79, 100],
                         backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         borderColor: "#1a2130",
-                        borderWidth: 9
+                        borderWidth: 1
                     }]
                 },
                 plugins: [ChartDataLabels],
@@ -634,12 +701,18 @@ export default {
                             display: true,
                             render: 'value',
                             color: '#000',
-                            Size: 37.5,
+                            // color: function (context) {
+                            //     return context.dataset.backgroundColor;
+                            // },
+                            // backgroundColor: 'rgba(0, 0, 0, 1.0)',
+                            borderWidth: 0,
+                            borderRadius: 5,
+                            // Size: 37.5,
                             formatter: function (value, context) {
                                 return context.chart.data.labels[context.dataIndex];
                             },
                             font: {
-                                size: 20,
+                                size: 15,
                                 weight: 'bold'
                             }
                         },
@@ -650,14 +723,14 @@ export default {
                     needle: {
                         radiusPercentage: 2,
                         widthPercentage: 5,
-                        lengthPercentage: 20,
+                        lengthPercentage: 0,
                         color: '#1abb97'
                     },
                     valueLabel: {
                         display: true,
-                        // formatter: (value) => {
-                        //     return Math.round(value) + '°C';
-                        // },
+                        formatter: (value) => {
+                            return Math.round(value) + '°C';
+                        },
                         fontSize: 37.5,
                         color: 'rgba(255, 255, 255, 1)',
                         backgroundColor: '#1a2130',
@@ -740,22 +813,44 @@ export default {
             var chart = new Chart(ctx, {
                 type: 'gauge',
                 data: {
+                    labels: ['40', '50', '60', '70', '80', '100'],
                     datasets: [{
+                        // value: 31,
                         value: this.ultimagas,
                         minValue: 0,
-                        data: [49, 79, 100],
-                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(255,84,84)'],
+                        data: [50, 60, 70, 80, 90, 100],
+                        // data: [49, 79, 100],
+                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         borderColor: "#1a2130",
-                        borderWidth: 7
+                        borderWidth: 1
                     }]
                 },
+                plugins: [ChartDataLabels],
                 options: {
+                    plugins: {
+
+                        datalabels: {
+                            display: true,
+                            render: 'value',
+                            color: '#000',
+                            borderWidth: 0,
+                            borderRadius: 5,
+                            formatter: function (value, context) {
+                                return context.chart.data.labels[context.dataIndex];
+                            },
+                            font: {
+                                size: 15,
+                                weight: 'bold'
+                            }
+                        },
+
+                    },
                     responsive: true,
                     cutoutPercentage: 65,
                     needle: {
                         radiusPercentage: 2,
                         widthPercentage: 5,
-                        lengthPercentage: 20,
+                        lengthPercentage: 0,
                         color: '#1abb97'
                     },
                     valueLabel: {
@@ -771,18 +866,6 @@ export default {
                             top: 20,
                             bottom: 15,
                             left: 20
-                        },
-
-                    },
-                    plugins: {
-                        labels: {
-                            render: 'value',
-                            fontSize: 20,
-                            fontColor: '#ffffff',
-                            fontStyle: 'bold',
-                            shadowColor: 'rgba(255,0,0,0.75)',
-                            arc: false,
-
                         },
 
                     },
@@ -826,7 +909,8 @@ export default {
 .resumen-card {
     margin-bottom: 1rem;
     color: #fff;
-    text-align: center;
+    /* text-align: center; */
+    height: 100% !important;
 }
 
 .gauges {
@@ -858,7 +942,8 @@ export default {
 }
 
 .card-header {
-    color: #ffffffbd;
+    color: #ffffffCC;
+    /* color: #ffffffbd; */
     text-transform: uppercase;
 }
 
@@ -882,25 +967,33 @@ export default {
 }
 
 label {
-    /* color: #ffffff99; */
-    /* font-size: 1rem; */
-}
-
-input {
-    background-color: #7d80920d !important;
-    /* border: 1px solid #79c6ba !important; */
-    border: 1px solid #799cc6a1 !important;
     color: #ffffff99;
     /* font-size: 1rem; */
 }
 
+input {
+    background-color: #1a2130 !important;
+    /* background-color: #7d80920d !important; */
+    /* border: 1px solid #79c6ba !important; */
+    border: 1px solid #222a3a !important;
+    color: #ffffff;
+    border-radius: 0.4285rem !important;
+    /* font-size: 1rem; */
+}
+input:focus{
+    color: #ffffff
+}
 input:disabled {
 
-    color: #fff
+    color: #ffffffcc
 }
 
 .form-control {
-    text-align: center;
+    /* text-align: center; */
+}
+
+ul {
+    text-transform: capitalize;
 }
 
 @media only screen and (min-width: 1800px) {

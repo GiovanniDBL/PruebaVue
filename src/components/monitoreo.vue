@@ -208,11 +208,11 @@ export default {
     },
     mounted() {
         // this.Alert();
+        this.SocketOnInit();
         this.getAlarmasFromHttp();
         this.getEventosFromHttp();
         this.getProgresoAlarmasFromHttp();
         // this.getDataFromSocket();
-        this.SocketOnInit();
         // console.log('variable global',this.myVar);
 
     },
@@ -327,6 +327,7 @@ export default {
             fechaConexionStorage: localStorage.getItem('localsocket'),
             id_usuario: localStorage.getItem('id_usuario'),
             id_tipoUsuario: localStorage.getItem('id_tipousuario'),
+            id_cPrincipal: localStorage.getItem('id_cPrincipal'),
             idConexion: '',
             clasificacion: '',
             totalAlarmas: 0,
@@ -435,7 +436,7 @@ export default {
         getAlarmasFromHttp() {
 
             var page = 1;
-            var perPage = 200;
+            var perPage = 10;
 
             var idUser = this.id_usuario; //cambiarlo despues por el state
             var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
@@ -445,7 +446,7 @@ export default {
 
             var data = {
                 "typeFunction": "GetAlarmas",
-                "idcPrincipal": "1",
+                "idcPrincipal": this.id_cPrincipal,
                 "idcSecundaria": "null",
                 "page": page,
                 "perPage": perPage,
@@ -510,7 +511,7 @@ export default {
 
             var data = {
                 "typeFunction": "getAlarmasProgreso",
-                "idcPrincipal": "1",
+                "idcPrincipal": this.id_cPrincipal,
                 "idcSecundaria": "null",
                 "page": page,
                 "perPage": perPage,
@@ -629,7 +630,7 @@ export default {
         SocketOnInit(){
               if ("WebSocket" in window) {
                 console.log("Conectando socket...");
-                var data = "";
+                // var data = "";
                 var ws = new WebSocket(
                     "wss://2uxmgq5r4j.execute-api.us-east-1.amazonaws.com/Dev"
                 );
@@ -650,8 +651,8 @@ export default {
                     }
                     ws.send(JSON.stringify(msg));
                     console.log(msg);
-                    this.WebSocketTest(ws);
                 };
+                    this.WebSocketTest(ws);
                 } else {
         // The browser doesn't support WebSocket
         alert("WebSocket NOT supported by your Browser!");
@@ -705,6 +706,8 @@ export default {
                                 //? 10=Fasia reposición,
                                 //? 12 = restablecimiento de zona,
                                 //? 14 = restablecimiento de ac
+                                 this.handleAlertEventos(data)
+                                  console.log(json);
                                 if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
                                     json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
 
@@ -738,6 +741,7 @@ export default {
                     localStorage.setItem('IniciarSocket', '0')
                     this.flagRegistro = 0;
                     console.log("Bandera", this.flagRegistro);
+                    ws.close(1000, "Work complete");
                     this.SocketOnInit();
                 };
       
@@ -757,7 +761,7 @@ export default {
                     "id_conexion": this.idConexion,
                 }
                 socketConn.send(JSON.stringify(msgtst));
-            }, 60000);
+            }, 300000 );
             // 120000 = 2 minutos;
             // 60000 = 1 minuto;
             // 300000 = 5 minutos;
