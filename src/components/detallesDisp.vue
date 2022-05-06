@@ -1,5 +1,4 @@
 <template>
-
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
@@ -8,9 +7,10 @@
         <div class="gauges">
             <div class="row">
                 <div class="col-5">
-                    <div class="card">
+                    <div class="card ">
                         <div class="card-header">
                             Temperatura
+                            <!-- <button style="float: right" class="btn btn-success btn-sm"> reglas</button> -->
                             <div style="float:right" class="dropdown">
 
                                 <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
@@ -19,11 +19,13 @@
                                 </ul>
                             </div>
                         </div>
-                        <canvas id="gaugeTemp" style="position: relative; height:22vh; width:30vw;"></canvas>
+                              <div class="card-body">
+                        <canvas id="gaugeTemp" style="position: relative; height:27vh; width:30vw;"></canvas>
+                        </div>
 
                     </div>
 
-                    <div style="margin-top:1rem" class="card">
+                    <div style="margin-top:1rem;" class="card ">
                         <div class="card-header">
                             Gas
                             <div style="float:right" class="dropdown">
@@ -34,7 +36,10 @@
                                 </ul>
                             </div>
                         </div>
-                        <canvas id="gaugeGas" style="position: relative; height:22vh; width:30vw;"></canvas>
+                        <div class="card-body">
+
+                        <canvas id="gaugeGas" style="position: relative; height:27vh; width:30vw;"></canvas>
+                        </div>
 
                     </div>
                 </div>
@@ -69,11 +74,6 @@
                                     <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
                                 </div>
 
-                                <!-- <div class="col-md-4">
-                        <label for="validationDefault02" class="form-label">cuentasCreatedDate</label>
-                        <input type="text" class="form-control" id="validationDefault02" v-model="pruebafecha" placeholder="2021-11-19T11:12:56.000Z" disabled>
-                    </div> -->
-
                                 <div class="col-md-4">
                                     <label for="inputPais" class="form-label">País</label>
                                     <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
@@ -88,43 +88,35 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="validationDefault01" class="form-label">Temperatura</label>
-                                    <input type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Vibración</label>
-                                    <input type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
+                                    <input style="background-color:#dc3546 !important" type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="validationDefault02" class="form-label">Gas</label>
-                                    <input type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
+                                    <input style="background-color:#272c35 !important"  type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="validationDefault02" class="form-label">Vibración</label>
+                                    <input style="background-color:#2e616a !important"  type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="validationDefault02" class="form-label">Voltaje</label>
-                                    <input type="text" class="form-control" id="validationDefault02" value="0" disabled>
+                                    <input style="background-color:#d4b032 !important; color:#000"  type="text" class="form-control" id="validationDefault02" value="0" disabled>
 
                                 </div>
                                 <div class="col-md-12" v-if="btnSave == true">
                                     <button style="margin-right:1rem" type="button" class="btn btn-success">Guardar</button>
                                     <button @click="CancelDisabledInput()" type="button" class="btn btn-danger">Cancelar</button>
                                 </div>
-                                <!-- <div class="col-md-12">
-                                    <div class="row ">
-
-                                        <iframe class="responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19933.301532351026!2d-82.78655246384491!3d27.971150750406643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f10251970cd5%3A0x2031decc127aa31e!2s1200%20Eldridge%20St%2C%20Clearwater%2C%20FL%2033755%2C%20EE.%20UU.!5e0!3m2!1ses-419!2smx!4v1621358511643!5m2!1ses-419!2smx" width="900" height="100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-
-                                    </div>
-                                </div> -->
 
                             </form>
-                            <!-- <hr> -->
+
                             <div class="row ">
 
-                                <!-- <iframe class="responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19933.301532351026!2d-82.78655246384491!3d27.971150750406643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f10251970cd5%3A0x2031decc127aa31e!2s1200%20Eldridge%20St%2C%20Clearwater%2C%20FL%2033755%2C%20EE.%20UU.!5e0!3m2!1ses-419!2smx!4v1621358511643!5m2!1ses-419!2smx" width="900" height="140" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
-<GMapMap :center="center" :zoom="7" map-type-id="terrain" style="width: 100%; height: 140px">
-    <GMapCluster>
-        <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :clickable="true" :draggable="true" @click="center=m.position" />
-    </GMapCluster>
-</GMapMap>
+                                <GMapMap :center="center" :zoom="7" map-type-id="terrain" style="width: 100%; height: 213px">
+                                    <GMapCluster>
+                                        <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="''" :clickable="true" :draggable="true" @click="center=m.position" />
+                                    </GMapCluster>
+                                </GMapMap>
                             </div>
                         </div>
 
@@ -138,25 +130,25 @@
             <div class="row">
                 <div class="col-6">
                     <div class="card ">
-                        <div class="card-header">
+                        <div style="background-color: #dc3545;" class="card-header">
                             Variaciones de Temperatura
-                            <div class="card-body text-end">
-                                <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
-                                <canvas id="GraficaTemp" style="position: relative; height:25vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
 
+                        </div>
+                        <div class="card-body text-end">
+                            <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
+                            <canvas id="GraficaTemp" style="position: relative; height:25vh; width:30vw;"></canvas>
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="card ">
-                        <div class="card-header">
+                        <div style="background-color: #2e616a;"  class="card-header">
                             Variaciones de vibración
-                            <div class="card-body text-end">
-                                <canvas id="GraficaVib" style="position: relative; height:25vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
 
+                        </div>
+                        <div class="card-body text-end">
+                            <canvas id="GraficaVib" style="position: relative; height:25vh; width:30vw;"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -166,24 +158,24 @@
             <div class="row">
                 <div class="col-6">
                     <div class="card ">
-                        <div class="card-header">
-                            Grafica de gas
-                            <div class="card-body text-end">
-                                <canvas id="GraficaGas" style="position: relative; height:25vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
+                        <div style="background-color: #272c35;" class="card-header">
+                            Variaciones de gas
 
+                        </div>
+                        <div class="card-body text-end">
+                            <canvas id="GraficaGas" style="position: relative; height:25vh; width:30vw;"></canvas>
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="card ">
-                        <div class="card-header">
-                            Grafica de voltaje
-                            <div class="card-body text-end">
-                                <canvas id="GraficaVolt" style="position: relative; height:25vh; width:30vw;"></canvas>
-                            </div>
-                        </div>
+                        <div style="background-color: #d4b032; color:#000" class="card-header">
+                            Variaciones de voltaje
 
+                        </div>
+                        <div class="card-body text-end">
+                            <canvas id="GraficaVolt" style="position: relative; height:25vh; width:30vw;"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -274,13 +266,15 @@ export default {
             PaisForm: '',
             UbicacionForm: '',
             center: {
-                lat: 51.093048,
-                lng: 6.842120
+                // lat: 51.093048,
+                // lng: 6.842120
+                lat: 0,
+                lng: 0
             },
             markers: [{
                     position: {
-                        lat: '',
-                        lng: ''
+                        lat: 0,
+                        lng: 0
                         // lat: 51.093048,
                         // lng: 6.842120
                     },
@@ -382,6 +376,12 @@ export default {
                     this.EstadoForm = resp.data[0].estadoNombre;
                     this.PaisForm = resp.data[0].paisNombre;
                     this.UbicacionForm = resp.data[0].ubicacionDir;
+
+                    this.center.lat = resp.data[0].fixedLat;
+                    this.center.lng = resp.data[0].fixedLng;
+
+                    this.markers[0].position.lat = resp.data[0].fixedLat;
+                    this.markers[0].position.lng = resp.data[0].fixedLng;
                     var Reverse = resp.data.reverse();
                     //* HORA
                     this.timedevice = Reverse.map(resp => moment.utc(resp.timeStatus).locale('es-mx').format('h:mm a'));
@@ -400,7 +400,7 @@ export default {
                     console.log('voltaje', this.voltdevice);
                     //* Ultima temperatura
                     let ultimatempp = resp.data.map(resp => (resp.tempAmb));
-                    this.ultimatemp = ultimatempp.pop();
+                    this.ultimatemp = ultimatempp.pop() ;
                     console.log('ultima temp', this.ultimatemp);
                     //* Ultima vibración
                     let ultimavibb = resp.data.map(resp => (resp.vibDevice));
@@ -455,7 +455,7 @@ export default {
                 options: {
                     legend: {
                         labels: {
-                            fontColor: "#ffffffbd",
+                            fontColor: "#ffffff",
                             fontSize: 15,
                         }
                     },
@@ -467,7 +467,7 @@ export default {
                             },
                             ticks: {
                                 padding: 25,
-                                fontColor: '#858689',
+                                fontColor: '#ffffffb3',
                                 beginAtZero: true
                             }
                         }],
@@ -480,7 +480,7 @@ export default {
                             ticks: {
                                 beginAtZero: true,
                                 padding: 5,
-                                fontColor: '#858689'
+                                fontColor: '#ffffffb3'
 
                             },
                         }]
@@ -507,16 +507,16 @@ export default {
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
                         pointHitRadius: 10,
-                        pointRadius: 3,
+                        pointRadius: 0,
                         pointBorderWidth: 1,
-                        lineTension: 0.1,
+                        lineTension: 0,
 
                     }]
                 },
                 options: {
                     legend: {
                         labels: {
-                            fontColor: "#ffffffbd",
+                            fontColor: "#ffffff",
                             fontSize: 15,
                         }
                     },
@@ -528,7 +528,7 @@ export default {
                             },
                             ticks: {
                                 padding: 25,
-                                fontColor: '#858689',
+                                fontColor: '#ffffffb3',
                                 beginAtZero: true
                             }
                         }],
@@ -541,7 +541,7 @@ export default {
                             ticks: {
                                 beginAtZero: true,
                                 padding: 5,
-                                fontColor: '#858689'
+                                fontColor: '#ffffffb3'
 
                             },
                         }]
@@ -581,7 +581,7 @@ export default {
                     },
                     legend: {
                         labels: {
-                            fontColor: "#ffffffbd",
+                            fontColor: "#ffffff",
                             fontSize: 15,
                         }
                     },
@@ -593,7 +593,7 @@ export default {
                             },
                             ticks: {
                                 padding: 25,
-                                fontColor: '#858689',
+                                fontColor: '#ffffffb3',
                                 beginAtZero: true
                             }
                         }],
@@ -606,7 +606,7 @@ export default {
                             ticks: {
                                 beginAtZero: true,
                                 padding: 5,
-                                fontColor: '#858689'
+                                fontColor: '#ffffffb3'
 
                             },
                         }]
@@ -646,7 +646,7 @@ export default {
                     },
                     legend: {
                         labels: {
-                            fontColor: "#ffffffbd",
+                            fontColor: "#ffffff",
                             fontSize: 15,
                         }
                     },
@@ -658,7 +658,7 @@ export default {
                             },
                             ticks: {
                                 padding: 25,
-                                fontColor: '#858689',
+                                fontColor: '#ffffffb3',
                                 beginAtZero: true
                             }
                         }],
@@ -671,7 +671,7 @@ export default {
                             ticks: {
                                 beginAtZero: true,
                                 padding: 5,
-                                fontColor: '#858689'
+                                fontColor: '#ffffffb3'
 
                             },
                         }]
@@ -697,9 +697,11 @@ export default {
                         data: [50, 60, 70, 80, 90, 100],
                         // data: [0, 30,40,50,70,100],
                         // data: [49, 79, 100],
-                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
+                        // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
+                        // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
+                        backgroundColor: ['#27AE60', '#F1C40F ', '#F1C40F ', '#F1C40F ', '#A93226 ', '#A93226 '],
                         borderColor: "#1a2130",
-                        borderWidth: 1
+                        borderWidth: 3
                     }]
                 },
                 plugins: [ChartDataLabels],
@@ -717,11 +719,12 @@ export default {
                         datalabels: {
                             display: true,
                             render: 'value',
-                            color: '#000',
+                            color: '#fff',
+                            // anchor: 'start',
                             // color: function (context) {
                             //     return context.dataset.backgroundColor;
                             // },
-                            // backgroundColor: 'rgba(0, 0, 0, 1.0)',
+                            backgroundColor: '#000000a1',
                             borderWidth: 0,
                             borderRadius: 5,
                             // Size: 37.5,
@@ -739,9 +742,10 @@ export default {
                     cutoutPercentage: 65,
                     needle: {
                         radiusPercentage: 2,
-                        widthPercentage: 5,
+                        widthPercentage: 10,
                         lengthPercentage: 0,
-                        color: '#1abb97'
+                        color: '#E59866',
+                        // color: '#1abb97'
                     },
                     valueLabel: {
                         display: true,
@@ -753,8 +757,8 @@ export default {
                         backgroundColor: '#1a2130',
                         borderRadius: 0,
                         padding: {
-                            top: 20,
-                            bottom: 15,
+                            // top: 20,
+                            bottom: 20,
                             left: 20
                         },
 
@@ -832,14 +836,17 @@ export default {
                 data: {
                     labels: ['40', '50', '60', '70', '80', '100'],
                     datasets: [{
-                        // value: 31,
-                        value: this.ultimagas,
+                        value: 31,
+                        // value: this.ultimagas,
                         minValue: 0,
                         data: [50, 60, 70, 80, 90, 100],
                         // data: [49, 79, 100],
-                        backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
+                        // backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
+                        // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
+                        // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
+                        backgroundColor: ['#27AE60', '#F1C40F ', '#F1C40F ', '#F1C40F ', '#A93226 ', '#A93226 '],
                         borderColor: "#1a2130",
-                        borderWidth: 1
+                        borderWidth: 3
                     }]
                 },
                 plugins: [ChartDataLabels],
@@ -849,7 +856,8 @@ export default {
                         datalabels: {
                             display: true,
                             render: 'value',
-                            color: '#000',
+                            color: '#fff',
+                            backgroundColor: '#000000a1',
                             borderWidth: 0,
                             borderRadius: 5,
                             formatter: function (value, context) {
@@ -866,9 +874,10 @@ export default {
                     cutoutPercentage: 65,
                     needle: {
                         radiusPercentage: 2,
-                        widthPercentage: 5,
+                        widthPercentage: 10,
                         lengthPercentage: 0,
-                        color: '#1abb97'
+                        color: '#E59866',
+                        // color: '#1abb97'
                     },
                     valueLabel: {
                         display: true,
@@ -880,8 +889,8 @@ export default {
                         backgroundColor: '#1a2130',
                         borderRadius: 0,
                         padding: {
-                            top: 20,
-                            bottom: 15,
+                            // top: 20,
+                            bottom: 20,
                             left: 20
                         },
 
@@ -935,7 +944,8 @@ export default {
 }
 
 .gauges .card {
-    height: 15rem
+    /* height: 15rem */
+    height: 17rem;
 }
 
 .gauges h3 {
@@ -959,9 +969,11 @@ export default {
 }
 
 .card-header {
-    color: #ffffffCC;
+    /* color: #ffffffCC; */
+    color: #FFFFFF;
     /* color: #ffffffbd; */
     text-transform: uppercase;
+    background-color: #3c404326;
 }
 
 .list-group-item {
