@@ -33,3 +33,7 @@ https://www.npmjs.com/package/chartjs-gauge
 npm install vue-gauge
 https://www.npmjs.com/package/vue-gauge
 ```
+### Libreria para generar Google maps
+```
+https://vue-map.netlify.app/
+```

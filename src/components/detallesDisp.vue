@@ -1,4 +1,5 @@
 <template>
+
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
@@ -57,15 +58,15 @@
                             <form class="row g-3" style="margin-bottom:1rem">
                                 <div class="col-md-4">
                                     <label for="inputDispositivo" class="form-label">Dispositivo</label>
-                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" placeholder="414150" disabled>
+                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" disabled>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="inputDispUbic" class="form-label">Ubicación del dispositivo</label>
-                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" placeholder="Cajero 5" disabled>
+                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" disabled>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="inputSucursal" class="form-label">Sucursal</label>
-                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" placeholder="Sucursal 1" disabled>
+                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
                                 </div>
 
                                 <!-- <div class="col-md-4">
@@ -75,15 +76,15 @@
 
                                 <div class="col-md-4">
                                     <label for="inputPais" class="form-label">País</label>
-                                    <input type="text" class="form-control" id="inputPais" v-model="PaisForm" placeholder="2021-11-19T11:12:56.000Z" disabled>
+                                    <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="inputCiudad" class="form-label">Ciudad</label>
-                                    <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" placeholder="Cancún" disabled>
+                                    <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" disabled>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="inputUbicacion" class="form-label">Ubicación</label>
-                                    <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" placeholder="Plaza las américas" disabled>
+                                    <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" disabled>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="validationDefault01" class="form-label">Temperatura</label>
@@ -102,9 +103,9 @@
                                     <input type="text" class="form-control" id="validationDefault02" value="0" disabled>
 
                                 </div>
-                                <div class="col-md-12"  v-if="btnSave == true">
-                                  <button style="margin-right:1rem"   type="button" class="btn btn-success">Guardar</button>
-                                  <button  @click="CancelDisabledInput()" type="button" class="btn btn-danger">Cancelar</button>
+                                <div class="col-md-12" v-if="btnSave == true">
+                                    <button style="margin-right:1rem" type="button" class="btn btn-success">Guardar</button>
+                                    <button @click="CancelDisabledInput()" type="button" class="btn btn-danger">Cancelar</button>
                                 </div>
                                 <!-- <div class="col-md-12">
                                     <div class="row ">
@@ -118,8 +119,12 @@
                             <!-- <hr> -->
                             <div class="row ">
 
-                                <iframe class="responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19933.301532351026!2d-82.78655246384491!3d27.971150750406643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f10251970cd5%3A0x2031decc127aa31e!2s1200%20Eldridge%20St%2C%20Clearwater%2C%20FL%2033755%2C%20EE.%20UU.!5e0!3m2!1ses-419!2smx!4v1621358511643!5m2!1ses-419!2smx" width="900" height="140" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-
+                                <!-- <iframe class="responsive-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19933.301532351026!2d-82.78655246384491!3d27.971150750406643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f10251970cd5%3A0x2031decc127aa31e!2s1200%20Eldridge%20St%2C%20Clearwater%2C%20FL%2033755%2C%20EE.%20UU.!5e0!3m2!1ses-419!2smx!4v1621358511643!5m2!1ses-419!2smx" width="900" height="140" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+<GMapMap :center="center" :zoom="7" map-type-id="terrain" style="width: 100%; height: 140px">
+    <GMapCluster>
+        <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :clickable="true" :draggable="true" @click="center=m.position" />
+    </GMapCluster>
+</GMapMap>
                             </div>
                         </div>
 
@@ -268,6 +273,19 @@ export default {
             EstadoForm: '',
             PaisForm: '',
             UbicacionForm: '',
+            center: {
+                lat: 51.093048,
+                lng: 6.842120
+            },
+            markers: [{
+                    position: {
+                        lat: '',
+                        lng: ''
+                        // lat: 51.093048,
+                        // lng: 6.842120
+                    },
+                }, // Along list of clusters
+            ]
 
         }
     },
@@ -286,7 +304,7 @@ export default {
 
     },
     methods: {
-        disabled(){
+        disabled() {
             document.getElementById('inputDispositivo').disabled = false;
             document.getElementById('inputDispUbic').disabled = false;
             document.getElementById('inputSucursal').disabled = false;
@@ -295,7 +313,7 @@ export default {
             document.getElementById('inputUbicacion').disabled = false;
             this.btnSave = true;
         },
-        CancelDisabledInput(){
+        CancelDisabledInput() {
             this.btnSave = false;
         },
         dowloadPdf() {
@@ -356,15 +374,14 @@ export default {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request DetallesDevice", resp);
 
-                this.NameDeviceForm = resp.data[0].NameDevice;
-                this.SucursalForm = resp.data[0].NameUbica;
-                this.UbicSensorForm = resp.data[0].nameUbiInt;
-                this.CiudadForm = resp.data[0].nombCuidadUbic;
-                this.EstadoForm = resp.data[0].estadoNombre;
-                this.PaisForm = resp.data[0].paisNombre;
-                this.UbicacionForm = resp.data[0].ubicacionDir;
-
                 if (resp.data !== undefined) {
+                    this.NameDeviceForm = resp.data[0].NameDevice;
+                    this.SucursalForm = resp.data[0].NameUbica;
+                    this.UbicSensorForm = resp.data[0].nameUbiInt;
+                    this.CiudadForm = resp.data[0].nombCuidadUbic;
+                    this.EstadoForm = resp.data[0].estadoNombre;
+                    this.PaisForm = resp.data[0].paisNombre;
+                    this.UbicacionForm = resp.data[0].ubicacionDir;
                     var Reverse = resp.data.reverse();
                     //* HORA
                     this.timedevice = Reverse.map(resp => moment.utc(resp.timeStatus).locale('es-mx').format('h:mm a'));
@@ -980,9 +997,11 @@ input {
     border-radius: 0.4285rem !important;
     /* font-size: 1rem; */
 }
-input:focus{
+
+input:focus {
     color: #ffffff
 }
+
 input:disabled {
 
     color: #ffffffcc
