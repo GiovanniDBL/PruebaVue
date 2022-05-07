@@ -18,7 +18,8 @@ app.config.globalProperties.globalVar = 'https://xm704xl9zk.execute-api.us-east-
 // app.config.globalProperties.itemsAlertsProgreso = [];
 app.use(store).use(router).use(VueToast).use(VueGoogleMaps,{
     load:{
-        key:'AIzaSyBCZwJMYmQ2Radf9HlSjG6ozbCyWVZ0Jjg',
+        key:'AIzaSyCAqkhU3QuQn1CFDv5BuC91-eocb-0v1mA', /* API proporcionada por el ANDY BOYS*/
+        // key:'AIzaSyBCZwJMYmQ2Radf9HlSjG6ozbCyWVZ0Jjg', /* API CREADA POR MI, solo para desarrolladores */
     },
 }).mount('#app')
 // createApp(App).use(store).use(router).use(VueToast).mount('#app')

@@ -2,6 +2,7 @@
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
+        
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
         <div class="gauges">
@@ -15,7 +16,7 @@
 
                                 <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
-                                    <li><a class="dropdown-item" href="#">Reglas</a></li>
+                                    <li><a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -112,7 +113,7 @@
 
                             <div class="row ">
 
-                                <GMapMap :center="center" :zoom="7" map-type-id="terrain" style="width: 100%; height: 213px">
+                                <GMapMap :center="center" :zoom="9" map-type-id="terrain" style="width: 100%; height: 213px">
                                     <GMapCluster>
                                         <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="''" :clickable="true" :draggable="true" @click="center=m.position" />
                                     </GMapCluster>
@@ -186,6 +187,52 @@
  <canvas id="canvas" style="position: relative; height:20vh; width:30vw;"></canvas>
         </div> -->
     </section>
+      <!--//? ************* MODAL REGLAS********************** -->
+    <div class="modal fade" id="Reglas" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Cuenta</h5>
+                    <button type="button"  v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row" v-on:submit.prevent="EditarCuenta">
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Nombre de la cuenta</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="FormNombre" placeholder="Nombre de cuenta" required>
+                        </div>
+                     
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput2" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput2" v-model="FormCorreo" placeholder="Correo electrónico" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput4" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput4" v-model="FormTelefono" placeholder="Teléfono" required>
+                        </div>
+                               <div class="mb-3">
+                        <label for="validationCustom04" class="form-label">Estado de cuenta</label>
+                        <select class="form-select" id="validationCustom04" v-model="FormEstadoCuenta" required>
+                            <option selected disabled value="">Seleccionar estado de cuenta</option>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                    </div>
+                        <div class="mb-3">
+                            <button style="width:100%" data-bs-dismiss="modal" class="btn btn-success">Enviar</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -699,7 +746,7 @@ export default {
                         // data: [49, 79, 100],
                         // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
-                        backgroundColor: ['#27AE60', '#F1C40F ', '#F1C40F ', '#F1C40F ', '#A93226 ', '#A93226 '],
+                        backgroundColor: ['#27AE60', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
                         borderColor: "#1a2130",
                         borderWidth: 3
                     }]
@@ -836,15 +883,15 @@ export default {
                 data: {
                     labels: ['40', '50', '60', '70', '80', '100'],
                     datasets: [{
-                        value: 31,
-                        // value: this.ultimagas,
+                        // value: 31,
+                        value: this.ultimagas,
                         minValue: 0,
                         data: [50, 60, 70, 80, 90, 100],
                         // data: [49, 79, 100],
                         // backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
-                        backgroundColor: ['#27AE60', '#F1C40F ', '#F1C40F ', '#F1C40F ', '#A93226 ', '#A93226 '],
+                        backgroundColor: ['#27AE60', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
                         borderColor: "#1a2130",
                         borderWidth: 3
                     }]
