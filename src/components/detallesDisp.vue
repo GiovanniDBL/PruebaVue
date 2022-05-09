@@ -2,7 +2,18 @@
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
-        
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <!-- <a @click="volver">Dispositivos</a> -->
+                    <router-link to="/dispositivos">
+                        <a>Volver a los dispositivos</a>
+                    </router-link>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Detalles del dispositivo</li>
+            </ol>
+        </nav>
+        <!-- <i class="fas fa-arrow-alt-left" style="color:#fff">Regresar</i> -->
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
         <div class="gauges">
@@ -16,12 +27,13 @@
 
                                 <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
-                                    <li><a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
                                 </ul>
                             </div>
                         </div>
-                              <div class="card-body">
-                        <canvas id="gaugeTemp" style="position: relative; height:27vh; width:30vw;"></canvas>
+                        <div class="card-body">
+                            <canvas id="gaugeTemp" style="position: relative; height:27vh; width:30vw;"></canvas>
+                            <!-- <canvas id="gaugeTemp" class="gauge-style"></canvas> -->
                         </div>
 
                     </div>
@@ -39,7 +51,8 @@
                         </div>
                         <div class="card-body">
 
-                        <canvas id="gaugeGas" style="position: relative; height:27vh; width:30vw;"></canvas>
+                            <!-- <canvas id="gaugeGas" class="gauge-style"></canvas> -->
+                            <canvas id="gaugeGas" style="position: relative; height:27vh; width:30vw;"></canvas>
                         </div>
 
                     </div>
@@ -93,15 +106,15 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="validationDefault02" class="form-label">Gas</label>
-                                    <input style="background-color:#272c35 !important"  type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
+                                    <input style="background-color:#272c35 !important" type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="validationDefault02" class="form-label">Vibración</label>
-                                    <input style="background-color:#2e616a !important"  type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
+                                    <input style="background-color:#2e616a !important" type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="validationDefault02" class="form-label">Voltaje</label>
-                                    <input style="background-color:#d4b032 !important; color:#000"  type="text" class="form-control" id="validationDefault02" value="0" disabled>
+                                    <input style="background-color:#d4b032 !important; color:#000" type="text" class="form-control" id="validationDefault02" value="0" disabled>
 
                                 </div>
                                 <div class="col-md-12" v-if="btnSave == true">
@@ -113,7 +126,7 @@
 
                             <div class="row ">
 
-                                <GMapMap :center="center" :zoom="9" map-type-id="terrain" style="width: 100%; height: 213px">
+                                <GMapMap :center="center" :zoom="9" map-type-id="terrain" class="map-style">
                                     <GMapCluster>
                                         <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="''" :clickable="true" :draggable="true" @click="center=m.position" />
                                     </GMapCluster>
@@ -143,7 +156,7 @@
                 </div>
                 <div class="col-6">
                     <div class="card ">
-                        <div style="background-color: #2e616a;"  class="card-header">
+                        <div style="background-color: #2e616a;" class="card-header">
                             Variaciones de vibración
 
                         </div>
@@ -187,13 +200,13 @@
  <canvas id="canvas" style="position: relative; height:20vh; width:30vw;"></canvas>
         </div> -->
     </section>
-      <!--//? ************* MODAL REGLAS********************** -->
+    <!--//? ************* MODAL REGLAS********************** -->
     <div class="modal fade" id="Reglas" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Editar Cuenta</h5>
-                    <button type="button"  v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row" v-on:submit.prevent="EditarCuenta">
@@ -202,7 +215,7 @@
                             <label for="exampleFormControlInput1" class="form-label">Nombre de la cuenta</label>
                             <input type="text" class="form-control" id="exampleFormControlInput1" v-model="FormNombre" placeholder="Nombre de cuenta" required>
                         </div>
-                     
+
                         <div class="mb-3">
                             <label for="exampleFormControlInput2" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" id="exampleFormControlInput2" v-model="FormCorreo" placeholder="Correo electrónico" required>
@@ -211,14 +224,14 @@
                             <label for="exampleFormControlInput4" class="form-label">Teléfono</label>
                             <input type="text" class="form-control" id="exampleFormControlInput4" v-model="FormTelefono" placeholder="Teléfono" required>
                         </div>
-                               <div class="mb-3">
-                        <label for="validationCustom04" class="form-label">Estado de cuenta</label>
-                        <select class="form-select" id="validationCustom04" v-model="FormEstadoCuenta" required>
-                            <option selected disabled value="">Seleccionar estado de cuenta</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
-                        </select>
-                    </div>
+                        <div class="mb-3">
+                            <label for="validationCustom04" class="form-label">Estado de cuenta</label>
+                            <select class="form-select" id="validationCustom04" v-model="FormEstadoCuenta" required>
+                                <option selected disabled value="">Seleccionar estado de cuenta</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                        </div>
                         <div class="mb-3">
                             <button style="width:100%" data-bs-dismiss="modal" class="btn btn-success">Enviar</button>
                         </div>
@@ -447,7 +460,7 @@ export default {
                     console.log('voltaje', this.voltdevice);
                     //* Ultima temperatura
                     let ultimatempp = resp.data.map(resp => (resp.tempAmb));
-                    this.ultimatemp = ultimatempp.pop() ;
+                    this.ultimatemp = ultimatempp.pop();
                     console.log('ultima temp', this.ultimatemp);
                     //* Ultima vibración
                     let ultimavibb = resp.data.map(resp => (resp.vibDevice));
@@ -953,6 +966,14 @@ export default {
 </script>
 
 <style scoped>
+.gauge-style {
+    position: relative !important;
+    height: 30vh !important;
+    width: 30vw !important;
+    display: block;
+    margin: 0 auto;
+}
+
 .home {
     position: relative;
     /* height: 100vh; */
@@ -992,7 +1013,8 @@ export default {
 
 .gauges .card {
     /* height: 15rem */
-    height: 17rem;
+    /* height: 17rem */
+    /* height: 100%; */
 }
 
 .gauges h3 {
@@ -1074,18 +1096,47 @@ ul {
     text-transform: capitalize;
 }
 
+.map-style {
+    width: 100%;
+    height: 206px
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: #1abb97;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: none;
+    color: #1fe7ba;
+}
+
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;
     }
 
     .gauges .card {
-        height: 20.5rem
+        /* height: 20.5rem */
     }
 
     label {
 
         font-size: 1.2rem;
     }
+
+    .map-style {
+        width: 100%;
+        height: 400px
+    }
+
+    .gauge-style {
+        position: relative !important;
+        height: 26vh !important;
+        width: 26vw !important;
+        display: block;
+        margin: 0 auto;
+    }
+
 }
 </style>
