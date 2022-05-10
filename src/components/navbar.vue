@@ -15,7 +15,7 @@
                     <!-- <li class="nav-item" v-if="rol !== 'admin'"> -->
            
                     <!-- <li class="nav-item" v-if="rol == '2'"> -->
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="rol !== '6'">
                         <a class="nav-link monitoreo-link active" @click="popup()" aria-current="page" href="#">
                             <i class="fas fa-play"></i> Iniciar monitoreo en tiempo real</a>
                     </li>

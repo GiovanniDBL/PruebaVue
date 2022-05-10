@@ -1213,7 +1213,8 @@ export default {
 }
 
 .navbar {
-    background-color: #1b1b27;
+    /* background-color: #1b1b27; */
+    background-color: #10141d;
 }
 
 /* .card-body{
