@@ -1100,7 +1100,8 @@ export default {
 .table-tamaño {
     font-size: 9.6pt;
     /* font-weight: 300; */
-    width: 95%;
+    /* width: 95%; */
+    width: 97%;
     margin-left: 2.5%;
 }
 
@@ -1277,10 +1278,11 @@ export default {
     }
 
     .table-tamaño {
-        font-size: 12pt;
+        font-size: 10pt;
         /* font-weight: 300; */
-        width: 95%;
-        margin-left: 2.5%;
+        /* width: 95%; */
+        width: 98%;
+        margin-left: 1.5%;
     }
 
     .navbar-brand {

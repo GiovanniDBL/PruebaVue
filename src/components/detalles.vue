@@ -787,5 +787,15 @@ li span{
 color: #fff;
 }
 
+@media only screen and (min-width: 400px) {
+
+    .scrollable {
+        height: 420px;
+        overflow: scroll;
+    }
+
+ 
+}
+
 
 </style>
