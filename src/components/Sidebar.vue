@@ -45,6 +45,13 @@
                             <span class="text nav-text">Dispositivos</span>
                         </router-link>
                     </li>
+                     <li class="">
+                        <router-link  to="/reporte-de-alarmas" replace>
+                            <!-- <i class="fas fa-bell icon"></i> -->
+                            <i class="fas fa-table icon"></i>
+                            <span class="text nav-text">Historial de alarmas</span>
+                        </router-link>
+                    </li>
                     <li class="" >
                         <!-- <router-link to="/usuarios" replace> -->
                         <router-link style="opacity:0.5; pointer-events:none" to="/usuarios" replace>

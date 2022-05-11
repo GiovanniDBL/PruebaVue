@@ -1,8 +1,7 @@
 <template>
 <div class="animated fadeIn">
-    <!-- <p style="color:red">{{$store.getters.title}}</p> -->
-    <!-- <p style="color:red">{{title}}</p> -->
-    <!-- <p style="color:red">hola {{name}}</p> -->
+
+    <!-- //TODO *************** NAVBAR ************** -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
             <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Version Alpha)</span> </span>
@@ -11,11 +10,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <!-- <li class="nav-item">
-          <span>{{idConexion}}</span>
-        </li> -->
                     <li class="nav-item">
-
                         <span class="tooltipp">
                             <i v-bind:style="{color:EstadoServidor(flagRegistro)}" class="fad fa-satellite-dish"></i>
                             Conexión:
@@ -33,32 +28,23 @@
             </div>
         </div>
     </nav>
-
-    <section class="home">
-        <!-- ********************** ALARMAS********************************************** -->
-        <!-- <img src="@/assets/logo.webp" alt=""> -->
+ <!-- //TODO *************** NAVBAR FIN ************** -->
+ 
+    
+        <!--//* ********************** ALARMAS********************************************** -->
         <!-- <button type="button" class="btn btn-primary" @click.prevent="playSound(require('@/assets/audioDemo.mp3'))">audio</button> -->
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
-        <div class="row">
-            <!-- *PRIMER COLUMNA ALARMAS -->
-            <div class="col">
-                <!-- <div class="card bg-light" style="width: 38rem;"> -->
+        <!-- <div class="row">
+            <div class="col-6">
                 <div class="card bg-light card2">
                     <div class="card-header ">
                         <span  class="position-relative" style="padding-right:5px;">
                             Alarmas
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
                         </span>
-
-                        <!-- <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form> -->
                     </div>
                     <div class="card-body">
                         <div class="scrollable">
-                            <!-- table-bordered -->
-                            <!-- <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-striped table-borderless table-tamaño" > -->
                             <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
                                 <thead class="" style="background:#41464b; color:#fff">
                                     <tr>
@@ -67,27 +53,22 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Dispositivo</th>
                                         <th scope="col">Evento</th>
+                                        <th scope="col">Zona</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Estado de alarma</th>
+                                        numero_zona
                                     </tr>
                                 </thead>
                                 <tbody v-for="item in itemsAlerts" :key="item.idAlarmas">
-                                    <!-- style="background:#c71527;" -->
-                                    <!-- id="{{'device-' + item.idDeviceZona}}" -->
-                                    <!-- :id="'device-'+ item.idAlarmas" -->
-                                    <!-- status_restablecimiento -->
-                                    <!-- <tr class="color-alarmas"  v-bind:style="{backgroundColor:ChangeColor(asd)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"  -->
                                     <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado)">
                                         <th scope="row">{{item.idAlarmas}}</th>
                                         <td>{{item.account}}</td>
                                         <td>{{item.nombreAsignado}}</td>
                                         <td>{{item.deviceid}}</td>
                                         <td>{{item.event}}</td>
+                                        <td>1</td>
                                         <td>{{item.fecha}}</td>
                                         <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
-                                        <!-- <td >{{item.estado_alarma}} <span class="icon-color" :id="'icono-'+ item.idAlarmas"></span></td> -->
-                                        <!-- <i  v-if="pendientes =='0'" style="color:red; font-size: 9px" class="fas fa-circle"></i> -->
-                                        <!-- <i  class="fas fa-circle"></i> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -96,10 +77,7 @@
                 </div>
             </div>
 
-            <!-- *SEGUNDA COLUMNA ALARMAS EN PROGRESO -->
-            <!-- itemsAlertsProgreso -->
-            <div class="col">
-                <!-- <div class="card bg-light" style="width: 38rem;"> -->
+            <div class="col-6">
                 <div class="card bg-light card2">
                     <div class="card-header">
                         <span class="position-relative" style="padding-right:5px;">
@@ -117,18 +95,19 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Dispositivo</th>
                                         <th scope="col">Evento</th>
+                                        <th scope="col">Zona</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Estado de alarma</th>
                                     </tr>
                                 </thead>
                                 <tbody style="background:#f39c12;" v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
-                                    <!-- #1b7cb5 -->
                                     <tr :id="'device2-'+ item.idAlarmas" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
                                         <th style="color:#fff" scope="row">{{item.idAlarmas}}</th>
                                         <td style="color:#fff">{{item.account}}</td>
                                         <td style="color:#fff">{{item.nombreAsignado}}</td>
                                         <td style="color:#fff">{{item.deviceid}}</td>
                                         <td style="color:#fff">{{item.event}}</td>
+                                        <td style="color:#fff">1</td>
                                         <td style="color:#fff">{{item.fecha}}</td>
                                         <td style="color:#fff">{{item.estado_alarma}}</td>
                                     </tr>
@@ -138,9 +117,53 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+         <div class="card">
+               <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID_ALARMA</th>
+      <th scope="col">CUENTA</th>
+      <th scope="col">NOMBRE</th>
+      <th scope="col">DISPOSITIVO</th>
+      <th scope="col">EVENTO</th>
+      <th scope="col">FECHA</th>
+      <th scope="col">ESTADO DE ALARMA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+  </tbody>
+</table>
+  </div>
+</div>
         </div>
+        <div class="col-6">
+                     <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+        </div>
+    </div>
+</div>
 
         <!-- *********************** EVENTOS ****************************** -->
+        <section class="home">
         <div class="section-eventos">
             <div class="card  bg-light card-evento">
                 <div class="card-header">
@@ -160,6 +183,7 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Dispositivo</th>
                                     <th scope="col">Evento</th>
+                                    <th scope="col">Zona</th>
                                     <th scope="col">Fecha</th>
                                     <!-- <th scope="col">Estado de alarma</th> -->
                                 </tr>
@@ -171,6 +195,7 @@
                                     <td style="color:#fff">{{item.nombreAsignado}}</td>
                                     <td style="color:#fff">{{item.deviceid}}</td>
                                     <td style="color:#fff">{{item.event}}</td>
+                                    <td style="color:#fff">1</td>
                                     <td style="color:#fff">{{item.fecha}}</td>
                                     <!-- <td style="color:#fff">{{item.estado}}</td> -->
                                 </tr>
@@ -1089,6 +1114,7 @@ export default {
     width: calc(100% - 10px);
     transition: all 0.5s ease;
     padding: 8px 40px;
+    padding: 8px 40px;
     padding-top: 2rem
 }
 
@@ -1106,7 +1132,7 @@ export default {
 }
 
 .card-body {
-    padding: 1rem 0;
+    /* padding: 1rem 0; */  /* volver a descomentar */
 }
 
 .card-title {
@@ -1129,7 +1155,7 @@ export default {
 
 .card {
     border-color: #414548;
-    border-radius: 6px;
+    /* border-radius: 6px; */ /* volver a descomentar */
 }
 
 .scrollable {

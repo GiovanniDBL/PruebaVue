@@ -15,6 +15,7 @@ import sidebarr from '@/components/sidebarr.vue';
 import cuentaDetalles from '@/components/detallesCuenta.vue';
 import DispositivoDetalles from '@/components/detallesDisp.vue';
 import login from '@/components/login.vue';
+import allAlarms from '@/components/allAlarms.vue';
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -88,6 +89,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/sidebarr',
     name: 'Sidebarr',
     component: sidebarr
+  },
+  {
+    path: '/reporte-de-alarmas',
+    name: 'allAlarms',
+    component: allAlarms
   },
 
 ]
