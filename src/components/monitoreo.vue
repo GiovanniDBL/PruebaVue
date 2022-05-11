@@ -5,7 +5,7 @@
     <!-- <p style="color:red">hola {{name}}</p> -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
-            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span></span>
+            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Version Alpha)</span> </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -65,6 +65,7 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Cuenta</th>
                                         <th scope="col">Dispositivo</th>
+                                        <th scope="col">Nombre</th>
                                         <th scope="col">Evento</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Estado de alarma</th>
@@ -76,10 +77,11 @@
                                     <!-- :id="'device-'+ item.idAlarmas" -->
                                     <!-- status_restablecimiento -->
                                     <!-- <tr class="color-alarmas"  v-bind:style="{backgroundColor:ChangeColor(asd)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"  -->
-                                    <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
+                                    <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado)">
                                         <th scope="row">{{item.idAlarmas}}</th>
                                         <td>{{item.account}}</td>
                                         <td>{{item.deviceid}}</td>
+                                        <td>{{item.nombreAsignado}}</td>
                                         <td>{{item.event}}</td>
                                         <td>{{item.fecha}}</td>
                                         <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
@@ -112,6 +114,7 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Cuenta</th>
+                                        <th scope="col">Nombre</th>
                                         <th scope="col">Dispositivo</th>
                                         <th scope="col">Evento</th>
                                         <th scope="col">Fecha</th>
@@ -123,6 +126,7 @@
                                     <tr :id="'device2-'+ item.idAlarmas" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
                                         <th style="color:#fff" scope="row">{{item.idAlarmas}}</th>
                                         <td style="color:#fff">{{item.account}}</td>
+                                        <td style="color:#fff">{{item.nombreAsignado}}</td>
                                         <td style="color:#fff">{{item.deviceid}}</td>
                                         <td style="color:#fff">{{item.event}}</td>
                                         <td style="color:#fff">{{item.fecha}}</td>
@@ -153,6 +157,7 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Cuenta</th>
+                                    <th scope="col">Nombre</th>
                                     <th scope="col">Dispositivo</th>
                                     <th scope="col">Evento</th>
                                     <th scope="col">Fecha</th>
@@ -163,6 +168,7 @@
                                 <tr :id="'device-'+ item.idEventos">
                                     <th style="color:#fff" scope="row">{{item.idEventos}}</th>
                                     <td style="color:#fff;">{{item.account}}</td>
+                                    <td style="color:#fff">{{item.nombreAsignado}}</td>
                                     <td style="color:#fff">{{item.deviceid}}</td>
                                     <td style="color:#fff">{{item.event}}</td>
                                     <td style="color:#fff">{{item.fecha}}</td>
@@ -358,7 +364,7 @@ export default {
             var tricono = document.getElementById("icono-" + id);
             tricono.innerHTML = ""
             tricono.style.color = "#fff"
-            window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=572,top=50%");
+            window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=900,top=50%");
 
             audio2.pause();
             let jSON = {
@@ -370,6 +376,7 @@ export default {
                 cantidad: "1",
                 idAlarmas: id,
                 estado_alarma: 'progreso',
+                nombreAsignado: es,
             };
 
             console.log('monitoreo', jSON);
@@ -436,7 +443,7 @@ export default {
         getAlarmasFromHttp() {
 
             var page = 1;
-            var perPage = 10;
+            var perPage = 200;
 
             var idUser = this.id_usuario; //cambiarlo despues por el state
             var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
@@ -490,7 +497,8 @@ export default {
                         zona: "000",
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
-                        clasificacion: json.data[index]["id_clasificacion_alarma"]
+                        clasificacion: json.data[index]["id_clasificacion_alarma"],
+                        nombreAsignado: json.data[index]["nombre_asignado"]
 
                     });
 
@@ -554,7 +562,8 @@ export default {
                         zona: "000",
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
-                        clasificacion: json.data[index]["id_clasificacion_alarma"]
+                        clasificacion: json.data[index]["id_clasificacion_alarma"],
+                        nombreAsignado: json.data[index]["nombre_asignado"]
                     });
 
                 }
@@ -615,7 +624,8 @@ export default {
                         event: json.data[index]["nameTypeAlarm"],
                         zona: "000",
                         cantidad: 1,
-                        estado_alarma: json.data[index]["nombreStatus"]
+                        estado_alarma: json.data[index]["nombreStatus"],
+                        nombreAsignado: json.data[index]["nombre_asignado"]
                     });
 
                 }
@@ -712,7 +722,7 @@ export default {
                                     json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
 
                                     audio.play();
-                                    this.handleAlertEventos(data)
+                                    // this.handleAlertEventos(data)
                                     this.openToastEvent(json);
                                     console.log(json);
                                 }
@@ -907,7 +917,10 @@ export default {
                 cantidad: "1",
                 idAlarmas: json["idInserted"],
                 estado_alarma: json["status"],
+                nombreAsignado: json["nombre_asignado"],
                 clasificacion: idclasificacion
+
+                    
             };
             let mensaje = {
                 deviceid: json["NameDevice"],
@@ -987,6 +1000,7 @@ export default {
                 event: json["mensaje"],
                 zona: "000",
                 cantidad: "1",
+                nombreAsignado: json["nombre_asignado"],
                 idEventos: json["idInserted"],
             };
 
@@ -1084,7 +1098,7 @@ export default {
 }
 
 .table-tamaño {
-    font-size: 9.7pt;
+    font-size: 9.6pt;
     /* font-weight: 300; */
     width: 95%;
     margin-left: 2.5%;

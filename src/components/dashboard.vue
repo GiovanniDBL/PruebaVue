@@ -581,6 +581,7 @@ export default {
             AllAlarms: [],
             AlarmasEnProgreso: [],
             rol: localStorage.getItem('id_tipousuario'),
+            id_usuario: localStorage.getItem('id_usuario'),
             GlobalApi: this.globalVar,
 
         }
@@ -767,8 +768,8 @@ export default {
             var page = 1;
             var perPage = 1000;
 
-            var idUser = 1; //cambiarlo despues por el state
-            var typeUser = 1; // cambiarlo luego por el state
+            var idUser = this.id_usuario; //cambiarlo despues por el state
+            var typeUser = this.rol; // cambiarlo luego por el state
 
             console.log("idUser es", idUser);
             console.log("idUser es", typeUser);

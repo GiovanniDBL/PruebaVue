@@ -74,6 +74,7 @@
 
   <!-- *CONTACTOS -->
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <div class="scrollable">
 <table cellspacing="1" cellpadding="1" class="table table-info  table-sm   table-hover  table-striped  table-tamaño2">
   <thead class="table-dark">
     <tr>
@@ -92,6 +93,7 @@
     </tr>
   </tbody>
 </table>
+</div>
   </div>
   <!-- *HISTORIAL -->
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">

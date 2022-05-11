@@ -45,14 +45,15 @@
                             <span class="text nav-text">Dispositivos</span>
                         </router-link>
                     </li>
-                    <li class="">
-                        <router-link to="/usuarios" replace>
+                    <li class="" >
+                        <!-- <router-link to="/usuarios" replace> -->
+                        <router-link style="opacity:0.5; pointer-events:none" to="/usuarios" replace>
                             <i class="fas fa-user icon"></i>
                             <span class="text nav-text">Usuarios</span>
                         </router-link>
                     </li>
                     <li class="">
-                        <router-link to="/notificaciones" replace>
+                        <router-link style="opacity:0.5; pointer-events:none" to="/notificaciones" replace>
                             <i class="fas fa-bell icon"></i>
                             <span class="text nav-text">Notificaciones</span>
                         </router-link>

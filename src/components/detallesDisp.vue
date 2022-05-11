@@ -95,8 +95,8 @@
                 </div>
 
                 <div class="col-7">
-<button @click="ActualizarVinculación()" class="btn btn-primary"> actualizar vinculacion</button>
-<button @click="UbicacionesInternas()" class="btn btn-primary"> Ubicaciones Internas</button>
+                    <!-- <button @click="ActualizarVinculación()" class="btn btn-primary"> actualizar vinculacion</button> -->
+                    <!-- <button @click="UbicacionesInternas()" class="btn btn-primary"> Ubicaciones Internas</button> -->
                     <div class="card resumen-card">
                         <!-- //TODO DETALLES DEL DISPOSITIVO ****************** -->
                         <div class="card-header text-">
@@ -107,7 +107,8 @@
                                 <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsDetalles" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsDetalles">
                                     <li><a class="dropdown-item" type="button" @click="dowloadPdf">Generar PDF</a></li>
-                                    <li><a class="dropdown-item" href="#" @click="disabled();">Editar información</a></li>
+                                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Zonas">Zonas</a></li>
+                                    <!-- <li><a class="dropdown-item" href="#" @click="disabled();">Editar información</a></li> -->
                                 </ul>
                             </div>
 
@@ -164,61 +165,6 @@
                                 </div>
 
                             </form>
-                            <!-- <hr style="background: #ffffff1c;height: 4px;">
-                            <form class="row g-3" style="margin-bottom:1rem">
-                                <div class="col-md-3">
-                                    <label for="validationDefault01" class="form-label">Temperatura</label>
-                                    <input style="background-color:#dc3546 !important" type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Gas</label>
-                                    <input style="background-color:#272c35 !important" type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Vibración</label>
-                                    <input style="background-color:#2e616a !important" type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Voltaje</label>
-                                    <input style="background-color:#d4b032 !important; color:#000" type="text" class="form-control" id="validationDefault02" value="0" disabled>
-
-                                </div>
-
-                            </form> -->
-                            <!-- <div class="col-md-4">
-                                    <label for="inputPais" class="form-label">País</label>
-                                    <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="inputCiudad" class="form-label">Ciudad</label>
-                                    <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" disabled>
-                                </div>
-                                <div class="col-md-4">
-
-                                    <label for="inputUbicacion" class="form-label">Dirección</label>
-                                    <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault01" class="form-label">Temperatura</label>
-                                    <input style="background-color:#dc3546 !important" type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Gas</label>
-                                    <input style="background-color:#272c35 !important" type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Vibración</label>
-                                    <input style="background-color:#2e616a !important" type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Voltaje</label>
-                                    <input style="background-color:#d4b032 !important; color:#000" type="text" class="form-control" id="validationDefault02" value="0" disabled>
-
-                                </div> -->
-                            <!-- <div class="col-md-12" v-if="btnSave">
-                                    <button style="margin-right:1rem" type="button" class="btn btn-success">Guardar</button>
-                                    <button @click="CancelDisabledInput()" type="button" class="btn btn-danger">Cancelar</button>
-                                </div> -->
 
                             <div class="row ">
 
@@ -321,7 +267,7 @@
                     </form>
 
                 </div>
-        
+
             </div>
         </div>
     </div>
@@ -334,34 +280,76 @@
                     <button type="button" v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                 
+
                     <!-- //TODO ACTUALIZAR VINCULACIÓN -->
                     <p style="margin-bottom:0;margin-top:10px">Ingresar nueva vinculación <i style="color:#d4b032" class="fas fa-edit"></i></p>
                     <!-- <button style="float:right" class="btn btn-primary btn-sm ">Crear nueva ubicación</button> -->
                     <hr class="hr-style">
-                    <form class="row  g-3" v-on:submit.prevent="EditarCuenta">
+                    <form class="row  g-3" v-on:submit.prevent="ActualizarVinculación">
 
-                    
                         <div class="col-md-6">
+                            <!-- {{ActualizarSubcuenta}} -->
                             <label for="subcuenta" class="form-label">Actualizar subcuenta</label>
-                            <select class="form-select" id="subcuenta" v-model="ActualizarSubcuenta" required>
-                                <!-- <option selected disabled value="">Seleccionar subcuenta</option> -->
-                                <option v-for="item in UbicacionesInternass" :key="item.idUbiInt" :value="idUbiInt">{{item.nameUbiInt}}</option>
-                                <!-- <option value="1">Sucursal 2</option>
-                                <option value="1">Sucursal 3</option>
-                                <option value="1">Sucursal 4</option>
-                                <option value="1">Sucursal 5</option> -->
+                            <select class="form-select" id="subcuenta" v-on:change="Onchange($event)" v-model="ActualizarSubcuenta" required>
+                                <option selected disabled value="">Seleccionar subcuenta</option>
+                                <option v-for="item in itemsSubAccounts" :key="item.idUbic" v-bind:value="item.idUbic">{{item.NameUbica}}</option>
                             </select>
                         </div>
                         <div class="col-md-6">
+                            <!-- {{ActualizarUbicInterna}} -->
                             <label for="ubicInterna" class="form-label">Actualizar ubicación interna</label>
                             <select class="form-select" id="ubicInterna" v-model="ActualizarUbicInterna" required>
                                 <option selected disabled value="">Seleccionar ubicación</option>
-                                <option value="1">Cajero 1</option>
-                                <option value="1">Cajero 2</option>
-                                <option value="1">Cajero 3</option>
-                                <option value="1">Cajero 4</option>
-                                <option value="1">Cajero 5</option>
+                                <option v-for="item in UbicacionesInternass" :key="item.idUbiInt" v-bind:value="item.idUbiInt">{{item.nameUbiInt}}</option>
+                            </select>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//? ************* MODAL ZONAS DEL DISPOSITIVO********************** -->
+    <div class="modal fade" id="Zonas" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Zonas del dispositivo</h5>
+                    <button type="button" v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- //TODO ACTUALIZAR VINCULACIÓN -->
+                    <p style="margin-bottom:0;margin-top:10px">Ingresar nueva vinculación <i style="color:#d4b032" class="fas fa-edit"></i></p>
+                    <!-- <button style="float:right" class="btn btn-primary btn-sm ">Crear nueva ubicación</button> -->
+                    <hr class="hr-style">
+                    <form class="row  g-3" v-on:submit.prevent="ActualizarVinculación">
+
+                        <div class="col-md-6">
+                            <!-- {{ActualizarSubcuenta}} -->
+                            <label for="subcuenta" class="form-label">Zona 1</label>
+                            <select class="form-select" id="subcuenta" v-on:change="Onchange($event)" v-model="ActualizarSubcuenta" required>
+                                <option selected disabled value="">Seleccionar subcuenta</option>
+                                <option v-for="item in itemsSubAccounts" :key="item.idUbic" v-bind:value="item.idUbic">{{item.NameUbica}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- {{ActualizarUbicInterna}} -->
+                            <label for="ubicInterna" class="form-label">Zona 2</label>
+                            <select class="form-select" id="ubicInterna" v-model="ActualizarUbicInterna" required>
+                                <option selected disabled value="">Seleccionar ubicación</option>
+                                <option v-for="item in UbicacionesInternass" :key="item.idUbiInt" v-bind:value="item.idUbiInt">{{item.nameUbiInt}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- {{ActualizarUbicInterna}} -->
+                            <label for="ubicInterna" class="form-label">Zona 3</label>
+                            <select class="form-select" id="ubicInterna" v-model="ActualizarUbicInterna" required>
+                                <option selected disabled value="">Seleccionar ubicación</option>
+                                <option v-for="item in UbicacionesInternass" :key="item.idUbiInt" v-bind:value="item.idUbiInt">{{item.nameUbiInt}}</option>
                             </select>
                         </div>
                         <div class="col-12 text-end">
@@ -413,7 +401,7 @@ export default {
             ChartHoras: ChartHoras,
             planetChartData2: planetChartData2,
             // ada: Math.floor(Math.random() * 100),
-            UbicacionesInternass:[],
+            UbicacionesInternass: [],
             AlarmasDevice: [],
             AlertasDevice: [],
             UltimasAlarmas: [],
@@ -423,6 +411,7 @@ export default {
             vibraciondevice: [],
             gasdevice: [],
             voltdevice: [],
+            itemsSubAccounts: [],
             ultimatemp: '',
             ultimavib: '',
             ultimagas: '',
@@ -444,6 +433,7 @@ export default {
             idDevice: '',
             idUserLoged: localStorage.getItem('id_usuario'),
             typeUserLoged: localStorage.getItem('id_tipousuario'),
+            id_cPrincipal: localStorage.getItem('id_cPrincipal'),
             pruebafecha: moment.utc('2021-11-19T11:12:56.000Z').locale('es-mx').format('DD/MM/YYYY HH:mm:ss'),
             GlobalApi: this.globalVar,
             NameDeviceForm: '',
@@ -456,7 +446,7 @@ export default {
             NombAsignadoForm: '',
             ActualizarUbicInterna: '',
             ActualizarSubcuenta: '',
-            id_Subcuenta:'',
+            id_Subcuenta: '',
             GlobalApi: this.globalVar,
             center: {
                 // lat: 51.093048,
@@ -488,7 +478,7 @@ export default {
         // new Chart(ctxxx, this.planetChartData2);
 
         this.GetinfoDevice();
-        this.UbicacionesInternas();
+        this.getAllSubAccounts();
     },
     methods: {
         disabled() {
@@ -584,37 +574,50 @@ export default {
                     this.markers[0].position.lat = resp.data[0].fixedLat;
                     this.markers[0].position.lng = resp.data[0].fixedLng;
                     var Reverse = resp.data.reverse();
+
+                    // var stillUtc = moment.utc(date).toDate();
+                    // var local = moment(stillUtc).local().format('h:mm a');
                     //* HORA
-                    this.timedevice = Reverse.map(resp => moment.utc(resp.timeStatus).locale('es-mx').format('h:mm a'));
-                    console.log(this.timedevice);
+                    // this.timedevice = Reverse.map(resp => moment.utc(resp.timeStatus).locale('es-mx').format('h:mm a'));
+                    // this.timedevice = Reverse.map(resp => resp.timeStatus = moment.locale('es-mx').format('h:mm a'));
+                    var json = resp;
+                    for (var index in json.data) {
+                        var date = json.data[index]["timeStatus"];
+                        var stillUtc = moment.utc(date).toDate();
+                        var local = moment(stillUtc).local().format('h:mm a');
+
+                    this.timedevice.push(local);
+                    }
+
+
                     //* Temperatura
                     this.tempdevice = resp.data.map(resp => (resp.tempAmb));
-                    console.log('temperatura', this.tempdevice);
+                    // console.log('temperatura', this.tempdevice);
                     //* Vibración
                     this.vibraciondevice = resp.data.map(resp => (resp.vibDevice));
-                    console.log('vibración', this.vibraciondevice);
+                    // console.log('vibración', this.vibraciondevice);
                     //* Gas
                     this.gasdevice = resp.data.map(resp => (resp.gasDevice));
-                    console.log('gas', this.gasdevice);
+                    // console.log('gas', this.gasdevice);
                     //* Voltaje
                     this.voltdevice = resp.data.map(resp => (resp.voltDevice));
-                    console.log('voltaje', this.voltdevice);
+                    // console.log('voltaje', this.voltdevice);
                     //* Ultima temperatura
                     let ultimatempp = resp.data.map(resp => (resp.tempAmb));
                     this.ultimatemp = ultimatempp.pop();
-                    console.log('ultima temp', this.ultimatemp);
+                    // console.log('ultima temp', this.ultimatemp);
                     //* Ultima vibración
                     let ultimavibb = resp.data.map(resp => (resp.vibDevice));
                     this.ultimavib = ultimavibb.pop();
-                    console.log('ultima vib', this.ultimavib);
+                    // console.log('ultima vib', this.ultimavib);
                     //* Ultimo gas
                     let ultimagass = resp.data.map(resp => (resp.gasDevice));
                     this.ultimagas = ultimagass.pop();
-                    console.log('ultima gas', this.ultimagas);
+                    // console.log('ultima gas', this.ultimagas);
                     //* Ultimo volt
                     let ultimavoltt = resp.data.map(resp => (resp.voltDevice));
                     this.ultimavolt = ultimavoltt.pop();
-                    console.log('ultima voltaje', this.ultimavolt);
+                    // console.log('ultima voltaje', this.ultimavolt);
 
                 }
 
@@ -625,9 +628,10 @@ export default {
                 this.gaugeTemp();
                 // this.gaugeVib();
                 this.gaugeGas();
+                //  this.UbicacionesInternas();
             }
         },
-        ActualizarNombre(){
+        ActualizarNombre() {
             var data = {
                 typeFunction: "editar_device",
                 "idDevice": this.idDevice,
@@ -642,72 +646,125 @@ export default {
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.send(JSON.stringify(data));
 
-         
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all devicess", resp);
 
-                     Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizado correctamente',
-                        text: 'El nombre asignado se ha Actualizado correctamente',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-                    }).then(() => {
-                        
-                    });
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizado correctamente',
+                    text: 'El nombre asignado se ha Actualizado correctamente',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                }).then(() => {
+
+                });
             }
         },
-        ActualizarVinculación(){
+        ActualizarVinculación() {
+
+            Swal.fire({
+                icon: 'warning',
+                title: '¿Estás seguro?',
+                text: 'Al cambiar la vinculación de tu dispositivo, la información actúal se remplazará por la nueva vinculación actualizada.',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                confirmButtonColor: '#157347',
+                confirmButtonText: 'Confirmar',
+                cancelButtonColor: '#dc3545',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var data = {
+                        typeFunction: "cambiar_ubicacion_interna",
+                        "idDevice": this.idDevice,
+                        "idUbicacionInt": this.ActualizarUbicInterna,
+                        // "idDevice": 14,
+                        // "idUbicacionInt": 5,
+                    };
+                    const xhr = new XMLHttpRequest();
+                    xhr.open(
+                        "POST",
+                        this.GlobalApi + 'managerDevices',
+                    );
+
+                    xhr.setRequestHeader("Content-Type", "multipart/form-data");
+                    xhr.send(JSON.stringify(data));
+
+                    xhr.onload = () => {
+                        let resp = JSON.parse(xhr.responseText);
+                        console.log("xml request all devicess", resp);
+
+                        if (resp.message == 'Internal Server Error') {
+                            console.log('holi');
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Actualizado correctamente',
+                                text: 'Dispositivo vinculado con éxito',
+                                showClass: {
+                                    popup: 'animate__animated animate__fadeInDown'
+                                },
+                                hideClass: {
+                                    popup: 'animate__animated animate__fadeOutUp'
+                                }
+                            }).then(() => {
+
+                            });
+                        }
+
+                    }
+                }
+
+            })
+
+        },
+        Onchange(event) {
+
+            this.ActualizarSubcuenta = event.target.value;
+            console.log('EVENTO SELECT', this.ActualizarSubcuenta);
             var data = {
-                typeFunction: "cambiar_ubicacion_interna",
-                "idDevice": 14,
-                "idUbicacionInt": 5,
+                typeFunction: "getUbicaciones_internasByID",
+                "idSubcuenta": this.ActualizarSubcuenta,
+                // "idSubcuenta": 7,
             };
+            this.UbicacionesInternas(data)
+        },
+        UbicacionesInternas(data) {
+            // var data = {
+            //     typeFunction: "getUbicaciones_internasByID",
+            //     "idSubcuenta": this.id_Subcuenta,
+            //     "idSubcuenta": 7,
+            // };
             const xhr = new XMLHttpRequest();
             xhr.open(
                 "POST",
-                this.GlobalApi + 'managerDevices',
+                this.GlobalApi + 'subcuentas',
             );
 
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.send(JSON.stringify(data));
 
-         
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
-                console.log("xml request all devicess", resp);
+                console.log("xml request all ubicaciones_Internas", resp);
+                this.UbicacionesInternass = resp;
+                console.log('ID_ubicaciones_Internas', this.UbicacionesInternass);
 
-                if (resp.message == 'Internal Server Error') {
-                    console.log('holi');
-                }else{
-   Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizado correctamente',
-                        text: 'El nombre asignado se ha Actualizado correctamente',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-                    }).then(() => {
-
-
-                    });
-                }
-
-                  
             }
         },
-        UbicacionesInternas(){
+        getAllSubAccounts() {
+
             var data = {
-                typeFunction: "getUbicaciones_internasByID",
-                "idSubcuenta": this.id_Subcuenta,
+                "typeFunction": "getUbicationByIDpCuenta",
+                "cPrincipal": this.id_cPrincipal,
+                "idUser": this.idUserLoged,
+                "page": 1,
+                "perPage": 10,
             };
             const xhr = new XMLHttpRequest();
             xhr.open(
@@ -718,15 +775,13 @@ export default {
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.send(JSON.stringify(data));
 
-         
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
-                console.log("xml request all ubicaciones_Internas", resp);
-                this.UbicacionesInternass = resp;
-                console.log(this.UbicacionesInternass);
+                console.log("xml request all SubAccounts", resp);
+                var json = resp.data;
 
-
-                  
+                this.itemsSubAccounts = json;
+                console.log('SubcuentasArray', this.itemsSubAccounts);
             }
         },
         // ************ GRAFICAS LINE CHART************************
@@ -748,9 +803,12 @@ export default {
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
                         pointHitRadius: 10,
-                        pointRadius: 3,
+                        pointRadius: 0,
+                        // pointRadius: 3,
                         pointBorderWidth: 1,
                         lineTension: 0.1,
+
+                   
 
                     }, ]
                 },
@@ -869,7 +927,8 @@ export default {
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
                         pointHitRadius: 10,
-                        pointRadius: 3,
+                         pointRadius: 0,
+                        // pointRadius: 3,
                         pointBorderWidth: 1,
                         lineTension: 0.1,
                     }]

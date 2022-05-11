@@ -12,7 +12,8 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand"><i class="fas fa-signal-stream icon"></i> Dispositivos <span class="span-brand">ATMSense</span></a>
+                            <a class="navbar-brand"><i class="fas fa-signal-stream icon"></i> Dispositivos</a>
+                            <!-- <a class="navbar-brand"><i class="fas fa-signal-stream icon"></i> Dispositivos <span class="span-brand">ATMSense</span></a> -->
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 nav nav-pills">
 
                                 <li class="nav-item" role="presentation">
@@ -157,7 +158,7 @@
                                             <td>
                                                 <!-- <i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i> -->
                                             
-                                                     <button class="btn btn-success " v-on:click="detalles(item.idDevice)">
+                                                     <button   class="btn btn-success " v-on:click="detalles(item.idDevice)">
                                             <i class="fas fa-receipt"></i>
                                         </button>
                                         <button style="margin:0 5px 0 5px" class="btn btn-warning " disabled>

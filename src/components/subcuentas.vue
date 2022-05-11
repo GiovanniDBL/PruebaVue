@@ -73,13 +73,13 @@
                                     <td>
                                         <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button> -->
                                         <!-- <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i> -->
-                                        <button class="btn btn-success " v-on:click="detalles(item.idsCuent)">
+                                        <button disabled class="btn btn-success " v-on:click="detalles(item.idsCuent)">
                                             <i class="fas fa-receipt"></i>
                                         </button>
-                                        <button style="margin:0 5px 0 5px" class="btn btn-warning ">
+                                        <button disabled style="margin:0 5px 0 5px" class="btn btn-warning ">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger ">
+                                        <button disabled class="btn btn-danger ">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </td>
@@ -97,7 +97,7 @@
 
 <!--//? ************* Modal ********************** -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-top modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Nueva Subcuenta</h5>
@@ -124,19 +124,21 @@
                         <label for="validationCustom02" class="form-label">Dirección</label>
                         <input type="text" class="form-control" placeholder="Dirección" id="validationCustom02" v-model="FormDireccion" required>
                     </div>
-                    <div class="col-md-4">
-                        <label for="validationCustom04" class="form-label">Estado</label>
-                        <select class="form-select" id="validationCustom04" v-model="FormEstado" required>
-                            <option selected disabled value="">Seleccione un estado</option>
-                            <option value="1589">Quintana Roo</option>
+                     <div class="col-md-4">
+                        <label for="validationCustom04" class="form-label">País</label>
+                        <select class="form-select" id="validationCustom04" v-on:change="Onchange($event)" v-model="FormPais" required>
+                            <option selected disabled value="">Seleccione un país</option>
+                            <option v-for="item in itemPaises" :key="item.idPais" v-bind:value="item.idPais">{{item.paisNombre}}</option>
+                            <!-- <option value="42">México</option> -->
+
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="validationCustom04" class="form-label">País</label>
-                        <select class="form-select" id="validationCustom04" v-model="FormPais" required>
-                            <option selected disabled value="">Seleccione un país</option>
-                            <option value="42">México</option>
-
+                        <label for="validationCustom04" class="form-label">Estado</label>
+                        <select class="form-select" id="validationCustom04"  v-model="FormEstado" required>
+                            <option selected disabled value="">Seleccione un estado</option>
+                            <option v-for="item in itemEstados" :key="item.idEstado" v-bind:value="item.idEstado">{{item.estadoNombre}}</option>
+                            <!-- <option value="1589">Quintana Roo</option> -->
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -198,10 +200,12 @@
                             <option value="1589">Quintana Roo</option>
                         </select>
                     </div>
+                    <!-- itemPaises -->
                     <div class="col-md-4">
                         <label for="validationCustom04" class="form-label">País</label>
                         <select class="form-select" id="validationCustom04" v-model="FormPais" required>
                             <option selected disabled value="">Seleccione un país</option>
+                            
                             <option value="42">México</option>
 
                         </select>
@@ -242,6 +246,8 @@ export default {
     data() {
         return {
             itemsSubAccounts: [],
+            itemPaises:[],
+            itemEstados:[],
             search: '',
             GlobalApi: this.globalVar,
             FormCuenta: '',
@@ -268,6 +274,8 @@ export default {
     },
     mounted() {
         this.getAllSubAccounts();
+        this.getPaises();
+        this.getEstado();
     },
     methods: {
         getAllSubAccounts() {
@@ -380,6 +388,61 @@ export default {
                     this.itemsSubAccounts.splice(0, 0, jSON);
                 }
 
+            }
+        },
+        getPaises(){
+            
+            var data = {
+                "typeFunction": "getPaises",
+                "idUser": this.id_usuario,
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'datasystem',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request all Paises", resp);
+                this.itemPaises = resp;
+                console.log('ArrayPaises', this.itemPaises);
+            }
+        },
+        Onchange(event){
+            this.FormPais = event.target.value;
+            console.log('EVENTO SELECT', this.FormPais);
+            var data = {
+                "typeFunction": "getEstadosByID",
+                "idUser": this.id_usuario,
+                "idPais": this.FormPais,
+            };
+            this.getEstado(data);
+        },
+        getEstado(data){
+            
+            // var data = {
+            //     "typeFunction": "getEstadosByID",
+            //     "idUser": this.id_usuario,
+            //     "idPais": 7,
+            // };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'datasystem',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request all Estados", resp);
+                this.itemEstados = resp;
+                console.log('ArrayEstados', this.itemEstados);
             }
         },
     }
