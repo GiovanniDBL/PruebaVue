@@ -64,8 +64,8 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Cuenta</th>
-                                        <th scope="col">Dispositivo</th>
                                         <th scope="col">Nombre</th>
+                                        <th scope="col">Dispositivo</th>
                                         <th scope="col">Evento</th>
                                         <th scope="col">Fecha</th>
                                         <th scope="col">Estado de alarma</th>
@@ -80,8 +80,8 @@
                                     <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado)">
                                         <th scope="row">{{item.idAlarmas}}</th>
                                         <td>{{item.account}}</td>
-                                        <td>{{item.deviceid}}</td>
                                         <td>{{item.nombreAsignado}}</td>
+                                        <td>{{item.deviceid}}</td>
                                         <td>{{item.event}}</td>
                                         <td>{{item.fecha}}</td>
                                         <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
