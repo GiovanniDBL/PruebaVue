@@ -572,7 +572,7 @@ option:hover {
   
 @media only screen and (min-width: 1800px) {
     .scrollable {
-        height: 765px;
+        height: 665px;
         overflow: scroll;
     }
 
@@ -582,7 +582,7 @@ option:hover {
     }
 
     .t-body-table {
-        font-size: 17px;
+        font-size: 16px;
 
     }
 
