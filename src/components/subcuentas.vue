@@ -45,9 +45,16 @@
             <div class="card-body">
                 <div class="tab-content" id="pills-tabContent">
                     <div class="scrollable">
-                        <div v-if="filterDataSubAccounts == 0 " class="alert animated fadeIn fast" role="alert">
+                        <div v-if="SearchFilter == false " style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                             No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                         </div>
+                         <div v-if="totalSubcuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No existen subcuentas en estos momentos <i class="fas fa-exclamation-circle"></i>
+                                </div>
+
+                        <!-- <div v-if="filterDataSubAccounts == 0 " class="alert animated fadeIn fast" role="alert">
+                            No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
+                        </div> -->
 
                         <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                             <thead class="">
@@ -259,6 +266,8 @@ export default {
             FormCodigoPostal: '',
             id_cPrincipal: localStorage.getItem('id_cPrincipal'),
             id_usuario: localStorage.getItem('id_usuario'),
+            SearchFilter:true,
+            totalSubcuentas:''
 
         }
     },
@@ -266,10 +275,18 @@ export default {
         filterDataSubAccounts() {
             // blog.ciudad.toLowerCase().includes(this.search.toLowerCase()) ||
             return this.itemsSubAccounts.filter(blog => {
-                return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) || blog.NameUbica.toLowerCase().includes(this.search.toLowerCase()) ||
+                this.SearchFilter =  blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) || blog.NameUbica.toLowerCase().includes(this.search.toLowerCase()) ||
                     blog.estado.toLowerCase().includes(this.search.toLowerCase()) ||
                     blog.pais.toLowerCase().includes(this.search.toLowerCase()) || blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase());
+                return this.SearchFilter;
             });
+
+
+            //     return this.itemsSubAccounts.filter(blog => {
+            //     return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) || blog.NameUbica.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         blog.estado.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         blog.pais.toLowerCase().includes(this.search.toLowerCase()) || blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase());
+            // });
         }
     },
     mounted() {
@@ -301,6 +318,8 @@ export default {
                 console.log("xml request all SubAccounts", resp);
                 var json = resp.data;
 
+                this.totalSubcuentas =json.length;
+                console.log(this.totalSubcuentas);
                 for (var index in json) {
 
                     this.itemsSubAccounts.push({

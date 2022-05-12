@@ -28,13 +28,12 @@
             </div>
         </div>
     </nav>
- <!-- //TODO *************** NAVBAR FIN ************** -->
- 
-    
-        <!--//* ********************** ALARMAS********************************************** -->
-        <!-- <button type="button" class="btn btn-primary" @click.prevent="playSound(require('@/assets/audioDemo.mp3'))">audio</button> -->
-        <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
-        <!-- <div class="row">
+    <!-- //TODO *************** NAVBAR FIN ************** -->
+
+    <!--//* ********************** ALARMAS********************************************** -->
+    <!-- <button type="button" class="btn btn-primary" @click.prevent="playSound(require('@/assets/audioDemo.mp3'))">audio</button> -->
+    <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
+    <!-- <div class="row">
             <div class="col-6">
                 <div class="card bg-light card2">
                     <div class="card-header ">
@@ -118,52 +117,96 @@
                 </div>
             </div>
         </div> -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-         <div class="card">
-               <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID_ALARMA</th>
-      <th scope="col">CUENTA</th>
-      <th scope="col">NOMBRE</th>
-      <th scope="col">DISPOSITIVO</th>
-      <th scope="col">EVENTO</th>
-      <th scope="col">FECHA</th>
-      <th scope="col">ESTADO DE ALARMA</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-  </tbody>
-</table>
-  </div>
-</div>
-        </div>
-        <div class="col-6">
-                     <div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+    <div class="container-fluid" style="margin-top:2rem">
+        <div class="row">
+            <div class="col-6">
+                <div class="card card2">
+                    <div class="card-header">
+                         <span  class="position-relative" style="padding-right:5px;">
+                            Alarmas Pendientes
+                            <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="scrollable">
+                        <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
+                            <thead style="background:#232527eb; color:#fff">
+                            <!-- <thead style="background:#41464b; color:#fff"> -->
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Cuenta</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Dispositivo</th>
+                                    <th scope="col">Evento</th>
+                                    <th scope="col">Zona</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody v-for="item in itemsAlerts" :key="item.idAlarmas">
+                                <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado, item.clasificacion)">
+                                    <th scope="row">{{item.idAlarmas}}</th>
+                                    <td>{{item.account}}</td>
+                                    <td>{{item.nombreAsignado}}</td>
+                                    <td>{{item.deviceid}}</td>
+                                    <td>{{item.event}}</td>
+                                    <td>1</td>
+                                    <td>{{item.fecha}}</td>
+                                    <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+            <div class="card card2">
+                    <div class="card-header">
+                         <span  class="position-relative" style="padding-right:5px;">
+                            Alarmas en progreso
+                            <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmasProgreso}}</span>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <div class="scrollable">
+                        <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
+                            <thead style="background:#232527eb; color:#fff">
+                            <!-- <thead style="background:#41464b; color:#fff"> -->
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Cuenta</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Dispositivo</th>
+                                    <th scope="col">Evento</th>
+                                    <th scope="col">Zona</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Estatus</th>
+                                </tr>
+                            </thead>
+                            <!-- style="background:#f39c12;" -->
+                           <tbody  v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
+                                    <tr :id="'device2-'+ item.idAlarmas"  v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma, item.clasificacion)">
+                                        <th scope="row">{{item.idAlarmas}}</th>
+                                        <td>{{item.account}}</td>
+                                        <td>{{item.nombreAsignado}}</td>
+                                        <td>{{item.deviceid}}</td>
+                                        <td>{{item.event}}</td>
+                                        <td>1</td>
+                                        <td>{{item.fecha}}</td>
+                                        <td>{{item.estado_alarma}}</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-        <!-- *********************** EVENTOS ****************************** -->
-        <section class="home">
+    <!-- *********************** EVENTOS ****************************** -->
+    <section class="home">
         <div class="section-eventos">
             <div class="card  bg-light card-evento">
                 <div class="card-header">
@@ -176,7 +219,7 @@
                     <!-- *PRIMER COLUMNA EVENTOS-->
                     <div class="scrollable">
                         <table cellspacing="1" cellpadding="1" class="table table-hover   table-borderless table-tamaño">
-                            <thead style="background:#41464b; color:#fff" class="">
+                            <thead style="background:#232527eb; color:#fff" class="">
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Cuenta</th>
@@ -381,7 +424,7 @@ export default {
                 audio.play();
             }
         },
-        popup(id, c, d, e, f, es) {
+        popup(id, c, d, e, f, es,cla) {
             //       var trDevice=document.getElementById("device-" + id);
             // trDevice.style.backgroundColor = '#c71527';
             // trDevice.style.transition = 'all .9s ease-in-out';
@@ -402,6 +445,7 @@ export default {
                 idAlarmas: id,
                 estado_alarma: 'progreso',
                 nombreAsignado: es,
+                clasificacion: cla
             };
 
             console.log('monitoreo', jSON);
@@ -413,22 +457,41 @@ export default {
 
             this.itemsAlerts.splice(index, 1)
             //   console.log(this.itemsAlerts);
-            setTimeout(() => {
+
+            if (cla == 1) {
+                   setTimeout(() => {
                 // var tricono = document.getElementById("icono-" + idAlarmas);
                 // tricono.innerHTML="<i class='fas fa-circle'></i>"
                 // tricono.style.color = "#dc3545"
 
                 var trDevice = document.getElementById("device2-" + id);
-                trDevice.style.backgroundColor = '#0d6b7e';
+                // trDevice.style.backgroundColor = '#0d6b7e';
+                trDevice.style.backgroundColor = '#198754';
                 // trDevice.style.border = 'solid 1.5px #ff6384'
                 trDevice.style.transition = 'all .9s ease-in-out';
 
                 setTimeout(() => {
                     trDevice.style.border = ''
-                    trDevice.style.backgroundColor = '';
-                }, 20000)
+                    trDevice.style.backgroundColor = '#c71527';
+                }, 10000)
 
             }, 1000);
+            }else{
+                     setTimeout(() => {
+                var trDevice = document.getElementById("device2-" + id);
+                // trDevice.style.backgroundColor = '#0d6b7e';
+                trDevice.style.backgroundColor = '#198754';
+                trDevice.style.color = '#198754';
+                trDevice.style.transition = 'all .9s ease-in-out';
+
+                setTimeout(() => {
+                    trDevice.style.border = ''
+                    trDevice.style.backgroundColor = '#ffca2c';
+                }, 10000)
+
+            }, 1000);
+            }
+
 
         },
         popup2(id, c, d, e, f, es) {
@@ -536,7 +599,7 @@ export default {
             var page = 1;
             var perPage = 200;
 
-           var idUser = this.id_usuario; //cambiarlo despues por el state
+            var idUser = this.id_usuario; //cambiarlo despues por el state
             var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
 
             console.log("idUser es", idUser);
@@ -662,8 +725,8 @@ export default {
             this.WebSocketTest();
         },
 
-        SocketOnInit(){
-              if ("WebSocket" in window) {
+        SocketOnInit() {
+            if ("WebSocket" in window) {
                 console.log("Conectando socket...");
                 // var data = "";
                 var ws = new WebSocket(
@@ -672,11 +735,11 @@ export default {
 
                 // console.log("IdUser es ", this.idUser);
                 // var idUsuario = this.idUser;
-// 1 admin
-// 2 centralista
-// 6 clientes
+                // 1 admin
+                // 2 centralista
+                // 6 clientes
                 ws.onopen = event => {
-            
+
                     var msg = {
                         "action": "setNotifications",
                         "ActiveNotifications": 1,
@@ -687,99 +750,97 @@ export default {
                     ws.send(JSON.stringify(msg));
                     console.log(msg);
                 };
-                    this.WebSocketTest(ws);
-                } else {
-        // The browser doesn't support WebSocket
-        alert("WebSocket NOT supported by your Browser!");
-      }
-
+                this.WebSocketTest(ws);
+            } else {
+                // The browser doesn't support WebSocket
+                alert("WebSocket NOT supported by your Browser!");
+            }
 
         },
         WebSocketTest(ws) {
             var data = "";
-           
 
-                ws.onmessage = (evt) => {
-                    var received_msg = evt.data;
-                    console.log("Mensaje Recibido...");
-                    //console.log(received_msg);
-                    data = received_msg;
-                    var json = JSON.parse(data);
-                    console.log(json);
+            ws.onmessage = (evt) => {
+                var received_msg = evt.data;
+                console.log("Mensaje Recibido...");
+                //console.log(received_msg);
+                data = received_msg;
+                var json = JSON.parse(data);
+                console.log(json);
 
-                    var result = json.Result;
-                    var idconexion = json.idConexion
+                var result = json.Result;
+                var idconexion = json.idConexion
 
-                    if (result != undefined && result != "undefined") {
-                        if (result == "Registrado Correctamente") {
-                            this.flagRegistro = 1;
-                            console.log("Bandera", this.flagRegistro);
-                            this.idConexion = idconexion;
-                            localStorage.setItem('IniciarSocket', '1')
-                        }
+                if (result != undefined && result != "undefined") {
+                    if (result == "Registrado Correctamente") {
+                        this.flagRegistro = 1;
+                        console.log("Bandera", this.flagRegistro);
+                        this.idConexion = idconexion;
+                        localStorage.setItem('IniciarSocket', '1')
+                    }
+                }
+
+                let typeNotification = json["typeNotification"];
+
+                if (typeNotification != undefined && typeNotification != "undefined") {
+                    switch (typeNotification) {
+                        case 'Alarma':
+                            // this.getAlarmasFromHttp();
+                            // console.log('CaseAlarma',json["idDato"]);
+                            audio2.play();
+                            audio2.loop = true;
+                            this.openToastAlarmas(data)
+                            this.handleAlert(data);
+
+                            break;
+
+                        case 'Event':
+                            //? 1 = apertura,
+                            //? 2 = cierre,
+                            //? 4 = test,
+                            //? 8 = tamper reposicion,
+                            //? 10=Fasia reposición,
+                            //? 12 = restablecimiento de zona,
+                            //? 14 = restablecimiento de ac
+                            this.handleAlertEventos(data)
+                            console.log(json);
+                            if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
+                                json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
+
+                                audio.play();
+                                // this.handleAlertEventos(data)
+                                this.openToastEvent(json);
+                                console.log(json);
+                            }
+                            break;
+
+                        case 'Alerta':
+
+                            console.log('CaseAlerta', data);
+                            audio2.play();
+                            audio2.loop = true;
+                            this.openToastAlertas(data)
+                            this.handleAlert(data);
+
+                            break;
                     }
 
-                    let typeNotification = json["typeNotification"];
+                }
 
-                    if (typeNotification != undefined && typeNotification != "undefined") {
-                        switch (typeNotification) {
-                            case 'Alarma':
-                                // this.getAlarmasFromHttp();
-                                // console.log('CaseAlarma',json["idDato"]);
-                                audio2.play();
-                                audio2.loop = true;
-                                this.openToastAlarmas(data)
-                                this.handleAlert(data);
+            };
 
-                                break;
+            this.setAlive(ws);
 
-                            case 'Event':
-                                //? 1 = apertura,
-                                //? 2 = cierre,
-                                //? 4 = test,
-                                //? 8 = tamper reposicion,
-                                //? 10=Fasia reposición,
-                                //? 12 = restablecimiento de zona,
-                                //? 14 = restablecimiento de ac
-                                 this.handleAlertEventos(data)
-                                  console.log(json);
-                                if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
-                                    json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
+            ws.onclose = event => {
+                // websocket is closed.
+                // alert("Connection is closed...");
+                localStorage.setItem('IniciarSocket', '0')
+                this.flagRegistro = 0;
+                console.log("Bandera", this.flagRegistro);
+                ws.close(1000, "Work complete");
+                this.SocketOnInit();
+            };
 
-                                    audio.play();
-                                    // this.handleAlertEventos(data)
-                                    this.openToastEvent(json);
-                                    console.log(json);
-                                }
-                                break;
-
-                            case 'Alerta':
-
-                                console.log('CaseAlerta', data);
-                                audio2.play();
-                                audio2.loop = true;
-                                this.openToastAlertas(data)
-                                this.handleAlert(data);
-
-                                break;
-                        }
-
-                    }
-
-                };
-
-                this.setAlive(ws);
-
-                ws.onclose = event =>  {
-                    // websocket is closed.
-                    // alert("Connection is closed...");
-                    localStorage.setItem('IniciarSocket', '0')
-                    this.flagRegistro = 0;
-                    console.log("Bandera", this.flagRegistro);
-                    ws.close(1000, "Work complete");
-                    this.SocketOnInit();
-                };
-      
         },
 
         setAlive(socketConn) {
@@ -796,7 +857,7 @@ export default {
                     "id_conexion": this.idConexion,
                 }
                 socketConn.send(JSON.stringify(msgtst));
-            }, 300000 );
+            }, 300000);
             // 120000 = 2 minutos;
             // 60000 = 1 minuto;
             // 300000 = 5 minutos;
@@ -912,7 +973,7 @@ export default {
             console.log("WebSocket Alert: ", JSON.parse(params));
             var json = JSON.parse(params);
 
-            console.log('valores para el mensaje mailer',json);
+            console.log('valores para el mensaje mailer', json);
             console.log(json["mensaje"]);
             var date = json["date"];
             var stillUtc = moment.utc(date).toDate();
@@ -945,7 +1006,6 @@ export default {
                 nombreAsignado: json["nombre_asignado"],
                 clasificacion: idclasificacion
 
-                    
             };
             let mensaje = {
                 deviceid: json["NameDevice"],
@@ -960,7 +1020,7 @@ export default {
             this.itemsAlerts.splice(0, 0, jSON);
             console.log('handAlert', this.itemsAlerts);
 
-//TODO MENSAJES PARA WASAP Y CORREO
+            //TODO MENSAJES PARA WASAP Y CORREO
             // axios.post(messageApi, mensaje).then(data => {
             //     console.log('AXIOS messageApi DATA',data);
             // });
@@ -977,7 +1037,8 @@ export default {
                     tricono.style.color = "#00adf6"
 
                     var trDevice = document.getElementById("device-" + idAlarmas);
-                    trDevice.style.backgroundColor = '#15aac7';
+                    // trDevice.style.backgroundColor = '#15aac7';
+                    trDevice.style.backgroundColor = '#ff4d00';
                     // trDevice.style.border = 'solid 1.5px #ff6384'
                     trDevice.style.transition = 'all .9s ease-in-out';
 
@@ -995,7 +1056,8 @@ export default {
                     tricono.style.color = "#00adf6"
 
                     var trDevice = document.getElementById("device-" + idAlarmas);
-                    trDevice.style.backgroundColor = '#15aac7';
+                    // trDevice.style.backgroundColor = '#15aac7';
+                    trDevice.style.backgroundColor = '#ff4d00';
                     // trDevice.style.border = 'solid 1.5px #ff9f40'
                     trDevice.style.transition = 'all .9s ease-in-out';
 
@@ -1124,15 +1186,19 @@ export default {
 }
 
 .table-tamaño {
-    font-size: 9.6pt;
+    /* font-size: 9.6pt; */
+    font-size: 9.5pt;
     /* font-weight: 300; */
     /* width: 95%; */
-    width: 97%;
-    margin-left: 2.5%;
+    width: 99%;
+    /* margin-left: 2.5%; */
+    text-align: center;
 }
 
+
 .card-body {
-    /* padding: 1rem 0; */  /* volver a descomentar */
+    padding: 1rem 0 1rem 1rem;
+    /* volver a descomentar */
 }
 
 .card-title {
@@ -1144,22 +1210,34 @@ export default {
 }
 
 .section-eventos {
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     margin-bottom: 2rem;
 }
 
 .card-header {
-    background-color: #414548 !important;
+    background-color: #343638 !important;
+    /* background-color: #414548 !important; */
     color: #FFF;
 }
 
 .card {
-    border-color: #414548;
-    /* border-radius: 6px; */ /* volver a descomentar */
+    border-color: #343638;
+    /* border-color: #414548; */
+      /* background: #1a2130; */
+    border-radius: 6px;
+    /* volver a descomentar */
+}
+/* .scrollable::-webkit-scrollbar {
+    background-color: #1a2130;
 }
 
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+
+} */
 .scrollable {
-    height: 320px;
+    /* height: 320px; */
+    height: 500px;
     overflow: scroll;
 }
 
@@ -1245,12 +1323,13 @@ export default {
 }
 
 .card2 {
-    width: 38.5rem;
-    height: 382px;
+    /* width: 38.5rem; */
+    /* height: 382px; */
+    height: 565px;
 }
 
 .card-evento {
-    height: 382px;
+    /* height: 382px; */
 }
 
 .navbar {
@@ -1274,7 +1353,7 @@ export default {
 
 @media only screen and (min-width: 1300px) {
     .card2 {
-        width: 38rem;
+        /* width: 38rem; */
 
     }
 }

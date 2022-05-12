@@ -62,6 +62,9 @@
                                 No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                             </div> -->
                         <!-- <table cellspacing="1" cellpadding="1" class="table table-success  table-bordered   table-hover  table-striped table-borderless table-tamaño" > -->
+                              <div v-if="totalCuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No existen cuentas en estos momentos <i class="fas fa-exclamation-circle"></i>
+                                </div>
                         <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                             <thead class="">
                                 <tr class="t-head-table">
@@ -74,6 +77,7 @@
                                     <!-- <th scope="col">Correo</th> -->
                                 </tr>
                             </thead>
+
                             <tbody>
                                 <tr class="t-body-table" v-for="item in itemsAccounts" :key="item.idsCuent">
                                     <th scope="row">{{item.idsCuent}}</tH>
@@ -236,7 +240,8 @@ export default {
             totalPages: 0,
             totalPagesEvent: 0,
             perPage: 0,
-            idEditt: ''
+            idEditt: '',
+            totalCuentas:''
 
         }
     },
@@ -314,6 +319,7 @@ export default {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all acounts", resp);
                 var json = resp.data;
+                this.totalCuentas = json.length;
 
                 for (var index in json) {
                     // console.log('asdasdasda',json[index]["sCuentName"]);

@@ -321,42 +321,24 @@
                     <button type="button" v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <!-- //TODO ACTUALIZAR VINCULACIÓN -->
-                    <p style="margin-bottom:0;margin-top:10px">Ingresar nueva vinculación <i style="color:#d4b032" class="fas fa-edit"></i></p>
-                    <!-- <button style="float:right" class="btn btn-primary btn-sm ">Crear nueva ubicación</button> -->
-                    <hr class="hr-style">
-                    <form class="row  g-3" v-on:submit.prevent="ActualizarVinculación">
-
-                        <div class="col-md-6">
-                            <!-- {{ActualizarSubcuenta}} -->
-                            <label for="subcuenta" class="form-label">Zona 1</label>
-                            <select class="form-select" id="subcuenta" v-on:change="Onchange($event)" v-model="ActualizarSubcuenta" required>
-                                <option selected disabled value="">Seleccionar subcuenta</option>
-                                <option v-for="item in itemsSubAccounts" :key="item.idUbic" v-bind:value="item.idUbic">{{item.NameUbica}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <!-- {{ActualizarUbicInterna}} -->
-                            <label for="ubicInterna" class="form-label">Zona 2</label>
-                            <select class="form-select" id="ubicInterna" v-model="ActualizarUbicInterna" required>
-                                <option selected disabled value="">Seleccionar ubicación</option>
-                                <option v-for="item in UbicacionesInternass" :key="item.idUbiInt" v-bind:value="item.idUbiInt">{{item.nameUbiInt}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <!-- {{ActualizarUbicInterna}} -->
-                            <label for="ubicInterna" class="form-label">Zona 3</label>
-                            <select class="form-select" id="ubicInterna" v-model="ActualizarUbicInterna" required>
-                                <option selected disabled value="">Seleccionar ubicación</option>
-                                <option v-for="item in UbicacionesInternass" :key="item.idUbiInt" v-bind:value="item.idUbiInt">{{item.nameUbiInt}}</option>
-                            </select>
-                        </div>
-                        <div class="col-12 text-end">
-                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
-                        </div>
-                    </form>
-
+                    <ul class="list-group list-group-flush" v-for="item in itemZonas" :key="item.idDeviceZona">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{item.zona}}
+                            <span class="badge rounded-pill  ">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                        </li>
+                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Zona 2
+                            <span class="badge rounded-pill bg-warning" style="color:#000">asd</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Zona 3
+                            <span class="badge rounded-pill bg-success">asd</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Zona 4
+                            <span class="badge rounded-pill bg-success">asd</span>
+                        </li> -->
+                    </ul>
                 </div>
             </div>
         </div>
@@ -412,6 +394,7 @@ export default {
             gasdevice: [],
             voltdevice: [],
             itemsSubAccounts: [],
+            itemZonas:[],
             ultimatemp: '',
             ultimavib: '',
             ultimagas: '',
@@ -431,9 +414,10 @@ export default {
                 arcPadding: 7
             },
             idDevice: '',
-            idUserLoged: localStorage.getItem('id_usuario'),
-            typeUserLoged: localStorage.getItem('id_tipousuario'),
+            idUserLoged: parseInt(localStorage.getItem('id_usuario')),
+            typeUserLoged: parseInt(localStorage.getItem('id_tipousuario')),
             id_cPrincipal: localStorage.getItem('id_cPrincipal'),
+            //  parseInt(localStorage.getItem('ID_tipousuario'))
             pruebafecha: moment.utc('2021-11-19T11:12:56.000Z').locale('es-mx').format('DD/MM/YYYY HH:mm:ss'),
             GlobalApi: this.globalVar,
             NameDeviceForm: '',
@@ -479,6 +463,7 @@ export default {
 
         this.GetinfoDevice();
         this.getAllSubAccounts();
+        this.getZonas();
     },
     methods: {
         disabled() {
@@ -586,9 +571,8 @@ export default {
                         var stillUtc = moment.utc(date).toDate();
                         var local = moment(stillUtc).local().format('h:mm a');
 
-                    this.timedevice.push(local);
+                        this.timedevice.push(local);
                     }
-
 
                     //* Temperatura
                     this.tempdevice = resp.data.map(resp => (resp.tempAmb));
@@ -784,6 +768,44 @@ export default {
                 console.log('SubcuentasArray', this.itemsSubAccounts);
             }
         },
+        getZonas() {
+            var data = {
+                "typeFunction": "getListaZonasDevice",
+                "idDevice": parseInt(this.idDevice),
+                "idUserLoged": this.idUserLoged,
+                "typeUserLoged": this.typeUserLoged
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'managerDevices',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request all Zonas", resp);
+                console.log(data);
+                var json = resp;
+                // this.itemZonas = json
+                // console.log('ZONAS', this.itemZonas);
+
+
+
+                     for (var index in json) {
+                    // console.log('asdasdasda',json[index]["sCuentName"]);
+
+                    this.itemZonas.push({
+                        nombreZona: json[index]["nombre_zona"],
+                        zona: json[index]["zona"],
+                        idDeviceZona: json[index]["id_device_zona"],
+                    });
+
+                }
+            }
+        },
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
             var ctx = document.getElementById('GraficaTemp').getContext('2d');
@@ -807,8 +829,6 @@ export default {
                         // pointRadius: 3,
                         pointBorderWidth: 1,
                         lineTension: 0.1,
-
-                   
 
                     }, ]
                 },
@@ -927,7 +947,7 @@ export default {
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
                         pointHitRadius: 10,
-                         pointRadius: 0,
+                        pointRadius: 0,
                         // pointRadius: 3,
                         pointBorderWidth: 1,
                         lineTension: 0.1,
@@ -1358,7 +1378,7 @@ export default {
 
     color: #ffffff;
     background-color: #1a2130;
-    border-bottom: 1px solid #ffffff14;
+    border-bottom: 1px solid #ffffff14 !important;
     /* font-size: 20px; */
 }
 

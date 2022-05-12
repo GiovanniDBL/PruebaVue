@@ -48,9 +48,15 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                             <div class="scrollable">
-                                <div v-if="filterDataOnline == 0 " class="alert animated fadeIn fast" role="alert">
+                                <div v-if="SearchFilterOnline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div>
+                                <div v-if="totalOnline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No hay dispositivos online en estos momentos   <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                      <!-- <div v-if="filterDataOnline == 0 " class="alert animated fadeIn fast" role="alert">
+                                    No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
+                                </div> -->
                                 <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
 
                                     <thead class=" text-light ">
@@ -116,9 +122,13 @@
                         <!-- //? ******************** DISPOSITIVOS OFFLINE *********************-->
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="scrollable">
-                                <div v-if="filterDataOffline == 0 " class="alert animated fadeIn fast" role="alert">
+                                <div v-if="SearchFilterOfline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div>
+                                 <div v-if="totalOffline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No hay dispositivos offline en estos momentos   <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                
                                 <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                     <thead class=" text-light ">
                                         <tr class="t-head-table">
@@ -208,22 +218,32 @@ export default {
             search: '',
             GlobalApi: this.globalVar,
             id_tipoUsuario: localStorage.getItem('id_tipousuario'),
-            id_usuario: localStorage.getItem('id_usuario')
+            id_usuario: localStorage.getItem('id_usuario'),
+            SearchFilterOnline:true,
+            SearchFilterOfline:true,
         };
     },
     computed: {
         filterDataOnline() {
             return this.DispositivosOnline.filter(blog => {
 
-                return blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
+this.SearchFilterOnline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
                     blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
+                console.log('SearchFilterOnline',this.SearchFilterOnline);
+                return  this.SearchFilterOnline
             });
+
+            //       return this.DispositivosOnline.filter(blog => {
+            //     return blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
+            //         blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
+            // });
         },
         filterDataOffline() {
             return this.DispositivosOffline.filter(blog => {
 
-                return blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
+this.SearchFilterOfline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
                     blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
+                return this.SearchFilterOfline
             });
         }
     },
@@ -294,6 +314,11 @@ export default {
                 console.log('Dispositivos Offline', this.DispositivosOnline);
 
                 this.totalOffline = DevicesOffline.length;
+
+
+                // if (this.DispositivosOnline == 0) {
+                //     this.ToastDispOnline();
+                // }
             }
         },
         getColorSenal(linkQuality) {
@@ -339,6 +364,17 @@ export default {
                     return 'fad fa-signal-alt-slash';
 
             }
+        },
+        ToastDispOnline(){
+    this.$toast.open({
+                message: 'No hay dispositivos Online' ,
+                type: "error",
+                duration: 3000,
+                dismissible: true,
+                position: "top-right",
+                // position: "top-left",
+            });
+    
         }
     },
 }
