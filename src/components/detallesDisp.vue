@@ -262,7 +262,7 @@
                         </div>
 
                         <div class="col-12 text-end">
-                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
+                            <button class="btn btn-success"  style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
                         </div>
                     </form>
 
@@ -318,31 +318,25 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Zonas del dispositivo</h5>
-                    <button type="button" v-on:click="CerrarModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <ul class="list-group list-group-flush" v-for="item in itemZonas" :key="item.idDeviceZona">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{item.zona}}
-                            <span class="badge rounded-pill  ">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                            <span style="text-transform: lowercase !important;">{{item.nombreZona}} <i  class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                            <!-- <span class="badge rounded-pill  ">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span> -->
                         </li>
-                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Zona 2
-                            <span class="badge rounded-pill bg-warning" style="color:#000">asd</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Zona 3
-                            <span class="badge rounded-pill bg-success">asd</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Zona 4
-                            <span class="badge rounded-pill bg-success">asd</span>
-                        </li> -->
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+    
 </div>
 </template>
 
@@ -464,6 +458,8 @@ export default {
         this.GetinfoDevice();
         this.getAllSubAccounts();
         this.getZonas();
+
+
     },
     methods: {
         disabled() {
@@ -646,6 +642,8 @@ export default {
                     }
                 }).then(() => {
 
+    // const mymodal = document.getElementById('NombreAsignado')
+    // mymodal.hide();
                 });
             }
         },

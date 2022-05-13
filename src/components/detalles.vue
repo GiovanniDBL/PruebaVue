@@ -36,8 +36,12 @@
     <span class="">{{txtTimeAlarma}}</span>
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Estado_Alarma:
+    Estado_Alarma:  
     <span class="">{{txtStatus}}</span>
+  </li>
+ <li class="list-group-item d-flex justify-content-between align-items-center">
+    Zona:  
+    <span class="">{{txtNombreZona}}-{{txtZona}}</span>
   </li>
  <li class="list-group-item ">
  <div class="d-grid gap-2">
@@ -281,6 +285,8 @@ components: {
             txtTimeAlarma:'',
             txtStatus:'',
             txtNameDevice:'',
+            txtZona:'',
+            txtNombreZona:'',
             contactosAlarma:[],
             historialAlarmas:[],
             historialNotas:[],
@@ -351,6 +357,8 @@ components: {
           var idUbic=json[index]["idUbic"];
           var idDevice=json[index]["idDeviceZona"];
           var nameDevice = json[index]["NameDevice"]
+          var numero_zona = json[index]["numero_zona"]
+          var nombre_zona = json[index]["nombre_zona"]
 
 
         }
@@ -366,6 +374,8 @@ components: {
        this.idDeviceSelected=idDevice;
        this.txtStatus=nombreStatus;
        this.txtNameDevice = nameDevice;
+       this.txtZona = numero_zona;
+       this.txtNombreZona = nombre_zona;
       //  var statusAlarma=document.getElementById("select-statusA");
 
       //  var opt = document.createElement('option');

@@ -150,7 +150,8 @@
                                     <td>{{item.nombreAsignado}}</td>
                                     <td>{{item.deviceid}}</td>
                                     <td>{{item.event}}</td>
-                                    <td>1</td>
+                                    <td>{{item.numero_zona}}</td>
+                                    <!-- <td>1</td> -->
                                     <td>{{item.fecha}}</td>
                                     <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
                                 </tr>
@@ -192,7 +193,8 @@
                                         <td>{{item.nombreAsignado}}</td>
                                         <td>{{item.deviceid}}</td>
                                         <td>{{item.event}}</td>
-                                        <td>1</td>
+                                        <!-- <td>1</td> -->
+                                        <td>{{item.numero_zona}}</td>
                                         <td>{{item.fecha}}</td>
                                         <td>{{item.estado_alarma}}</td>
                                     </tr>
@@ -238,7 +240,8 @@
                                     <td style="color:#fff">{{item.nombreAsignado}}</td>
                                     <td style="color:#fff">{{item.deviceid}}</td>
                                     <td style="color:#fff">{{item.event}}</td>
-                                    <td style="color:#fff">1</td>
+                                    <!-- <td style="color:#fff">1</td> -->
+                                    <td>{{item.numero_zona}}</td>
                                     <td style="color:#fff">{{item.fecha}}</td>
                                     <!-- <td style="color:#fff">{{item.estado}}</td> -->
                                 </tr>
@@ -586,7 +589,8 @@ export default {
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
                         clasificacion: json.data[index]["id_clasificacion_alarma"],
-                        nombreAsignado: json.data[index]["nombre_asignado"]
+                        nombreAsignado: json.data[index]["nombre_asignado"],
+                        numero_zona: json.data[index]["numero_zona"]
 
                     });
 
@@ -651,7 +655,8 @@ export default {
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
                         clasificacion: json.data[index]["id_clasificacion_alarma"],
-                        nombreAsignado: json.data[index]["nombre_asignado"]
+                        nombreAsignado: json.data[index]["nombre_asignado"],
+                        numero_zona: json.data[index]["numero_zona"]
                     });
 
                 }
@@ -713,7 +718,8 @@ export default {
                         zona: "000",
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
-                        nombreAsignado: json.data[index]["nombre_asignado"]
+                        nombreAsignado: json.data[index]["nombre_asignado"],
+                        numero_zona: json.data[index]["numero_zona"]
                     });
 
                 }
