@@ -93,12 +93,14 @@
                             <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
                                 Cuentas con más actividad
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    4
+                                    <!-- 4 -->
+                                    0
                                 </span>
                             </button>
                             <button @click="PDF_Actividad" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-center">
+                                
                             <div class="scrollable">
                                 <table id="actividad" class="table table-tamaño  table-hover">
                                     <thead style="background:#0d6efd" class="">
@@ -109,10 +111,10 @@
                                             <th scope="col">Handle</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr class="t-body-table">
                                             <th scope="row">1</th>
-                                            <td>Sisec</td>
+                                            <td>GrupoMaster</td>
                                             <td>Otto</td>
                                             <td>@mdo</td>
                                         </tr>
@@ -134,8 +136,9 @@
                                             <td>Thornton</td>
                                             <td>@fat</td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
+                                <span style="color:#ffffffcc">Sin informacón...</span>
                             </div>
                         </div>
                     </div>
@@ -147,13 +150,14 @@
                             <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
                                 Productividad de Empleados
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    7
+                                    <!-- 7 -->
+                                    0
                                 </span>
                             </button>
                             <button @click="PDF_Productividad" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
 
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body text-center">
                             <div class="scrollable">
                                 <table id="productividaad" class="table table-tamaño table-hover">
                                     <thead style="background:#198754">
@@ -164,7 +168,7 @@
                                             <th scope="col">Handle</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr class="t-body-table">
                                             <th scope="row">1</th>
                                             <td>Mark</td>
@@ -207,8 +211,9 @@
                                             <td>Thornton</td>
                                             <td>@fat</td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
+                                 <span style="color:#ffffffcc">Sin informacón...</span>
                             </div>
                         </div>
 
@@ -221,13 +226,14 @@
                             <button type="text" class="btn btn-texto-cards-bage btn-sm position-relative">
                                 Dispositivos fuera de línea
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    7
+                                    <!-- 7 -->
+                                    0
                                 </span>
                             </button>
                             <button @click="PDF_dispositivos" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button>
 
                         </div>
-                        <div class="card-body ">
+                        <div class="card-body text-center">
                             <div class="scrollable">
                                 <table id="dispositivos" class="table table-tamaño table-hover">
                                     <!-- <thead style="background:#6c757d"> -->
@@ -240,7 +246,7 @@
                                             <!-- fad fa-signal-alt-slash -->
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr class="t-body-table">
                                             <th scope="row">1</th>
                                             <td>4140AF</td>
@@ -283,8 +289,9 @@
                                             <td>Thornton</td>
                                             <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
+                                 <span style="color:#ffffffcc">Sin informacón...</span>
                             </div>
                         </div>
 
@@ -320,7 +327,7 @@
                                             <th scope="col">Handle</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr class="t-body-table">
                                             <th scope="row">1</th>
                                             <td>Sisec</td>
@@ -345,8 +352,9 @@
                                             <td>Thornton</td>
                                             <td>@fat</td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
+                                <span style="color:#ffffffcc">Sin informacón...</span>
                             </div>
                         </div>
                     </div>
@@ -377,7 +385,7 @@
                                             <!-- fad fa-signal-alt-slash -->
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <!-- <tbody>
                                         <tr class="t-body-table">
                                             <th scope="row">1</th>
                                             <td>4140AF</td>
@@ -420,8 +428,9 @@
                                             <td>Thornton</td>
                                             <td><i style="display: block; font-size: 23px;margin-bottom: 5px;color: gray;" class="fad fa-signal-alt-slash"></i></td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
                                 </table>
+                                <span style="color:#ffffffcc">Sin informacón...</span>
                             </div>
                         </div>
 
@@ -437,7 +446,7 @@
                 <div class="col-6">
                     <div class="card ">
                         <div class="card-header">
-                            Cuentas con más actividad
+                            GRÁFICA - Actidad de cuentas
                             <div class="btn-group" style="float:right" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="btnradio2" id="btnradio5" autocomplete="off" checked>
                                 <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio5">Día</label>
@@ -453,17 +462,18 @@
 
                             </div>
                         </div>
-                        <div class="card-body text-end">
+                        <div class="card-body text-center">
                             <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
                             <!-- <div style="background:rgba(255, 206, 86, 0.2);border:2px solid rgba(255, 206, 86, 1)" ><br> <br></div> -->
-                            <canvas id="myChartHorizontal" style="position: relative; height:20vh; width:30vw;"></canvas>
+                            <!-- <canvas id="myChartHorizontal" style="position: relative; height:20vh; width:30vw;"></canvas> -->
+                            <span style="color:#ffffffcc">Sin informacón...</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="card" style="">
                         <div class="card-header">
-                            Empleados con mayor productividad
+                           GRÁFICA - Productividad de empleados
                             <div class="btn-group" style="float:right" role="group" aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="btnradio3" id="btnradio9" autocomplete="off" checked>
                                 <label class="btn btn-outline-primary btn-sm btn-dangerr" for="btnradio9">Día</label>
@@ -479,8 +489,9 @@
 
                             </div>
                         </div>
-                        <div class="card-body ">
-                            <canvas id="productividad" style="position: relative; height:20vh; width:30vw;"></canvas>
+                        <div class="card-body text-center">
+                            <!-- <canvas id="productividad" style="position: relative; height:20vh; width:30vw;"></canvas> -->
+                            <span style="color:#ffffffcc">Sin informacón...</span>
                         </div>
 
                     </div>
@@ -600,10 +611,10 @@ export default {
         this.getAlarmasFromHttp();
         this.getProgresoAlarmasFromHttp();
         // *Mostrar grafica de productividad solo si son administradores
-        if (this.rol !== '2') {
-            this.GraficaHorizontalEmpleados();
-            this.GraficaHorizontalCuentas();
-        }
+        // if (this.rol !== '2') {
+        //     this.GraficaHorizontalEmpleados();
+        //     this.GraficaHorizontalCuentas();
+        // }
 
     },
     methods: {
@@ -929,7 +940,7 @@ export default {
                 type: 'horizontalBar',
                 data: {
 
-                    labels: ["Sisec", "GrupoOxxo", "GrupoZigbmax", "GrupoCumbres"],
+                    labels: ["GrupoMaster", "GrupoOxxo", "GrupoZigbmax", "GrupoCumbres"],
                     datasets: [{
                         label: 'Horas',
                         // data: this.AlarmasDevice,

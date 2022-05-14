@@ -226,7 +226,8 @@
                 <div class="col-6">
                     <div class="card ">
                         <div style="background-color: #d4b032; color:#000" class="card-header">
-                            Variaciones de voltaje
+                            <!-- Variaciones de voltaje -->
+                            Variaciones Z y X
 
                         </div>
                         <div class="card-body text-end">
@@ -262,7 +263,7 @@
                         </div>
 
                         <div class="col-12 text-end">
-                            <button class="btn btn-success"  style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
+                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
                         </div>
                     </form>
 
@@ -318,13 +319,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Zonas del dispositivo</h5>
-                    <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <ul class="list-group list-group-flush" v-for="item in itemZonas" :key="item.idDeviceZona">
+                    <ul class="list-group list-group-flush" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{item.zona}}
-                            <span style="text-transform: lowercase !important;">{{item.nombreZona}} <i  class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                            <!-- {{item.zona}} -->
+                            Zona  {{index+1}}
+                            <span style="text-transform: lowercase !important;">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
                             <!-- <span class="badge rounded-pill  ">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span> -->
                         </li>
                     </ul>
@@ -333,10 +335,6 @@
         </div>
     </div>
 
-
-
-
-    
 </div>
 </template>
 
@@ -388,7 +386,7 @@ export default {
             gasdevice: [],
             voltdevice: [],
             itemsSubAccounts: [],
-            itemZonas:[],
+            itemZonas: [],
             ultimatemp: '',
             ultimavib: '',
             ultimagas: '',
@@ -458,7 +456,6 @@ export default {
         this.GetinfoDevice();
         this.getAllSubAccounts();
         this.getZonas();
-
 
     },
     methods: {
@@ -642,8 +639,8 @@ export default {
                     }
                 }).then(() => {
 
-    // const mymodal = document.getElementById('NombreAsignado')
-    // mymodal.hide();
+                    // const mymodal = document.getElementById('NombreAsignado')
+                    // mymodal.hide();
                 });
             }
         },
@@ -790,9 +787,7 @@ export default {
                 // this.itemZonas = json
                 // console.log('ZONAS', this.itemZonas);
 
-
-
-                     for (var index in json) {
+                for (var index in json) {
                     // console.log('asdasdasda',json[index]["sCuentName"]);
 
                     this.itemZonas.push({
@@ -999,8 +994,10 @@ export default {
                 type: 'line',
                 data: {
                     labels: this.timedevice,
-                    datasets: [{
-                        label: 'Voltaje',
+                    datasets: [
+                        {
+                        label: 'Variación Z',
+                        // label: 'Voltaje',
                         data: this.voltdevice,
                         backgroundColor: 'rgba(255, 206, 86, 0.2)',
                         borderColor: 'rgba(255, 206, 86, 1)',
@@ -1011,10 +1008,28 @@ export default {
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
                         pointHitRadius: 10,
-                        pointRadius: 3,
+                        pointRadius: 0,
                         pointBorderWidth: 1,
                         lineTension: 0.1,
-                    }]
+                    },
+                        {
+                        label: 'Variación X',
+                        // label: 'Voltaje',
+                        data: this.voltdevice,
+                        backgroundColor: '#3a3c3c66',
+                        borderColor: 'rgb(86 86 86)',
+                        borderWidth: 2,
+                        pointBorderColor: 'rgb(86 86 86)',
+                        pointBackgroundColor: 'rgb(86 86 86)',
+                        pointHoverBackgroundColor: 'rgb(86 86 86)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointHitRadius: 10,
+                        pointRadius: 0,
+                        pointBorderWidth: 1,
+                        lineTension: 0.1,
+                    }
+                    ]
                 },
                 options: {
                     elements: {

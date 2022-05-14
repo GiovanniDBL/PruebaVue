@@ -11,6 +11,10 @@
     ID_Alarma:
     <span class="">{{alarmaID}}</span>
   </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+    ID_Dispositivo:
+    <span class="">{{txtNameDevice}}</span>
+  </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Cuenta:
     <span class="">{{txtCuenta}}</span>
@@ -287,6 +291,7 @@ components: {
             txtNameDevice:'',
             txtZona:'',
             txtNombreZona:'',
+            txtIdDispositivo:'',
             contactosAlarma:[],
             historialAlarmas:[],
             historialNotas:[],
@@ -359,11 +364,12 @@ components: {
           var nameDevice = json[index]["NameDevice"]
           var numero_zona = json[index]["numero_zona"]
           var nombre_zona = json[index]["nombre_zona"]
+          var NameDevice = json[index]["nombre_zona"]
 
 
         }
         console.log(nameCuenta);
-
+this.txtIdDispositivo = 
         this.txtTypoAlarma=nameTypeAlarm;
         this.txtCuenta=nameCuenta;
         this.txtDireccion=direccion;

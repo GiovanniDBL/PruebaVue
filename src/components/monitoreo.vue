@@ -4,7 +4,7 @@
     <!-- //TODO *************** NAVBAR ************** -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
-            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Version Alpha)</span> </span>
+            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Versión Alpha)</span> </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -122,84 +122,90 @@
             <div class="col-6">
                 <div class="card card2">
                     <div class="card-header">
-                         <span  class="position-relative" style="padding-right:5px;">
+                        <span class="position-relative" style="padding-right:5px;">
                             Alarmas Pendientes
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
                         </span>
                     </div>
                     <div class="card-body">
                         <div class="scrollable">
-                        <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
-                            <thead style="background:#232527eb; color:#fff">
-                            <!-- <thead style="background:#41464b; color:#fff"> -->
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Cuenta</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Dispositivo</th>
-                                    <th scope="col">Evento</th>
-                                    <th scope="col">Zona</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Estatus</th>
-                                </tr>
-                            </thead>
-                            <tbody v-for="item in itemsAlerts" :key="item.idAlarmas">
-                                <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado, item.clasificacion)">
-                                    <th scope="row">{{item.idAlarmas}}</th>
-                                    <td>{{item.account}}</td>
-                                    <td>{{item.nombreAsignado}}</td>
-                                    <td>{{item.deviceid}}</td>
-                                    <td>{{item.event}}</td>
-                                    <td>{{item.numero_zona}}</td>
-                                    <!-- <td>1</td> -->
-                                    <td>{{item.fecha}}</td>
-                                    <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            
+                            <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
+                                <thead style="background:#232527eb; color:#fff">
+                                    <!-- <thead style="background:#41464b; color:#fff"> -->
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Cuenta</th>
+                                        <th scope="col">Nombre</th>
+                                        <!-- <th scope="col">Dispositivo</th> -->
+                                        <th scope="col">Evento</th>
+                                        <th scope="col">Zona</th>
+                                        <th scope="col">NombreZona</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Estatus</th>
+                                    </tr>
+                                </thead>
+                                <tbody v-for="item in itemsAlerts" :key="item.idAlarmas">
+                                    <!-- <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado, item.clasificacion,item.zona,item.nombre_zona)"> -->
+                                    <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado, item.clasificacion,item.zona,item.nombre_zona)">
+                                        <th scope="row">{{item.idAlarmas}}</th>
+                                        <td>{{item.account}}</td>
+                                        <td>{{item.nombreAsignado}}</td>
+                                        <!-- <td>{{item.deviceid}}</td> -->
+                                        <td>{{item.event}}</td>
+                                        <td>{{item.zona}}</td>
+                                        <td>{{item.nombre_zona}}</td>
+                                        <!-- <td>1</td> -->
+                                        <td>{{item.fecha}}</td>
+                                        <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
-            <div class="card card2">
+                <div class="card card2">
                     <div class="card-header">
-                         <span  class="position-relative" style="padding-right:5px;">
+                        <span class="position-relative" style="padding-right:5px;">
                             Alarmas en progreso
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmasProgreso}}</span>
                         </span>
                     </div>
                     <div class="card-body">
                         <div class="scrollable">
-                        <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
-                            <thead style="background:#232527eb; color:#fff">
-                            <!-- <thead style="background:#41464b; color:#fff"> -->
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Cuenta</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Dispositivo</th>
-                                    <th scope="col">Evento</th>
-                                    <th scope="col">Zona</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Estatus</th>
-                                </tr>
-                            </thead>
-                            <!-- style="background:#f39c12;" -->
-                           <tbody  v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
-                                    <tr :id="'device2-'+ item.idAlarmas"  v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma, item.clasificacion)">
+                            <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
+                                <thead style="background:#232527eb; color:#fff">
+                                    <!-- <thead style="background:#41464b; color:#fff"> -->
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Cuenta</th>
+                                        <th scope="col">Nombre</th>
+                                        <!-- <th scope="col">Dispositivo</th> -->
+                                        <th scope="col">Evento</th>
+                                        <th scope="col">Zona</th>
+                                        <th scope="col">NombreZona</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Estatus</th>
+                                    </tr>
+                                </thead>
+                                <!-- style="background:#f39c12;" -->
+                                <tbody v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
+                                    <tr :id="'device2-'+ item.idAlarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma, item.clasificacion)">
                                         <th scope="row">{{item.idAlarmas}}</th>
                                         <td>{{item.account}}</td>
                                         <td>{{item.nombreAsignado}}</td>
-                                        <td>{{item.deviceid}}</td>
+                                        <!-- <td>{{item.deviceid}}</td> -->
                                         <td>{{item.event}}</td>
                                         <!-- <td>1</td> -->
-                                        <td>{{item.numero_zona}}</td>
+                                        <td>{{item.zona}}</td>
+                                        <td>{{item.nombre_zona}}</td>
                                         <td>{{item.fecha}}</td>
                                         <td>{{item.estado_alarma}}</td>
                                     </tr>
                                 </tbody>
-                        </table>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -229,11 +235,13 @@
                                     <th scope="col">Dispositivo</th>
                                     <th scope="col">Evento</th>
                                     <th scope="col">Zona</th>
+                                    <th scope="col">NombreZona</th>
                                     <th scope="col">Fecha</th>
                                     <!-- <th scope="col">Estado de alarma</th> -->
                                 </tr>
                             </thead>
-                            <tbody style="background:#0c9f54;" v-for="item in itemsEvents" :key="item.idEventos">
+                            <!-- <tbody style="background:#0c9f54;" v-for="item in itemsEvents" :key="item.idEventos"> -->
+                            <tbody style="background:#115f37;" v-for="item in itemsEvents" :key="item.idEventos">
                                 <tr :id="'device-'+ item.idEventos">
                                     <th style="color:#fff" scope="row">{{item.idEventos}}</th>
                                     <td style="color:#fff;">{{item.account}}</td>
@@ -241,7 +249,8 @@
                                     <td style="color:#fff">{{item.deviceid}}</td>
                                     <td style="color:#fff">{{item.event}}</td>
                                     <!-- <td style="color:#fff">1</td> -->
-                                    <td>{{item.numero_zona}}</td>
+                                    <td style="color:#fff">{{item.zona}}</td>
+                                    <td style="color:#fff">{{item.nombre_zona}}</td>
                                     <td style="color:#fff">{{item.fecha}}</td>
                                     <!-- <td style="color:#fff">{{item.estado}}</td> -->
                                 </tr>
@@ -267,8 +276,9 @@ import detalles from './detalles';
 import {
     mapGetters
 } from 'vuex';
-var audio = new Audio(require('@/assets/audioDemo.mp3'))
-var audio2 = new Audio(require('@/assets/audioDemo2.mp3'))
+var audioEvento = new Audio(require('@/assets/AudioEvento.mp3'))
+var audioAlarma = new Audio(require('@/assets/AudioAlarma.mp3'))
+var audioAlerta = new Audio(require('@/assets/AudioAlerta.mp3'))
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
@@ -427,7 +437,7 @@ export default {
                 audio.play();
             }
         },
-        popup(id, c, d, e, f, es,cla) {
+        popup(id, c, d, e, f, es, cla,z,nz) {
             //       var trDevice=document.getElementById("device-" + id);
             // trDevice.style.backgroundColor = '#c71527';
             // trDevice.style.transition = 'all .9s ease-in-out';
@@ -437,7 +447,7 @@ export default {
             tricono.style.color = "#fff"
             window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=900,top=50%");
 
-            audio2.pause();
+            audioAlarma.pause();
             let jSON = {
                 deviceid: d,
                 fecha: f,
@@ -448,53 +458,54 @@ export default {
                 idAlarmas: id,
                 estado_alarma: 'progreso',
                 nombreAsignado: es,
+                zona: z,
+                nombre_zona: nz,
                 clasificacion: cla
             };
 
             console.log('monitoreo', jSON);
-            this.itemsAlertsProgreso.splice(0, 0, jSON);
+            // this.itemsAlertsProgreso.splice(0, 0, jSON);
 
-            var index = this.itemsAlerts.map(x => {
-                return x.idAlarmas;
-            }).indexOf(id)
+            // var index = this.itemsAlerts.map(x => {
+            //     return x.idAlarmas;
+            // }).indexOf(id)
 
-            this.itemsAlerts.splice(index, 1)
+            // this.itemsAlerts.splice(index, 1)
             //   console.log(this.itemsAlerts);
 
             if (cla == 1) {
-                   setTimeout(() => {
-                // var tricono = document.getElementById("icono-" + idAlarmas);
-                // tricono.innerHTML="<i class='fas fa-circle'></i>"
-                // tricono.style.color = "#dc3545"
-
-                var trDevice = document.getElementById("device2-" + id);
-                // trDevice.style.backgroundColor = '#0d6b7e';
-                trDevice.style.backgroundColor = '#198754';
-                // trDevice.style.border = 'solid 1.5px #ff6384'
-                trDevice.style.transition = 'all .9s ease-in-out';
-
                 setTimeout(() => {
-                    trDevice.style.border = ''
-                    trDevice.style.backgroundColor = '#c71527';
-                }, 10000)
+                    // var tricono = document.getElementById("icono-" + idAlarmas);
+                    // tricono.innerHTML="<i class='fas fa-circle'></i>"
+                    // tricono.style.color = "#dc3545"
 
-            }, 1000);
-            }else{
-                     setTimeout(() => {
-                var trDevice = document.getElementById("device2-" + id);
-                // trDevice.style.backgroundColor = '#0d6b7e';
-                trDevice.style.backgroundColor = '#198754';
-                trDevice.style.color = '#198754';
-                trDevice.style.transition = 'all .9s ease-in-out';
+                    var trDevice = document.getElementById("device2-" + id);
+                    // trDevice.style.backgroundColor = '#0d6b7e';
+                    trDevice.style.backgroundColor = '#198754';
+                    // trDevice.style.border = 'solid 1.5px #ff6384'
+                    trDevice.style.transition = 'all .9s ease-in-out';
 
+                    setTimeout(() => {
+                        trDevice.style.border = ''
+                        trDevice.style.backgroundColor = '#c71527';
+                    }, 10000)
+
+                }, 1000);
+            } else {
                 setTimeout(() => {
-                    trDevice.style.border = ''
-                    trDevice.style.backgroundColor = '#ffca2c';
-                }, 10000)
+                    var trDevice = document.getElementById("device2-" + id);
+                    // trDevice.style.backgroundColor = '#0d6b7e';
+                    trDevice.style.backgroundColor = '#198754';
+                    trDevice.style.color = '#198754';
+                    trDevice.style.transition = 'all .9s ease-in-out';
 
-            }, 1000);
+                    setTimeout(() => {
+                        trDevice.style.border = ''
+                        trDevice.style.backgroundColor = '#ffca2c';
+                    }, 10000)
+
+                }, 1000);
             }
-
 
         },
         popup2(id, c, d, e, f, es) {
@@ -590,7 +601,9 @@ export default {
                         estado_alarma: json.data[index]["nombreStatus"],
                         clasificacion: json.data[index]["id_clasificacion_alarma"],
                         nombreAsignado: json.data[index]["nombre_asignado"],
-                        numero_zona: json.data[index]["numero_zona"]
+                        zona: json.data[index]["zona"],
+                        nombre_zona: json.data[index]["nombre_zona"]
+                        // numero_zona: json.data[index]["numero_zona"]
 
                     });
 
@@ -656,7 +669,9 @@ export default {
                         estado_alarma: json.data[index]["nombreStatus"],
                         clasificacion: json.data[index]["id_clasificacion_alarma"],
                         nombreAsignado: json.data[index]["nombre_asignado"],
-                        numero_zona: json.data[index]["numero_zona"]
+                        // numero_zona: json.data[index]["numero_zona"],
+                        zona: json.data[index]["zona"],
+                        nombre_zona: json.data[index]["nombre_zona"]
                     });
 
                 }
@@ -719,7 +734,9 @@ export default {
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
                         nombreAsignado: json.data[index]["nombre_asignado"],
-                        numero_zona: json.data[index]["numero_zona"]
+                        zona: json.data[index]["zona"],
+                        nombre_zona: json.data[index]["nombre_zona"]
+                        // numero_zona: json.data[index]["numero_zona"]
                     });
 
                 }
@@ -793,8 +810,8 @@ export default {
                         case 'Alarma':
                             // this.getAlarmasFromHttp();
                             // console.log('CaseAlarma',json["idDato"]);
-                            audio2.play();
-                            audio2.loop = true;
+                            audioAlarma.play();
+                            audioAlarma.loop = true;
                             this.openToastAlarmas(data)
                             this.handleAlert(data);
 
@@ -813,7 +830,7 @@ export default {
                             if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
                                 json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
 
-                                audio.play();
+                                audioEvento.play();
                                 // this.handleAlertEventos(data)
                                 this.openToastEvent(json);
                                 console.log(json);
@@ -823,8 +840,8 @@ export default {
                         case 'Alerta':
 
                             console.log('CaseAlerta', data);
-                            audio2.play();
-                            audio2.loop = true;
+                            audioAlerta.play();
+                            // audio.loop = true;
                             this.openToastAlertas(data)
                             this.handleAlert(data);
 
@@ -1010,6 +1027,8 @@ export default {
                 idAlarmas: json["idInserted"],
                 estado_alarma: json["status"],
                 nombreAsignado: json["nombre_asignado"],
+                zona: json["zona"],
+                nombre_zona: json["nombre_zona"],
                 clasificacion: idclasificacion
 
             };
@@ -1095,6 +1114,8 @@ export default {
                 cantidad: "1",
                 nombreAsignado: json["nombre_asignado"],
                 idEventos: json["idInserted"],
+                 zona: json["zona"],
+                nombre_zona: json["nombre_zona"],
             };
 
             //this.itemsAlerts.push();
@@ -1104,12 +1125,14 @@ export default {
 
             setTimeout(() => {
                 var trDevice = document.getElementById("device-" + idEventos);
-                trDevice.style.backgroundColor = '#0e6036';
+                trDevice.style.backgroundColor = '#115f37d1';
+                // trDevice.style.backgroundColor = '#0e6036';
                 // #0e6036
                 // #0c9f54
                 trDevice.style.transition = 'all .9s ease-in-out';
                 setTimeout(() => {
-                    trDevice.style.backgroundColor = '#0c9f54';
+                    trDevice.style.backgroundColor = '#115f37';
+                    // trDevice.style.backgroundColor = '#0c9f54';
                 }, 20000);
 
             }, 1000);
@@ -1201,7 +1224,6 @@ export default {
     text-align: center;
 }
 
-
 .card-body {
     padding: 1rem 0 1rem 1rem;
     /* volver a descomentar */
@@ -1229,10 +1251,11 @@ export default {
 .card {
     border-color: #343638;
     /* border-color: #414548; */
-      /* background: #1a2130; */
+    /* background: #1a2130; */
     border-radius: 6px;
     /* volver a descomentar */
 }
+
 /* .scrollable::-webkit-scrollbar {
     background-color: #1a2130;
 }
@@ -1356,7 +1379,9 @@ export default {
     /* --bs-text-opacity: 1; */
     font-weight: 500;
 }
-
+tr{
+    border-bottom: 1px solid #00000033;
+}
 @media only screen and (min-width: 1300px) {
     .card2 {
         /* width: 38rem; */

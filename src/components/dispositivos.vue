@@ -48,12 +48,12 @@
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                             <div class="scrollable">
-                                <div v-if="SearchFilterOnline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                <!-- <div v-if="SearchFilterOnline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div>
                                 <div v-if="totalOnline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No hay dispositivos online en estos momentos   <i class="fas fa-exclamation-circle"></i>
-                                </div>
+                                </div> -->
                                       <!-- <div v-if="filterDataOnline == 0 " class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div> -->
@@ -116,18 +116,24 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                   <div v-if="SearchFilterOnline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
+                                </div>
+                                <div v-if="totalOnline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No hay dispositivos online en estos momentos   <i class="fas fa-exclamation-circle"></i>
+                                </div>
                             </div>
                         </div>
 
                         <!-- //? ******************** DISPOSITIVOS OFFLINE *********************-->
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="scrollable">
-                                <div v-if="SearchFilterOfline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                <!-- <div v-if="SearchFilterOfline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div>
                                  <div v-if="totalOffline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No hay dispositivos offline en estos momentos   <i class="fas fa-exclamation-circle"></i>
-                                </div>
+                                </div> -->
                                 
                                 <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                     <thead class=" text-light ">
@@ -183,6 +189,12 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                 <div v-if="SearchFilterOfline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
+                                </div>
+                                 <div v-if="totalOffline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No hay dispositivos offline en estos momentos   <i class="fas fa-exclamation-circle"></i>
+                                </div>
                             </div>
                         </div>
 

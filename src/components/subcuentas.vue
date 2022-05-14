@@ -45,12 +45,12 @@
             <div class="card-body">
                 <div class="tab-content" id="pills-tabContent">
                     <div class="scrollable">
-                        <div v-if="SearchFilter == false " style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                        <!-- <div v-if="SearchFilter == false " style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                             No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                         </div>
                          <div v-if="totalSubcuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen subcuentas en estos momentos <i class="fas fa-exclamation-circle"></i>
-                                </div>
+                                </div> -->
 
                         <!-- <div v-if="filterDataSubAccounts == 0 " class="alert animated fadeIn fast" role="alert">
                             No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
@@ -93,6 +93,12 @@
                                 </tr>
                             </tbody>
                         </table>
+                          <div v-if="SearchFilter == false " style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                            No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
+                        </div>
+                         <div v-if="totalSubcuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No existen subcuentas en estos momentos <i class="fas fa-exclamation-circle"></i>
+                                </div>
                     </div>
                 </div>
             </div>
