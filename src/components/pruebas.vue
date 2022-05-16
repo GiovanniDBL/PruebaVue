@@ -16,7 +16,6 @@
         <!-- <i class="fas fa-arrow-alt-left" style="color:#fff">Regresar</i> -->
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
-      
 
         <div class=" top-bottom-graficas">
             <div class="row">
@@ -27,7 +26,6 @@
 
                         </div>
                         <div class="card-body text-end">
-                            <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
                             <canvas id="GraficaTemp" style="position: relative; height:25vh; width:30vw;"></canvas>
                         </div>
                     </div>
@@ -62,7 +60,6 @@
                 <div class="col-6">
                     <div class="card ">
                         <div style="background-color: #d4b032; color:#000" class="card-header">
-                            <!-- Variaciones de voltaje -->
                             Variaciones Z y X
 
                         </div>
@@ -75,15 +72,13 @@
             </div>
         </div>
 
-        <!-- //? ********************************INFORMACIÓN DEL DISPOSITIVO COMPLETO *************************************** -->
-          <div class="gauges">
+        <div class="gauges">
             <div class="row">
                 <div class="col-5">
                     <!-- //TODO DATOS DE GRAFICAS ****************** -->
-                    <div class="card" style="">
+                    <!-- <div class="card" style="">
                         <div class="card-header">
                             Datos de gráficas
-                            <!-- <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button> -->
                             <div style="float:right" class="dropdown">
                                 <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
@@ -114,9 +109,9 @@
                             </form>
                         </div>
 
-                    </div>
+                    </div> -->
                     <!-- //TODO GRÁFICA GAUGE DE TEMPERATURA ****************** -->
-                    <div class="card " style="margin-top:1rem;">
+                    <div class="card " >
                         <div class="card-header">
                             Temperatura
                             <!-- <button style="float: right" class="btn btn-success btn-sm"> reglas</button> -->
@@ -155,18 +150,18 @@
                 </div>
 
                 <div class="col-7">
+
                     <div class="card resumen-card">
                         <!-- //TODO DETALLES DEL DISPOSITIVO ****************** -->
                         <div class="card-header text-">
                             <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Detalles del dispositivo
-                            <!-- <button @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF <i class="fas fa-download btn-pdf"></i></button> -->
                             <div style="float:right" class="dropdown">
 
                                 <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsDetalles" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsDetalles">
                                     <li><a class="dropdown-item" type="button" @click="dowloadPdf">Generar PDF</a></li>
                                     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Zonas">Zonas</a></li>
-                                    <!-- <li><a class="dropdown-item" href="#" @click="disabled();">Editar información</a></li> -->
+
                                 </ul>
                             </div>
 
@@ -174,76 +169,99 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-6">
-      <!-- //TODO INFORMACIÓN NOMBRE DEL DISPOSITIVO ****************** -->
-                            <span class="titulo-forms-detalles">Nombre asignado al dispositivo <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
-                            <hr class="hr-style">
-                            <form class="row g-3" style="margin-bottom:1rem;">
-                                <div class="col">
-                                    <label for="inputDispositivo" class="form-label">ID_dispositivo</label>
-                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" disabled>
-                                </div>
-                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <!-- //TODO INFORMACIÓN NOMBRE DEL DISPOSITIVO ****************** -->
+                                            <span class="titulo-forms-detalles">Nombre asignado al dispositivo <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                                            <hr class="hr-style">
+                                            <form class="row g-3" style="margin-bottom:1rem;">
+                                                <div class="col">
+                                                    <label for="inputDispositivo" class="form-label">ID_dispositivo</label>
+                                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" disabled>
+                                                </div>
+                                                <div class="col">
 
-                                    <label for="inputSucursal" class="form-label">Nombre asignado</label>
-                                    <input type="text" class="form-control" id="inputSucursal" v-model="NombAsignadoForm" disabled>
-                                </div>
-                            </form>
+                                                    <label for="inputSucursal" class="form-label">Nombre asignado</label>
+                                                    <input type="text" class="form-control" id="inputSucursal" v-model="NombAsignadoForm" disabled>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
-            <!-- //TODO INFORMACIÓN DE VINCULACIÓN ****************** -->
-                            <span class="titulo-forms-detalles">Información de vinculación <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#vinculacion" type="button"></i></span>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <!-- //TODO INFORMACIÓN DE VINCULACIÓN ****************** -->
+                                            <span class="titulo-forms-detalles">Información de vinculación <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#vinculacion" type="button"></i></span>
+                                            <hr class="hr-style">
+                                            <form class="row g-3" style="margin-bottom:1rem;">
+                                                <div class="col">
+                                                    <label for="inputSucursal" class="form-label">Subcuenta</label>
+                                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="inputDispUbic" class="form-label">Ubicación interna</label>
+                                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" disabled>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                          <!-- <ul class="list-group list-group-flush" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Zona {{index+1}}
+                            <span style="text-transform: lowercase !important;">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                           
+                        </li>
+                    </ul> -->
+                              <!-- //TODO INFORMACIÓN DE ZONAS ****************** -->
+                            <span class="titulo-forms-detalles">Zonas <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
                             <hr class="hr-style">
                             <form class="row g-3" style="margin-bottom:1rem;">
-                                <div class="col">
-                                    <label for="inputSucursal" class="form-label">Subcuenta</label>
-                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
-                                </div>
-                                <div class="col">
-                                    <label for="inputDispUbic" class="form-label">Ubicación interna</label>
-                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" disabled>
-                                </div>
-                            </form>
-                                </div>
-                            </div>
-            
-                      
-                     
-                            <!-- //TODO ZONAS ****************** -->
-                            <span class="titulo-forms-detalles">Zonas del dispositivo <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
-                            <hr class="hr-style">
-                            <!-- <hr style="background: #ffffff1c;height: 4px;"> -->
-                           <form class="row g-3" style="margin-bottom:1rem;">
                                 <div class="col-md-3" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">
-                                    <label for="inputPais" class="form-label">Zona {{index+1}}  <i v-on:click="DatosModalEditarZona(item)" style="color:#d4b032" class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#Zonas" type="button"></i></label>
+                                    <label for="inputPais" class="form-label">Zona {{index+1}}</label>
                                     <input type="text" class="form-control" id="inputPais" v-model="item.nombreZona" disabled>
                                 </div>
                             </form>
-                     
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                      
                             <!-- //TODO INFORMACIÓN DE UBICACIÓN ****************** -->
                             <span class="titulo-forms-detalles">Información de ubicación <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
                             <hr class="hr-style">
-                            <!-- <hr style="background: #ffffff1c;height: 4px;"> -->
                             <form class="row g-3" style="margin-bottom:1rem;">
-                                <div class="col-md-2">
+                                <div class="col">
                                     <label for="inputPais" class="form-label">País</label>
                                     <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col">
                                     <label for="inputPais" class="form-label">Estado</label>
                                     <input type="text" class="form-control" id="inputPais" v-model="EstadoForm" disabled>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col">
                                     <label for="inputCiudad" class="form-label">Ciudad</label>
                                     <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" disabled>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col">
 
                                     <label for="inputUbicacion" class="form-label">Dirección</label>
                                     <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" disabled>
                                 </div>
 
                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+<!-- 
                             <div class="row ">
 
                                 <GMapMap :center="center" :zoom="9" map-type-id="terrain" class="map-style">
@@ -251,7 +269,7 @@
                                         <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="''" :clickable="true" :draggable="true" @click="center=m.position" />
                                     </GMapCluster>
                                 </GMapMap>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -259,10 +277,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div style="margin-bottom:10rem" >
 
- <canvas id="canvas" style="position: relative; height:20vh; width:30vw;"></canvas>
-        </div> -->
     </section>
     <!--//? ************* MODAL DE NOMBRE ASIGNADO********************** -->
     <div class="modal fade" id="NombreAsignado" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -274,9 +289,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- //TODO ACTUALIZAR NOMBRE ASIGNADO-->
-                    <!-- <p style="margin-bottom:0;margin-top:10px">Actualizar nombre asignado <i style="color:#d4b032" class="fas fa-edit"></i></p> -->
-                    <!-- <button style="float:right" class="btn btn-primary btn-sm ">Crear nueva ubicación</button> -->
-                    <!-- <hr class="hr-style"> -->
+                    <p style="margin-bottom:0;margin-top:10px">Actualizar nombre asignado <i style="color:#d4b032" class="fas fa-edit"></i></p>
+                    <hr class="hr-style">
                     <form class="row  g-3" v-on:submit.prevent="ActualizarNombre">
                         <div class="col-md-12">
                             <label for="exampleFormControlInput1" class="form-label">Nombre</label>
@@ -304,9 +318,9 @@
                 <div class="modal-body">
 
                     <!-- //TODO ACTUALIZAR VINCULACIÓN -->
-                    <!-- <p style="margin-bottom:0;margin-top:10px">Ingresar nueva vinculación <i style="color:#d4b032" class="fas fa-edit"></i></p> -->
-                    <!-- <button style="float:right" class="btn btn-primary btn-sm ">Crear nueva ubicación</button> -->
-                    <!-- <hr class="hr-style"> -->
+                    <p style="margin-bottom:0;margin-top:10px">Ingresar nueva vinculación <i style="color:#d4b032" class="fas fa-edit"></i></p>
+
+                    <hr class="hr-style">
                     <form class="row  g-3" v-on:submit.prevent="ActualizarVinculación">
 
                         <div class="col-md-6">
@@ -339,23 +353,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Nombre del dispositivo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Zonas del dispositivo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row  g-3" v-on:submit.prevent="ActualizarZonas">
-                        <div class="col-md-12">
-                            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Form_nombre_zona" placeholder="Nombre de Zona" required>
-                        </div>
-
-                        <div class="col-12 text-end">
-                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
-                        </div>
-                    </form>
-
+                    <ul class="list-group list-group-flush" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <!-- {{item.zona}} -->
+                            Zona {{index+1}}
+                            <span style="text-transform: lowercase !important;">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                            <!-- <span class="badge rounded-pill  ">{{item.nombreZona}} <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span> -->
+                        </li>
+                    </ul>
                 </div>
-
             </div>
         </div>
     </div>
@@ -384,7 +394,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
 export default {
-    name: "detallesDispComponent",
+    name: "pruebas",
     components: {
         sidebar,
         VueGauge,
@@ -448,8 +458,6 @@ export default {
             ActualizarUbicInterna: '',
             ActualizarSubcuenta: '',
             id_Subcuenta: '',
-            Form_id_zona:'',
-            Form_nombre_zona:'',
             GlobalApi: this.globalVar,
             center: {
                 // lat: 51.093048,
@@ -820,79 +828,22 @@ export default {
                     this.itemZonas.push({
                         nombreZona: json[index]["nombre_zona"],
                         zona: json[index]["zona"],
-                        idDeviceZona: json[index]["idzonas_device"],
+                        idDeviceZona: json[index]["id_device_zona"],
                     });
 
                 }
             }
         },
-            DatosModalEditarZona(item){
-            this.Form_id_zona = item.idDeviceZona;
-            this.Form_nombre_zona = item.nombreZona;
-
-            // console.log('DatosEditarZonas', this.Form_id_zona, this.Form_nombre_zona );
-        },
-        ActualizarZonas(){
-            var data = {
-                "typeFunction": "updateNombreZona",
-                "idDevice": this.idDevice,
-                "idZona": this.Form_id_zona,
-                "nombreZona": this.Form_nombre_zona,
-                "idUserLoged": this.idUserLoged,
-                "typeUserLoged": this.typeUserLoged,
-                "keyUser": 1234
-            }
-            console.log(data);
-
-            const xhr = new XMLHttpRequest();
-            xhr.open(
-                "POST",
-                this.GlobalApi + 'managerDevices',
-            );
-            xhr.setRequestHeader("Content-Type", "multipart/form-data");
-            xhr.send(JSON.stringify(data));
-
-            xhr.onload = () => {
-                let resp = JSON.parse(xhr.responseText)
-                console.log("respuesta EditarZonas", resp);
-                console.log(data);
-
-                
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Zona editada correctamente',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-                    }).then((result) => {
-                        // this.FormNombre = '';
-                        // this.FormCorreo = '';
-                        // this.FormTelefono = '';
-
-    if (result.isConfirmed) {
-                        // this.itemsAccounts.length = 0;
-                        this.getZonas();
-                        // console.log('asd');
-                    }
-                    });
-
-
-            }
-        },
-    
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
             var ctx = document.getElementById('GraficaTemp').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: this.timedevice,
+                    labels: ['1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am'],
                     datasets: [{
                         label: 'Temperatura',
-                        data: this.tempdevice,
+                        data: [100, 200, 100, 200, 100, 200, 100, 300, 340, 100],
                         backgroundColor: '#fd202033',
                         borderColor: 'rgb(203 53 87)',
                         borderWidth: 2,
@@ -951,10 +902,10 @@ export default {
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: this.timedevice,
+                    labels: ['1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am'],
                     datasets: [{
                         label: 'Vibración',
-                        data: this.vibraciondevice,
+                        data: [100, 200, 100, 200, 100, 200, 100, 300, 340, 100],
                         backgroundColor: 'rgba(75,192,192,0.4)',
                         borderColor: 'rgba(75,192,192,1)',
                         borderWidth: 2,
@@ -1011,10 +962,10 @@ export default {
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: this.timedevice,
+                    labels: ['1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am'],
                     datasets: [{
                         label: 'Gas',
-                        data: this.gasdevice,
+                        data: [100, 200, 100, 200, 100, 200, 100, 300, 340, 100],
                         backgroundColor: '#3a3c3c66',
                         borderColor: 'rgb(86 86 86)',
                         borderWidth: 2,
@@ -1077,11 +1028,10 @@ export default {
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: this.timedevice,
+                    labels: ['1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am', '1:18 am'],
                     datasets: [{
                             label: 'Variación Z',
-                            // label: 'Voltaje',
-                            data: this.voltdevice,
+                            data: [100, 200, 100, 200, 100, 200, 100, 300, 340, 100],
                             backgroundColor: 'rgba(255, 206, 86, 0.2)',
                             borderColor: 'rgba(255, 206, 86, 1)',
                             borderWidth: 2,
@@ -1098,7 +1048,7 @@ export default {
                         {
                             label: 'Variación X',
                             // label: 'Voltaje',
-                            data: this.voltdevice,
+                            data: [300, 100, 200, 200, 300, 100, 100, 200, 340, 100],
                             backgroundColor: '#3a3c3c66',
                             borderColor: 'rgb(86 86 86)',
                             borderWidth: 2,
@@ -1168,7 +1118,7 @@ export default {
                     datasets: [{
 
                         // value: 99,
-                        value: this.ultimatemp,
+                        value: 50,
                         minValue: 0,
                         // data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110],
                         data: [50, 60, 70, 80, 90, 100],
@@ -1314,7 +1264,7 @@ export default {
                     labels: ['40', '50', '60', '70', '80', '100'],
                     datasets: [{
                         // value: 31,
-                        value: this.ultimagas,
+                        value: 20,
                         minValue: 0,
                         data: [50, 60, 70, 80, 90, 100],
                         // data: [49, 79, 100],

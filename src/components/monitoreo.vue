@@ -1125,7 +1125,7 @@ export default {
 
             setTimeout(() => {
                 var trDevice = document.getElementById("device-" + idEventos);
-                trDevice.style.backgroundColor = '#115f37d1';
+                trDevice.style.backgroundColor = '#0f3823';
                 // trDevice.style.backgroundColor = '#0e6036';
                 // #0e6036
                 // #0c9f54

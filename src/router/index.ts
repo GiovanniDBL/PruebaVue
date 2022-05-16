@@ -11,7 +11,7 @@ import usuarios from '@/components/usuarios.vue';
 import notificaciones from '@/components/notificaciones.vue';
 import detalles from '@/components/detalles.vue';
 import devices from '@/components/devices.vue';
-import sidebarr from '@/components/sidebarr.vue';
+import pruebas from '@/components/pruebas.vue';
 import cuentaDetalles from '@/components/detallesCuenta.vue';
 import DispositivoDetalles from '@/components/detallesDisp.vue';
 import login from '@/components/login.vue';
@@ -86,9 +86,9 @@ const routes: Array<RouteRecordRaw> = [
     component: DispositivoDetalles
   },
   {
-    path: '/sidebarr',
+    path: '/pruebas',
     name: 'Sidebarr',
-    component: sidebarr
+    component: pruebas
   },
   {
     path: '/reporte-de-alarmas',
