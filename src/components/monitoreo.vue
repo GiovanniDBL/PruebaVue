@@ -4,7 +4,7 @@
     <!-- //TODO *************** NAVBAR ************** -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
-            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Versión Alpha)</span> </span>
+            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Plataforma Demo)</span> </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

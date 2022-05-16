@@ -2,263 +2,337 @@
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
-        <nav aria-label="breadcrumb">
+        <!-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <!-- <a @click="volver">Dispositivos</a> -->
                     <router-link to="/dispositivos">
                         <a>Volver a los dispositivos</a>
                     </router-link>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Detalles del dispositivo </li>
             </ol>
-        </nav>
+        </nav> -->
+        <!-- <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+                    <router-link to="/dispositivos">
+                        <a>Volver a los dispositivos</a>
+                    </router-link>
+                </li>
+    <li class="breadcrumb-item active" aria-current="page">Detalles del dispositivo </li>
+  </ol>
+</nav> -->
         <!-- <i class="fas fa-arrow-alt-left" style="color:#fff">Regresar</i> -->
         <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
         <!-- <vue-gauge :refid="'type-unique-id'"></vue-gauge> -->
-      
 
-        <div class=" top-bottom-graficas">
-            <div class="row">
-                <div class="col-6">
-                    <div class="card ">
-                        <div style="background-color: #dc3545;" class="card-header">
-                            Variaciones de Temperatura
+        <!-- //? ****** MENU DE NAVEGACIÓN PARA LA INFORMACIÓN DE GRÁFICAS Y DATOS DE DISPOSITIVO ******** -->
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Gráficas <i class="fas fa-heart-rate"></i></button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Detalles del dispositivo <i class="fas fa-receipt"></i></button>
+            </li>
+        </ul>
 
+        <div class="tab-content" id="pills-tabContent">
+            <!-- //? ******************************** GRÁFICAS *************************************** -->
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                <div class=" top-bottom-graficas">
+
+                    <div class="row" style="margin-top:1rem">
+                        <div class="col-6">
+                            <div class="card ">
+                                <div style="background-color: #dc3545;" class="card-header">
+                                    Variaciones de Temperatura
+
+                                </div>
+                                <div class="card-body text-end">
+                                    <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
+                                    <canvas id="GraficaTemp" style="position: relative; height:25vh; width:30vw;"></canvas>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body text-end">
-                            <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
-                            <canvas id="GraficaTemp" style="position: relative; height:25vh; width:30vw;"></canvas>
+                        <div class="col-6">
+                            <div class="card ">
+                                <div style="background-color: #2e616a;" class="card-header">
+                                    Variaciones de vibración
+
+                                </div>
+                                <div class="card-body text-end">
+                                    <canvas id="GraficaVib" style="position: relative; height:25vh; width:30vw;"></canvas>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="card ">
-                        <div style="background-color: #2e616a;" class="card-header">
-                            Variaciones de vibración
+                <div class=" top-bottom-graficas">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card ">
+                                <div style="background-color: #272c35;" class="card-header">
+                                    Variaciones de gas
 
+                                </div>
+                                <div class="card-body text-end">
+                                    <canvas id="GraficaGas" style="position: relative; height:25vh; width:30vw;"></canvas>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body text-end">
-                            <canvas id="GraficaVib" style="position: relative; height:25vh; width:30vw;"></canvas>
+                        <div class="col-6">
+                            <div class="card ">
+                                <div style="background-color: #d4b032; color:#000" class="card-header">
+                                    <!-- Variaciones de voltaje -->
+                                    Variaciones Z y X
+
+                                </div>
+                                <div class="card-body text-end">
+                                    <canvas id="GraficaVolt" style="position: relative; height:25vh; width:30vw;"></canvas>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
 
+<hr style="height:4px; width:100%; opacity:1; background-color:#171c2a">
+
+                <div class="row" style="margin-bottom:1rem">
+                    <div class="col-4">
+                        <div class="card" style="">
+                            <div class="card-header">
+                                Últimas variaciones
+                                <div style="float:right" class="dropdown">
+                                    <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <form class="row g-3" style="margin-bottom:1rem">
+                                    <div class="col-md-4">
+                                        <label for="validationDefault01" class="form-label">Temperatura</label>
+                                        <input style="background-color:#dc3546 !important" type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="validationDefault02" class="form-label">Gas</label>
+                                        <input style="background-color:#272c35 !important" type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="validationDefault02" class="form-label">Vibración</label>
+                                        <input style="background-color:#2e616a !important" type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationDefault02" class="form-label">Variación Z</label>
+                                        <input style="background-color:#d4b032 !important; color:#000" type="text" class="form-control" id="validationDefault02" v-model="ultimavarZ" disabled>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="validationDefault02" class="form-label">Variación X</label>
+                                        <input style="background-color:#42b883 !important; color:#000" type="text" class="form-control" id="validationDefault02" v-model="ultimavarX" disabled>
+
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card " style="height:100%">
+                            <div class="card-header">
+                                Temperatura
+                                <div style="float:right" class="dropdown">
+                                    <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="gaugeTemp" style="position: relative; height:30vh; width:30vw;"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card " style="height:100%">
+                            <div class="card-header">
+                                Gas
+                                <div style="float:right" class="dropdown">
+
+                                    <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsGas" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsGas">
+                                        <li><a class="dropdown-item" href="#">Reglas</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="gaugeGas" style="position: relative; height:30vh; width:30vw;"></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
-        <div class=" top-bottom-graficas">
-            <div class="row">
-                <div class="col-6">
-                    <div class="card ">
-                        <div style="background-color: #272c35;" class="card-header">
-                            Variaciones de gas
+            <!-- //? ********************************INFORMACIÓN DEL DISPOSITIVO COMPLETO *************************************** -->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
 
-                        </div>
-                        <div class="card-body text-end">
-                            <canvas id="GraficaGas" style="position: relative; height:25vh; width:30vw;"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="card ">
-                        <div style="background-color: #d4b032; color:#000" class="card-header">
-                            <!-- Variaciones de voltaje -->
-                            Variaciones Z y X
+                <div class="gauges">
+                    <div class="row">
 
-                        </div>
-                        <div class="card-body text-end">
-                            <canvas id="GraficaVolt" style="position: relative; height:25vh; width:30vw;"></canvas>
-                        </div>
-                    </div>
-                </div>
+                        <div class="col-7">
+                            <div class="card resumen-card">
+                                <!-- //TODO DETALLES DEL DISPOSITIVO ****************** -->
+                                <div class="card-header text-">
+                                    <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Detalles del dispositivo
+                                    <!-- <button @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF <i class="fas fa-download btn-pdf"></i></button> -->
+                                    <div style="float:right" class="dropdown">
 
-            </div>
-        </div>
-
-        <!-- //? ********************************INFORMACIÓN DEL DISPOSITIVO COMPLETO *************************************** -->
-          <div class="gauges">
-            <div class="row">
-                <div class="col-5">
-                    <!-- //TODO DATOS DE GRAFICAS ****************** -->
-                    <div class="card" style="">
-                        <div class="card-header">
-                            Datos de gráficas
-                            <!-- <button @click="dowloadPdf" class="btn btn-success btn-successs btn-sm" style="float: right">PDF <i type="button" class="fas fa-download"></i></button> -->
-                            <div style="float:right" class="dropdown">
-                                <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
-                                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body ">
-                            <form class="row g-3" style="margin-bottom:1rem">
-                                <div class="col-md-3">
-                                    <label for="validationDefault01" class="form-label">Temperatura</label>
-                                    <input style="background-color:#dc3546 !important" type="text" class="form-control" id="validationDefault01" v-model="ultimatemp" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Gas</label>
-                                    <input style="background-color:#272c35 !important" type="text" class="form-control" id="validationDefault02" v-model="ultimagas" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Vibración</label>
-                                    <input style="background-color:#2e616a !important" type="text" class="form-control" id="validationDefault02" v-model="ultimavib" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="validationDefault02" class="form-label">Voltaje</label>
-                                    <input style="background-color:#d4b032 !important; color:#000" type="text" class="form-control" id="validationDefault02" value="0" disabled>
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsDetalles" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsDetalles">
+                                            <li><a class="dropdown-item" type="button" @click="dowloadPdf">Generar PDF</a></li>
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Zonas">Zonas</a></li>
+                                            <!-- <li><a class="dropdown-item" href="#" @click="disabled();">Editar información</a></li> -->
+                                        </ul>
+                                    </div>
 
                                 </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- //TODO INFORMACIÓN NOMBRE DEL DISPOSITIVO ****************** -->
+                                            <div class="card card-editables">
+                                                <div class="card-body">
+    <span class="titulo-forms-detalles">Nombre asignado al dispositivo <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                                            <hr class="hr-style">
+                                            <form class="row g-3" style="margin-bottom:1rem;">
+                                                <div class="col">
+                                                    <label for="inputDispositivo" class="form-label">ID_dispositivo</label>
+                                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" disabled>
+                                                </div>
+                                                <div class="col">
 
-                            </form>
-                        </div>
+                                                    <label for="inputSucursal" class="form-label">Nombre asignado</label>
+                                                    <input type="text" class="form-control" id="inputSucursal" v-model="NombAsignadoForm" disabled>
+                                                </div>
+                                            </form>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!-- //TODO INFORMACIÓN DE VINCULACIÓN ****************** -->
+                                            <div class="card card-editables">
+<div class="card-body">
+        <span class="titulo-forms-detalles">Información de vinculación <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#vinculacion" type="button"></i></span>
+                                            <hr class="hr-style">
+                                            <form class="row g-3" style="margin-bottom:1rem;">
+                                                <div class="col">
+                                                    <label for="inputSucursal" class="form-label">Subcuenta</label>
+                                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="inputDispUbic" class="form-label">Ubicación interna</label>
+                                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" disabled>
+                                                </div>
+                                            </form>
+</div>
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
 
-                    </div>
-                    <!-- //TODO GRÁFICA GAUGE DE TEMPERATURA ****************** -->
-                    <div class="card " style="margin-top:1rem;">
-                        <div class="card-header">
-                            Temperatura
-                            <!-- <button style="float: right" class="btn btn-success btn-sm"> reglas</button> -->
-                            <div style="float:right" class="dropdown">
-                                <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
-                                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="gaugeTemp" style="position: relative; height:27vh; width:30vw;"></canvas>
-                            <!-- <canvas id="gaugeTemp" class="gauge-style"></canvas> -->
-                        </div>
-
-                    </div>
-                    <!-- //TODO GRÁFICA GAUGE DE GAS ****************** -->
-                    <div style="margin-top:1rem;" class="card ">
-                        <div class="card-header">
-                            Gas
-                            <div style="float:right" class="dropdown">
-
-                                <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsGas" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsGas">
-                                    <li><a class="dropdown-item" href="#">Reglas</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-
-                            <!-- <canvas id="gaugeGas" class="gauge-style"></canvas> -->
-                            <canvas id="gaugeGas" style="position: relative; height:27vh; width:30vw;"></canvas>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-7">
-                    <div class="card resumen-card">
-                        <!-- //TODO DETALLES DEL DISPOSITIVO ****************** -->
-                        <div class="card-header text-">
-                            <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Detalles del dispositivo
-                            <!-- <button @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF <i class="fas fa-download btn-pdf"></i></button> -->
-                            <div style="float:right" class="dropdown">
-
-                                <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsDetalles" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsDetalles">
-                                    <li><a class="dropdown-item" type="button" @click="dowloadPdf">Generar PDF</a></li>
-                                    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Zonas">Zonas</a></li>
-                                    <!-- <li><a class="dropdown-item" href="#" @click="disabled();">Editar información</a></li> -->
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-      <!-- //TODO INFORMACIÓN NOMBRE DEL DISPOSITIVO ****************** -->
-                            <span class="titulo-forms-detalles">Nombre asignado al dispositivo <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                                    <!-- //TODO ZONAS ****************** -->
+                                    <!-- <span class="titulo-forms-detalles">Zonas del dispositivo <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
                             <hr class="hr-style">
                             <form class="row g-3" style="margin-bottom:1rem;">
-                                <div class="col">
-                                    <label for="inputDispositivo" class="form-label">ID_dispositivo</label>
-                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" disabled>
-                                </div>
-                                <div class="col">
-
-                                    <label for="inputSucursal" class="form-label">Nombre asignado</label>
-                                    <input type="text" class="form-control" id="inputSucursal" v-model="NombAsignadoForm" disabled>
-                                </div>
-                            </form>
-                                </div>
-                                <div class="col-sm-6">
-            <!-- //TODO INFORMACIÓN DE VINCULACIÓN ****************** -->
-                            <span class="titulo-forms-detalles">Información de vinculación <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#vinculacion" type="button"></i></span>
-                            <hr class="hr-style">
-                            <form class="row g-3" style="margin-bottom:1rem;">
-                                <div class="col">
-                                    <label for="inputSucursal" class="form-label">Subcuenta</label>
-                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
-                                </div>
-                                <div class="col">
-                                    <label for="inputDispUbic" class="form-label">Ubicación interna</label>
-                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" disabled>
-                                </div>
-                            </form>
-                                </div>
-                            </div>
-            
-                      
-                     
-                            <!-- //TODO ZONAS ****************** -->
-                            <span class="titulo-forms-detalles">Zonas del dispositivo <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
-                            <hr class="hr-style">
-                            <!-- <hr style="background: #ffffff1c;height: 4px;"> -->
-                           <form class="row g-3" style="margin-bottom:1rem;">
                                 <div class="col-md-3" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">
-                                    <label for="inputPais" class="form-label">Zona {{index+1}}  <i v-on:click="DatosModalEditarZona(item)" style="color:#d4b032" class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#Zonas" type="button"></i></label>
+                                    <label for="inputPais" class="form-label">Zona {{index+1}} <i v-on:click="DatosModalEditarZona(item)" style="color:#d4b032" class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#Zonas" type="button"></i></label>
                                     <input type="text" class="form-control" id="inputPais" v-model="item.nombreZona" disabled>
                                 </div>
-                            </form>
-                     
-                            <!-- //TODO INFORMACIÓN DE UBICACIÓN ****************** -->
-                            <span class="titulo-forms-detalles">Información de ubicación <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
-                            <hr class="hr-style">
-                            <!-- <hr style="background: #ffffff1c;height: 4px;"> -->
-                            <form class="row g-3" style="margin-bottom:1rem;">
-                                <div class="col-md-2">
-                                    <label for="inputPais" class="form-label">País</label>
-                                    <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="inputPais" class="form-label">Estado</label>
-                                    <input type="text" class="form-control" id="inputPais" v-model="EstadoForm" disabled>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="inputCiudad" class="form-label">Ciudad</label>
-                                    <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" disabled>
-                                </div>
-                                <div class="col-md-4">
+                            </form> -->
 
-                                    <label for="inputUbicacion" class="form-label">Dirección</label>
-                                    <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" disabled>
+                                    <!-- //TODO INFORMACIÓN DE UBICACIÓN ****************** -->
+                                    <div class="card card-editables" style="margin-top: 1rem; margin-bottom: 1rem">
+                                        <div class="card-body">
+ <span class="titulo-forms-detalles">Información de ubicación <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
+                                    <hr class="hr-style">
+                                    <!-- <hr style="background: #ffffff1c;height: 4px;"> -->
+                                    <form class="row g-3" style="margin-bottom:1rem;">
+                                        <div class="col-md-2">
+                                            <label for="inputPais" class="form-label">País</label>
+                                            <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="inputPais" class="form-label">Estado</label>
+                                            <input type="text" class="form-control" id="inputPais" v-model="EstadoForm" disabled>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="inputCiudad" class="form-label">Ciudad</label>
+                                            <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" disabled>
+                                        </div>
+                                        <div class="col-md-4">
+
+                                            <label for="inputUbicacion" class="form-label">Dirección</label>
+                                            <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" disabled>
+                                        </div>
+
+                                    </form>
+                                        </div>
+                                    </div>
+                                   
+
+                                    <div class="row ">
+                                        <GMapMap :center="center" :zoom="6" map-type-id="terrain" class="map-style">
+                                            <GMapCluster>
+                                                <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="'aquí estoy'" :clickable="true" :draggable="true" @click="center=m.position" />
+                                            </GMapCluster>
+                                        </GMapMap>
+                                    </div>
                                 </div>
 
-                            </form>
-
-                            <div class="row ">
-
-                                <GMapMap :center="center" :zoom="9" map-type-id="terrain" class="map-style">
-                                    <GMapCluster>
-                                        <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="''" :clickable="true" :draggable="true" @click="center=m.position" />
-                                    </GMapCluster>
-                                </GMapMap>
                             </div>
+
                         </div>
+                        <div class="col-5">
+                            <!-- //TODO ZONAS DEL DISPOSITIVO ****************** -->
+                            <div class="card" style="">
+                                <div class="card-header">
+                                    <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Zonas del dispositivo
+                                    <div style="float:right" class="dropdown">
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">Zona {{index+1}}
+                                            <span style="text-transform: lowercase">{{item.nombreZona}}</span>
 
+                                            <button v-on:click="DatosModalEditarZona(item, index)" data-bs-toggle="modal" data-bs-target="#Zonas" class="btn btn-warning btn-sm"><i class="fas fa-edit icono-edit"></i></button>
+                                            <!-- <i class="fas fa-edit icono-edit"></i> -->
+                                            <!-- <i  style="color:#d4b032" class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#Zonas" type="button"></i> -->
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
-
                 </div>
             </div>
+
         </div>
+
         <!-- <div style="margin-bottom:10rem" >
 
  <canvas id="canvas" style="position: relative; height:20vh; width:30vw;"></canvas>
@@ -269,7 +343,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Nombre del dispositivo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Actualizar nombre del dispositivo</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -279,12 +353,12 @@
                     <!-- <hr class="hr-style"> -->
                     <form class="row  g-3" v-on:submit.prevent="ActualizarNombre">
                         <div class="col-md-12">
-                            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                            <!-- <label for="exampleFormControlInput1" class="form-label">Nombre</label> -->
                             <input type="text" class="form-control" id="exampleFormControlInput1" v-model="NombAsignadoForm" placeholder="Nombre de cuenta" required>
                         </div>
 
                         <div class="col-12 text-end">
-                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
+                            <button class="btn btn-success" style="text-transform:uppercase">Envíar</button>
                         </div>
                     </form>
 
@@ -311,22 +385,22 @@
 
                         <div class="col-md-6">
                             <!-- {{ActualizarSubcuenta}} -->
-                            <label for="subcuenta" class="form-label">Actualizar subcuenta</label>
+                            <label for="subcuenta" class="form-label">Subcuenta</label>
                             <select class="form-select" id="subcuenta" v-on:change="Onchange($event)" v-model="ActualizarSubcuenta" required>
-                                <option selected disabled value="">Seleccionar subcuenta</option>
+                                <option selected disabled value="">Seleccionar Subcuenta</option>
                                 <option v-for="item in itemsSubAccounts" :key="item.idUbic" v-bind:value="item.idUbic">{{item.NameUbica}}</option>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <!-- {{ActualizarUbicInterna}} -->
-                            <label for="ubicInterna" class="form-label">Actualizar ubicación interna</label>
+                            <label for="ubicInterna" class="form-label">Ubicación interna</label>
                             <select class="form-select" id="ubicInterna" v-model="ActualizarUbicInterna" required>
                                 <option selected disabled value="">Seleccionar ubicación</option>
                                 <option v-for="item in UbicacionesInternass" :key="item.idUbiInt" v-bind:value="item.idUbiInt">{{item.nameUbiInt}}</option>
                             </select>
                         </div>
                         <div class="col-12 text-end">
-                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
+                            <button class="btn btn-success" style="text-transform:uppercase">Envíar</button>
                         </div>
                     </form>
 
@@ -339,18 +413,18 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Nombre del dispositivo</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Renombrar Zona {{Form_index_zona}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row  g-3" v-on:submit.prevent="ActualizarZonas">
                         <div class="col-md-12">
-                            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                            <!-- <label for="exampleFormControlInput1" class="form-label">Nombre</label> -->
                             <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Form_nombre_zona" placeholder="Nombre de Zona" required>
                         </div>
 
                         <div class="col-12 text-end">
-                            <button class="btn btn-success" style="text-transform:uppercase"><i class="fas fa-paper-plane"></i> Envíar</button>
+                            <button class="btn btn-success" style="text-transform:uppercase">Envíar</button>
                         </div>
                     </form>
 
@@ -410,8 +484,12 @@ export default {
             vibraciondevice: [],
             gasdevice: [],
             voltdevice: [],
+            variacionX: [],
+            variacionZ: [],
             itemsSubAccounts: [],
             itemZonas: [],
+            ultimavarX: '',
+            ultimavarZ: '',
             ultimatemp: '',
             ultimavib: '',
             ultimagas: '',
@@ -448,19 +526,20 @@ export default {
             ActualizarUbicInterna: '',
             ActualizarSubcuenta: '',
             id_Subcuenta: '',
-            Form_id_zona:'',
-            Form_nombre_zona:'',
+            Form_id_zona: '',
+            Form_nombre_zona: '',
+            Form_index_zona: '',
             GlobalApi: this.globalVar,
             center: {
                 // lat: 51.093048,
                 // lng: 6.842120
-                lat: 0,
-                lng: 0
+                lat: 23.634501,
+                lng: -102.552784
             },
             markers: [{
                     position: {
-                        lat: 0,
-                        lng: 0
+                        lat: 23.634501,
+                        lng: -102.552784
                         // lat: 51.093048,
                         // lng: 6.842120
                     },
@@ -603,9 +682,13 @@ export default {
                     //* Gas
                     this.gasdevice = resp.data.map(resp => (resp.gasDevice));
                     // console.log('gas', this.gasdevice);
-                    //* Voltaje
-                    this.voltdevice = resp.data.map(resp => (resp.voltDevice));
-                    // console.log('voltaje', this.voltdevice);
+                    //* Variación X
+                    // this.voltdevice = resp.data.map(resp => (resp.voltDevice));
+                    this.variacionX = resp.data.map(resp => (resp.variacion_x));
+                    console.log('variacion X', this.variacionX);
+                    //* Variación Z
+                    this.variacionZ = resp.data.map(resp => (resp.variacion_z));
+                    console.log('variacion Z', this.variacionZ);
                     //* Ultima temperatura
                     let ultimatempp = resp.data.map(resp => (resp.tempAmb));
                     this.ultimatemp = ultimatempp.pop();
@@ -618,9 +701,16 @@ export default {
                     let ultimagass = resp.data.map(resp => (resp.gasDevice));
                     this.ultimagas = ultimagass.pop();
                     // console.log('ultima gas', this.ultimagas);
+                    //* Ultimo variación Z
+                    let ultimavarZz = resp.data.map(resp => (resp.variacion_z));
+                    this.ultimavarZ = ultimavarZz.pop();
+                    console.log('ultimaVar', this.ultimavarZ);
+                    //* Ultimo variación X
+                    let ultimavarX = resp.data.map(resp => (resp.variacion_x));
+                    this.ultimavarX = ultimavarX.pop();
                     //* Ultimo volt
-                    let ultimavoltt = resp.data.map(resp => (resp.voltDevice));
-                    this.ultimavolt = ultimavoltt.pop();
+                    // let ultimavoltt = resp.data.map(resp => (resp.variacion_x));
+                    // this.ultimavolt = ultimavoltt.pop();
                     // console.log('ultima voltaje', this.ultimavolt);
 
                 }
@@ -826,13 +916,16 @@ export default {
                 }
             }
         },
-            DatosModalEditarZona(item){
+        DatosModalEditarZona(item, index) {
             this.Form_id_zona = item.idDeviceZona;
             this.Form_nombre_zona = item.nombreZona;
+            this.Form_nombre_zona = item.nombreZona;
+            this.Form_index_zona = index + 1;
+            console.log('Form_index_zona', this.Form_index_zona);
 
             // console.log('DatosEditarZonas', this.Form_id_zona, this.Form_nombre_zona );
         },
-        ActualizarZonas(){
+        ActualizarZonas() {
             var data = {
                 "typeFunction": "updateNombreZona",
                 "idDevice": this.idDevice,
@@ -840,9 +933,8 @@ export default {
                 "nombreZona": this.Form_nombre_zona,
                 "idUserLoged": this.idUserLoged,
                 "typeUserLoged": this.typeUserLoged,
-                "keyUser": 1234
+                "keyUser": ''
             }
-            console.log(data);
 
             const xhr = new XMLHttpRequest();
             xhr.open(
@@ -857,32 +949,27 @@ export default {
                 console.log("respuesta EditarZonas", resp);
                 console.log(data);
 
-                
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Zona editada correctamente',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
-                    }).then((result) => {
-                        // this.FormNombre = '';
-                        // this.FormCorreo = '';
-                        // this.FormTelefono = '';
-
-    if (result.isConfirmed) {
-                        // this.itemsAccounts.length = 0;
-                        this.getZonas();
-                        // console.log('asd');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Zona editada correctamente',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
                     }
-                    });
+                }).then((result) => {
 
+                    if (result.isConfirmed) {
+                        this.itemZonas.length = 0;
+                        this.getZonas();
+
+                    }
+                });
 
             }
         },
-    
+
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
             var ctx = document.getElementById('GraficaTemp').getContext('2d');
@@ -1080,8 +1167,7 @@ export default {
                     labels: this.timedevice,
                     datasets: [{
                             label: 'Variación Z',
-                            // label: 'Voltaje',
-                            data: this.voltdevice,
+                            data: this.variacionZ,
                             backgroundColor: 'rgba(255, 206, 86, 0.2)',
                             borderColor: 'rgba(255, 206, 86, 1)',
                             borderWidth: 2,
@@ -1097,14 +1183,13 @@ export default {
                         },
                         {
                             label: 'Variación X',
-                            // label: 'Voltaje',
-                            data: this.voltdevice,
-                            backgroundColor: '#3a3c3c66',
-                            borderColor: 'rgb(86 86 86)',
+                            data: this.variacionX,
+                            backgroundColor: '#2a3945',
+                            borderColor: '#42b883',
                             borderWidth: 2,
-                            pointBorderColor: 'rgb(86 86 86)',
-                            pointBackgroundColor: 'rgb(86 86 86)',
-                            pointHoverBackgroundColor: 'rgb(86 86 86)',
+                            pointBorderColor: '#42b883',
+                            pointBackgroundColor: '#42b883',
+                            pointHoverBackgroundColor: '#42b883',
                             pointHoverBorderColor: 'rgba(220,220,220,1)',
                             pointHoverBorderWidth: 2,
                             pointHitRadius: 10,
@@ -1127,6 +1212,7 @@ export default {
                             fontSize: 15,
                         }
                     },
+
                     scales: {
                         yAxes: [{
                             gridLines: {
@@ -1545,7 +1631,8 @@ ul {
 
 .titulo-forms-detalles .icono-edit {
     /* margin-bottom: 1rem !important; */
-    color: #d4b032;
+    color: #ffc107;
+    /* color: #d4b032; */
     font-size: 17px;
 }
 
@@ -1623,7 +1710,16 @@ option:hover {
     background-color: #fff;
     color: #000;
 }
-
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #3a9d6d;
+}
+.nav-link {
+    color: #ffffffcc;
+}
+.card-editables{
+    border: 1px solid #2c3240;
+}
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;
@@ -1641,7 +1737,7 @@ option:hover {
     .map-style {
         width: 100%;
         /* height: 400px; */
-        height: 455px;
+        height: 336px;
     }
 
     .gauge-style {
