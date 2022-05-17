@@ -29,16 +29,16 @@
         <!-- //? ****** MENU DE NAVEGACIÓN PARA LA INFORMACIÓN DE GRÁFICAS Y DATOS DE DISPOSITIVO ******** -->
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Gráficas <i class="fas fa-heart-rate"></i></button>
+                <button class="nav-link active" id="pills-graficas-tab" data-bs-toggle="pill" data-bs-target="#pills-graficas" type="button" role="tab" aria-controls="pills-graficas" aria-selected="true">Gráficas <i class="fas fa-heart-rate"></i></button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Detalles del dispositivo <i class="fas fa-receipt"></i></button>
+                <button class="nav-link" id="pills-detalles-tab" data-bs-toggle="pill" data-bs-target="#pills-detalles" type="button" role="tab" aria-controls="pills-detalles" aria-selected="false">Detalles del dispositivo <i class="fas fa-receipt"></i></button>
             </li>
         </ul>
 
         <div class="tab-content" id="pills-tabContent">
             <!-- //? ******************************** GRÁFICAS *************************************** -->
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="pills-graficas" role="tabpanel" aria-labelledby="pills-graficas-tab" tabindex="0">
                 <div class=" top-bottom-graficas">
 
                     <div class="row" style="margin-top:1rem">
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-<hr style="height:4px; width:100%; opacity:1; background-color:#171c2a">
+                <hr style="height:4px; width:100%; opacity:1; background-color:#171c2a">
 
                 <div class="row" style="margin-bottom:1rem">
                     <div class="col-4">
@@ -180,7 +180,7 @@
                 </div>
             </div>
             <!-- //? ********************************INFORMACIÓN DEL DISPOSITIVO COMPLETO *************************************** -->
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+            <div class="tab-pane fade" id="pills-detalles" role="tabpanel" aria-labelledby="pills-detalles-tab" tabindex="0">
 
                 <div class="gauges">
                     <div class="row">
@@ -208,42 +208,42 @@
                                             <!-- //TODO INFORMACIÓN NOMBRE DEL DISPOSITIVO ****************** -->
                                             <div class="card card-editables">
                                                 <div class="card-body">
-    <span class="titulo-forms-detalles">Nombre asignado al dispositivo <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
-                                            <hr class="hr-style">
-                                            <form class="row g-3" style="margin-bottom:1rem;">
-                                                <div class="col">
-                                                    <label for="inputDispositivo" class="form-label">ID_dispositivo</label>
-                                                    <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" disabled>
-                                                </div>
-                                                <div class="col">
+                                                    <span class="titulo-forms-detalles">Nombre asignado al dispositivo <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#NombreAsignado" type="button"></i></span>
+                                                    <hr class="hr-style">
+                                                    <form class="row g-3" style="margin-bottom:1rem;">
+                                                        <div class="col">
+                                                            <label for="inputDispositivo" class="form-label">ID_dispositivo</label>
+                                                            <input type="text" class="form-control" id="inputDispositivo" v-model="NameDeviceForm" disabled>
+                                                        </div>
+                                                        <div class="col">
 
-                                                    <label for="inputSucursal" class="form-label">Nombre asignado</label>
-                                                    <input type="text" class="form-control" id="inputSucursal" v-model="NombAsignadoForm" disabled>
-                                                </div>
-                                            </form>
+                                                            <label for="inputSucursal" class="form-label">Nombre asignado</label>
+                                                            <input type="text" class="form-control" id="inputSucursal" v-model="NombAsignadoForm" disabled>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        
+
                                         </div>
                                         <div class="col-sm-6">
                                             <!-- //TODO INFORMACIÓN DE VINCULACIÓN ****************** -->
                                             <div class="card card-editables">
-<div class="card-body">
-        <span class="titulo-forms-detalles">Información de vinculación <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#vinculacion" type="button"></i></span>
-                                            <hr class="hr-style">
-                                            <form class="row g-3" style="margin-bottom:1rem;">
-                                                <div class="col">
-                                                    <label for="inputSucursal" class="form-label">Subcuenta</label>
-                                                    <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
+                                                <div class="card-body">
+                                                    <span class="titulo-forms-detalles">Información de vinculación <i class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#vinculacion" type="button"></i></span>
+                                                    <hr class="hr-style">
+                                                    <form class="row g-3" style="margin-bottom:1rem;">
+                                                        <div class="col">
+                                                            <label for="inputSucursal" class="form-label">Subcuenta</label>
+                                                            <input type="text" class="form-control" id="inputSucursal" v-model="SucursalForm" disabled>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="inputDispUbic" class="form-label">Ubicación interna</label>
+                                                            <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" disabled>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <div class="col">
-                                                    <label for="inputDispUbic" class="form-label">Ubicación interna</label>
-                                                    <input type="text" class="form-control" id="inputDispUbic" v-model="UbicSensorForm" disabled>
-                                                </div>
-                                            </form>
-</div>
                                             </div>
-                                        
+
                                         </div>
                                     </div>
 
@@ -260,37 +260,54 @@
                                     <!-- //TODO INFORMACIÓN DE UBICACIÓN ****************** -->
                                     <div class="card card-editables" style="margin-top: 1rem; margin-bottom: 1rem">
                                         <div class="card-body">
- <span class="titulo-forms-detalles">Información de ubicación <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
-                                    <hr class="hr-style">
-                                    <!-- <hr style="background: #ffffff1c;height: 4px;"> -->
-                                    <form class="row g-3" style="margin-bottom:1rem;">
-                                        <div class="col-md-2">
-                                            <label for="inputPais" class="form-label">País</label>
-                                            <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="inputPais" class="form-label">Estado</label>
-                                            <input type="text" class="form-control" id="inputPais" v-model="EstadoForm" disabled>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="inputCiudad" class="form-label">Ciudad</label>
-                                            <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" disabled>
-                                        </div>
-                                        <div class="col-md-4">
+                                            <span class="titulo-forms-detalles">Información de ubicación <i style="color:#ea4335; font-size:23px" class="fas fa-map-marker-alt"></i></span>
+                                            <hr class="hr-style">
+                                            <!-- <hr style="background: #ffffff1c;height: 4px;"> -->
+                                            <form class="row g-3" style="margin-bottom:1rem;">
+                                                <div class="col-md-2">
+                                                    <label for="inputPais" class="form-label">País</label>
+                                                    <input type="text" class="form-control" id="inputPais" v-model="PaisForm" disabled>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="inputPais" class="form-label">Estado</label>
+                                                    <input type="text" class="form-control" id="inputPais" v-model="EstadoForm" disabled>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="inputCiudad" class="form-label">Ciudad</label>
+                                                    <input type="text" class="form-control" id="inputCiudad" v-model="CiudadForm" disabled>
+                                                </div>
+                                                <div class="col-md-4">
 
-                                            <label for="inputUbicacion" class="form-label">Dirección</label>
-                                            <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" disabled>
-                                        </div>
+                                                    <label for="inputUbicacion" class="form-label">Dirección</label>
+                                                    <input type="text" class="form-control" id="inputUbicacion" v-model="UbicacionForm" disabled>
+                                                </div>
 
-                                    </form>
+                                            </form>
                                         </div>
                                     </div>
-                                   
 
                                     <div class="row ">
-                                        <GMapMap :center="center" :zoom="6" map-type-id="terrain" class="map-style">
+                                        <GMapMap ref="myMapRef" :center="center" :zoom="6" map-type-id="terrain" class="map-style">
                                             <GMapCluster>
-                                                <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="'aquí estoy'" :clickable="true" :draggable="true" @click="center=m.position" />
+                                                <!-- <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="'aquí estoy'" :clickable="true" :draggable="true" @click="center=m.position"> -->
+                                                <GMapMarker :key="index" v-for="(m, index) in markers" :position="m.position" :title="'aquí estoy'" :clickable="true" :draggable="true" @closeclick="openMarker(null)" @click="openMarker(m.position)">
+                                                    <GMapInfoWindow :options=" {
+                                                        pixelOffset: {
+                                                            width: 10, height: 0
+                                                        },
+                                                        maxWidth: 320,
+                                                        maxHeight: 320,
+                                                        color: '#000'
+                                                        }" :closeclick="true" @closeclick="openMarker(null)" :opened="openedMarkerID === m.position">
+                                                        <div>
+                                                            País: {{PaisForm}} <br>
+                                                            Estado: {{EstadoForm}} <br>
+                                                            Ciudad: {{CiudadForm}} <br>
+                                                            Longitud {{m.position.lng}}<br>
+                                                            Latitud: {{m.position.lat}}
+                                                        </div>
+                                                    </GMapInfoWindow>
+                                                </GMapMarker>
                                             </GMapCluster>
                                         </GMapMap>
                                     </div>
@@ -312,16 +329,95 @@
                                     </div>
                                 </div>
                                 <div class="card-body ">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">Zona {{index+1}}
-                                            <span style="text-transform: lowercase">{{item.nombreZona}}</span>
+                                    <p style="color:#ffffffcc; text-align:center; font-size: 16px" v-if="results == 'Sin registros..'">Sin registros...</p>
 
-                                            <button v-on:click="DatosModalEditarZona(item, index)" data-bs-toggle="modal" data-bs-target="#Zonas" class="btn btn-warning btn-sm"><i class="fas fa-edit icono-edit"></i></button>
-                                            <!-- <i class="fas fa-edit icono-edit"></i> -->
-                                            <!-- <i  style="color:#d4b032" class="fas fa-edit icono-edit" data-bs-toggle="modal" data-bs-target="#Zonas" type="button"></i> -->
-                                        </li>
+                                    <ul v-if="results !== 'Sin registros..'" class="list-group list-group-flush">
+                                        <div class="scrollable">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(item, index) in itemZonas" :key="item.idDeviceZona">Zona {{index+1}}
+                                                <span style="text-transform: lowercase">{{item.nombreZona}}</span>
 
+                                                <button v-on:click="DatosModalEditarZona(item, index)" data-bs-toggle="modal" data-bs-target="#Zonas" class="btn btn-warning btn-sm"><i class="fas fa-edit icono-edit"></i></button>
+                                            </li>
+
+                                        </div>
                                     </ul>
+                                </div>
+
+                            </div>
+
+                            <!-- ALARMAS Y EVENTOS -->
+                            <div class="card" style="margin-top:1rem">
+                                <div class="card-header">
+                                    <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Alarmas y eventos
+                                    <div style="float:right" class="dropdown">
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="pills-alarmas-tab" data-bs-toggle="pill" data-bs-target="#pills-alarmas" type="button" role="tab" aria-controls="pills-alarmas" aria-selected="true">Alarmas</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-eventos-tab" data-bs-toggle="pill" data-bs-target="#pills-eventos" type="button" role="tab" aria-controls="pills-eventos" aria-selected="false">Eventos</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="pills-alarmas" role="tabpanel" aria-labelledby="pills-alarmas-tab" tabindex="0">
+                                            <div class="scrollable">
+                                                <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+                                                    <thead class="" style="background:#232e43; color:#fff">
+                                                        <tr class="t-head-table">
+                                                            <th scope="col">ID</th>
+                                                            <th scope="col">Nombre</th>
+                                                            <th scope="col">Fecha</th>
+                                                            <th scope="col">Estatus</th>
+                                                            <!-- <th scope="col">Opciones</th> -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody v-for="item in AlarmasDevice" :key="item.idAlarmas">
+                                                        <tr class="t-body-table">
+                                                            <th scope="row">{{item.idAlarmas}}</th>
+                                                            <td>{{item.nombreAlarm}}</td>
+                                                            <td>{{item.fecha}} </td>
+                                                            <td>
+                                                                <!-- {{item.estatus}} -->
+                                                                <span style="background: rgba(187, 26, 26, 0.08);color: #d64b4b; font-size: 14px;" v-if="item.estatus == 1" class="badge text-bg-danger">Pendiente</span>
+                                                                <span style="background: rgba(187, 171, 26, 0.08);color: #bbb81a; font-size: 14px;" v-if="item.estatus == 2" class="badge text-bg-danger">Progreso</span>
+                                                                <span style="background: rgba(26, 187, 151, .08);color: #1abb97; font-size: 14px;" v-if="item.estatus == 3" class="badge text-bg-danger">Finalizado</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- EVENTOS -->
+                                        <div class="tab-pane fade" id="pills-eventos" role="tabpanel" aria-labelledby="pills-eventos-tab" tabindex="0">
+                                            <div class="scrollable">
+                                                <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+                                                    <thead class="" style="background:#232e43; color:#fff">
+                                                        <tr class="t-head-table">
+                                                            <th scope="col">ID</th>
+                                                            <th scope="col">Nombre</th>
+                                                            <th scope="col">Fecha</th>
+                                                            <!-- <th scope="col">Estatus</th> -->
+                                                            <!-- <th scope="col">Opciones</th> -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody v-for="item in EventosDevice" :key="item.idAlarmas">
+                                                        <tr class="t-body-table">
+                                                            <th scope="row">{{item.idAlarmas}}</th>
+                                                            <td>{{item.nombreAlarm}}</td>
+                                                            <td>{{item.fecha}} </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -420,7 +516,7 @@
                     <form class="row  g-3" v-on:submit.prevent="ActualizarZonas">
                         <div class="col-md-12">
                             <!-- <label for="exampleFormControlInput1" class="form-label">Nombre</label> -->
-                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="Form_nombre_zona" placeholder="Nombre de Zona" required>
+                            <input style="text-transform: lowercase" type="text" class="form-control" id="exampleFormControlInput1" v-model="Form_nombre_zona" placeholder="Nombre de Zona" required>
                         </div>
 
                         <div class="col-12 text-end">
@@ -470,13 +566,14 @@ export default {
 
     data() {
         return {
+
             ChartAlarmas: ChartAlarmas,
             ChartHoras: ChartHoras,
             planetChartData2: planetChartData2,
             // ada: Math.floor(Math.random() * 100),
             UbicacionesInternass: [],
             AlarmasDevice: [],
-            AlertasDevice: [],
+            EventosDevice: [],
             UltimasAlarmas: [],
             UltimasAlertas: [],
             timedevice: [],
@@ -529,7 +626,9 @@ export default {
             Form_id_zona: '',
             Form_nombre_zona: '',
             Form_index_zona: '',
+            results: '',
             GlobalApi: this.globalVar,
+            openedMarkerID: null,
             center: {
                 // lat: 51.093048,
                 // lng: 6.842120
@@ -562,9 +661,24 @@ export default {
         this.GetinfoDevice();
         this.getAllSubAccounts();
         this.getZonas();
+        this.getAllAlarms();
+        this.getEventos();
+        // Evento para abrir y cerrar la ventana de información del marker google maps
+        this.$refs.myMapRef.$mapPromise.then((map) => {
+            map.addListener('click', (mapsMouseEvent) => {
+                console.log(mapsMouseEvent.latLng.lat());
+                console.log(mapsMouseEvent.latLng.lng());
+            });
+        });
 
     },
     methods: {
+        openMarker(id) {
+            this.openedMarkerID = id;
+        },
+        showPosition(event, two) {
+            console.log(event.latLng);
+        },
         disabled() {
             document.getElementById('inputDispositivo').disabled = false;
             document.getElementById('inputDispUbic').disabled = false;
@@ -901,6 +1015,9 @@ export default {
                 console.log("xml request all Zonas", resp);
                 console.log(data);
                 var json = resp;
+
+                this.results = json[0].result;
+                console.log(this.results);
                 // this.itemZonas = json
                 // console.log('ZONAS', this.itemZonas);
 
@@ -967,6 +1084,78 @@ export default {
                     }
                 });
 
+            }
+        },
+        getAllAlarms() {
+
+            var data = {
+                "typeFunction": "getAlarmasByDevice",
+                "idDevice": this.idDevice,
+                "idUserLoged": this.idUserLoged,
+                // "page": 1,
+                // "perPage": 10,
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'alarmas',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request all Alarmas", resp);
+                var json = resp;
+                for (var index in json) {
+
+                    let locall = moment.utc(json[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
+
+                    this.AlarmasDevice.push({
+                        idAlarmas: json[index]["idAlarmas"],
+                        nombreAlarm: json[index]["nameTypeAlarm"],
+                        estatus: json[index]["estado_alarma"],
+                        fecha: locall,
+                    });
+
+                }
+            }
+        },
+        getEventos() {
+
+            var data = {
+                "typeFunction": "getEventosByDevice",
+                "idDevice": this.idDevice,
+                "idUserLoged": this.idUserLoged,
+                // "page": 1,
+                // "perPage": 10,
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'eventos',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request all Eventos", resp);
+                var json = resp;
+                for (var index in json) {
+
+                    let locall = moment.utc(json[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
+
+                    this.EventosDevice.push({
+                        idAlarmas: json[index]["ideventDevice"],
+                        nombreAlarm: json[index]["nameTypeAlarm"],
+                        estatus: json[index]["estado_alarma"],
+                        fecha: locall,
+                    });
+
+                }
             }
         },
 
@@ -1506,6 +1695,12 @@ export default {
     /* background: #27293d; */
 }
 
+.scrollable {
+    height: 260px;
+    overflow: scroll;
+
+}
+
 .top-bottom-graficas {
 
     margin-bottom: 1rem;
@@ -1611,7 +1806,8 @@ ul {
 .map-style {
     width: 100%;
     /* height: 225px */
-    height: 260px
+    height: 260px;
+    color: #000;
 }
 
 .breadcrumb-item a {
@@ -1710,16 +1906,47 @@ option:hover {
     background-color: #fff;
     color: #000;
 }
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
     color: #fff;
     background-color: #3a9d6d;
 }
+
 .nav-link {
     color: #ffffffcc;
 }
-.card-editables{
+
+.card-editables {
     border: 1px solid #2c3240;
 }
+
+Table {
+    border-color: #ffffff1a;
+}
+
+tr {
+    color: #fff;
+    /* color: #ffffffb3; */
+}
+
+.table> :not(:first-child) {
+    border-top: 0px solid #ffffff1a;
+    /* padding: 12px 7px; */
+}
+
+.table-hover>tbody>tr:hover>* {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: #ffffff;
+}
+
+.table-tamaño {
+    font-size: 10pt;
+    width: 99%;
+    margin-left: 0.9%;
+    margin-bottom: 0;
+}
+
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;
@@ -1738,6 +1965,7 @@ option:hover {
         width: 100%;
         /* height: 400px; */
         height: 336px;
+        color: #000;
     }
 
     .gauge-style {
