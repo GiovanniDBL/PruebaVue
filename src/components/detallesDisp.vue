@@ -349,12 +349,17 @@
                             <div class="card" style="margin-top:1rem">
                                 <div class="card-header">
                                     <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Alarmas y eventos
-                                    <div style="float:right" class="dropdown">
+                                    <!-- <div style="float:right" class="dropdown">
                                         <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                         <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
+
+                                    <div style="float:right" class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-primary" data-bs-toggle="pill" data-bs-target="#pills-eventos">Alarmas</button>
+  <button type="button" class="btn btn-primary">Eventos</button>
+</div>
                                 </div>
                                 <div class="card-body ">
                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
