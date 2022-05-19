@@ -45,7 +45,7 @@
                         <div class="col-6">
                             <div class="card ">
                                 <div style="background-color: #dc3545;" class="card-header">
-                                    Variaciones de Temperatura
+                                    Temperatura interna en ATM
 
                                 </div>
                                 <div class="card-body text-end">
@@ -57,7 +57,7 @@
                         <div class="col-6">
                             <div class="card ">
                                 <div style="background-color: #2e616a;" class="card-header">
-                                    Variaciones de vibración
+                                    Detección de choque
 
                                 </div>
                                 <div class="card-body text-end">
@@ -73,7 +73,7 @@
                         <div class="col-6">
                             <div class="card ">
                                 <div style="background-color: #272c35;" class="card-header">
-                                    Variaciones de gas
+                                    Detección de gas
 
                                 </div>
                                 <div class="card-body text-end">
@@ -85,7 +85,7 @@
                             <div class="card ">
                                 <div style="background-color: #d4b032; color:#000" class="card-header">
                                     <!-- Variaciones de voltaje -->
-                                    Variaciones Z y X
+                                    Detección de inclinación y desprendimiento
 
                                 </div>
                                 <div class="card-body text-end">
@@ -101,9 +101,9 @@
 
                 <div class="row" style="margin-bottom:1rem">
                     <div class="col-4">
-                        <div class="card" style="">
+                        <div class="card" style="height:100%">
                             <div class="card-header">
-                                Últimas variaciones
+                                Últimos indicadores
                                 <div style="float:right" class="dropdown">
                                     <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                     <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
@@ -142,7 +142,9 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <div class="card " style="height:100%">
+                        <!-- style="height:100%" -->
+                        <div class="card ">
+                            <!-- <div id="Temperatura" style="height:250px; width: 100%;"></div> -->
                             <div class="card-header">
                                 Temperatura
                                 <div style="float:right" class="dropdown">
@@ -154,11 +156,14 @@
                             </div>
                             <div class="card-body">
                                 <canvas id="gaugeTemp" style="position: relative; height:30vh; width:30vw;"></canvas>
+
+                                <!-- <div id="Temperatura" style="height:280px; width: 100%;"></div> -->
                             </div>
 
                         </div>
                     </div>
                     <div class="col-4">
+                        <!-- <div  id="Gas" style="height:350px"></div> -->
                         <div class="card " style="height:100%">
                             <div class="card-header">
                                 Gas
@@ -172,13 +177,14 @@
                             </div>
                             <div class="card-body">
                                 <canvas id="gaugeGas" style="position: relative; height:30vh; width:30vw;"></canvas>
+                                <!-- <div id="Gas" style="height:280px; width: 100%;"></div> -->
                             </div>
 
                         </div>
                     </div>
-
                 </div>
             </div>
+            <!-- <div id="Gas" style="height:500px;width:100%"></div> -->
             <!-- //? ********************************INFORMACIÓN DEL DISPOSITIVO COMPLETO *************************************** -->
             <div class="tab-pane fade" id="pills-detalles" role="tabpanel" aria-labelledby="pills-detalles-tab" tabindex="0">
 
@@ -317,8 +323,8 @@
 
                         </div>
                         <div class="col-5">
-                            <!-- //TODO ZONAS DEL DISPOSITIVO ****************** -->
-                            <div class="card" style="">
+                                            <!-- //TODO ZONAS DEL DISPOSITIVO ****************** -->
+                            <div class="card" >
                                 <div class="card-header">
                                     <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Zonas del dispositivo
                                     <div style="float:right" class="dropdown">
@@ -344,92 +350,149 @@
                                 </div>
 
                             </div>
-
-                            <!-- ALARMAS Y EVENTOS -->
+                            <!-- //TODO APERTURAS DEL DISPOSITIVO -->
                             <div class="card" style="margin-top:1rem">
                                 <div class="card-header">
-                                    <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Alarmas y eventos
-                                    <!-- <div style="float:right" class="dropdown">
+                                    <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Aperturas del dispositivo
+                                    <div style="float:right" class="dropdown">
                                         <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                         <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
                                         </ul>
-                                    </div> -->
+                                    </div>
+                                    <!-- <ul style="float:right" class="nav nav-pills" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button style="margin-right:1rem" class="nav-link active btn-sm position-relative" id="pills-alarmas-tab" data-bs-toggle="pill" data-bs-target="#pills-alarmas" type="button" role="tab" aria-controls="pills-alarmas" aria-selected="true">Alarmas
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{totalAlarms}}</span>
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link btn-sm position-relative" id="pills-eventos-tab" data-bs-toggle="pill" data-bs-target="#pills-eventos" type="button" role="tab" aria-controls="pills-eventos" aria-selected="false">Eventos
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{totalEvents}}</span>
+                                            </button>
+                                        </li>
+                                    </ul> -->
 
-                                    <div style="float:right" class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-primary" data-bs-toggle="pill" data-bs-target="#pills-eventos">Alarmas</button>
-  <button type="button" class="btn btn-primary">Eventos</button>
-</div>
                                 </div>
                                 <div class="card-body ">
-                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="pills-alarmas-tab" data-bs-toggle="pill" data-bs-target="#pills-alarmas" type="button" role="tab" aria-controls="pills-alarmas" aria-selected="true">Alarmas</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="pills-eventos-tab" data-bs-toggle="pill" data-bs-target="#pills-eventos" type="button" role="tab" aria-controls="pills-eventos" aria-selected="false">Eventos</button>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="tab-pane fade show active" id="pills-alarmas" role="tabpanel" aria-labelledby="pills-alarmas-tab" tabindex="0">
-                                            <div class="scrollable">
-                                                <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
-                                                    <thead class="" style="background:#232e43; color:#fff">
-                                                        <tr class="t-head-table">
-                                                            <th scope="col">ID</th>
-                                                            <th scope="col">Nombre</th>
-                                                            <th scope="col">Fecha</th>
-                                                            <th scope="col">Estatus</th>
-                                                            <!-- <th scope="col">Opciones</th> -->
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody v-for="item in AlarmasDevice" :key="item.idAlarmas">
-                                                        <tr class="t-body-table">
-                                                            <th scope="row">{{item.idAlarmas}}</th>
-                                                            <td>{{item.nombreAlarm}}</td>
-                                                            <td>{{item.fecha}} </td>
-                                                            <td>
-                                                                <!-- {{item.estatus}} -->
-                                                                <span style="background: rgba(187, 26, 26, 0.08);color: #d64b4b; font-size: 14px;" v-if="item.estatus == 1" class="badge text-bg-danger">Pendiente</span>
-                                                                <span style="background: rgba(187, 171, 26, 0.08);color: #bbb81a; font-size: 14px;" v-if="item.estatus == 2" class="badge text-bg-danger">Progreso</span>
-                                                                <span style="background: rgba(26, 187, 151, .08);color: #1abb97; font-size: 14px;" v-if="item.estatus == 3" class="badge text-bg-danger">Finalizado</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <!-- EVENTOS -->
-                                        <div class="tab-pane fade" id="pills-eventos" role="tabpanel" aria-labelledby="pills-eventos-tab" tabindex="0">
-                                            <div class="scrollable">
-                                                <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
-                                                    <thead class="" style="background:#232e43; color:#fff">
-                                                        <tr class="t-head-table">
-                                                            <th scope="col">ID</th>
-                                                            <th scope="col">Nombre</th>
-                                                            <th scope="col">Fecha</th>
-                                                            <!-- <th scope="col">Estatus</th> -->
-                                                            <!-- <th scope="col">Opciones</th> -->
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody v-for="item in EventosDevice" :key="item.idAlarmas">
-                                                        <tr class="t-body-table">
-                                                            <th scope="row">{{item.idAlarmas}}</th>
-                                                            <td>{{item.nombreAlarm}}</td>
-                                                            <td>{{item.fecha}} </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                    <div class="scrollable">
+                                        <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+                                            <thead class="">
+                                                <tr class="t-head-table">
+                                                    <th scope="col">Apertura</th>
+                                                    <th scope="col">Cierre</th>
+                                                    <th scope="col">Días</th>
+                                                    <th scope="col">Minutos</th>
+                                                    <th scope="col">Segundos</th>
+                                                    <!-- <th scope="col">Opciones</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody v-for="item in AperturasDisp" :key="item.idAlarmas">
+                                                <tr v-if="totalAlarms > 0" class="t-body-table">
+                                                    <th scope="row">{{item.fechaApertura}}</th>
+                                                    <td>{{item.fechaCierre}}</td>
+                                                    <td>{{item.dias + ' D'}}</td>
+                                                    <td>{{item.minutos + ' Min'}} </td>
+                                                    <td>{{item.segundos + ' Seg'}} </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
 
                             </div>
+                        </div>
+                    </div>
 
+                    <!-- //* ******************  ALARMAS Y EVENTOS DEL DISPOSITIVO ********************* -->
+
+                    <div class="row" style="margin-top:1rem">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Alarmas
+                                    <div style="float:right" class="dropdown">
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="scrollable">
+                                        <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+                                            <thead class="">
+                                                <tr class="t-head-table">
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">Fecha</th>
+                                                    <th scope="col">Estatus</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody v-for="item in AlarmasDevice" :key="item.idAlarmas">
+                                                <tr v-if="totalAlarms > 0" class="t-body-table">
+                                                    <th scope="row">{{item.idAlarmas}}</th>
+                                                    <td>{{item.nombreAlarm}}</td>
+                                                    <td>{{item.fecha}} </td>
+                                                    <td>
+                                                        <!-- {{item.estatus}} -->
+                                                        <span style="background: rgba(187, 26, 26, 0.08);color: #d64b4b; font-size: 14px;" v-if="item.estatus == 1" class="badge text-bg-danger">Pendiente</span>
+                                                        <span style="background: rgba(187, 171, 26, 0.08);color: #bbb81a; font-size: 14px;" v-if="item.estatus == 2" class="badge text-bg-danger">Progreso</span>
+                                                        <span style="background: rgba(26, 187, 151, .08);color: #1abb97; font-size: 14px;" v-if="item.estatus == 3" class="badge text-bg-danger">Finalizado</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div v-if="totalAlarms == 0" style="color:#ffffffcc; text-align: center" class="alert animated fadeIn fast" role="alert">
+                                        Sin registros...
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Eventos
+                                    <div style="float:right" class="dropdown">
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body ">
+                                    <div class="scrollable">
+                                        <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
+                                            <thead class="">
+                                                <tr class="t-head-table">
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">Fecha</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody v-for="item in EventosDevice" :key="item.idAlarmas">
+                                                <tr v-if="totalAlarms > 0" class="t-body-table">
+                                                    <th scope="row">{{item.idAlarmas}}</th>
+                                                    <td>{{item.nombreAlarm}}</td>
+                                                    <td>{{item.fecha}} </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div v-if="totalEvents == 0" style="color:#ffffffcc; text-align: center" class="alert animated fadeIn fast" role="alert">
+                                        Sin registros...
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -543,7 +606,7 @@ import sidebar from './Sidebar';
 import VueGauge from 'vue-gauge';
 import GaugeController from 'chartjs-gauge';
 // import 'chartjs-plugin-labels';
-
+import * as echarts from 'echarts';
 import {
     Chart
 } from 'chart.js';
@@ -555,6 +618,7 @@ import jsPDF from 'jspdf'
 import moment from 'moment'
 import Swal from 'sweetalert2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+// import VueGauge from 'vue-gauge';
 // import datalabelss from 'chartjs-plugin-datalabels'
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
@@ -568,15 +632,15 @@ export default {
         btnSave: false,
         // datalabelss,
     },
-
     data() {
         return {
-
+            time: moment(new Date()),
             ChartAlarmas: ChartAlarmas,
             ChartHoras: ChartHoras,
             planetChartData2: planetChartData2,
             // ada: Math.floor(Math.random() * 100),
             UbicacionesInternass: [],
+            AperturasDisp:[],
             AlarmasDevice: [],
             EventosDevice: [],
             UltimasAlarmas: [],
@@ -596,6 +660,8 @@ export default {
             ultimavib: '',
             ultimagas: '',
             ultimavolt: '',
+            totalAlarms: '',
+            totalEvents: '',
             options: {
 
                 chartWidth: 400,
@@ -668,6 +734,7 @@ export default {
         this.getZonas();
         this.getAllAlarms();
         this.getEventos();
+        this.getAperturas();
         // Evento para abrir y cerrar la ventana de información del marker google maps
         this.$refs.myMapRef.$mapPromise.then((map) => {
             map.addListener('click', (mapsMouseEvent) => {
@@ -841,6 +908,8 @@ export default {
                 this.gaugeTemp();
                 // this.gaugeVib();
                 this.gaugeGas();
+                // this.echartTemp();
+                // this.echartGas();
                 //  this.UbicacionesInternas();
             }
         },
@@ -1113,6 +1182,11 @@ export default {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all Alarmas", resp);
                 var json = resp;
+                this.totalAlarms = json.length;
+
+                if (resp[0].result == 'Error, sin datos de alarmas') {
+                    this.totalAlarms = 0
+                }
                 for (var index in json) {
 
                     let locall = moment.utc(json[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
@@ -1149,6 +1223,10 @@ export default {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all Eventos", resp);
                 var json = resp;
+                this.totalEvents = json.length;
+                if (resp[0].result == 'Error, sin datos de alarmas') {
+                    this.totalEvents = 0
+                }
                 for (var index in json) {
 
                     let locall = moment.utc(json[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
@@ -1161,6 +1239,53 @@ export default {
                     });
 
                 }
+            }
+        },
+        getAperturas() {
+
+            var timeUtc = this.time.utc().format();
+            var data = {
+                "typeFunction": "getDatos_apertura_device",
+                "idDevice": this.idDevice,
+                "idCuenta": this.idUserLoged,
+                "timeUtc": timeUtc,
+                "timeEnd": "48 hours",
+                // "typeUserLoged": this.typeUserLoged,
+
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'managerDevices',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+            // console.log('Contenido Data', data);
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request AperturaDatos", resp);
+
+                            var json = resp;
+                // this.totalEvents = json.length;
+                // if (resp[0].result == 'Error, sin datos de alarmas') {
+                //     this.totalEvents = 0
+                // }
+                for (var index in json) {
+
+                    let fechaApertura = moment.utc(json[index]["horaApertura"]).local().format('DD/MM/YYYY HH:mm:ss');
+                    let fechaCierre = moment.utc(json[index]["horaCierre"]).local().format('DD/MM/YYYY HH:mm:ss');
+
+                    this.AperturasDisp.push({
+                        fechaApertura: fechaApertura,
+                        fechaCierre: fechaCierre,
+                        dias: json[index]["duracionDays"],
+                        minutos: json[index]["duracionMinutos"],
+                        segundos: json[index]["duracionSegundos"],
+                    });
+
+                }
+
             }
         },
 
@@ -1234,7 +1359,7 @@ export default {
                 data: {
                     labels: this.timedevice,
                     datasets: [{
-                        label: 'Vibración',
+                        label: 'Detección de choque',
                         data: this.vibraciondevice,
                         backgroundColor: 'rgba(75,192,192,0.4)',
                         borderColor: 'rgba(75,192,192,1)',
@@ -1360,7 +1485,8 @@ export default {
                 data: {
                     labels: this.timedevice,
                     datasets: [{
-                            label: 'Variación Z',
+                            // label: 'Variación Z',
+                            label: 'Ataque lateral',
                             data: this.variacionZ,
                             backgroundColor: 'rgba(255, 206, 86, 0.2)',
                             borderColor: 'rgba(255, 206, 86, 1)',
@@ -1376,7 +1502,7 @@ export default {
                             lineTension: 0.1,
                         },
                         {
-                            label: 'Variación X',
+                            label: 'Ataque frontal',
                             data: this.variacionX,
                             backgroundColor: '#2a3945',
                             borderColor: '#42b883',
@@ -1456,7 +1582,8 @@ export default {
                         // data: [49, 79, 100],
                         // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
-                        backgroundColor: ['#27AE60', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
+                        backgroundColor: ['#2785ae', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
+                        // backgroundColor: ['#27AE60', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
                         borderColor: "#1a2130",
                         borderWidth: 3
                     }]
@@ -1601,9 +1728,11 @@ export default {
                         // backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
+                        // backgroundColor: ['#A93226', '#A93226', '#A93226', '#A93226', '#A93226', '#A93226'],
+                        // backgroundColor: ['#A93226', '#109618'],
                         backgroundColor: ['#27AE60', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
                         borderColor: "#1a2130",
-                        borderWidth: 3
+                        borderWidth: 0
                     }]
                 },
                 plugins: [ChartDataLabels],
@@ -1655,6 +1784,196 @@ export default {
 
                 }
             });
+        },
+        echartTemp() {
+
+            var chartDom = document.getElementById('Temperatura');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            option = {
+                series: [{
+                        type: 'gauge',
+                        center: ['50%', '60%'],
+                        startAngle: 200,
+                        endAngle: -20,
+                        min: 0,
+                        max: 100,
+                        splitNumber: 10,
+                        itemStyle: {
+                            color: '#dc3546'
+                        },
+                        progress: {
+                            show: true,
+                            width: 30
+                        },
+                        pointer: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                width: 30
+                            }
+                        },
+                        axisTick: {
+                            distance: -45,
+                            splitNumber: 5,
+                            lineStyle: {
+                                width: 2,
+                                color: '#999'
+                            }
+                        },
+                        splitLine: {
+                            distance: -52,
+                            length: 14,
+                            lineStyle: {
+                                width: 3,
+                                color: '#999'
+                            }
+                        },
+                        axisLabel: {
+                            distance: -20,
+                            color: '#999',
+                            fontSize: 20
+                        },
+                        anchor: {
+                            show: false
+                        },
+                        title: {
+                            show: false
+                        },
+                        detail: {
+                            valueAnimation: true,
+                            width: '60%',
+                            lineHeight: 40,
+                            borderRadius: 8,
+                            offsetCenter: [0, '-15%'],
+                            fontSize: 35,
+                            fontWeight: 'bolder',
+                            formatter: '{value} °C',
+                            color: 'auto'
+                        },
+                        data: [{
+                            value: this.ultimatemp
+                        }]
+                    },
+                    // {
+                    //   type: 'gauge',
+                    //   center: ['50%', '60%'],
+                    //   startAngle: 200,
+                    //   endAngle: -20,
+                    //   min: 0,
+                    //   max: 100,
+                    //   itemStyle: {
+                    //     color: '#FD7347'
+                    //   },
+                    //   progress: {
+                    //     show: true,
+                    //     width: 8
+                    //   },
+                    //   pointer: {
+                    //     show: false
+                    //   },
+                    //   axisLine: {
+                    //     show: false
+                    //   },
+                    //   axisTick: {
+                    //     show: false
+                    //   },
+                    //   splitLine: {
+                    //     show: false
+                    //   },
+                    //   axisLabel: {
+                    //     show: false
+                    //   },
+                    //   detail: {
+                    //     show: false
+                    //   },
+                    //   data: [
+                    //     {
+                    //       value: this.ultimatemp
+                    //     }
+                    //   ]
+                    // }
+                ]
+            };
+
+            option && myChart.setOption(option);
+        },
+        echartGas() {
+
+            var chartDom = document.getElementById('Gas');
+            var myChart = echarts.init(chartDom);
+            var option;
+            option = {
+                series: [{
+                    type: 'gauge',
+                    center: ['50%', '60%'],
+                    startAngle: 200,
+                    endAngle: -20,
+                    min: 0,
+                    max: 100,
+                    splitNumber: 10,
+                    itemStyle: {
+                        color: '#dc3546'
+                    },
+                    progress: {
+                        show: true,
+                        width: 30
+                    },
+                    pointer: {
+                        show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            width: 30
+                        }
+                    },
+                    axisTick: {
+                        distance: -45,
+                        splitNumber: 5,
+                        lineStyle: {
+                            width: 2,
+                            color: '#999'
+                        }
+                    },
+                    splitLine: {
+                        distance: -52,
+                        length: 14,
+                        lineStyle: {
+                            width: 3,
+                            color: '#999'
+                        }
+                    },
+                    axisLabel: {
+                        distance: -20,
+                        color: '#999',
+                        fontSize: 20
+                    },
+                    anchor: {
+                        show: false
+                    },
+                    title: {
+                        show: false
+                    },
+                    detail: {
+                        valueAnimation: true,
+                        width: '60%',
+                        lineHeight: 40,
+                        borderRadius: 8,
+                        offsetCenter: [0, '-15%'],
+                        fontSize: 35,
+                        fontWeight: 'bolder',
+                        formatter: '{value} °C',
+                        color: 'auto'
+                    },
+                    data: [{
+                        value: this.ultimatemp
+                    }]
+                }, ]
+            };
+
+            option && myChart.setOption(option);
         }
 
     }
@@ -1919,8 +2238,17 @@ option:hover {
 }
 
 .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    /* color: #949ca9fa; */
     color: #ffffffcc;
+    margin-right: 1rem;
+    background-color: #19875454;
 }
+
+/* .nav-link {
+    color: #ffffffcc;
+} */
 
 .card-editables {
     border: 1px solid #2c3240;
@@ -1943,6 +2271,14 @@ tr {
 .table-hover>tbody>tr:hover>* {
     --bs-table-accent-bg: var(--bs-table-hover-bg);
     color: #ffffff;
+}
+
+.t-head-table {
+    font-size: 13px;
+    text-transform: uppercase;
+    /* color: #ffffff99; */
+    /* color: #ffffffbd; */
+    color: #ffffffb3;
 }
 
 .table-tamaño {

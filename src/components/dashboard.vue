@@ -138,7 +138,7 @@
                                         </tr>
                                     </tbody> -->
                                 </table>
-                                <span style="color:#ffffffcc">Sin informacón...</span>
+                                <span style="color:#ffffffcc">Sin información...</span>
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
                                         </tr>
                                     </tbody> -->
                                 </table>
-                                 <span style="color:#ffffffcc">Sin informacón...</span>
+                                 <span style="color:#ffffffcc">Sin información...</span>
                             </div>
                         </div>
 
@@ -291,7 +291,7 @@
                                         </tr>
                                     </tbody> -->
                                 </table>
-                                 <span style="color:#ffffffcc">Sin informacón...</span>
+                                 <span style="color:#ffffffcc">Sin información...</span>
                             </div>
                         </div>
 
@@ -354,7 +354,7 @@
                                         </tr>
                                     </tbody> -->
                                 </table>
-                                <span style="color:#ffffffcc">Sin informacón...</span>
+                                <span style="color:#ffffffcc">Sin información...</span>
                             </div>
                         </div>
                     </div>
@@ -430,7 +430,7 @@
                                         </tr>
                                     </tbody> -->
                                 </table>
-                                <span style="color:#ffffffcc">Sin informacón...</span>
+                                <span style="color:#ffffffcc">Sin información...</span>
                             </div>
                         </div>
 
@@ -466,7 +466,7 @@
                             <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
                             <!-- <div style="background:rgba(255, 206, 86, 0.2);border:2px solid rgba(255, 206, 86, 1)" ><br> <br></div> -->
                             <!-- <canvas id="myChartHorizontal" style="position: relative; height:20vh; width:30vw;"></canvas> -->
-                            <span style="color:#ffffffcc">Sin informacón...</span>
+                            <span style="color:#ffffffcc">Sin información...</span>
                         </div>
                     </div>
                 </div>
@@ -491,7 +491,7 @@
                         </div>
                         <div class="card-body text-center">
                             <!-- <canvas id="productividad" style="position: relative; height:20vh; width:30vw;"></canvas> -->
-                            <span style="color:#ffffffcc">Sin informacón...</span>
+                            <span style="color:#ffffffcc">Sin información...</span>
                         </div>
 
                     </div>

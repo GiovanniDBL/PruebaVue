@@ -62,11 +62,11 @@
                                     <thead class=" text-light ">
                                         <tr class="t-head-table">
                                             <th>Id Device</th>
-                                            <th>Name Device</th>
-
+                                            <th>Dispositivo</th>
+                                            <th>Nombre</th>
                                             <th>Nivel de señal</th>
                                             <th>Estado Comunicación</th>
-                                            <th>Temp</th>
+                                            <!-- <th>Temp</th> -->
                                             <!-- <th>Voltaje</th> -->
                                             <th>Ubicación</th>
                                             <th>Subcuenta</th>
@@ -80,6 +80,7 @@
                                         <tr class="t-body-table" :id="'device-'+item.idDevice">
                                             <th>{{item.idDevice}}</th>
                                             <td>{{item.deviceName}}</td>
+                                            <td>{{item.Nasignado}}</td>
 
                                             <td class="text-center">
 
@@ -94,7 +95,7 @@
 
                                             </td>
 
-                                            <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
+                                            <!-- <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td> -->
                                             <!-- <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td> -->
                                             <td>{{item.nameUbiInt}}</td>
                                             <td>{{item.nameCuenta}}</td>
@@ -105,12 +106,12 @@
                                                          <button class="btn btn-success " v-on:click="detalles(item.idDevice)">
                                             <i class="fas fa-receipt"></i>
                                         </button>
-                                        <button style="margin:0 5px 0 5px" class="btn btn-warning " disabled>
+                                        <!-- <button style="margin:0 5px 0 5px" class="btn btn-warning " disabled>
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button class="btn btn-danger " disabled>
                                             <i class="fas fa-trash-alt"></i>
-                                        </button>
+                                        </button> -->
                                                 </td>
 
                                         </tr>
@@ -139,12 +140,15 @@
                                     <thead class=" text-light ">
                                         <tr class="t-head-table">
                                             <th>Id Device</th>
-                                            <th>Name Device</th>
+                                            <th>Dispositivo</th>
+                                            <th>Nombre</th>
 
                                             <th>Nivel de señal</th>
                                             <th>Estado Comunicación</th>
-                                            <th>Temp</th>
-                                            <th>Voltaje</th>
+                                            <th>Ubicación</th>
+                                            <th>Subcuenta</th>
+                                            <!-- <th>Temp</th> -->
+                                            <!-- <th>Voltaje</th> -->
                                             <th>Cuenta</th>
                                             <th>Detalles</th>
                                         </tr>
@@ -154,6 +158,7 @@
                                         <tr class="t-body-table" :id="'device-'+item.idDevice">
                                             <th>{{item.idDevice}}</th>
                                             <td>{{item.deviceName}}</td>
+                                            <td>{{item.Nasignado}}</td>
 
                                             <td class="text-center">
 
@@ -167,22 +172,23 @@
                                                 <span v-if="item.com_status==3" class="badge badge-pill badge-danger"><i style="color: gray" class="fas fa-circle"></i> Offline</span>
 
                                             </td>
-
-                                            <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td>
-                                            <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td>
+                                            <td>{{item.nameUbiInt}}</td>
                                             <td>{{item.nameCuenta}}</td>
+                                            <!-- <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td> -->
+                                            <!-- <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td> -->
+                                            <td>{{item.sCuentName}}</td>
                                             <td>
                                                 <!-- <i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i> -->
                                             
                                                      <button   class="btn btn-success " v-on:click="detalles(item.idDevice)">
                                             <i class="fas fa-receipt"></i>
                                         </button>
-                                        <button style="margin:0 5px 0 5px" class="btn btn-warning " disabled>
+                                        <!-- <button style="margin:0 5px 0 5px" class="btn btn-warning " disabled>
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button class="btn btn-danger " disabled>
                                             <i class="fas fa-trash-alt"></i>
-                                        </button>
+                                        </button> -->
                                             
                                             </td>
 
@@ -309,7 +315,8 @@ this.SearchFilterOfline = blog.deviceName.toLowerCase().includes(this.search.toL
                         tempAmb: json.data[index]["tempAmb"],
                         voltDevice: json.data[index]["voltDevice"],
                         nameUbiInt: json.data[index]["nameUbiInt"],
-                        sCuentName: json.data[index]["sCuentName"]
+                        sCuentName: json.data[index]["sCuentName"],
+                        Nasignado: json.data[index]["nombre_asignado"]
                     });
 
                 }
@@ -492,8 +499,10 @@ tr {
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
-    color: #949ca9fa;
+    /* color: #949ca9fa; */
+    color: #ffffffb3;
     margin-right: 1rem;
+    background-color: #19875454;
 }
 
 .alert {

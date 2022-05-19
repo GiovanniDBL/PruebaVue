@@ -59,7 +59,8 @@
                         </ul>
                     </nav> -->
                     <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
-                        <thead class="" style="background:#232e43; color:#fff">
+                        <!-- <thead class="" style="background:#232e43; color:#fff"> -->
+                        <thead class="" >
                             <tr class="t-head-table">
                                 <th scope="col">ID_alarma</th>
                                 <th scope="col">Cuenta</th>
@@ -68,11 +69,13 @@
                                 <th scope="col">Evento</th>
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Estado de alarma</th>
+                                <th scope="col">Tipo de alarma</th>
                                 <!-- <th scope="col">Opciones</th> -->
                             </tr>
                         </thead>
                         <tbody v-for="item in itemAlarmas" :key="item.idAlarmas">
-                            <tr class="t-body-table" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'">
+                            <!-- <tr class="t-body-table" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"> -->
+                            <tr class="t-body-table">
                                 <th scope="row">{{item.idAlarmas}}</tH>
                                 <td>{{item.account}}</td>
                                 <td>{{item.nombreAsignado}} </td>
@@ -80,6 +83,13 @@
                                 <td>{{item.event}}</td>
                                 <td>{{item.fecha}}</td>
                                 <td>{{item.estado_alarma}}</td>
+                                <td style="background-color:#c71527" v-if="item.clasificacion == 1">Alarma</td>
+                                <td style="background-color:#ffca2c; color:#000" v-if="item.clasificacion == 2">Alerta</td>
+
+
+                                <!-- <span  v-if="item.clasificacion == 1" class="badge text-bg-danger">Pendiente</span> -->
+                                                        <!-- <span style="background: rgba(187, 171, 26, 0.08);color: #bbb81a; font-size: 14px;" v-if="item.estatus == 2" class="badge text-bg-danger">Progreso</span> -->
+                                                        <!-- <span style="background: rgba(26, 187, 151, .08);color: #1abb97; font-size: 14px;" v-if="item.estatus == 3" class="badge text-bg-danger">Finalizado</span> -->
                                 <!-- <td>
                                         <button class="btn btn-success " v-on:click="detalles(item.idsCuent)">
                                             <i class="fas fa-receipt"></i>

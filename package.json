@@ -18,6 +18,7 @@
         "chartjs-plugin-datalabels": "^1.0.0",
         "chartjs-plugin-labels": "^1.1.0",
         "core-js": "^3.8.3",
+        "echarts": "^5.3.2",
         "jquery": "^3.6.0",
         "jspdf": "^2.5.1",
         "jspdf-autotable": "^3.5.23",
