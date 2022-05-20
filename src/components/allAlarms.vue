@@ -47,6 +47,11 @@
             </div>
             <div class="card-body">
                 <div class="tab-content" id="pills-tabContent">
+                                   <div style="margin-bottom:1rem">
+                                       <!-- #313845 -->
+  <span class="labels-alarmas-icons" style="margin-right: 1rem;"><i style="background-color: #a41c1ce6;color: #a41c1ce6; font-size: 20px;" class="fas fa-grip-lines-vertical"></i> Alarma </span>
+<span class="labels-alarmas-icons" ><i style="background-color: #cac51ce6;color:#cac51ce6; font-size: 20px;" class="fas fa-grip-lines-vertical"></i> Alerta</span>
+  </div>
                     <div class="scrollable">
                                <!-- <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
@@ -58,6 +63,7 @@
                             <li class="page-item"><a class="page-link text-primary" v-on:click="changePageEvent(pageEvent+1)" type="button">Next</a></li>
                         </ul>
                     </nav> -->
+     
                     <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                         <!-- <thead class="" style="background:#232e43; color:#fff"> -->
                         <thead class="" >
@@ -68,23 +74,36 @@
                                 <th scope="col">Dispositivo</th>
                                 <th scope="col">Evento</th>
                                 <th scope="col">Fecha</th>
+                                <!-- <th scope="col">Tipo</th> -->
                                 <th scope="col">Estado de alarma</th>
-                                <th scope="col">Tipo de alarma</th>
                                 <!-- <th scope="col">Opciones</th> -->
                             </tr>
                         </thead>
                         <tbody v-for="item in itemAlarmas" :key="item.idAlarmas">
                             <!-- <tr class="t-body-table" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"> -->
                             <tr class="t-body-table">
-                                <th scope="row">{{item.idAlarmas}}</tH>
+                                <th scope="row">
+                                    <i  v-if="item.clasificacion == 1" style="background: #a41c1ce6;color: #a41c1ce6; font-size: 16px;" class="fas fa-grip-lines-vertical"></i>
+                                    <i   v-if="item.clasificacion == 2" style="background: #cac51ce6;color:#cac51ce6; font-size: 16px;" class="fas fa-grip-lines-vertical"></i>
+                                     {{item.idAlarmas}}</tH>
                                 <td>{{item.account}}</td>
                                 <td>{{item.nombreAsignado}} </td>
                                 <td>{{item.deviceid}}</td>
                                 <td>{{item.event}}</td>
                                 <td>{{item.fecha}}</td>
-                                <td>{{item.estado_alarma}}</td>
-                                <td style="background-color:#c71527" v-if="item.clasificacion == 1">Alarma</td>
-                                <td style="background-color:#ffca2c; color:#000" v-if="item.clasificacion == 2">Alerta</td>
+                                 <!-- <td>
+                                    <span v-if="item.clasificacion == 1" style="background: #a41c1ce6;color: #fff; font-size: 14px;" class="badge text-bg-danger">Alarma</span>
+                                    <span v-if="item.clasificacion == 2" style="background: #cac51ce6;color: #000; font-size: 14px;" class="badge text-bg-danger">Alerta</span>
+                                    </td> -->
+                                <td>
+                                    <!-- {{item.estado_alarma}} -->
+                                <span style="background: rgba(187, 26, 26, 0.08);color: #d64b4b; font-size: 14px;" v-if="item.estatus == 1" class="badge text-bg-danger">Pendiente</span>
+                                <span style="background: rgba(187, 171, 26, 0.08);color: #bbb81a; font-size: 14px;" v-if="item.estatus == 2" class="badge text-bg-danger">Progreso</span>
+                                <span style="background: rgba(26, 187, 151, .08);color: #1abb97; font-size: 14px;" v-if="item.estatus == 3" class="badge text-bg-danger">Finalizado</span>
+                                </td>
+                               
+                                <!-- <td style="background-color:#c71527" v-if="item.clasificacion == 1">Alarma</td> -->
+                                <!-- <td style="background-color:#ffca2c; color:#000" v-if="item.clasificacion == 2">Alerta</td> -->
 
 
                                 <!-- <span  v-if="item.clasificacion == 1" class="badge text-bg-danger">Pendiente</span> -->
@@ -247,7 +266,8 @@ export default {
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
                         clasificacion: json.data[index]["id_clasificacion_alarma"],
-                        nombreAsignado: json.data[index]["nombre_asignado"]
+                        nombreAsignado: json.data[index]["nombre_asignado"],
+                        estatus: json.data[index]["estado_alarma"]
 
                     });
 
@@ -454,7 +474,8 @@ tr {
 }
 
 .t-body-table {
-    font-size: 15px;
+    font-size: 14px;
+    /* text-transform: ; */
     /* color: #ffffffbd; */
 }
 
@@ -579,6 +600,14 @@ option:hover {
     color: #fff !important;
 }
 
+.labels-alarmas-icons{
+color: #fff;
+font-size: 16px;
+/* border: 1px solid #313845; */
+background-color: #ffffff0d;
+padding: 8px 30px;
+border-radius: 7px;
+}
   
 @media only screen and (min-width: 1800px) {
     .scrollable {

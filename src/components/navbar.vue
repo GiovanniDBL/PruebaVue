@@ -3,7 +3,7 @@
     <!-- sticky-top -->
     <nav class="navbar  navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand">ATMSense <span class="span-brand">Software</span></a>
+            <a class="navbar-brand">Smart central <span class="span-brand">Station Platform</span> <small style="text-transform:capitalize;font-size:14px;color:#ffffffb3">(By Zigbmax)</small></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -133,7 +133,7 @@ export default {
 .navbar-brand {
     color: #fff !important;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     font-weight: bold;
 }
 
