@@ -155,9 +155,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <canvas id="gaugeTemp" style="position: relative; height:30vh; width:30vw;"></canvas>
+                                <!-- <canvas id="gaugeTemp" style="position: relative; height:30vh; width:30vw;"></canvas> -->
 
-                                <!-- <div id="Temperatura" style="height:280px; width: 100%;"></div> -->
+                                <div id="Temperatura" class="Echarts" ></div>
                             </div>
 
                         </div>
@@ -176,8 +176,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <canvas id="gaugeGas" style="position: relative; height:30vh; width:30vw;"></canvas>
-                                <!-- <div id="Gas" style="height:280px; width: 100%;"></div> -->
+                                <!-- <canvas id="gaugeGas" style="position: relative; height:30vh; width:30vw;"></canvas> -->
+                                <canvas id="Gas" style="position: relative; height:30vh; width:30vw;"></canvas>
+                                <!-- <div id="Gas" class="Echarts"></div> -->
                             </div>
 
                         </div>
@@ -419,7 +420,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body ">
-                                    <div class="scrollable">
+                                    <div class="scrollable-alarmas">
                                         <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                             <thead class="">
                                                 <tr class="t-head-table">
@@ -464,7 +465,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body ">
-                                    <div class="scrollable">
+                                    <div class="scrollable-alarmas">
                                         <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                             <thead class="">
                                                 <tr class="t-head-table">
@@ -905,11 +906,11 @@ export default {
                 this.GraficaVib();
                 this.GraficaGas();
                 this.GraficaVolt();
-                this.gaugeTemp();
+                // this.gaugeTemp();
                 // this.gaugeVib();
-                this.gaugeGas();
-                // this.echartTemp();
-                // this.echartGas();
+                // this.gaugeGas();
+                this.echartTemp();
+                this.echartGas();
                 //  this.UbicacionesInternas();
             }
         },
@@ -1968,7 +1969,7 @@ export default {
                         color: 'auto'
                     },
                     data: [{
-                        value: this.ultimatemp
+                        value: this.ultimagas
                     }]
                 }, ]
             };
@@ -2020,7 +2021,12 @@ export default {
 }
 
 .scrollable {
-    height: 260px;
+    height: 275px;
+    overflow: scroll;
+
+}
+.scrollable-alarmas {
+    height: 320px;
     overflow: scroll;
 
 }
@@ -2282,12 +2288,18 @@ tr {
 }
 
 .table-tamaño {
-    font-size: 10pt;
+    font-size: 10.5pt;
     width: 99%;
     margin-left: 0.9%;
     margin-bottom: 0;
 }
-
+.list-group-item{
+    border:0;
+}
+.Echarts{
+    height: 280px;
+    width: 100%;
+}
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;
@@ -2316,6 +2328,22 @@ tr {
         display: block;
         margin: 0 auto;
     }
+    .scrollable {
+    height: 318px;
+    overflow: scroll;
+
+}
+.scrollable-alarmas {
+    height: 430px;
+    overflow: scroll;
+
+}
+.table-tamaño {
+    font-size: 11pt;
+    width: 99%;
+    margin-left: 0.9%;
+    margin-bottom: 0;
+}
 
 }
 </style>
