@@ -117,9 +117,9 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                   <div v-if="SearchFilterOnline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                   <!-- <div v-if="SearchFilterOnline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
-                                </div>
+                                </div> -->
                                 <div v-if="totalOnline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No hay dispositivos online en estos momentos   <i class="fas fa-exclamation-circle"></i>
                                 </div>
@@ -195,9 +195,9 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                 <div v-if="SearchFilterOfline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                 <!-- <div v-if="SearchFilterOfline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
-                                </div>
+                                </div> -->
                                  <div v-if="totalOffline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No hay dispositivos offline en estos momentos   <i class="fas fa-exclamation-circle"></i>
                                 </div>
@@ -245,10 +245,16 @@ export default {
         filterDataOnline() {
             return this.DispositivosOnline.filter(blog => {
 
-this.SearchFilterOnline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
-                console.log('SearchFilterOnline',this.SearchFilterOnline);
-                return  this.SearchFilterOnline
+// this.SearchFilterOnline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
+//                     blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
+//                 console.log('SearchFilterOnline',this.SearchFilterOnline);
+//                 return  this.SearchFilterOnline
+
+                this.SearchFilterOnline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase())
+                    || blog.nameUbiInt.toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
+                    || blog.Nasignado.toLowerCase().includes(this.search.toLowerCase());
+                return this.SearchFilterOnline
             });
 
             //       return this.DispositivosOnline.filter(blog => {
@@ -260,7 +266,9 @@ this.SearchFilterOnline = blog.deviceName.toLowerCase().includes(this.search.toL
             return this.DispositivosOffline.filter(blog => {
 
 this.SearchFilterOfline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase());
+                    blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase())
+                    || blog.nameUbiInt.toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
+                    || blog.Nasignado.toLowerCase().includes(this.search.toLowerCase());
                 return this.SearchFilterOfline
             });
         }

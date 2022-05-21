@@ -4,7 +4,7 @@
     <!-- //TODO *************** NAVBAR ************** -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
-            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Plataforma Demo)</span> </span>
+            <span class="navbar-brand">Central de <span class="span-brand" id="brandf">monitoreo</span> <span style="color:#FFFFFFCC">(Plataforma Demo <span class="version">Versión Beta_1.0.0</span>)</span></span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -1279,6 +1279,7 @@ export default {
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 2px;
+    font-size: 1.2rem;
 
 }
 
@@ -1381,6 +1382,11 @@ export default {
 }
 tr{
     border-bottom: 1px solid #00000033;
+}
+.version{
+    font-size:14px;
+    text-transform: capitalize;
+    letter-spacing: 0;
 }
 @media only screen and (min-width: 1300px) {
     .card2 {

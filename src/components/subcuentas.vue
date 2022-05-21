@@ -93,9 +93,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                          <div v-if="SearchFilter == false " style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                          <!-- <div v-if="SearchFilter == false " style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                             No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
-                        </div>
+                        </div> -->
                          <div v-if="totalSubcuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen subcuentas en estos momentos <i class="fas fa-exclamation-circle"></i>
                                 </div>
@@ -286,7 +286,6 @@ export default {
                     blog.pais.toLowerCase().includes(this.search.toLowerCase()) || blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase());
                 return this.SearchFilter;
             });
-
 
             //     return this.itemsSubAccounts.filter(blog => {
             //     return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) || blog.NameUbica.toLowerCase().includes(this.search.toLowerCase()) ||

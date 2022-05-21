@@ -10,7 +10,7 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                            <a class="navbar-brand"> <i class="fas fa-bell-on icon"></i> Historial de alarmas </a>
+                            <a class="navbar-brand"> <i  class="fas fa-bell-on icon"></i> Historial de alarmas </a>
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                                 <li class="nav-item">
@@ -79,7 +79,8 @@
                                 <!-- <th scope="col">Opciones</th> -->
                             </tr>
                         </thead>
-                        <tbody v-for="item in itemAlarmas" :key="item.idAlarmas">
+                        <!-- <tbody v-for="item in itemAlarmas" :key="item.idAlarmas"> -->
+                        <tbody v-for="item in filterDataAlarms" :key="item.idAlarmas">
                             <!-- <tr class="t-body-table" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'"> -->
                             <tr class="t-body-table">
                                 <th scope="row">
@@ -160,7 +161,7 @@ export default {
             id_cPrincipal: localStorage.getItem('id_cPrincipal'),
             itemAlarmas: [],
             GlobalApi: this.globalVar,
-
+            search: '',
             perPage: '',
             newPagesLiEvents: [], //array que forma la paginacion
             page: 1, //determinar cual es la siguiente página o movimiento
@@ -173,6 +174,17 @@ export default {
             totalPages: 0,
             totalPagesEvent: 0,
             perPage: 0,
+            // SearchFilter:true,
+        }
+    },
+        computed: {
+        filterDataAlarms() {
+
+                 return this.itemAlarmas.filter(blog => {
+                return blog.event.toLowerCase().includes(this.search.toLowerCase()) || blog.idAlarmas.toString().toLowerCase().includes(this.search.toLowerCase())
+                || blog.deviceid.toLowerCase().includes(this.search.toLowerCase()) || blog.account.toLowerCase().includes(this.search.toLowerCase())
+                || blog.estado_alarma.toLowerCase().includes(this.search.toLowerCase()) || blog.nombreAsignado.toLowerCase().includes(this.search.toLowerCase());
+            });
         }
     },
     mounted() {

@@ -3,7 +3,7 @@
     <!-- sticky-top -->
     <nav class="navbar  navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand">Smart central <span class="span-brand">Station Platform</span> <small style="text-transform:capitalize;font-size:14px;color:#ffffffb3">(By Zigbmax)</small></a>
+            <a class="navbar-brand">Smart central <span class="span-brand">Station Platform</span> <small style="text-transform:capitalize;font-size:14px;color:#ffffffb3">(By Zigbmax Versión Beta_1.0.0)</small></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -15,10 +15,14 @@
                     <!-- <li class="nav-item" v-if="rol !== 'admin'"> -->
            
                     <!-- <li class="nav-item" v-if="rol == '2'"> -->
+            
                     <li class="nav-item" v-if="rol !== '6'">
                         <a class="nav-link monitoreo-link active" @click="popup()" aria-current="page" href="#">
                             <i class="fas fa-play"></i> Iniciar monitoreo en tiempo real</a>
                     </li>
+                                 <!-- <li class="nav-item">
+          <a class="nav-link disabled">V.Beta_1.0.0</a>
+        </li> -->
                     <li class="nav-item dropdown dropstart">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="card-img-top img-fluid" src="../assets/avatar.webp" alt="imagen">
@@ -116,10 +120,10 @@ export default {
     color: #ffffff !important;
     text-transform: uppercase;
     font-weight: bold;
-    margin-top: 2px;
+    margin-top: 8px;
     background-color: #af2b2b;
     border-radius: 22px;
-    margin-right: 1rem;
+    margin-right: 5px;
     padding: 5px;
 
 }
