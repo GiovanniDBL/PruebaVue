@@ -325,12 +325,13 @@
                             <div class="card" style="margin-top:1rem">
                                 <div class="card-header">
                                     <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Aperturas del dispositivo
-                                    <div style="float:right" class="dropdown">
+                                     <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span>
+                                    <!-- <div style="float:right" class="dropdown">
                                         <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                         <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                     <!-- <ul style="float:right" class="nav nav-pills" id="pills-tab" role="tablist">
                                         <li class="nav-item" role="presentation">
                                             <button style="margin-right:1rem" class="nav-link active btn-sm position-relative" id="pills-alarmas-tab" data-bs-toggle="pill" data-bs-target="#pills-alarmas" type="button" role="tab" aria-controls="pills-alarmas" aria-selected="true">Alarmas
@@ -368,6 +369,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        
                                     </div>
                                 </div>
 
@@ -386,6 +388,7 @@
                                      Últimas   Alarmas
                                         <span style="margin-left:1rem" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"> {{totalAlarms}}</span>
                                     </span>
+                                    
                                     <div style="float:right" class="btn-group " role="group" aria-label="Basic mixed styles example">
                                         <button @click="PDF_Talarmas" type="button" class="btn btn-success btn-sm">PDF <i type="button" class="fas fa-download"></i></button>
                                     </div>
@@ -656,9 +659,10 @@ export default {
             Form_id_zona: '',
             Form_nombre_zona: '',
             Form_index_zona: '',
-            results: '',
+            results: false,
             GlobalApi: this.globalVar,
             openedMarkerID: null,
+            mensaje:'',
             center: {
                 // lat: 51.093048,
                 // lng: 6.842120
@@ -1264,7 +1268,7 @@ export default {
                 "idDevice": this.idDevice,
                 "idCuenta": this.idUserLoged,
                 "timeUtc": timeUtc,
-                "timeEnd": "48 hours",
+                "timeEnd": "24 hours",
                 // "typeUserLoged": this.typeUserLoged,
 
             };
@@ -1283,9 +1287,9 @@ export default {
 
                 var json = resp;
                 // this.totalEvents = json.length;
-                // if (resp[0].result == 'Error, sin datos de alarmas') {
-                //     this.totalEvents = 0
-                // }
+                if (resp[0].result == 'No se encontraron resultadoss') {
+                this.mensaje = true
+                }
                 for (var index in json) {
 
                     let fechaApertura = moment.utc(json[index]["horaApertura"]).local().format('DD/MM/YYYY HH:mm:ss');
