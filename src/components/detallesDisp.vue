@@ -1248,7 +1248,7 @@ export default {
                 }
                 for (var index in json) {
 
-                    let locall = moment.utc(json[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
+                    let locall = moment.utc(json[index]["hora"]).local().format('DD/MM/YYYY HH:mm:ss');
 
                     this.EventosDevice.push({
                         idAlarmas: json[index]["ideventDevice"],
