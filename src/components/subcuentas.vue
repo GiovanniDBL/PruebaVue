@@ -70,13 +70,13 @@
                             </thead>
                             <tbody>
                                 <tr class="t-body-table" v-for="item in filterDataSubAccounts" :key="item.idsCuent">
-                                    <th scope="row">{{item.idsCuent}}</th>
-                                    <td>{{item.NameUbica}}</td>
-                                    <td>{{item.pais}}</td>
-                                    <td>{{item.estado}}</td>
-                                    <td>{{item.ciudad}}</td>
+                                    <th scope="row">{{item.idsCuent}} <span v-if="item.idsCuent == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></th>
+                                    <td>{{item.NameUbica}} <span v-if="item.NameUbica == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                    <td>{{item.pais}} <span v-if="item.pais == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                    <td>{{item.estado}} <span v-if="item.estado == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                    <td>{{item.ciudad}} <span v-if="item.ciudad == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
                                     <!-- <td>{{item.ciudad}} <span v-if="item.ciudad == null">Cancún</span></td> -->
-                                    <td>{{item.sCuentName}}</td>
+                                    <td>{{item.sCuentName}} <span v-if="item.sCuentName == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
                                     <td>
                                         <!-- <button class="btn btn-outline-info" v-on:click="detalles(item.idsCuent)"> Detalles</button> -->
                                         <!-- <i type="button" v-on:click="detalles(item.idsCuent)" class="fas fa-file-user fa-bounce"></i> -->

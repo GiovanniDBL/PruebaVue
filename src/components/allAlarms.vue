@@ -86,18 +86,19 @@
                                 <th scope="row">
                                     <i  v-if="item.clasificacion == 1" style="background: #a41c1ce6;color: #a41c1ce6; font-size: 16px;" class="fas fa-grip-lines-vertical"></i>
                                     <i   v-if="item.clasificacion == 2" style="background: #cac51ce6;color:#cac51ce6; font-size: 16px;" class="fas fa-grip-lines-vertical"></i>
-                                     {{item.idAlarmas}}</tH>
-                                <td>{{item.account}}</td>
-                                <td>{{item.nombreAsignado}} </td>
-                                <td>{{item.deviceid}}</td>
-                                <td>{{item.event}}</td>
-                                <td>{{item.fecha}}</td>
+                                     {{item.idAlarmas}} <span v-if="item.idAlarmas == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></th>
+                                <td>{{item.account}} <span v-if="item.account == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                <td>{{item.nombreAsignado}} <span v-if="item.nombreAsignado == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                <td>{{item.deviceid}} <span v-if="item.deviceid == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                <td>{{item.event}} <span v-if="item.event == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                <td>{{item.fecha}} <span v-if="item.fecha == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
                                  <!-- <td>
                                     <span v-if="item.clasificacion == 1" style="background: #a41c1ce6;color: #fff; font-size: 14px;" class="badge text-bg-danger">Alarma</span>
                                     <span v-if="item.clasificacion == 2" style="background: #cac51ce6;color: #000; font-size: 14px;" class="badge text-bg-danger">Alerta</span>
                                     </td> -->
                                 <td>
                                     <!-- {{item.estado_alarma}} -->
+                                <span v-if="item.estatus == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span>
                                 <span style="background: rgba(187, 26, 26, 0.08);color: #d64b4b; font-size: 14px;" v-if="item.estatus == 1" class="badge text-bg-danger">Pendiente</span>
                                 <span style="background: rgba(187, 171, 26, 0.08);color: #bbb81a; font-size: 14px;" v-if="item.estatus == 2" class="badge text-bg-danger">Progreso</span>
                                 <span style="background: rgba(26, 187, 151, .08);color: #1abb97; font-size: 14px;" v-if="item.estatus == 3" class="badge text-bg-danger">Finalizado</span>
@@ -124,6 +125,11 @@
                             </tr>
                         </tbody>
                     </table>
+                      <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                                        <div  class="spinner-border" role="status">
+                                            <span  class="visually-hidden">Loading...</span>
+                                        </div>
+                                        </div>
                     </div>
                         <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
@@ -174,6 +180,7 @@ export default {
             totalPages: 0,
             totalPagesEvent: 0,
             perPage: 0,
+            spinner: false,
             // SearchFilter:true,
         }
     },
@@ -258,12 +265,12 @@ export default {
             xhr.open('POST', this.GlobalApi + 'alarmas');
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.send(JSON.stringify(data));
-
+this.spinner = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText)
                 console.log("xml request aws allAlarms", resp);
                 var json = resp;
-
+this.spinner = false;
                 for (var index in json.data) {
 
                     let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');

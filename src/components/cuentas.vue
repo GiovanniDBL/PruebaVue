@@ -78,11 +78,11 @@
 
                             <tbody>
                                 <tr class="t-body-table" v-for="item in filterDataAccounts" :key="item.idsCuent">
-                                    <th scope="row">{{item.idsCuent}}</tH>
-                                    <td>{{item.sCuentName}}</td>
-                                    <td>{{item.suCuentaCorreo}} </td>
+                                    <th scope="row">{{item.idsCuent}} <span v-if="item.idsCuent == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></th>
+                                    <td>{{item.sCuentName}} <span v-if="item.sCuentName == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                    <td>{{item.suCuentaCorreo}} <span v-if="item.suCuentaCorreo == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
                                     <!-- <td>{{item.sCuentaDir}}</td> -->
-                                    <td>{{item.subCuentaTelefono}}</td>
+                                    <td>{{item.subCuentaTelefono}} <span v-if="item.subCuentaTelefono == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
                                     <td>
                                         <button class="btn btn-success " v-on:click="detalles(item.idsCuent)">
                                             <i class="fas fa-receipt"></i>

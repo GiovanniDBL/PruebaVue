@@ -78,9 +78,9 @@
                                     <!-- <tbody   v-for="item in DispositivosOnline" :key="item.idDevice"> -->
                                     <tbody v-for="item in filterDataOnline" :key="item.idDevice">
                                         <tr class="t-body-table" :id="'device-'+item.idDevice">
-                                            <th>{{item.idDevice}}</th>
-                                            <td>{{item.deviceName}}</td>
-                                            <td>{{item.Nasignado}}</td>
+                                            <th>{{item.idDevice}} <span v-if="item.idDevice == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></th>
+                                            <td>{{item.deviceName}} <span v-if="item.deviceName == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                            <td>{{item.Nasignado}} <span v-if="item.Nasignado == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
 
                                             <td class="text-center">
 
@@ -97,9 +97,9 @@
 
                                             <!-- <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td> -->
                                             <!-- <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td> -->
-                                            <td>{{item.nameUbiInt}}</td>
-                                            <td>{{item.nameCuenta}}</td>
-                                            <td>{{item.sCuentName}}</td>
+                                            <td>{{item.nameUbiInt}} <span v-if="item.nameUbiInt == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                            <td>{{item.nameCuenta}} <span v-if="item.nameCuenta == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                            <td>{{item.sCuentName}} <span v-if="item.sCuentName == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
 
                                             <td>
                                                 <!-- <i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i> -->
@@ -156,9 +156,9 @@
 
                                     <tbody v-for="item in filterDataOffline" :key="item.idDevice">
                                         <tr class="t-body-table" :id="'device-'+item.idDevice">
-                                            <th>{{item.idDevice}}</th>
-                                            <td>{{item.deviceName}}</td>
-                                            <td>{{item.Nasignado}}</td>
+                                            <th>{{item.idDevice}} <span v-if="item.idDevice == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></th>
+                                            <td>{{item.deviceName}} <span v-if="item.deviceName == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                            <td>{{item.Nasignado}} <span v-if="item.Nasignado == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
 
                                             <td class="text-center">
 
@@ -172,11 +172,11 @@
                                                 <span v-if="item.com_status==3" class="badge badge-pill badge-danger"><i style="color: gray" class="fas fa-circle"></i> Offline</span>
 
                                             </td>
-                                            <td>{{item.nameUbiInt}}</td>
-                                            <td>{{item.nameCuenta}}</td>
+                                            <td>{{item.nameUbiInt}} <span v-if="item.nameUbiInt == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
+                                            <td>{{item.nameCuenta}} <span v-if="item.nameCuenta == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
                                             <!-- <td><i style="color: #1abb97;" class="fal fa-thermometer-three-quarters"></i> {{item.tempAmb}}°</td> -->
                                             <!-- <td><i style="color: #1abb97;" class="fad fa-battery-bolt"></i> {{item.voltDevice}}</td> -->
-                                            <td>{{item.sCuentName}}</td>
+                                            <td>{{item.sCuentName}} <span v-if="item.sCuentName == null"><i style="color:gray" class="far fa-ellipsis-h"></i></span></td>
                                             <td>
                                                 <!-- <i class="fas fa-file-alt" type="button" v-on:click="detalles(item.idDevice)"></i> -->
                                             

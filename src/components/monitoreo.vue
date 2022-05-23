@@ -585,17 +585,27 @@ export default {
                 console.log("Datos Alarmas son", json.data);
                 console.log("Datos Alarmas total", json.data.length);
                 this.totalAlarmas = json.data.length;
-
                 for (var index in json.data) {
 
+                    /*CONDICIÓN PARA CAMBIAR EL NOMBRE DEL EVENTO SI ES "ALARMA DE TEMPERATURA"
+                     POR EL NOMBRE DE LA REGLA CREADA POR EL USUARIO*/
+                    var nombreAlarma = json.data[index]["nameTypeAlarm"];
+                     if (json.data[index]["id_alarma_virtual"] > 0) {
+                       nombreAlarma = json.data[index]["NombreAlarmaVirtual"]
+                        }
+
                     let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
+
+                   
 
                     this.itemsAlerts.push({
                         idAlarmas: json.data[index]["idAlarmas"],
                         deviceid: json.data[index]["NameDevice"],
                         fecha: locall,
                         account: json.data[index]["NameUbica"],
-                        event: json.data[index]["nameTypeAlarm"],
+                        
+                        // event: json.data[index]["nameTypeAlarm"],
+                        event: nombreAlarma,
                         zona: "000",
                         cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
@@ -656,6 +666,12 @@ export default {
 
                 for (var index in json.data) {
 
+                       /*CONDICIÓN PARA CAMBIAR EL NOMBRE DEL EVENTO SI ES "ALARMA DE TEMPERATURA"
+                     POR EL NOMBRE DE LA REGLA CREADA POR EL USUARIO*/
+                    // var nombreAlarma = json.data[index]["nameTypeAlarm"];
+                    //  if (json.data[index]["id_alarma_virtual"] > 0) {
+                    //    nombreAlarma = json.data[index]["NombreAlarmaVirtual"]
+                    //     }
                     let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
 
                     this.itemsAlertsProgreso.push({
@@ -663,6 +679,7 @@ export default {
                         deviceid: json.data[index]["NameDevice"],
                         fecha: locall,
                         account: json.data[index]["NameUbica"],
+                        // event: nombreAlarma,
                         event: json.data[index]["nameTypeAlarm"],
                         zona: "000",
                         cantidad: 1,
