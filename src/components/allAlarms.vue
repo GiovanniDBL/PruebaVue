@@ -181,9 +181,9 @@ export default {
         filterDataAlarms() {
 
                  return this.itemAlarmas.filter(blog => {
-                return blog.event.toLowerCase().includes(this.search.toLowerCase()) || blog.idAlarmas.toString().toLowerCase().includes(this.search.toLowerCase())
-                || blog.deviceid.toLowerCase().includes(this.search.toLowerCase()) || blog.account.toLowerCase().includes(this.search.toLowerCase())
-                || blog.estado_alarma.toLowerCase().includes(this.search.toLowerCase()) || blog.nombreAsignado.toLowerCase().includes(this.search.toLowerCase());
+                return blog.event?.toLowerCase().includes(this.search.toLowerCase()) || blog.idAlarmas?.toString().toLowerCase().includes(this.search.toLowerCase())
+                || blog.deviceid?.toLowerCase().includes(this.search.toLowerCase()) || blog.account?.toLowerCase().includes(this.search.toLowerCase())
+                || blog.estado_alarma?.toLowerCase().includes(this.search.toLowerCase()) || blog.nombreAsignado?.toLowerCase().includes(this.search.toLowerCase());
             });
         }
     },

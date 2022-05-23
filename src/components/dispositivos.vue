@@ -121,7 +121,7 @@
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div> -->
                                 <div v-if="totalOnline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
-                                    No hay dispositivos online en estos momentos   <i class="fas fa-exclamation-circle"></i>
+                                     No hay dispositivos online en estos momentos...   
                                 </div>
                             </div>
                         </div>
@@ -250,10 +250,10 @@ export default {
 //                 console.log('SearchFilterOnline',this.SearchFilterOnline);
 //                 return  this.SearchFilterOnline
 
-                this.SearchFilterOnline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase())
-                    || blog.nameUbiInt.toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
-                    || blog.Nasignado.toLowerCase().includes(this.search.toLowerCase());
+                this.SearchFilterOnline = blog.deviceName?.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta?.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.idDevice?.toString().toLowerCase().includes(this.search.toLowerCase())
+                    || blog.nameUbiInt?.toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentName?.toLowerCase().includes(this.search.toLowerCase())
+                    || blog.Nasignado?.toLowerCase().includes(this.search.toLowerCase());
                 return this.SearchFilterOnline
             });
 
@@ -265,10 +265,10 @@ export default {
         filterDataOffline() {
             return this.DispositivosOffline.filter(blog => {
 
-this.SearchFilterOfline = blog.deviceName.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.idDevice.toString().toLowerCase().includes(this.search.toLowerCase())
-                    || blog.nameUbiInt.toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
-                    || blog.Nasignado.toLowerCase().includes(this.search.toLowerCase());
+this.SearchFilterOfline = blog.deviceName?.toLowerCase().includes(this.search.toLowerCase()) || blog.nameCuenta?.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.idDevice?.toString().toLowerCase().includes(this.search.toLowerCase())
+                    || blog.nameUbiInt?.toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentName?.toLowerCase().includes(this.search.toLowerCase())
+                    || blog.Nasignado?.toLowerCase().includes(this.search.toLowerCase());
                 return this.SearchFilterOfline
             });
         }
@@ -326,20 +326,18 @@ this.SearchFilterOfline = blog.deviceName.toLowerCase().includes(this.search.toL
                         sCuentName: json.data[index]["sCuentName"],
                         Nasignado: json.data[index]["nombre_asignado"]
                     });
-
                 }
                 console.log("array", this.itemsDevices);
                 //* FILTRAR DISPOSITIVOS ONLINE
                 var DevicesOnline = this.itemsDevices.filter(estado => estado.com_status == 1);
                 this.DispositivosOnline = DevicesOnline
                 console.log('Dispositivos Online', this.DispositivosOnline);
-
                 this.totalOnline = DevicesOnline.length;
+
                 //* FILTRAR DISPOSITIVOS OFFLINE
                 var DevicesOffline = this.itemsDevices.filter(estado => estado.com_status !== 1);
                 this.DispositivosOffline = DevicesOffline
                 console.log('Dispositivos Offline', this.DispositivosOnline);
-
                 this.totalOffline = DevicesOffline.length;
 
 

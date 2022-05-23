@@ -62,9 +62,7 @@
                                 No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                             </div> -->
                         <!-- <table cellspacing="1" cellpadding="1" class="table table-success  table-bordered   table-hover  table-striped table-borderless table-tamaño" > -->
-                              <div v-if="totalCuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
-                                    No existen cuentas en estos momentos <i class="fas fa-exclamation-circle"></i>
-                                </div>
+                         
                         <table cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                             <thead class="">
                                 <tr class="t-head-table">
@@ -79,7 +77,7 @@
                             </thead>
 
                             <tbody>
-                                <tr class="t-body-table" v-for="item in itemsAccounts" :key="item.idsCuent">
+                                <tr class="t-body-table" v-for="item in filterDataAccounts" :key="item.idsCuent">
                                     <th scope="row">{{item.idsCuent}}</tH>
                                     <td>{{item.sCuentName}}</td>
                                     <td>{{item.suCuentaCorreo}} </td>
@@ -110,7 +108,9 @@
   </ul>
 </nav> -->
                         </table>
-
+     <div v-if="totalCuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
+                                    No hay cuentas en estos momentos...
+                                </div>
                     </div>
                 </div>
             </div>
@@ -250,8 +250,10 @@ export default {
             return this.itemsAccounts.filter(blog => {
 
                 // return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase())
-                // return blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) ||
-                //     blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase()) || blog.sCuentStatus.toString().toLowerCase().includes(this.search.toLowerCase())
+                return blog.sCuentName?.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.idsCuent?.toString().toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.suCuentaCorreo?.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.subCuentaTelefono?.toLowerCase().includes(this.search.toLowerCase())
             });
         }
 

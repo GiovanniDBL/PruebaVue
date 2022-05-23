@@ -97,7 +97,7 @@
                             No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                         </div> -->
                          <div v-if="totalSubcuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
-                                    No existen subcuentas en estos momentos <i class="fas fa-exclamation-circle"></i>
+                                    No existen subcuentas en estos momentos...
                                 </div>
                     </div>
                 </div>
@@ -281,9 +281,9 @@ export default {
         filterDataSubAccounts() {
             // blog.ciudad.toLowerCase().includes(this.search.toLowerCase()) ||
             return this.itemsSubAccounts.filter(blog => {
-                this.SearchFilter =  blog.sCuentName.toLowerCase().includes(this.search.toLowerCase()) || blog.NameUbica.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.estado.toLowerCase().includes(this.search.toLowerCase()) ||
-                    blog.pais.toLowerCase().includes(this.search.toLowerCase()) || blog.idsCuent.toString().toLowerCase().includes(this.search.toLowerCase());
+                this.SearchFilter =  blog.sCuentName?.toLowerCase().includes(this.search.toLowerCase()) || blog.NameUbica?.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.estado?.toLowerCase().includes(this.search.toLowerCase()) || blog.ciudad?.toLowerCase().includes(this.search.toLowerCase()) ||
+                    blog.pais?.toLowerCase().includes(this.search.toLowerCase()) || blog.idsCuent?.toString().toLowerCase().includes(this.search.toLowerCase());
                 return this.SearchFilter;
             });
 
