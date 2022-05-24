@@ -2,7 +2,7 @@
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
-        <button @click="updateGraphic()">grafica</button>
+        <!-- <button @click="updateGraphic()">grafica</button> -->
         <!-- //? ****** MENU DE NAVEGACIÓN PARA LA INFORMACIÓN DE GRÁFICAS Y DATOS DE DISPOSITIVO ******** -->
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -367,9 +367,9 @@
                                             </tbody>
                                         </table>
                                         <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
-                                        <div  class="spinner-border" role="status">
-                                            <span  class="visually-hidden">Loading...</span>
-                                        </div>
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
                                         </div>
                                         <div v-if="mensaje == true" style="color:#ffffffcc; text-align: center" class="alert animated fadeIn fast" role="alert">
                                             Sin registros...
@@ -409,7 +409,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody v-for="item in AlarmasDevice" :key="item.idAlarmas">
-                                                <tr v-if="totalAlarms > 0" class="t-body-table">
+                                                <tr :id="'device-'+ item.idAlarmas" v-if="totalAlarms > 0" class="t-body-table">
                                                     <th scope="row">{{item.idAlarmas}}</th>
                                                     <td>{{item.nombreAlarm}}</td>
                                                     <td>{{item.fecha}} </td>
@@ -423,11 +423,10 @@
                                             </tbody>
                                         </table>
                                         <div v-if="totalAlarms == 0" style="color:#ffffffcc; text-align: center" class="alert animated fadeIn fast" role="alert">
-                                        Sin registros...
+                                            Sin registros...
+                                        </div>
                                     </div>
-                                    </div>
-                                    
-                                    
+
                                 </div>
 
                             </div>
@@ -463,11 +462,11 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                            <div v-if="totalEvents == 0" style="color:#ffffffcc; text-align: center" class="alert animated fadeIn fast" role="alert">
-                                        Sin registros...
+                                        <div v-if="totalEvents == 0" style="color:#ffffffcc; text-align: center" class="alert animated fadeIn fast" role="alert">
+                                            Sin registros...
+                                        </div>
                                     </div>
-                                    </div>
-                                
+
                                 </div>
 
                             </div>
@@ -602,11 +601,16 @@ import moment from 'moment'
 import Swal from 'sweetalert2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import 'chartjs-adapter-date-fns';
-import {de} from 'date-fns/locale';
+import {
+    de
+} from 'date-fns/locale';
 // import VueGauge from 'vue-gauge';
 // import datalabelss from 'chartjs-plugin-datalabels'
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
+var audioEvento = new Audio(require('@/assets/AudioEvento.mp3'))
+var audioAlarma = new Audio(require('@/assets/AudioAlarma.mp3'))
+var audioAlerta = new Audio(require('@/assets/AudioAlerta.mp3'))
 export default {
     name: "detallesDispComponent",
     components: {
@@ -620,7 +624,10 @@ export default {
     data() {
         return {
             // timeUtc: moment(new Date()).utc().format(),
-            mychart:{},
+            mychartTemp: {},
+            mychartVibracion: {},
+            mychartGas: {},
+            mychartXZ: {},
             time: moment(new Date()),
             ChartAlarmas: ChartAlarmas,
             ChartHoras: ChartHoras,
@@ -634,7 +641,7 @@ export default {
             UltimasAlertas: [],
             timedevice: [],
             tempdevice: [],
-            arrayLabels: [],
+            // arrayLabels: [],
             vibraciondevice: [],
             gasdevice: [],
             voltdevice: [],
@@ -715,7 +722,10 @@ export default {
         // const ctxxx = document.getElementById('linechart-pendiente');
         // new Chart(ctxxx, this.planetChartData2);
         this.SocketOnInit();
-         this.GraficaTemp();
+        this.GraficaTemp();
+        this.GraficaVib();
+        this.GraficaGas();
+        this.GraficaVolt();
         this.GetinfoDevice();
         this.getAllSubAccounts();
         this.getZonas();
@@ -852,7 +862,7 @@ export default {
             var data = {
                 "typeFunction": "getStatusDevice",
                 "idDevice": this.idDevice,
-                "timeEnd": "12 hours",
+                "timeEnd": "24 hours",
                 "idUserLoged": this.idUserLoged,
                 "typeUserLoged": this.typeUserLoged,
 
@@ -907,30 +917,51 @@ export default {
                     for (var index in json.data) {
                         var date = json.data[index]["timeStatus"];
                         var tempAmb = json.data[index]["tempAmb"];
+                        var vibDevice = json.data[index]["vibDevice"];
+                        var gasDevice = json.data[index]["gasDevice"];
+                        var variacion_z = json.data[index]["variacion_z"];
+                        var variacion_x = json.data[index]["variacion_x"];
                         var stillUtc = moment.utc(date).toDate();
                         var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
 
                         this.timedevice.push(local);
-                        this.arrayLabels.push({x:local,y:tempAmb});
+                        this.tempdevice.push({
+                            x: local,
+                            y: tempAmb
+                        });
+                        this.vibraciondevice.push({
+                            x: local,
+                            y: vibDevice
+                        });
+                        this.gasdevice.push({
+                            x: local,
+                            y: gasDevice
+                        });
+                        this.variacionZ.push({
+                            x: local,
+                            y: variacion_z
+                        });
+                        this.variacionX.push({
+                            x: local,
+                            y: variacion_x
+                        });
                     }
-// console.log(this.arrayLabels);
                     //* Temperatura
-                    // this.arrayLabels.push({x:local,y:tempAmb});
                     // this.tempdevice = resp.data.map(resp => (resp.tempAmb));
                     // console.log('temperatura', this.tempdevice);
                     //* Vibración
-                    this.vibraciondevice = resp.data.map(resp => (resp.vibDevice));
+                    // this.vibraciondevice = resp.data.map(resp => (resp.vibDevice));
                     // console.log('vibración', this.vibraciondevice);
                     //* Gas
-                    this.gasdevice = resp.data.map(resp => (resp.gasDevice));
+                    // this.gasdevice = resp.data.map(resp => (resp.gasDevice));
                     // console.log('gas', this.gasdevice);
                     //* Variación X
                     // this.voltdevice = resp.data.map(resp => (resp.voltDevice));
-                    this.variacionX = resp.data.map(resp => (resp.variacion_x));
+                    // this.variacionX = resp.data.map(resp => (resp.variacion_x));
                     // console.log('variacion X', this.variacionX);
 
                     //* Variación Z
-                    this.variacionZ = resp.data.map(resp => (resp.variacion_z));
+                    // this.variacionZ = resp.data.map(resp => (resp.variacion_z));
                     // console.log('variacion Z', this.variacionZ);
 
                     //* Ultima temperatura
@@ -960,13 +991,13 @@ export default {
                 }
 
                 // this.GraficaTemp();
-                this.updateGraphic(this.arrayLabels);
+                this.updateGraphic();
                 // this.GraficaVib();
                 // this.GraficaGas();
                 // this.GraficaVolt();
-                // this.gaugeTemp();
+                this.gaugeTemp();
                 // this.gaugeVib();
-                // this.gaugeGas();
+                this.gaugeGas();
                 // this.echartTemp();
                 // this.echartGas();
                 //  this.UbicacionesInternas();
@@ -1368,150 +1399,97 @@ export default {
 
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
-            // this.GetinfoDevice();
-            console.log('iniciando grafica');
-const data ={
-        //   labels: this.arrayLabels,
-          datasets: [{
-              label: "Temp °C",
-              //data: this.itemsTempDevice,
-             data: [{x:'2022-05-23 14:15:00',y: '25'},
-              {x:'2022-05-23 12:15:00',y: '25'}],
-            //   data: this.arrayLabels,
-              backgroundColor: "rgba(54,73,93,.5)",
-             // pointRadius: 2,
-              borderColor: "#36495d",
-              borderWidth: 3,
-            },
-           
-          ],
-      };
-      const config={
-        type: 'line',
-        data: data,
-        options:{
-          lineTension: 5,
-          scales: {
-            xAxes:[
-            {
-              type:'time',
-              time:{
-                unit:'hour'
-              }
+            const data = {
+                datasets: [{
+                        data: [{
+                                x: '2022-05-23 14:15:00',
+                                y: '25'
+                            },
+                            {
+                                x: '2022-05-23 12:15:00',
+                                y: '25'
+                            }
+                        ],
+                    },
 
+                ],
+            };
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    legend: {
+                        labels: {
+                            fontColor: "#ffffff",
+                            fontSize: 15,
+                        },
+                    },
+                    lineTension: 5,
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: true,
+                                color: '#1a2130',
+                            },
+                            ticks: {
+                                padding: 25,
+                                fontColor: '#ffffffb3',
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            type: 'time',
+                            time: {
+                                unit: 'hour'
+                            },
+                            gridLines: {
+                                display: true,
+                                color: '#3a2d4c',
+                                drawBorder: true
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 5,
+                                fontColor: '#ffffffb3'
+                            },
+                        }]
+                    }
+                }
             }
-            ],
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                  padding: 25,
-                },
-              },
-            ],
-          },
-
-        }
-        
-   
-  }
-  this.mychart = new Chart(
-        document.getElementById("GraficaTemp"),
-        config
-      );
-
-            // var ctx = document.getElementById('GraficaTemp').getContext('2d');
-            // this.mychart = new Chart(ctx, {
-            //     type: 'line',
-            //     data: {
-            //         labels: this.timedevice,
-            //         datasets: [{
-            //             label: 'Temperatura',
-            //             data: this.tempdevice,
-            //             backgroundColor: '#fd202033',
-            //             borderColor: 'rgb(203 53 87)',
-            //             borderWidth: 2,
-            //             pointBorderColor: 'rgb(203 53 87)',
-            //             pointBackgroundColor: '#FFF',
-            //             pointHoverBackgroundColor: 'rgb(203 53 87)',
-            //             pointHoverBorderColor: 'rgba(220,220,220,1)',
-            //             pointHoverBorderWidth: 2,
-            //             pointHitRadius: 10,
-            //             pointRadius: 0,
-            //             // pointRadius: 3,
-            //             pointBorderWidth: 1,
-            //             lineTension: 0.1,
-
-            //         }, ]
-            //     },
-            //     options: {
-            //         legend: {
-            //             labels: {
-            //                 fontColor: "#ffffff",
-            //                 fontSize: 15,
-            //             }
-            //         },
-            //         scales: {
-            //             yAxes: [{
-            //                 gridLines: {
-            //                     display: true,
-            //                     color: '#1a2130',
-            //                 },
-            //                 ticks: {
-            //                     padding: 25,
-            //                     fontColor: '#ffffffb3',
-            //                     beginAtZero: true
-            //                 }
-            //             }],
-            //             xAxes: [{
-            //                 gridLines: {
-            //                     display: true,
-            //                     color: '#3a2d4c',
-            //                     drawBorder: true
-            //                 },
-            //                 ticks: {
-            //                     beginAtZero: true,
-            //                     padding: 5,
-            //                     fontColor: '#ffffffb3'
-
-            //                 },
-            //             }]
-            //         }
-            //     }
-            // });
+            this.mychartTemp = new Chart(
+                document.getElementById("GraficaTemp"),
+                config
+            );
         },
+
         GraficaVib() {
 
-            var ctx = document.getElementById('GraficaVib').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: this.timedevice,
-                    datasets: [{
-                        label: 'Detección de choque',
-                        data: this.vibraciondevice,
-                        backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderColor: 'rgba(75,192,192,1)',
-                        borderWidth: 2,
-                        pointBorderColor: 'rgba(75,192,192,1)',
-                        pointBackgroundColor: '#FFF',
-                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                        pointHoverBorderColor: 'rgba(220,220,220,1)',
-                        pointHoverBorderWidth: 2,
-                        pointHitRadius: 10,
-                        pointRadius: 0,
-                        pointBorderWidth: 1,
-                        lineTension: 0,
+            const data = {
+                datasets: [{
+                        data: [{
+                                x: '2022-05-23 14:15:00',
+                                y: '25'
+                            },
+                            {
+                                x: '2022-05-23 12:15:00',
+                                y: '25'
+                            }
+                        ],
+                    },
 
-                    }]
-                },
+                ],
+            };
+            const config = {
+                type: 'line',
+                data: data,
                 options: {
                     legend: {
                         labels: {
                             fontColor: "#ffffff",
                             fontSize: 15,
-                        }
+                        },
                     },
+                    lineTension: 5,
                     scales: {
                         yAxes: [{
                             gridLines: {
@@ -1525,6 +1503,10 @@ const data ={
                             }
                         }],
                         xAxes: [{
+                            type: 'time',
+                            time: {
+                                unit: 'hour'
+                            },
                             gridLines: {
                                 display: true,
                                 color: '#3a2d4c',
@@ -1534,50 +1516,44 @@ const data ={
                                 beginAtZero: true,
                                 padding: 5,
                                 fontColor: '#ffffffb3'
-
                             },
                         }]
                     }
                 }
-            });
+            }
+            this.mychartVibracion = new Chart(
+                document.getElementById("GraficaVib"),
+                config
+            );
+
         },
         GraficaGas() {
-            var ctx = document.getElementById('GraficaGas').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: this.timedevice,
-                    datasets: [{
-                        label: 'Gas',
-                        data: this.gasdevice,
-                        backgroundColor: '#3a3c3c66',
-                        borderColor: 'rgb(86 86 86)',
-                        borderWidth: 2,
-                        pointBorderColor: 'rgb(86 86 86)',
-                        pointBackgroundColor: '#FFF',
-                        pointHoverBackgroundColor: 'rgb(86 86 86)',
-                        pointHoverBorderColor: 'rgba(220,220,220,1)',
-                        pointHoverBorderWidth: 2,
-                        pointHitRadius: 10,
-                        pointRadius: 0,
-                        // pointRadius: 3,
-                        pointBorderWidth: 1,
-                        lineTension: 0.1,
-                    }]
-                },
-                options: {
-                    elements: {
-                        line: {
-                            tension: 0
-
-                        }
+            const data = {
+                datasets: [{
+                        data: [{
+                                x: '2022-05-23 14:15:00',
+                                y: '25'
+                            },
+                            {
+                                x: '2022-05-23 12:15:00',
+                                y: '25'
+                            }
+                        ],
                     },
+
+                ],
+            };
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
                     legend: {
                         labels: {
                             fontColor: "#ffffff",
                             fontSize: 15,
-                        }
+                        },
                     },
+                    lineTension: 5,
                     scales: {
                         yAxes: [{
                             gridLines: {
@@ -1591,6 +1567,10 @@ const data ={
                             }
                         }],
                         xAxes: [{
+                            type: 'time',
+                            time: {
+                                unit: 'hour'
+                            },
                             gridLines: {
                                 display: true,
                                 color: '#3a2d4c',
@@ -1600,68 +1580,45 @@ const data ={
                                 beginAtZero: true,
                                 padding: 5,
                                 fontColor: '#ffffffb3'
-
                             },
                         }]
                     }
                 }
-            });
+            }
+            this.mychartGas = new Chart(
+                document.getElementById("GraficaGas"),
+                config
+            );
+
         },
         GraficaVolt() {
-            var ctx = document.getElementById('GraficaVolt').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: this.timedevice,
-                    datasets: [{
-                            // label: 'Variación Z',
-                            label: 'Ataque lateral',
-                            data: this.variacionZ,
-                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                            borderColor: 'rgba(255, 206, 86, 1)',
-                            borderWidth: 2,
-                            pointBorderColor: 'rgba(255, 206, 86, 1)',
-                            pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-                            pointHoverBackgroundColor: 'rgba(255, 206, 86, 1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                            pointHoverBorderWidth: 2,
-                            pointHitRadius: 10,
-                            pointRadius: 0,
-                            pointBorderWidth: 1,
-                            lineTension: 0.1,
-                        },
-                        {
-                            label: 'Ataque frontal',
-                            data: this.variacionX,
-                            backgroundColor: '#2a3945',
-                            borderColor: '#42b883',
-                            borderWidth: 2,
-                            pointBorderColor: '#42b883',
-                            pointBackgroundColor: '#42b883',
-                            pointHoverBackgroundColor: '#42b883',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                            pointHoverBorderWidth: 2,
-                            pointHitRadius: 10,
-                            pointRadius: 0,
-                            pointBorderWidth: 1,
-                            lineTension: 0.1,
-                        }
-                    ]
-                },
-                options: {
-                    elements: {
-                        line: {
-                            tension: 0
 
-                        }
+            const data = {
+                datasets: [{
+                        data: [{
+                                x: '2022-05-23 14:15:00',
+                                y: '25'
+                            },
+                            {
+                                x: '2022-05-23 12:15:00',
+                                y: '25'
+                            }
+                        ],
                     },
+
+                ],
+            };
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
                     legend: {
                         labels: {
                             fontColor: "#ffffff",
                             fontSize: 15,
-                        }
+                        },
                     },
-
+                    lineTension: 5,
                     scales: {
                         yAxes: [{
                             gridLines: {
@@ -1675,6 +1632,10 @@ const data ={
                             }
                         }],
                         xAxes: [{
+                            type: 'time',
+                            time: {
+                                unit: 'hour'
+                            },
                             gridLines: {
                                 display: true,
                                 color: '#3a2d4c',
@@ -1684,12 +1645,16 @@ const data ={
                                 beginAtZero: true,
                                 padding: 5,
                                 fontColor: '#ffffffb3'
-
                             },
                         }]
                     }
                 }
-            });
+            }
+            this.mychartXZ = new Chart(
+                document.getElementById("GraficaVolt"),
+                config
+            );
+
         },
         // ************ GRAFICAS GAUGES CHART ************************
         gaugeTemp() {
@@ -1711,7 +1676,7 @@ const data ={
                         // data: [49, 79, 100],
                         // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
-                        backgroundColor: ['#2785ae', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
+                        backgroundColor: ['#2785ae', '#F1C40F', '#F1C40F', '#F1C40F', '#dc3545', '#dc3545'],
                         // backgroundColor: ['#27AE60', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
                         borderColor: "#1a2130",
                         borderWidth: 3
@@ -1846,20 +1811,13 @@ const data ={
             var chart = new Chart(ctx, {
                 type: 'gauge',
                 data: {
-                    labels: ['40', '50', '60', '70', '80', '100'],
+                    labels: ['250','399','400'],
                     datasets: [{
-                        // value: 31,
                         value: this.ultimagas,
+                        // value: 390,
                         minValue: 0,
-                        data: [50, 60, 70, 80, 90, 100],
-                        // data: [49, 79, 100],
-                        // backgroundColor: ['rgb(61,204,91)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(239,214,19)', 'rgb(255,84,84)', 'rgb(255,84,84)'],
-                        // backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dcb835', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
-                        // backgroundColor: ['#109618', '#ff9900', '#ff9900', '#ff9900', '#961010', '#961010'],
-                        // backgroundColor: ['#A93226', '#A93226', '#A93226', '#A93226', '#A93226', '#A93226'],
-                        // backgroundColor: ['#A93226', '#109618'],
-                        // backgroundColor: ['#27AE60', '#F1C40F', '#F1C40F', '#F1C40F', '#A93226', '#A93226'],
-                        backgroundColor: ['#A93226', '#A93226', '#A93226', '#A93226', '#A93226', '#A93226'],
+                        data: [250, 399, 500],
+                        backgroundColor: ['rgb(61,204,91)', '#dcb835', '#dc3545', '#dc3545', 'rgb(255,84,84)', 'rgb(255,84,84)'],
                         borderColor: "#1a2130",
                         borderWidth: 3
                     }]
@@ -1871,7 +1829,8 @@ const data ={
                         datalabels: {
                             display: true,
                             render: 'value',
-                            color: '#ffffffcc',
+                            // color: '#ffffffcc',
+                            color: '#000',
                             // backgroundColor: '#000000a1',
                             borderWidth: 0,
                             borderRadius: 5,
@@ -2103,12 +2062,121 @@ const data ={
 
             option && myChart.setOption(option);
         },
+        // ************ ACTUALIZAR GRAFICAS LINE CHART************************
+        updateGraphic(data) {
+            console.log("actualizando grafica");
+
+            this.mychartTemp.data.datasets.pop();
+            this.mychartTemp.data.datasets.push({
+                label: "Temperatura",
+
+                data: this.tempdevice,
+                backgroundColor: '#fd202033',
+                borderColor: 'rgb(203 53 87)',
+                borderWidth: 2,
+                pointBorderColor: 'rgb(203 53 87)',
+                pointBackgroundColor: '#FFF',
+                pointHoverBackgroundColor: 'rgb(203 53 87)',
+                pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2,
+                pointHitRadius: 10,
+                pointRadius: 0,
+                pointBorderWidth: 1,
+                lineTension: 0.1,
+
+            });
+            this.mychartTemp.update();
+
+            this.mychartVibracion.data.datasets.pop();
+            this.mychartVibracion.data.datasets.push({
+                label: "Detección de choque",
+
+                data: this.vibraciondevice,
+                backgroundColor: 'rgba(75,192,192,0.4)',
+                borderColor: 'rgba(75,192,192,1)',
+                borderWidth: 2,
+                pointBorderColor: 'rgba(75,192,192,1)',
+                pointBackgroundColor: '#FFF',
+                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2,
+                pointHitRadius: 10,
+                pointRadius: 0,
+                pointBorderWidth: 1,
+                lineTension: 0,
+
+            });
+            this.mychartVibracion.update();
+
+            this.mychartGas.data.datasets.pop();
+            this.mychartGas.data.datasets.push({
+                label: "Gas",
+
+                data: this.gasdevice,
+                backgroundColor: '#3a3c3c66',
+                borderColor: 'rgb(86 86 86)',
+                borderWidth: 2,
+                pointBorderColor: 'rgb(86 86 86)',
+                pointBackgroundColor: '#FFF',
+                pointHoverBackgroundColor: 'rgb(86 86 86)',
+                pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2,
+                pointHitRadius: 10,
+                pointRadius: 0,
+                pointBorderWidth: 1,
+                lineTension: 0.1,
+
+            });
+            this.mychartGas.update();
+
+            this.mychartXZ.data.datasets.length = 0;
+            // this.mychartXZ.data.datasets.pop();
+            this.mychartXZ.data.datasets.push({
+                    label: "Ataque lateral",
+
+                    data: this.variacionZ,
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 2,
+                    pointBorderColor: 'rgba(255, 206, 86, 1)',
+                    pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                    pointHoverBackgroundColor: 'rgba(255, 206, 86, 1)',
+                    pointHoverBorderColor: 'rgba(220,220,220,1)',
+                    pointHoverBorderWidth: 2,
+                    pointHitRadius: 10,
+                    pointRadius: 0,
+                    pointBorderWidth: 1,
+                    lineTension: 0.1,
+
+                }, {
+                    label: "Ataque frontal",
+
+                    data: this.variacionX,
+                    backgroundColor: '#2a3945',
+                    borderColor: '#42b883',
+                    borderWidth: 2,
+                    pointBorderColor: '#42b883',
+                    pointBackgroundColor: '#42b883',
+                    pointHoverBackgroundColor: '#42b883',
+                    pointHoverBorderColor: 'rgba(220,220,220,1)',
+                    pointHoverBorderWidth: 2,
+                    pointHitRadius: 10,
+                    pointRadius: 0,
+                    pointBorderWidth: 1,
+                    lineTension: 0.1,
+
+                },
+
+            );
+            this.mychartXZ.update();
+
+        },
         // ************ SOCKET ************************
-         getDataFromSocket() {
+        getDataFromSocket() {
             console.log("Obteniendo Datos");
             this.WebSocketTest();
         },
-         SocketOnInit() {
+        SocketOnInit() {
             if ("WebSocket" in window) {
                 console.log("Conectando socket...");
                 // var data = "";
@@ -2121,7 +2189,7 @@ const data ={
                         "action": "setNotifications",
                         "ActiveNotifications": 1,
                         "userID": this.idUserLoged,
-                        "topic": "/Device/"+this.idDevice
+                        "topic": "/Device/" + this.idDevice
                     }
                     ws.send(JSON.stringify(msg));
                     // console.log(msg);
@@ -2133,7 +2201,7 @@ const data ={
             }
 
         },
-          WebSocketTest(ws) {
+        WebSocketTest(ws) {
             var data = "";
 
             ws.onmessage = (evt) => {
@@ -2161,12 +2229,15 @@ const data ={
                 if (typeNotification != undefined && typeNotification != "undefined") {
                     switch (typeNotification) {
                         case 'Alarma':
-                            // this.getAlarmasFromHttp();
-                            // console.log('CaseAlarma',json["idDato"]);
-                            audioAlarma.play();
-                            audioAlarma.loop = true;
-                            this.openToastAlarmas(data)
-                            this.handleAlert(data);
+
+                        var idDeviceNotificacion=json["idDevice"];
+                           if(idDeviceNotificacion==this.idDevice){
+
+                               this.handleAlert(data);
+                            this.openToastAlarmas(data);
+                            console.log('MATCH',idDeviceNotificacion);
+                        }
+
 
                             break;
 
@@ -2178,25 +2249,19 @@ const data ={
                             //? 10=Fasia reposición,
                             //? 12 = restablecimiento de zona,
                             //? 14 = restablecimiento de ac
-                            this.handleAlertEventos(data)
+                            // this.handleAlertEventos(data)
                             console.log(json);
                             if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
                                 json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
 
-                                audioEvento.play();
-                                // this.handleAlertEventos(data)
                                 this.openToastEvent(json);
-                                console.log(json);
+                         
                             }
                             break;
 
                         case 'Alerta':
 
-                            console.log('CaseAlerta', data);
-                            audioAlerta.play();
-                            // audio.loop = true;
                             this.openToastAlertas(data)
-                            this.handleAlert(data);
 
                             break;
                     }
@@ -2238,25 +2303,79 @@ const data ={
             // 300000 = 5 minutos;
 
         },
-        updateGraphic(data){
-            console.log("actualizando grafica");
-  var data= 10;
-    this.mychart .data.datasets.pop();
-    this.mychart .data.datasets.push({
-       label: "Temp °C",
-              //data: this.itemsTempDevice,
-             /*data: [{x:'2022-05-16 14:15:00',y: '25'},
-              {x:'2022-05-16 12:15:00',y: '25'}],*/
-              data: this.arrayLabels,
-              backgroundColor: "rgba(54,73,93,.5)",
-              pointRadius: 2,
-              borderColor: "#36495d",
-              borderWidth: 3,
-        
-        //data: this.arrayLabels
-    });
-    this.mychart.update();
-        }
+        handleAlert(params) {
+
+            // var idDeviceNotificacion=json["idDevice"];
+            // if(idDeviceNotificacion==this.idDevice){}
+             console.log("WebSocket Alert: ", JSON.parse(params));
+            var json = JSON.parse(params);
+            console.log(json["mensaje"]);
+             var date = json["date"];
+            var stillUtc = moment.utc(date).toDate();
+            var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
+              let jSON = {
+                idAlarmas: json["idInserted"],
+                nombreAlarm: json["mensaje"],
+                estatus: json["status"],
+                fecha: local,
+                zona: "000",
+                cantidad: "1",
+            };
+            this.AlarmasDevice.splice(0, 0, jSON);
+            console.log('handAlert',  this.AlarmasDevice);
+
+        },
+        openToastAlarmas(params) {
+
+            var json = JSON.parse(params);
+            var mensaje = json["mensaje"];
+            var device = json["NameDevice"];
+            var idInserted = json["idInserted"];
+            var idDevice = json["idDevice"];
+            var tempAmb = json["tempAmb"];
+            console.log("idAlarma", idInserted);
+
+            this.$toast.open({
+                message: 'Alarma de ' + mensaje + ' del sensor: ' + device,
+                type: "error",
+                duration: 10000,
+                dismissible: true,
+                position: "top-right",
+            });
+
+            console.log('Notificacion_alarma', json);
+
+        },
+        openToastEvent(params) {
+
+            this.$toast.open({
+                message: 'Evento recibido de ' + params["mensaje"] + ' del sensor: ' + params["NameDevice"],
+                type: "success",
+                duration: 10000,
+                dismissible: true,
+                position: "top-right",
+            });
+            console.log(params);
+
+        },
+        openToastAlertas(params) {
+
+            var json = JSON.parse(params);
+            var mensaje = json["mensaje"];
+            var device = json["NameDevice"];
+            var idInserted = json["idInserted"];
+
+            this.$toast.open({
+                message: 'Alerta de ' + mensaje + ' del sensor: ' + device,
+                type: "warning",
+                duration: 10000,
+                dismissible: true,
+                position: "top-right",
+            });
+            console.log('Notificacion_alerta', json);
+
+        },
+
     }
 
 }
