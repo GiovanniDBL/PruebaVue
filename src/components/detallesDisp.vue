@@ -2,7 +2,9 @@
 <div>
     <sidebar></sidebar>
     <section class="home animated fadeIn">
-        <!-- <button @click="updateGraphic()">grafica</button> -->
+        <!-- <button class="btn btn-primary" style="float:right" @click="GetinfoDevice();">grafica</button> -->
+        <button class="btn btn-primary nav-link-disabled" disabled style="float:right">Dispositivo: {{NombAsignadoForm}}</button>
+
         <!-- //? ****** MENU DE NAVEGACIÓN PARA LA INFORMACIÓN DE GRÁFICAS Y DATOS DE DISPOSITIVO ******** -->
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -410,7 +412,10 @@
                                             </thead>
                                             <tbody v-for="item in AlarmasDevice" :key="item.idAlarmas">
                                                 <tr :id="'device-'+ item.idAlarmas" v-if="totalAlarms > 0" class="t-body-table">
-                                                    <th scope="row">{{item.idAlarmas}}</th>
+                                                    <th scope="row">
+                                                        <i v-if="item.clasificacion == 1" style="background: #a41c1ce6;color: #a41c1ce6; font-size: 13px;" class="fas fa-grip-lines-vertical"></i>
+                                                        <i v-if="item.clasificacion == 2" style="background: #cac51ce6;color:#cac51ce6; font-size: 13px;" class="fas fa-grip-lines-vertical"></i>
+                                                        {{item.idAlarmas}}</th>
                                                     <td>{{item.nombreAlarm}}</td>
                                                     <td>{{item.fecha}} </td>
                                                     <td>
@@ -455,8 +460,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody v-for="item in EventosDevice" :key="item.idAlarmas">
-                                                <tr v-if="totalAlarms > 0" class="t-body-table">
-                                                    <th scope="row">{{item.idAlarmas}}</th>
+                                                <tr :id="'device-'+ item.idAlarmas" v-if="totalAlarms > 0" class="t-body-table">
+                                                    <th scope="row">
+                                                        <i style="background: #198754;color: #198754; font-size: 13px;" class="fas fa-grip-lines-vertical"></i>
+                                                        {{item.idAlarmas}}</th>
                                                     <td>{{item.nombreAlarm}}</td>
                                                     <td>{{item.fecha}} </td>
                                                 </tr>
@@ -686,13 +693,14 @@ export default {
             spinner: false,
             flagRegistro: 0,
             fechaConexion: '0',
-            dataAperturaSelect: {
-                "typeFunction": "getDatos_apertura_device",
-                "idDevice": this.idDevice,
-                "idCuenta": this.idUserLoged,
-                "timeUtc": moment(new Date()).utc().format(),
-                "timeEnd": '24 hours',
-            },
+            dataAperturaSelect:{},
+            // dataAperturaSelect: {
+            //     "typeFunction": "getDatos_apertura_device",
+            //     "idDevice": this.idDevice,
+            //     "idCuenta": this.idUserLoged,
+            //     "timeUtc": moment(new Date()).utc().format(),
+            //     "timeEnd": '24 hours',
+            // },
             center: {
                 // lat: 51.093048,
                 // lng: 6.842120
@@ -731,7 +739,7 @@ export default {
         this.getZonas();
         this.getAllAlarms();
         this.getEventos();
-        this.getAperturas(this.dataAperturaSelect);
+       
         // Evento para abrir y cerrar la ventana de información del marker google maps
         this.$refs.myMapRef.$mapPromise.then((map) => {
             map.addListener('click', (mapsMouseEvent) => {
@@ -739,6 +747,15 @@ export default {
                 console.log(mapsMouseEvent.latLng.lng());
             });
         });
+
+        this.dataAperturaSelect = {
+            "typeFunction": "getDatos_apertura_device",
+            "idDevice": this.idDevice,
+            "idCuenta": this.idUserLoged,
+            "timeUtc": moment(new Date()).utc().format(),
+            "timeEnd": '24 hours',
+        }
+         this.getAperturas(this.dataAperturaSelect);
 
     },
     methods: {
@@ -862,6 +879,7 @@ export default {
             var data = {
                 "typeFunction": "getStatusDevice",
                 "idDevice": this.idDevice,
+                // "timeEnd": "20000 hours",
                 "timeEnd": "24 hours",
                 "idUserLoged": this.idUserLoged,
                 "typeUserLoged": this.typeUserLoged,
@@ -1271,7 +1289,7 @@ export default {
 
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
-                // console.log("xml request all Alarmas", resp);
+                console.log("xml request all Alarmas", resp);
                 var json = resp;
                 this.totalAlarms = json.length;
 
@@ -1287,6 +1305,7 @@ export default {
                         nombreAlarm: json[index]["nameTypeAlarm"],
                         estatus: json[index]["estado_alarma"],
                         fecha: locall,
+                        clasificacion: json[index]["id_clasificacion_alarma"],
                     });
 
                 }
@@ -1325,8 +1344,8 @@ export default {
                     this.EventosDevice.push({
                         idAlarmas: json[index]["ideventDevice"],
                         nombreAlarm: json[index]["nameTypeAlarm"],
-                        estatus: json[index]["estado_alarma"],
                         fecha: locall,
+                        // estatus: json[index]["estado_alarma"],
                     });
 
                 }
@@ -1355,7 +1374,7 @@ export default {
             this.spinner = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
-                // console.log("xml request AperturaDatos", resp);
+                console.log("xml request AperturaDatos", resp);
 
                 var json = resp;
                 this.spinner = false;
@@ -1441,6 +1460,10 @@ export default {
                             type: 'time',
                             time: {
                                 unit: 'hour'
+                                // unit: 'day'
+                                // unit: 'day'- semana
+                                // unit: 'week'- mes
+                                // unit: 'mont'- 1 año
                             },
                             gridLines: {
                                 display: true,
@@ -1811,7 +1834,7 @@ export default {
             var chart = new Chart(ctx, {
                 type: 'gauge',
                 data: {
-                    labels: ['250','399','400'],
+                    labels: ['250', '399', '400'],
                     datasets: [{
                         value: this.ultimagas,
                         // value: 390,
@@ -2230,14 +2253,13 @@ export default {
                     switch (typeNotification) {
                         case 'Alarma':
 
-                        var idDeviceNotificacion=json["idDevice"];
-                           if(idDeviceNotificacion==this.idDevice){
+                            var idDeviceNotificacion = json["idDevice"];
+                            if (idDeviceNotificacion == this.idDevice) {
 
-                               this.handleAlert(data);
-                            this.openToastAlarmas(data);
-                            console.log('MATCH',idDeviceNotificacion);
-                        }
-
+                                this.handleAlert(data);
+                                this.openToastAlarmas(data);
+                                // console.log('MATCH',idDeviceNotificacion);
+                            }
 
                             break;
 
@@ -2249,19 +2271,29 @@ export default {
                             //? 10=Fasia reposición,
                             //? 12 = restablecimiento de zona,
                             //? 14 = restablecimiento de ac
-                            // this.handleAlertEventos(data)
-                            console.log(json);
-                            if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
-                                json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
 
-                                this.openToastEvent(json);
-                         
+                            var idDeviceNotificacion = json["idDevice"];
+                            if (idDeviceNotificacion == this.idDevice) {
+
+                                this.handleAlertEventos(data)
+                                if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
+                                    json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
+
+                                    this.openToastEvent(json);
+
+                                }
                             }
                             break;
 
                         case 'Alerta':
 
-                            this.openToastAlertas(data)
+                            var idDeviceNotificacion = json["idDevice"];
+                            if (idDeviceNotificacion == this.idDevice) {
+
+                                this.handleAlert(data);
+                                this.openToastAlertas(data);
+
+                            }
 
                             break;
                     }
@@ -2305,25 +2337,71 @@ export default {
         },
         handleAlert(params) {
 
-            // var idDeviceNotificacion=json["idDevice"];
-            // if(idDeviceNotificacion==this.idDevice){}
-             console.log("WebSocket Alert: ", JSON.parse(params));
+            // this.GetinfoDevice();
+            console.log("WebSocket Alert: ", JSON.parse(params));
             var json = JSON.parse(params);
             console.log(json["mensaje"]);
-             var date = json["date"];
+            var clasificacion = json["typeNotification"]
+            var estatus = json["status"]
+            var idAlarmas = json["idInserted"];
+            var date = json["date"];
             var stillUtc = moment.utc(date).toDate();
             var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
-              let jSON = {
+
+            if (estatus == "Pendiente") {
+                var estatusActual = 1
+            };
+            if (clasificacion == "Alarma") {
+                var idclasificacion = 1
+            } else if (clasificacion == "Alerta") {
+                var idclasificacion = 2
+            };
+            let jSON = {
                 idAlarmas: json["idInserted"],
                 nombreAlarm: json["mensaje"],
-                estatus: json["status"],
+                estatus: estatusActual,
+                fecha: local,
+                zona: "000",
+                cantidad: "1",
+                clasificacion: idclasificacion
+            };
+            this.AlarmasDevice.splice(0, 0, jSON);
+
+            setTimeout(() => {
+                var trDevice = document.getElementById("device-" + idAlarmas);
+                trDevice.style.backgroundColor = '#ff00001f';
+                trDevice.style.transition = 'all .9s ease-in-out';
+                setTimeout(() => {
+                    trDevice.style.backgroundColor = '#1a2130';
+                }, 7000)
+            }, 1000);
+
+        },
+        handleAlertEventos(params) {
+            console.log("WebSocket Eventos: ", JSON.parse(params));
+            var json = JSON.parse(params);
+            var date = json["date"];
+            var stillUtc = moment.utc(date).toDate();
+            var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
+            var idEventos = json["idInserted"];
+
+            let jSON = {
+                idAlarmas: json["idInserted"],
+                nombreAlarm: json["mensaje"],
                 fecha: local,
                 zona: "000",
                 cantidad: "1",
             };
-            this.AlarmasDevice.splice(0, 0, jSON);
-            console.log('handAlert',  this.AlarmasDevice);
+            this.EventosDevice.splice(0, 0, jSON);
 
+            setTimeout(() => {
+                var trDevice = document.getElementById("device-" + idEventos);
+                trDevice.style.backgroundColor = '#00ff6021';
+                trDevice.style.transition = 'all .9s ease-in-out';
+                setTimeout(() => {
+                    trDevice.style.backgroundColor = '#1a2130';
+                }, 7000)
+            }, 1000);
         },
         openToastAlarmas(params) {
 
@@ -2376,7 +2454,11 @@ export default {
 
         },
 
-    }
+    },
+    // destroyed() {
+    //     this.SocketOnInit();
+    //     alert("Sdestruido")
+    // },
 
 }
 </script>
@@ -2666,6 +2748,13 @@ option:hover {
     color: #ffffffcc;
     margin-right: 1rem;
     background-color: #19875454;
+}
+
+.nav-link-disabled:disabled {
+    background-color: #1a2130;
+    color: #fff;
+    border: 0;
+    opacity: 0.90;
 }
 
 /* .nav-link {
