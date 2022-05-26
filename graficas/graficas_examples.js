@@ -3,10 +3,10 @@ var ctx = document.getElementById('GraficaTemp').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: this.timedevice,
+        // labels: this.timedevice,
         datasets: [{
             label: 'Temperatura',
-            data: this.tempdevice,
+            // data: this.tempdevice,
             backgroundColor: '#fd202033',
             borderColor: 'rgb(203 53 87)',
             borderWidth: 2,

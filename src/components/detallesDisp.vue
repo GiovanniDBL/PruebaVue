@@ -25,7 +25,18 @@
                             <div class="card ">
                                 <div style="background-color: #dc3545;" class="card-header">
                                     Temperatura interna en ATM
-                                    <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span>
+                                    <!-- <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span> -->
+                                      <div style="float:right;margin-left:5px">
+
+                                        <select id="select" style="background-color: transparent !important" v-on:change="OnchangeInfoDevice($event)" v-model="SelectGraficas" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                            <!-- <option selected></option> -->
+                                            <option value="24 hours" selected>Últimas 24 horas</option>
+                                            <option value="7 days">Últimos 7 días</option>
+                                            <option value="15 days">Últimos 15 días</option>
+                                            <option value="30 days">Últimos 30 días</option>
+                                        </select>
+                                    </div>
+                                    <span style="float:right"> <i class="fas fa-clock"></i> </span>
                                 </div>
                                 <div class="card-body text-end">
                                     <!-- <canvas id="linechart-alarmas" style="position: relative; height:20vh; width:30vw;"></canvas> -->
@@ -37,7 +48,8 @@
                             <div class="card ">
                                 <div style="background-color: #2e616a;" class="card-header">
                                     Detección de choque
-                                    <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span>
+                                    <span style="float:right"><i class="fas fa-clock"></i> {{SelectGraficasLabel}}</span>
+                                    <!-- <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span> -->
                                 </div>
                                 <div class="card-body text-end">
                                     <canvas id="GraficaVib" style="position: relative; height:25vh; width:30vw;"></canvas>
@@ -53,7 +65,8 @@
                             <div class="card ">
                                 <div style="background-color: #272c35;" class="card-header">
                                     Detección de gas
-                                    <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span>
+                                    <span style="float:right"><i class="fas fa-clock"></i> {{SelectGraficasLabel}}</span>
+                                    <!-- <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span> -->
                                 </div>
                                 <div class="card-body text-end">
                                     <canvas id="GraficaGas" style="position: relative; height:25vh; width:30vw;"></canvas>
@@ -65,7 +78,8 @@
                                 <div style="background-color: #d4b032; color:#000" class="card-header">
                                     <!-- Variaciones de voltaje -->
                                     Detección de inclinación y desprendimiento
-                                    <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span>
+                                    <span style="float:right"><i class="fas fa-clock"></i> {{SelectGraficasLabel}}</span>
+                                    <!-- <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span> -->
                                 </div>
                                 <div class="card-body text-end">
                                     <canvas id="GraficaVolt" style="position: relative; height:25vh; width:30vw;"></canvas>
@@ -690,10 +704,14 @@ export default {
             openedMarkerID: null,
             mensaje: '',
             SelectApertura: '24 hours',
+            SelectGraficasLabel: 'Últimas 24 horas',
+            SelectGraficas: '24 hours',
             spinner: false,
             flagRegistro: 0,
             fechaConexion: '0',
+            asd:[],
             dataAperturaSelect:{},
+            dataGraficas:{},
             // dataAperturaSelect: {
             //     "typeFunction": "getDatos_apertura_device",
             //     "idDevice": this.idDevice,
@@ -729,12 +747,20 @@ export default {
 
         // const ctxxx = document.getElementById('linechart-pendiente');
         // new Chart(ctxxx, this.planetChartData2);
+          this.dataGraficas = {
+              "typeFunction": "getStatusDevice",
+                "idDevice": this.idDevice,
+                // "timeEnd": "20000 hours",
+                "timeEnd": "24 hours",
+                "idUserLoged": this.idUserLoged,
+                "typeUserLoged": this.typeUserLoged,
+        }
         this.SocketOnInit();
         this.GraficaTemp();
         this.GraficaVib();
         this.GraficaGas();
         this.GraficaVolt();
-        this.GetinfoDevice();
+        this.GetinfoDevice(this.dataGraficas);
         this.getAllSubAccounts();
         this.getZonas();
         this.getAllAlarms();
@@ -748,6 +774,8 @@ export default {
             });
         });
 
+      
+
         this.dataAperturaSelect = {
             "typeFunction": "getDatos_apertura_device",
             "idDevice": this.idDevice,
@@ -756,7 +784,6 @@ export default {
             "timeEnd": '24 hours',
         }
          this.getAperturas(this.dataAperturaSelect);
-
     },
     methods: {
         PDF_Talarmas() {
@@ -874,17 +901,17 @@ export default {
             pdf.addImage(imgData, 'jpeg', 0, 0, 220, 22);
             pdf.save('Detalles del dispositivo.pdf');
         },
-        GetinfoDevice() {
+        GetinfoDevice(data) {
 
-            var data = {
-                "typeFunction": "getStatusDevice",
-                "idDevice": this.idDevice,
-                // "timeEnd": "20000 hours",
-                "timeEnd": "24 hours",
-                "idUserLoged": this.idUserLoged,
-                "typeUserLoged": this.typeUserLoged,
+            // var data = {
+            //     "typeFunction": "getStatusDevice",
+            //     "idDevice": this.idDevice,
+            //     "timeEnd": "20000 hours",
+            //     "timeEnd": "24 hours",
+            //     "idUserLoged": this.idUserLoged,
+            //     "typeUserLoged": this.typeUserLoged,
 
-            };
+            // };
             const xhr = new XMLHttpRequest();
             xhr.open(
                 "POST",
@@ -932,6 +959,11 @@ export default {
                     // this.timedevice = Reverse.map(resp => moment.utc(resp.timeStatus).locale('es-mx').format('h:mm a'));
                     // this.timedevice = Reverse.map(resp => resp.timeStatus = moment.locale('es-mx').format('h:mm a'));
                     var json = resp;
+                    this.tempdevice = [];
+                    this.vibraciondevice = [];
+                    this.gasdevice = [];
+                    this.variacionZ = [];
+                    this.variacionX = [];
                     for (var index in json.data) {
                         var date = json.data[index]["timeStatus"];
                         var tempAmb = json.data[index]["tempAmb"];
@@ -942,8 +974,9 @@ export default {
                         var stillUtc = moment.utc(date).toDate();
                         var local = moment(stillUtc).local().format('YYYY-MM-DD HH:mm:ss');
 
-                        this.timedevice.push(local);
-                        this.tempdevice.push({
+                        // this.timedevice.push(local);
+
+                         this.tempdevice.push({
                             x: local,
                             y: tempAmb
                         });
@@ -963,7 +996,9 @@ export default {
                             x: local,
                             y: variacion_x
                         });
+                
                     }
+                    // console.log(asd);
                     //* Temperatura
                     // this.tempdevice = resp.data.map(resp => (resp.tempAmb));
                     // console.log('temperatura', this.tempdevice);
@@ -1005,11 +1040,11 @@ export default {
                     // let ultimavoltt = resp.data.map(resp => (resp.variacion_x));
                     // this.ultimavolt = ultimavoltt.pop();
                     // console.log('ultima voltaje', this.ultimavolt);
-
+                   console.log('paso 1 datos obtenidos');
                 }
 
-                // this.GraficaTemp();
                 this.updateGraphic();
+                // this.GraficaTemp();
                 // this.GraficaVib();
                 // this.GraficaGas();
                 // this.GraficaVolt();
@@ -1020,6 +1055,23 @@ export default {
                 // this.echartGas();
                 //  this.UbicacionesInternas();
             }
+        },
+        OnchangeInfoDevice(event){
+            // this.SelectGraficasLabel = event.selectedOptions.option.label;
+            const select = document.getElementById('select');
+            this.SelectGraficasLabel = select.options[select.selectedIndex].text;
+            console.log(this.SelectGraficasLabel);
+            this.SelectGraficas = event.target.value;
+            console.log(this.SelectGraficas);
+              this.dataGraficas = {
+                "typeFunction": "getStatusDevice",
+                "idDevice": this.idDevice,
+                // "timeEnd": "20000 hours",
+                "timeEnd": this.SelectGraficas,
+                "idUserLoged": this.idUserLoged,
+                "typeUserLoged": this.typeUserLoged,
+            };
+            this.GetinfoDevice(this.dataGraficas);
         },
         ActualizarNombre() {
             var data = {
@@ -1419,6 +1471,7 @@ export default {
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
             const data = {
+                label: "Temperaturaa",
                 datasets: [{
                         data: [{
                                 x: '2022-05-23 14:15:00',
@@ -2086,13 +2139,12 @@ export default {
             option && myChart.setOption(option);
         },
         // ************ ACTUALIZAR GRAFICAS LINE CHART************************
-        updateGraphic(data) {
-            console.log("actualizando grafica");
+        updateGraphic() {
 
+            console.log("paso 2 actualizando grafica");
             this.mychartTemp.data.datasets.pop();
             this.mychartTemp.data.datasets.push({
                 label: "Temperatura",
-
                 data: this.tempdevice,
                 backgroundColor: '#fd202033',
                 borderColor: 'rgb(203 53 87)',
@@ -2253,8 +2305,9 @@ export default {
                     switch (typeNotification) {
                         case 'Alarma':
 
-                            var idDeviceNotificacion = json["idDevice"];
-                            if (idDeviceNotificacion == this.idDevice) {
+                            // var idDeviceNotificacion = json["idDevice"];
+                            // if (idDeviceNotificacion == this.idDevice) {
+                            if (json["idDevice"] == this.idDevice) {
 
                                 this.handleAlert(data);
                                 this.openToastAlarmas(data);
@@ -2272,8 +2325,8 @@ export default {
                             //? 12 = restablecimiento de zona,
                             //? 14 = restablecimiento de ac
 
-                            var idDeviceNotificacion = json["idDevice"];
-                            if (idDeviceNotificacion == this.idDevice) {
+                            // var idDeviceNotificacion = json["idDevice"];
+                            if (json["idDevice"] == this.idDevice) {
 
                                 this.handleAlertEventos(data)
                                 if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
@@ -2287,8 +2340,9 @@ export default {
 
                         case 'Alerta':
 
-                            var idDeviceNotificacion = json["idDevice"];
-                            if (idDeviceNotificacion == this.idDevice) {
+                            // var idDeviceNotificacion = json["idDevice"];
+                            // if (idDeviceNotificacion == this.idDevice) {
+                            if (json["idDevice"] == this.idDevice) {
 
                                 this.handleAlert(data);
                                 this.openToastAlertas(data);
@@ -2337,7 +2391,7 @@ export default {
         },
         handleAlert(params) {
 
-            // this.GetinfoDevice();
+            
             console.log("WebSocket Alert: ", JSON.parse(params));
             var json = JSON.parse(params);
             console.log(json["mensaje"]);
@@ -2367,17 +2421,34 @@ export default {
             };
             this.AlarmasDevice.splice(0, 0, jSON);
 
-            setTimeout(() => {
+           
+
+             if (clasificacion == "Alarma") {
+ setTimeout(() => {
                 var trDevice = document.getElementById("device-" + idAlarmas);
-                trDevice.style.backgroundColor = '#ff00001f';
+                trDevice.style.backgroundColor = '#ff000040';
                 trDevice.style.transition = 'all .9s ease-in-out';
                 setTimeout(() => {
+                    trDevice.style.transition = 'all .9s ease-in-out';
                     trDevice.style.backgroundColor = '#1a2130';
                 }, 7000)
             }, 1000);
 
+            } else if (clasificacion == "Alerta") {
+               setTimeout(() => {
+                var trDevice = document.getElementById("device-" + idAlarmas);
+                trDevice.style.backgroundColor = '#fff20040';
+                trDevice.style.transition = 'all .9s ease-in-out';
+                setTimeout(() => {
+                    trDevice.style.transition = 'all .9s ease-in-out';
+                    trDevice.style.backgroundColor = '#1a2130';
+                }, 7000)
+            }, 1000);
+            }
+
         },
         handleAlertEventos(params) {
+            this.GetinfoDevice();
             console.log("WebSocket Eventos: ", JSON.parse(params));
             var json = JSON.parse(params);
             var date = json["date"];
@@ -2454,11 +2525,11 @@ export default {
 
         },
 
+
     },
-    // destroyed() {
-    //     this.SocketOnInit();
-    //     alert("Sdestruido")
-    // },
+    destroyed() {
+        console.log('destruido');
+    },
 
 }
 </script>
