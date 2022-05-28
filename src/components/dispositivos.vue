@@ -279,8 +279,11 @@ this.SearchFilterOfline = blog.deviceName?.toLowerCase().includes(this.search.to
     },
     methods: {
         detalles(id) {
-            console.log(id);
-            this.$router.push('/detalles-devices/' + id)
+            // console.log(id);
+            this.$router.push('/detalles-devices')
+            // this.$router.push('/detalles-devices/' + id)
+            localStorage.setItem('id_devicesocket', id)
+            localStorage.setItem('id_devicesocket', id)
         },
         getAllDevices() {
 

@@ -81,7 +81,8 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   {
-    path: '/detalles-devices/:id',
+    path: '/detalles-devices',
+    // path: '/detalles-devices/:id',
     name: 'detallesDispComponent',
     component: DispositivoDetalles
   },

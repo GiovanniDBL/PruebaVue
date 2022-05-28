@@ -1202,7 +1202,7 @@ export default {
                 dismissible: true,
                 position: "top-right",
             });
-            console.log('Notificacion_alerta', json);
+            console.log('Notificacion_alertaA', json);
 
             //  var trDevice=document.getElementById("device-" + idInserted);
             // trDevice.style.backgroundColor = '#e7c129';

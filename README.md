@@ -18,6 +18,12 @@ npm run build
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+### Libreria para adaptar las graficas  
+```
+npm install date-fns chartjs-adapter-date-fns --save
+https://github.com/chartjs/chartjs-adapter-date-fns
+
+```
 ### Libreria para generar PDF 
 ```
 npm i jspdf --save

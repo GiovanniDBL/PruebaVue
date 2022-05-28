@@ -31,9 +31,12 @@
                                         <select id="select" style="background-color: transparent !important" v-on:change="OnchangeInfoDevice($event)" v-model="SelectGraficas" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                             <!-- <option selected></option> -->
                                             <option value="24 hours" selected>Últimas 24 horas</option>
-                                            <option value="7 days">Últimos 7 días</option>
+                                            <option value="168 hours">Últimos 7 días</option>
+                                            <option value="360 hours">Últimos 15 días</option>
+                                            <option value="720 hours">Últimos 30 días</option>
+                                            <!-- <option value="7 days">Últimos 7 días</option>
                                             <option value="15 days">Últimos 15 días</option>
-                                            <option value="30 days">Últimos 30 días</option>
+                                            <option value="30 days">Últimos 30 días</option> -->
                                         </select>
                                     </div>
                                     <span style="float:right"> <i class="fas fa-clock"></i> </span>
@@ -625,6 +628,7 @@ import 'chartjs-adapter-date-fns';
 import {
     de
 } from 'date-fns/locale';
+import { mapState } from 'vuex';
 // import VueGauge from 'vue-gauge';
 // import datalabelss from 'chartjs-plugin-datalabels'
 let messageApi = 'http://localhost:3000/formulario/';
@@ -645,6 +649,8 @@ export default {
     data() {
         return {
             // timeUtc: moment(new Date()).utc().format(),
+            show: true,
+            selectHours: 'hour',
             mychartTemp: {},
             mychartVibracion: {},
             mychartGas: {},
@@ -738,7 +744,10 @@ export default {
         }
     },
     mounted() {
-        this.idDevice = this.$route.params.id;
+
+        console.log('idselected',this.idDeviceSelected);
+        // this.idDevice= '';
+        // this.idDevice = this.$route.params.id;
         // const ctx = document.getElementById('linechart-alarmas');
         // new Chart(ctx, this.ChartAlarmas);
 
@@ -749,7 +758,7 @@ export default {
         // new Chart(ctxxx, this.planetChartData2);
           this.dataGraficas = {
               "typeFunction": "getStatusDevice",
-                "idDevice": this.idDevice,
+                "idDevice": this.idDeviceSelected,
                 // "timeEnd": "20000 hours",
                 "timeEnd": "24 hours",
                 "idUserLoged": this.idUserLoged,
@@ -784,6 +793,23 @@ export default {
             "timeEnd": '24 hours',
         }
          this.getAperturas(this.dataAperturaSelect);
+    },
+      created() {
+          let idDevice = localStorage.getItem('id_devicesocket')
+        //   this.idDevice = idDevice
+        this.$store.state.idDeviceSelected = idDevice
+
+             window.addEventListener('beforeunload', function (e) {
+      window.alert("test")
+  e.preventDefault(); 
+ e.returnValue = '';
+              console.log('Created activado');
+});
+        
+
+    },
+    computed:{
+        ...mapState(['idDeviceSelected'])
     },
     methods: {
         PDF_Talarmas() {
@@ -1057,16 +1083,19 @@ export default {
             }
         },
         OnchangeInfoDevice(event){
+            
             // this.SelectGraficasLabel = event.selectedOptions.option.label;
             const select = document.getElementById('select');
             this.SelectGraficasLabel = select.options[select.selectedIndex].text;
-            console.log(this.SelectGraficasLabel);
+            // console.log(this.SelectGraficasLabel);
             this.SelectGraficas = event.target.value;
-            console.log(this.SelectGraficas);
+            // console.log(this.SelectGraficas);
+          
+
               this.dataGraficas = {
                 "typeFunction": "getStatusDevice",
                 "idDevice": this.idDevice,
-                // "timeEnd": "20000 hours",
+                //"timeEnd": "20000 hours",
                 "timeEnd": this.SelectGraficas,
                 "idUserLoged": this.idUserLoged,
                 "typeUserLoged": this.typeUserLoged,
@@ -1467,9 +1496,9 @@ export default {
 
             this.getAperturas(this.dataAperturaSelect)
         },
-
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
+
             const data = {
                 label: "Temperaturaa",
                 datasets: [{
@@ -1487,9 +1516,10 @@ export default {
                 ],
             };
             const config = {
+              
+                options: {
                 type: 'line',
                 data: data,
-                options: {
                     legend: {
                         labels: {
                             fontColor: "#ffffff",
@@ -1510,24 +1540,25 @@ export default {
                             }
                         }],
                         xAxes: [{
-                            type: 'time',
-                            time: {
-                                unit: 'hour'
-                                // unit: 'day'
-                                // unit: 'day'- semana
-                                // unit: 'week'- mes
-                                // unit: 'mont'- 1 año
-                            },
-                            gridLines: {
-                                display: true,
-                                color: '#3a2d4c',
-                                drawBorder: true
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                padding: 5,
-                                fontColor: '#ffffffb3'
-                            },
+                            // type: 'time',
+                            // time: {
+                            //     unit: this.selectHours
+                            //     // unit: 'hour'
+                            //     // unit: 'day'
+                            //     // unit: 'day'- semana
+                            //     // unit: 'week'- mes
+                            //     // unit: 'mont'- 1 año
+                            // },
+                            // gridLines: {
+                            //     display: true,
+                            //     color: '#3a2d4c',
+                            //     drawBorder: true
+                            // },
+                            // ticks: {
+                            //     beginAtZero: true,
+                            //     padding: 5,
+                            //     fontColor: '#ffffffb3'
+                            // },
                         }]
                     }
                 }
@@ -1537,7 +1568,6 @@ export default {
                 config
             );
         },
-
         GraficaVib() {
 
             const data = {
@@ -1579,20 +1609,20 @@ export default {
                             }
                         }],
                         xAxes: [{
-                            type: 'time',
-                            time: {
-                                unit: 'hour'
-                            },
-                            gridLines: {
-                                display: true,
-                                color: '#3a2d4c',
-                                drawBorder: true
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                padding: 5,
-                                fontColor: '#ffffffb3'
-                            },
+                            // type: 'time',
+                            // time: {
+                            //     unit: 'hour'
+                            // },
+                            // gridLines: {
+                            //     display: true,
+                            //     color: '#3a2d4c',
+                            //     drawBorder: true
+                            // },
+                            // ticks: {
+                            //     beginAtZero: true,
+                            //     padding: 5,
+                            //     fontColor: '#ffffffb3'
+                            // },
                         }]
                     }
                 }
@@ -1643,20 +1673,20 @@ export default {
                             }
                         }],
                         xAxes: [{
-                            type: 'time',
-                            time: {
-                                unit: 'hour'
-                            },
-                            gridLines: {
-                                display: true,
-                                color: '#3a2d4c',
-                                drawBorder: true
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                padding: 5,
-                                fontColor: '#ffffffb3'
-                            },
+                            // type: 'time',
+                            // time: {
+                            //     unit: 'hour'
+                            // },
+                            // gridLines: {
+                            //     display: true,
+                            //     color: '#3a2d4c',
+                            //     drawBorder: true
+                            // },
+                            // ticks: {
+                            //     beginAtZero: true,
+                            //     padding: 5,
+                            //     fontColor: '#ffffffb3'
+                            // },
                         }]
                     }
                 }
@@ -1708,20 +1738,20 @@ export default {
                             }
                         }],
                         xAxes: [{
-                            type: 'time',
-                            time: {
-                                unit: 'hour'
-                            },
-                            gridLines: {
-                                display: true,
-                                color: '#3a2d4c',
-                                drawBorder: true
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                padding: 5,
-                                fontColor: '#ffffffb3'
-                            },
+                            // type: 'time',
+                            // time: {
+                            //     unit: 'hour'
+                            // },
+                            // gridLines: {
+                            //     display: true,
+                            //     color: '#3a2d4c',
+                            //     drawBorder: true
+                            // },
+                            // ticks: {
+                            //     beginAtZero: true,
+                            //     padding: 5,
+                            //     fontColor: '#ffffffb3'
+                            // },
                         }]
                     }
                 }
@@ -2140,8 +2170,24 @@ export default {
         },
         // ************ ACTUALIZAR GRAFICAS LINE CHART************************
         updateGraphic() {
-
+        
             console.log("paso 2 actualizando grafica");
+
+  switch (this.SelectGraficas) {
+                case '24 hours':
+                   this.selectHours = 'hour'
+                   break;
+                case '168 hours':
+                    this.selectHours = 'day'
+                    break;
+                case '360 hours':
+                    this.selectHours = 'day'
+                    break;
+                case '720 hours':
+                    this.selectHours = 'week'
+                    break;
+            }
+
             this.mychartTemp.data.datasets.pop();
             this.mychartTemp.data.datasets.push({
                 label: "Temperatura",
@@ -2158,9 +2204,29 @@ export default {
                 pointRadius: 0,
                 pointBorderWidth: 1,
                 lineTension: 0.1,
-
+                 type: 'line',
             });
+            this.mychartTemp.config.options.scales.xAxes.pop();
+            this.mychartTemp.config.options.scales.xAxes.push({
+
+                           type: 'time',
+                            time: {
+                                unit: this.selectHours
+                            },
+                            gridLines: {
+                                display: true,
+                                color: '#3a2d4c',
+                                drawBorder: true
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 5,
+                                fontColor: '#ffffffb3'
+                            },
+            });
+        
             this.mychartTemp.update();
+
 
             this.mychartVibracion.data.datasets.pop();
             this.mychartVibracion.data.datasets.push({
@@ -2180,6 +2246,24 @@ export default {
                 pointBorderWidth: 1,
                 lineTension: 0,
 
+            });
+            this.mychartVibracion.config.options.scales.xAxes.pop();
+            this.mychartVibracion.config.options.scales.xAxes.push({
+
+                           type: 'time',
+                            time: {
+                                unit: this.selectHours
+                            },
+                            gridLines: {
+                                display: true,
+                                color: '#3a2d4c',
+                                drawBorder: true
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 5,
+                                fontColor: '#ffffffb3'
+                            },
             });
             this.mychartVibracion.update();
 
@@ -2201,6 +2285,24 @@ export default {
                 pointBorderWidth: 1,
                 lineTension: 0.1,
 
+            });
+            this.mychartGas.config.options.scales.xAxes.pop();
+            this.mychartGas.config.options.scales.xAxes.push({
+
+                           type: 'time',
+                            time: {
+                                unit: this.selectHours
+                            },
+                            gridLines: {
+                                display: true,
+                                color: '#3a2d4c',
+                                drawBorder: true
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 5,
+                                fontColor: '#ffffffb3'
+                            },
             });
             this.mychartGas.update();
 
@@ -2243,6 +2345,24 @@ export default {
                 },
 
             );
+            this.mychartXZ.config.options.scales.xAxes.pop();
+            this.mychartXZ.config.options.scales.xAxes.push({
+
+                           type: 'time',
+                            time: {
+                                unit: this.selectHours
+                            },
+                            gridLines: {
+                                display: true,
+                                color: '#3a2d4c',
+                                drawBorder: true
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                padding: 5,
+                                fontColor: '#ffffffb3'
+                            },
+            });
             this.mychartXZ.update();
 
         },
@@ -2264,10 +2384,10 @@ export default {
                         "action": "setNotifications",
                         "ActiveNotifications": 1,
                         "userID": this.idUserLoged,
-                        "topic": "/Device/" + this.idDevice
+                        "topic": "/Device/" + this.idDeviceSelected
                     }
                     ws.send(JSON.stringify(msg));
-                    // console.log(msg);
+                    console.log('SOCKET INFO',msg);
                 };
                 this.WebSocketTest(ws);
             } else {
@@ -2281,7 +2401,7 @@ export default {
 
             ws.onmessage = (evt) => {
                 var received_msg = evt.data;
-                console.log("Mensaje Recibido...");
+                console.log("Mensaje Recibido...", this.idDevice);
                 //console.log(received_msg);
                 data = received_msg;
                 var json = JSON.parse(data);
@@ -2302,12 +2422,14 @@ export default {
                 let typeNotification = json["typeNotification"];
 
                 if (typeNotification != undefined && typeNotification != "undefined") {
+                    console.log('IDDEVICE',this.idDevice);
                     switch (typeNotification) {
                         case 'Alarma':
 
                             // var idDeviceNotificacion = json["idDevice"];
                             // if (idDeviceNotificacion == this.idDevice) {
-                            if (json["idDevice"] == this.idDevice) {
+                                console.log('si idDevice', this.idDeviceSelected + 'es igual a',  json["idDevice"]);
+                            if (json["idDevice"] == this.idDeviceSelected) {
 
                                 this.handleAlert(data);
                                 this.openToastAlarmas(data);
@@ -2316,40 +2438,40 @@ export default {
 
                             break;
 
-                        case 'Event':
-                            //? 1 = apertura,
-                            //? 2 = cierre,
-                            //? 4 = test,
-                            //? 8 = tamper reposicion,
-                            //? 10=Fasia reposición,
-                            //? 12 = restablecimiento de zona,
-                            //? 14 = restablecimiento de ac
+                        // case 'Event':
+                        //     //? 1 = apertura,
+                        //     //? 2 = cierre,
+                        //     //? 4 = test,
+                        //     //? 8 = tamper reposicion,
+                        //     //? 10=Fasia reposición,
+                        //     //? 12 = restablecimiento de zona,
+                        //     //? 14 = restablecimiento de ac
 
-                            // var idDeviceNotificacion = json["idDevice"];
-                            if (json["idDevice"] == this.idDevice) {
+                        //     // var idDeviceNotificacion = json["idDevice"];
+                        //     if (json["idDevice"] == this.idDevice) {
 
-                                this.handleAlertEventos(data)
-                                if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
-                                    json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
+                        //         this.handleAlertEventos(data)
+                        //         if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
+                        //             json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
 
-                                    this.openToastEvent(json);
+                        //             this.openToastEvent(json);
 
-                                }
-                            }
-                            break;
+                        //         }
+                        //     }
+                        //     break;
 
-                        case 'Alerta':
+                        // case 'Alerta':
 
-                            // var idDeviceNotificacion = json["idDevice"];
-                            // if (idDeviceNotificacion == this.idDevice) {
-                            if (json["idDevice"] == this.idDevice) {
+                        //     // var idDeviceNotificacion = json["idDevice"];
+                        //     // if (idDeviceNotificacion == this.idDevice) {
+                        //     if (json["idDevice"] == this.idDevice) {
 
-                                this.handleAlert(data);
-                                this.openToastAlertas(data);
+                        //         this.handleAlert(data);
+                        //         this.openToastAlertas(data);
 
-                            }
+                        //     }
 
-                            break;
+                        //     break;
                     }
 
                 }
@@ -2391,7 +2513,7 @@ export default {
         },
         handleAlert(params) {
 
-            
+            console.log('Paso 1');
             console.log("WebSocket Alert: ", JSON.parse(params));
             var json = JSON.parse(params);
             console.log(json["mensaje"]);
@@ -2476,11 +2598,13 @@ export default {
         },
         openToastAlarmas(params) {
 
+            console.log('paso 2');
             var json = JSON.parse(params);
+            var idDevice = json["idDevice"];
+            if (idDevice == this.idDeviceSelected) {
             var mensaje = json["mensaje"];
             var device = json["NameDevice"];
             var idInserted = json["idInserted"];
-            var idDevice = json["idDevice"];
             var tempAmb = json["tempAmb"];
             console.log("idAlarma", idInserted);
 
@@ -2493,23 +2617,33 @@ export default {
             });
 
             console.log('Notificacion_alarma', json);
+            console.log('Notificacion_alarma', idDevice);
+            
+            }
+         
 
         },
         openToastEvent(params) {
 
-            this.$toast.open({
+             if (params["idDevice"] == this.idDevice) {
+                this.$toast.open({
                 message: 'Evento recibido de ' + params["mensaje"] + ' del sensor: ' + params["NameDevice"],
                 type: "success",
                 duration: 10000,
                 dismissible: true,
                 position: "top-right",
             });
-            console.log(params);
+            console.log('EVENTO IDDEVICE', params["idDevice"]);
+             }
+          
 
         },
         openToastAlertas(params) {
 
             var json = JSON.parse(params);
+            var idDevice = json["idDevice"];
+            if (idDevice == this.idDevice) {
+
             var mensaje = json["mensaje"];
             var device = json["NameDevice"];
             var idInserted = json["idInserted"];
@@ -2521,12 +2655,16 @@ export default {
                 dismissible: true,
                 position: "top-right",
             });
+            console.log('Jasck', idDevice);
             console.log('Notificacion_alerta', json);
-
+            }else{
+                console.log('Devide diferente');
+            }
         },
 
 
     },
+    
     destroyed() {
         console.log('destruido');
     },
