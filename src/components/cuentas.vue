@@ -108,6 +108,11 @@
   </ul>
 </nav> -->
                         </table>
+                          <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                          <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                          </div>
+                            </div>
      <div v-if="totalCuentas == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No hay cuentas en estos momentos...
                                 </div>
@@ -217,6 +222,7 @@ export default {
     },
     data() {
         return {
+            spinner: false,
             itemsAccounts: [],
             search: '',
             GlobalApi: this.globalVar,
@@ -317,10 +323,13 @@ export default {
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.send(JSON.stringify(data));
             console.log(data);
+
+            this.spinner = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all acounts", resp);
                 var json = resp.data;
+                this.spinner = false;
                 this.totalCuentas = json.length;
 
                 for (var index in json) {

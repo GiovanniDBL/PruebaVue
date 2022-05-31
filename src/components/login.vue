@@ -35,7 +35,7 @@
                 </form>
             </div>
             <div class="card-footer text-center">
-                Proporcionado por ZigbMax <br> Versión Beta_1.0.0
+                Proporcionado por ZigbMax <br> Versión Beta_1.1.0
             </div>
         </div>
     </section>

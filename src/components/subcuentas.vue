@@ -93,6 +93,11 @@
                                 </tr>
                             </tbody>
                         </table>
+                          <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                          <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                          </div>
+                            </div>
                           <!-- <div v-if="SearchFilter == false " style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                             No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                         </div> -->
@@ -258,6 +263,7 @@ export default {
     },
     data() {
         return {
+            spinner:false,
             itemsSubAccounts: [],
             itemPaises:[],
             itemEstados:[],
@@ -310,6 +316,7 @@ export default {
                 "perPage": 10,
             };
             const xhr = new XMLHttpRequest();
+
             xhr.open(
                 "POST",
                 this.GlobalApi + 'subcuentas',
@@ -318,11 +325,12 @@ export default {
             xhr.setRequestHeader("Content-Type", "multipart/form-data");
             xhr.send(JSON.stringify(data));
 
+            this.spinner = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all SubAccounts", resp);
                 var json = resp.data;
-
+                this.spinner = false;
                 this.totalSubcuentas =json.length;
                 console.log(this.totalSubcuentas);
                 for (var index in json) {

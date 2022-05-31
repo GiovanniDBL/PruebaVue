@@ -120,6 +120,11 @@
                                    <!-- <div v-if="SearchFilterOnline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div> -->
+                                    <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                          <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                          </div>
+                            </div>
                                 <div v-if="totalOnline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                      No hay dispositivos online en estos momentos...   
                                 </div>
@@ -198,6 +203,11 @@
                                  <!-- <div v-if="SearchFilterOfline == false" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No existen resultados con el termino: <span style="color:#ffc107">{{search}}</span>
                                 </div> -->
+                                       <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                          <div class="spinner-border" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                          </div>
+                            </div>
                                  <div v-if="totalOffline == 0" style="color:#ffffffcc" class="alert animated fadeIn fast" role="alert">
                                     No hay dispositivos offline en estos momentos   <i class="fas fa-exclamation-circle"></i>
                                 </div>
@@ -223,6 +233,7 @@ export default {
     },
     data: function () {
         return {
+            spinner:false,
             hours: 8,
             arrayLabels: [],
             itemsDevices: [],
@@ -310,10 +321,12 @@ this.SearchFilterOfline = blog.deviceName?.toLowerCase().includes(this.search.to
             xhr.send(JSON.stringify(data));
 
             // listen for `load` event
+            this.spinner = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
                 console.log("xml request all devicess", resp);
                 var json = resp;
+                this.spinner = false;
                 for (var index in json.data) {
                     console.log(json.data[index]["NameDevice"]);
 
