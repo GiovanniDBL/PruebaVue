@@ -174,6 +174,7 @@ ul {
 
 .sidebar.close .text {
     opacity: 0;
+    display: none;
 }
 
 .sidebar .image {

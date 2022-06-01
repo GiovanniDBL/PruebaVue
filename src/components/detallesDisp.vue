@@ -3,9 +3,9 @@
     <sidebar></sidebar>
     <section class="home animated fadeIn">
         <!-- <button class="btn btn-primary" style="float:right" @click="$destroy()">destruirf</button> -->
-        <input style="background-color:#dc3546 !important" id="id_Selectp" type="text" class="form-control"  v-model="idselectec" disabled>
+        <input style="background-color:#dc3546 !important; display:none" id="id_Selectp" type="text" class="form-control"  v-model="idselectec" disabled>
         <button class="btn btn-primary nav-link-disabled" disabled style="float:right">Dispositivo: {{NombAsignadoForm}}</button>
-        <button class="btn btn-primary nav-link-disabled" disabled style="float:right">ID_Dispositivo: {{NameDeviceForm}}</button>
+        <button class="btn btn-primary nav-link-disabled" disabled style="float:right;margin-right:1rem">ID_Dispositivo: {{NameDeviceForm}}</button>
 
         <!-- //? ****** MENU DE NAVEGACIÓN PARA LA INFORMACIÓN DE GRÁFICAS Y DATOS DE DISPOSITIVO ******** -->
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -364,6 +364,7 @@
 
                                 </div>
                                 <div class="card-body ">
+      
                                     <div class="scrollable">
                                         <table id="actividad" cellspacing="1" cellpadding="1" class="table table-tamaño table-hover">
                                             <thead class="">
@@ -373,17 +374,29 @@
                                                     <th scope="col">Duración Días</th>
                                                     <th scope="col">Duracuón Minutos</th>
                                                     <th scope="col">Duración Segundos</th>
+                                                    <th scope="col">Average</th>
                                                     <!-- <th scope="col">Opciones</th> -->
                                                 </tr>
                                             </thead>
                                             <tbody v-for="item in AperturasDisp" :key="item.idAlarmas">
                                                 <tr v-if="mensaje != true" class="t-body-table">
                                                     <!-- <tr  class="t-body-table"> -->
-                                                    <td scope="row">{{item.fechaApertura}}</td>
+                                                        <!-- v-if="item.minutos <= 33" -->
+                                                    <td scope="row">
+                                                    {{item.fechaApertura}}
+                                                        <!-- <i style="background: #198754;color: #198754; font-size: 13px;" v-if="item.minutos <= 30" class="fas fa-grip-lines-vertical"></i>
+                                                        <i style="background: #cac51ce6;color: #cac51ce6; font-size: 13px;" v-if="item.minutos >= 31 && item.minutos <=39" class="fas fa-grip-lines-vertical"></i>
+                                                        <i style="background: #a41c1ce6;color: #a41c1ce6; font-size: 13px;" v-if="item.minutos >= 40" class="fas fa-grip-lines-vertical"></i> -->
+                                                    </td>
                                                     <td>{{item.fechaCierre}}</td>
                                                     <td>{{item.dias}} D</td>
                                                     <td>{{item.minutos}} Min</td>
                                                     <td>{{item.segundos}} Seg</td>
+                                                    <td>
+                                                        <span style="background: rgba(26, 187, 151, .08);color: #1abb97; font-size: 14px;" v-if="item.minutos <= 30" class="badge text-bg-danger">Estable</span>
+                                                        <span style="background: rgba(187, 171, 26, 0.08);color: #bbb81a; font-size: 14px;" v-if="item.minutos >= 31 && item.minutos <=39" class="badge text-bg-danger">Advertencia</span>
+                                                        <span style="background: rgba(187, 26, 26, 0.08);color: #d64b4b; font-size: 14px;" v-if="item.minutos >= 40" class="badge text-bg-danger">Peligro</span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -749,7 +762,7 @@ export default {
     mounted() {
 
 
-        console.log('idselected',this.idDeviceSelected);
+        // console.log('idselected',this.idDeviceSelected);
         this.idselectec =this.idDeviceSelected;
         // this.idDevice= '';
         // this.idDevice = this.$route.params.id;
@@ -2442,20 +2455,13 @@ export default {
                     console.log('IDDEVICE',this.idDevice);
                     switch (typeNotification) {
                         case 'Alarma':
+                             var infodev = document.getElementById('id_Selectp');
+                             if (json["idDevice"] == infodev.value) {
 
-                            // var idDeviceNotificacion = json["idDevice"];
-                            // if (idDeviceNotificacion == this.idDevice) {
-                                this.handleAlert(data);
-                            //     var infodev = document.getElementById('id_Selectp');
-                            //     console.log('si idDevice', this.idDeviceSelected + 'es igual a',  json["idDevice"]);
-                            //     console.log('PRUEBA_PRUEBA', infodev);
-                            // if (json["idDevice"] == infodev) {
-
-                            //     // this.openToastAlarmas(data);
-                            //     // console.log('MATCH',idDeviceNotificacion);
-                            // }else{
-                            //     alert("Tas tonto niño")
-                            // }
+                                 this.handleAlert(data);
+                                 this.openToastAlarmas(data);
+                             }
+               
 
                             break;
 
@@ -2467,15 +2473,18 @@ export default {
                             //? 10=Fasia reposición,
                             //? 12 = restablecimiento de zona,
                             //? 14 = restablecimiento de ac
+                            
+                            // this.handleAlertEventos(data)
 
                             // var idDeviceNotificacion = json["idDevice"];
-                            if (json["idDevice"] == this.idDeviceSelected) {
+                            var infodev = document.getElementById('id_Selectp');
+                            if (json["idDevice"] == infodev.value) {
 
-                                // this.openToastEvent(json);
                                 this.handleAlertEventos(data)
                                 if (json["codeAlarm"] == "1" || json["codeAlarm"] == "2" || json["codeAlarm"] == "4" ||
                                     json["codeAlarm"] == "8" || json["codeAlarm"] == "10" || json["codeAlarm"] == "12" || json["codeAlarm"] == "14") {
-
+                                        
+                                        this.openToastEvent(json);
 
                                 }
                             }
@@ -2485,7 +2494,8 @@ export default {
 
                             // var idDeviceNotificacion = json["idDevice"];
                             // if (idDeviceNotificacion == this.idDevice) {
-                            if (json["idDevice"] == this.idDeviceSelected) {
+                            var infodev = document.getElementById('id_Selectp');
+                            if (json["idDevice"] == infodev.value) {
 
                                 this.handleAlert(data);
                                 this.openToastAlertas(data);
@@ -2533,9 +2543,9 @@ export default {
 
         },
         handleAlert(params) {
-            var infodev = document.getElementById('id_Selectp');
+            // var infodev = document.getElementById('id_Selectp');
             var json = JSON.parse(params);
-            if (json["idDevice"] == this.idDeviceSelected) {
+            // if (json["idDevice"] == infodev.value) {
     console.log('Paso 1');
             console.log("WebSocket Alert: ", JSON.parse(params));
             console.log(json["mensaje"]);
@@ -2589,54 +2599,49 @@ export default {
                 }, 7000)
             }, 1000);
             }
-this.openToastAlarmas(params);
-            }else{
-                // alert("Tas tonto niño")
-            }
+// this.openToastAlarmas(params);
+            // }else{
+            //     // alert("Tas tonto niño")
+            // }
         
         },
         handleAlertEventos(params) {
-            this.GetinfoDevice();
-            console.log('HandAlerEvento Prueba');
-            console.log("WebSocket Eventos: ", JSON.parse(params));
             var json = JSON.parse(params);
-            var date = json["date"];
-            var stillUtc = moment.utc(date).toDate();
-            var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
-            var idEventos = json["idInserted"];
 
-            let jSON = {
-                idAlarmas: json["idInserted"],
-                nombreAlarm: json["mensaje"],
-                fecha: local,
-                zona: "000",
-                cantidad: "1",
-            };
-            this.EventosDevice.splice(0, 0, jSON);
-
-            setTimeout(() => {
-                var trDevice = document.getElementById("device-" + idEventos);
-                trDevice.style.backgroundColor = '#00ff6021';
-                trDevice.style.transition = 'all .9s ease-in-out';
+                this.GetinfoDevice();
+                console.log('HandAlerEvento Prueba');
+                console.log("WebSocket Eventos: ", JSON.parse(params));
+                var date = json["date"];
+                var stillUtc = moment.utc(date).toDate();
+                var local = moment(stillUtc).local().format('DD/MM/YYYY HH:mm:ss');
+                var idEventos = json["idInserted"];
+    
+                let jSON = {
+                    idAlarmas: json["idInserted"],
+                    nombreAlarm: json["mensaje"],
+                    fecha: local,
+                    zona: "000",
+                    cantidad: "1",
+                };
+                this.EventosDevice.splice(0, 0, jSON);
+    
                 setTimeout(() => {
-                    trDevice.style.backgroundColor = '#1a2130';
-                }, 7000)
-            }, 1000);
-
-                this.$toast.open({
-                message: 'Evento recibido de ' + params["mensaje"] + ' del sensor: ' + params["NameDevice"],
-                type: "success",
-                duration: 10000,
-                dismissible: true,
-                position: "top-right",
-            });
+                    var trDevice = document.getElementById("device-" + idEventos);
+                    trDevice.style.backgroundColor = '#00ff6021';
+                    trDevice.style.transition = 'all .9s ease-in-out';
+                    setTimeout(() => {
+                        trDevice.style.backgroundColor = '#1a2130';
+                    }, 7000)
+                }, 1000);
+                
+            
         },
         openToastAlarmas(params) {
 
             console.log('paso 2');
             var json = JSON.parse(params);
             var idDevice = json["idDevice"];
-            if (idDevice == this.idDeviceSelected) {
+            // if (idDevice == this.idDeviceSelected) {
             var mensaje = json["mensaje"];
             var device = json["NameDevice"];
             var idInserted = json["idInserted"];
@@ -2654,13 +2659,13 @@ this.openToastAlarmas(params);
             console.log('Notificacion_alarma', json);
             console.log('Notificacion_alarma', idDevice);
             
-            }
+            // }
          
 
         },
         openToastEvent(params) {
 
-             if (params["idDevice"] == this.idDeviceSelected) {
+            //  if (params["idDevice"] == this.idDeviceSelected) {
                 this.$toast.open({
                 message: 'Evento recibido de ' + params["mensaje"] + ' del sensor: ' + params["NameDevice"],
                 type: "success",
@@ -2669,7 +2674,7 @@ this.openToastAlarmas(params);
                 position: "top-right",
             });
             console.log('EVENTO IDDEVICE', params["idDevice"]);
-             }
+            //  }
           
 
         },
@@ -2677,7 +2682,7 @@ this.openToastAlarmas(params);
 
             var json = JSON.parse(params);
             var idDevice = json["idDevice"];
-            if (idDevice == this.idDeviceSelected) {
+            // if (idDevice == this.idDeviceSelected) {
 
             var mensaje = json["mensaje"];
             var device = json["NameDevice"];
@@ -2692,9 +2697,9 @@ this.openToastAlarmas(params);
             });
             console.log('Jasck', idDevice);
             console.log('Notificacion_alerta', json);
-            }else{
-                console.log('Devide diferente');
-            }
+            // }else{
+            //     console.log('Devide diferente');
+            // }
         },
 
 

@@ -31,92 +31,7 @@
     <!-- //TODO *************** NAVBAR FIN ************** -->
 
     <!--//* ********************** ALARMAS********************************************** -->
-    <!-- <button type="button" class="btn btn-primary" @click.prevent="playSound(require('@/assets/audioDemo.mp3'))">audio</button> -->
-    <!-- <button type="button" class="btn btn-primary" @click="clickprueba()">toast</button> -->
-    <!-- <div class="row">
-            <div class="col-6">
-                <div class="card bg-light card2">
-                    <div class="card-header ">
-                        <span  class="position-relative" style="padding-right:5px;">
-                            Alarmas
-                            <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <div class="scrollable">
-                            <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
-                                <thead class="" style="background:#41464b; color:#fff">
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Cuenta</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Dispositivo</th>
-                                        <th scope="col">Evento</th>
-                                        <th scope="col">Zona</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Estado de alarma</th>
-                                        numero_zona
-                                    </tr>
-                                </thead>
-                                <tbody v-for="item in itemsAlerts" :key="item.idAlarmas">
-                                    <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado)">
-                                        <th scope="row">{{item.idAlarmas}}</th>
-                                        <td>{{item.account}}</td>
-                                        <td>{{item.nombreAsignado}}</td>
-                                        <td>{{item.deviceid}}</td>
-                                        <td>{{item.event}}</td>
-                                        <td>1</td>
-                                        <td>{{item.fecha}}</td>
-                                        <td>{{item.estado_alarma}} <span :id="'icono-'+ item.idAlarmas"></span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <div class="card bg-light card2">
-                    <div class="card-header">
-                        <span class="position-relative" style="padding-right:5px;">
-                            Alarmas en progreso
-                            <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmasProgreso}}</span>
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <div class="scrollable">
-                            <table cellspacing="1" cellpadding="1" class="table  table-sm   table-hover  table-striped table-borderless table-tamaño">
-                                <thead style="background:#41464b; color:#fff" class="">
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Cuenta</th>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Dispositivo</th>
-                                        <th scope="col">Evento</th>
-                                        <th scope="col">Zona</th>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">Estado de alarma</th>
-                                    </tr>
-                                </thead>
-                                <tbody style="background:#f39c12;" v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
-                                    <tr :id="'device2-'+ item.idAlarmas" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma)">
-                                        <th style="color:#fff" scope="row">{{item.idAlarmas}}</th>
-                                        <td style="color:#fff">{{item.account}}</td>
-                                        <td style="color:#fff">{{item.nombreAsignado}}</td>
-                                        <td style="color:#fff">{{item.deviceid}}</td>
-                                        <td style="color:#fff">{{item.event}}</td>
-                                        <td style="color:#fff">1</td>
-                                        <td style="color:#fff">{{item.fecha}}</td>
-                                        <td style="color:#fff">{{item.estado_alarma}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+  
     <div class="container-fluid" style="margin-top:2rem">
         <div class="row">
             <div class="col-6">
@@ -126,8 +41,19 @@
                             Alarmas Pendientes
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
                         </span>
+                                                  <div style="float:right;margin-left:5px">
+
+                                        <select  class="form-select form-select-sm" aria-label="Default select example" id="numRowsEvents" @change="getAlarmasFromHttp(1)">
+                                             <option selected value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>
                     </div>
                     <div class="card-body">
+                        
                         <div class="scrollable">
                             
                             <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
@@ -161,7 +87,22 @@
                                     </tr>
                                 </tbody>
                             </table>
+                             <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                                        <div  class="spinner-border" role="status">
+                                            <span  class="visually-hidden">Loading...</span>
+                                        </div>
+                                        </div>
                         </div>
+                             <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-sm justify-content-center">
+                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent-1)" type="button">Atras</a></li>
+                            <li class="page-item"><a type="button" v-if="pageEvent>1" v-on:click="changePageEvent(1)" class="page-link">1</a></li>
+                            <li class="page-item active"><a type="button" class="page-link">{{pageEvent}}</a></li>
+                            <li class="page-item" v-for="(itemLi, index) in newPagesLiEvents" v-bind:key="index"><a type="button" v-if="itemLi.newPage!=pagesEvents" v-on:click="changePageEvent(itemLi.newPage)" class="page-link text-primary">{{itemLi.newPage}} </a></li>
+                            <li class="page-item"><a type="button" class="page-link text-primary" v-if="pageEvent!=pagesEvents" v-on:click="changePageEvent(pagesEvents)"><i style="color:#1abb97" class="fas fa-angle-double-right"></i></a></li>
+                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent+1)" type="button">Siguiente</a></li>
+                        </ul>
+                    </nav>
                     </div>
                 </div>
             </div>
@@ -171,6 +112,16 @@
                         <span class="position-relative" style="padding-right:5px;">
                             Alarmas en progreso
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmasProgreso}}</span>
+                            
+                            <div style="float:right;margin-left:5px">
+                             <select  class="form-select form-select-sm" aria-label="Default select example" id="numRowsEvents" @change="getAlarmasFromHttp(1)">
+                                            <option selected value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                        </select>
+                                    </div>
                         </span>
                     </div>
                     <div class="card-body">
@@ -207,6 +158,16 @@
                                 </tbody>
                             </table>
                         </div>
+                              <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-sm justify-content-center">
+                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent-1)" type="button">Atras</a></li>
+                            <li class="page-item"><a type="button" v-if="pageEvent>1" v-on:click="changePageEvent(1)" class="page-link">1</a></li>
+                            <li class="page-item active"><a type="button" class="page-link">{{pageEvent}}</a></li>
+                            <li class="page-item" v-for="(itemLi, index) in newPagesLiEvents" v-bind:key="index"><a type="button" v-if="itemLi.newPage!=pagesEvents" v-on:click="changePageEvent(itemLi.newPage)" class="page-link text-primary">{{itemLi.newPage}} </a></li>
+                            <li class="page-item"><a type="button" class="page-link text-primary" v-if="pageEvent!=pagesEvents" v-on:click="changePageEvent(pagesEvents)"><i style="color:#1abb97" class="fas fa-angle-double-right"></i></a></li>
+                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent+1)" type="button">Siguiente</a></li>
+                        </ul>
+                    </nav>
                     </div>
                 </div>
             </div>
@@ -296,7 +257,7 @@ export default {
     mounted() {
         // this.Alert();
         this.SocketOnInit();
-        this.getAlarmasFromHttp();
+        this.getAlarmasFromHttp(1);
         this.getEventosFromHttp();
         this.getProgresoAlarmasFromHttp();
         // this.getDataFromSocket();
@@ -423,6 +384,20 @@ export default {
             pendientes: '',
             asd: '',
             GlobalApi: this.globalVar,
+
+            perPage: '',
+            newPagesLiEvents: [], //array que forma la paginacion
+            page: 1, //determinar cual es la siguiente página o movimiento
+            pageEvent: 1, //página actual
+            pages: 0,
+            pagesEvents: 0,
+            adjacents: 2, //determinar cuantos cuadritos en la paginacion
+            newPagesLi: [],
+            newPagesLiEvents: [],
+            totalPages: 0,
+            totalPagesEvent: 0,
+            perPage: 0,
+            spinner:false
         }
     },
 
@@ -541,24 +516,53 @@ export default {
                 }, Time)
             }
         },
+         changePageEvent(page) {
 
-        getAlarmasFromHttp() {
+            this.pageEvent = (page <= 0 || page > this.pagesEvents) ? this.pageEvent : page;
 
-            var page = 1;
-            var perPage = 200;
+            console.log("Pagina nueva", this.pageEvent);
+            if (page > 0) {
+                this.newPagesLiEvents.length = 0;
+                let limitLi = this.pageEvent + this.adjacents;
+
+                let pmax = (this.pageEvent < (this.pagesEvents - this.adjacents)) ? (this.pageEvent + this.adjacents) : this.pagesEvents;
+
+                for (var i = this.pageEvent; i <= pmax; i++) {
+                    let newLi = page++;
+                    if (newLi != this.pageEvent) {
+                        console.log(newLi);
+                        this.newPagesLiEvents.push({
+                            "newPage": newLi
+                        })
+                    }
+
+                }
+                this.getAlarmasFromHttp(this.pageEvent);
+            }
+
+        },
+        getAlarmasFromHttp(p) {
+
+            // var page = 1;
+            // var perPage = 200;
 
             var idUser = this.id_usuario; //cambiarlo despues por el state
             var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
 
             console.log("idUser es", idUser);
             console.log("idUser es", typeUser);
+this.itemsAlerts.length = 0;
+            let perPageSelected = document.getElementById("numRowsEvents");
+            console.log("el valor es ", perPageSelected.value);
+            
+            this.perPage = perPageSelected.value;
 
             var data = {
                 "typeFunction": "GetAlarmas",
                 "idcPrincipal": this.id_cPrincipal,
                 "idcSecundaria": "null",
-                "page": page,
-                "perPage": perPage,
+                "page": p,
+                "perPage": this.perPage,
                 "idUserLoged": idUser,
                 "typeUserLoged": typeUser
             }
@@ -574,12 +578,13 @@ export default {
 
             // send request
             xhr.send(JSON.stringify(data));
-
+            this.spinner= true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText)
                 console.log("xml request aws", resp);
                 var json = resp;
-                this.itemsAlerts.length = 0;
+                this.spinner= false;
+                // this.itemsAlerts.length = 0;
 
                 this.pages = resp.totalPages;
                 console.log("Datos Alarmas son", json.data);
@@ -616,6 +621,29 @@ export default {
                         // numero_zona: json.data[index]["numero_zona"]
 
                     });
+
+                        // TODO PAGINATION CODIGO PRUEBA
+                    this.pagesEvents = resp.totalPages;
+                    console.log(this.pagesEvents);
+
+                    this.newPagesLiEvents.length = 0;
+                    let page = this.pageEvent;
+
+                    let limitLi = this.pageEvent + this.adjacents;
+
+                    let pmax = (this.pageEvent < (this.pagesEvents - this.adjacents)) ? (this.pageEvent + this.adjacents) : this.pagesEvents;
+
+                    for (var i = this.pageEvent; i <= pmax; i++) {
+                        let newLi = page++;
+                        if (newLi != this.pageEvent) {
+                            this.newPagesLiEvents.push({
+                                "newPage": newLi
+                            })
+                        }
+
+                    }
+
+                    // TODO **************
 
                 }
 
@@ -1283,10 +1311,17 @@ export default {
 } */
 .scrollable {
     /* height: 320px; */
-    height: 500px;
+    height: 447px;
     overflow: scroll;
 }
+/* .scrollable::-webkit-scrollbar {
+    background-color: #1a2130;
+}
 
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+
+} */
 .nav-item span {
     color: #FFF;
 }
@@ -1372,7 +1407,8 @@ export default {
 .card2 {
     /* width: 38.5rem; */
     /* height: 382px; */
-    height: 565px;
+    /* height: 565px; */
+    height: 545px;
 }
 
 .card-evento {
@@ -1404,6 +1440,37 @@ tr{
     font-size:14px;
     text-transform: capitalize;
     letter-spacing: 0;
+}
+.page-link {
+    position: relative;
+    display: block;
+    color: #fff !important;
+    text-decoration: none;
+    background-color: #343638;
+    border: 1px solid #343638;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #28997f;
+    border-color: #28997f;
+}
+.btn-next-back{
+  background-color: #343638;
+    border: 1px solid #343638;
+    color: #fff !important;
+}
+
+.form-select-sm {
+    padding: 1px 19px 1px 8px !important;
+    background-position: right -0rem center !important;
+    
+}
+.form-select-sm:focus {
+
+    border-color: none;
+    box-shadow: none;
 }
 @media only screen and (min-width: 1300px) {
     .card2 {
