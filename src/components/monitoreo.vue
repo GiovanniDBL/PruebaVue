@@ -31,7 +31,7 @@
     <!-- //TODO *************** NAVBAR FIN ************** -->
 
     <!--//* ********************** ALARMAS********************************************** -->
-  
+
     <div class="container-fluid" style="margin-top:2rem">
         <div class="row">
             <div class="col-6">
@@ -41,21 +41,27 @@
                             Alarmas Pendientes
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmas}}</span>
                         </span>
-                                                  <div style="float:right;margin-left:5px">
+                       
+                           <form style="float:right;" class="d-flex">
+                                <!-- <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search"> -->
+                                <input class="form-control form-control-sm me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search">
+                                <button class="btn btn-secondary btn-sm" type="submit" disabled><i class="fas fa-search"></i></button>
+                            </form>
+                             <div style="float:right;margin-left:5px;margin-right:1rem">
 
-                                        <select  class="form-select form-select-sm" aria-label="Default select example" id="numRowsEvents" @change="getAlarmasFromHttp(1)">
-                                             <option selected value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                    </div>
+                            <select class="form-select form-select-sm " aria-label="Default select example" id="numRowsPendientes" @change="getAlarmasFromHttp(1)">
+                                <option selected value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="card-body">
-                        
+
                         <div class="scrollable">
-                            
+
                             <table cellspacing="1" cellpadding="1" class="table  table-sm table-hover  table-borderless table-tamaño">
                                 <thead style="background:#232527eb; color:#fff">
                                     <!-- <thead style="background:#41464b; color:#fff"> -->
@@ -71,7 +77,8 @@
                                         <th scope="col">Estatus</th>
                                     </tr>
                                 </thead>
-                                <tbody v-for="item in itemsAlerts" :key="item.idAlarmas">
+                                <!-- <tbody v-for="item in itemsAlerts" :key="item.idAlarmas"> -->
+                                <tbody v-for="item in filterDataAlarmsPendientes" :key="item.idAlarmas">
                                     <!-- <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado, item.clasificacion,item.zona,item.nombre_zona)"> -->
                                     <tr class="color-alarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" :id="'device-'+ item.idAlarmas" @click="popup(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.nombreAsignado, item.clasificacion,item.zona,item.nombre_zona)">
                                         <th scope="row">{{item.idAlarmas}}</th>
@@ -87,22 +94,22 @@
                                     </tr>
                                 </tbody>
                             </table>
-                             <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
-                                        <div  class="spinner-border" role="status">
-                                            <span  class="visually-hidden">Loading...</span>
-                                        </div>
-                                        </div>
+                            <div v-if="spinner == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                                <div class="spinner-border" role="status" >
+                                    <span style="color:red" class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
                         </div>
-                             <nav aria-label="Page navigation example">
-                        <ul class="pagination pagination-sm justify-content-center">
-                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent-1)" type="button">Atras</a></li>
-                            <li class="page-item"><a type="button" v-if="pageEvent>1" v-on:click="changePageEvent(1)" class="page-link">1</a></li>
-                            <li class="page-item active"><a type="button" class="page-link">{{pageEvent}}</a></li>
-                            <li class="page-item" v-for="(itemLi, index) in newPagesLiEvents" v-bind:key="index"><a type="button" v-if="itemLi.newPage!=pagesEvents" v-on:click="changePageEvent(itemLi.newPage)" class="page-link text-primary">{{itemLi.newPage}} </a></li>
-                            <li class="page-item"><a type="button" class="page-link text-primary" v-if="pageEvent!=pagesEvents" v-on:click="changePageEvent(pagesEvents)"><i style="color:#1abb97" class="fas fa-angle-double-right"></i></a></li>
-                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent+1)" type="button">Siguiente</a></li>
-                        </ul>
-                    </nav>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePagePendientes(pageEventPendientes-1)" type="button">Atras</a></li>
+                                <li class="page-item"><a type="button" v-if="pageEventPendientes>1" v-on:click="changePagePendientes(1)" class="page-link">1</a></li>
+                                <li class="page-item active"><a type="button" class="page-link">{{pageEventPendientes}}</a></li>
+                                <li class="page-item" v-for="(itemLi, index) in newPagesLiEventsPendientes" v-bind:key="index"><a type="button" v-if="itemLi.newPage!=pagesEvents" v-on:click="changePagePendientes(itemLi.newPage)" class="page-link text-primary">{{itemLi.newPage}} </a></li>
+                                <li class="page-item"><a type="button" class="page-link text-primary" v-if="pageEventPendientes!=pagesEventsPendientes" v-on:click="changePagePendientes(pagesEventsPendientes)"><i style="color:#1abb97" class="fas fa-angle-double-right"></i></a></li>
+                                <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePagePendientes(pageEventPendientes+1)" type="button">Siguiente</a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -112,17 +119,24 @@
                         <span class="position-relative" style="padding-right:5px;">
                             Alarmas en progreso
                             <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalAlarmasProgreso}}</span>
-                            
-                            <div style="float:right;margin-left:5px">
-                             <select  class="form-select form-select-sm" aria-label="Default select example" id="numRowsEvents" @change="getAlarmasFromHttp(1)">
-                                            <option selected value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                    </div>
                         </span>
+                               <form  style="float:right;" class="d-flex">
+                                <!-- <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search"> -->
+                                <input class="form-control form-control-sm me-2" type="text" v-model="search2" placeholder="Buscar..." aria-label="Search">
+                                <button class="btn btn-secondary btn-sm" type="submit" disabled><i class="fas fa-search"></i></button>
+
+                            </form>
+                           <div style="float:right;margin-left:5px;margin-right:1rem">
+                               
+                            <select class="form-select form-select-sm" aria-label="Default select example" id="numRowsProgreso" @change="getProgresoAlarmasFromHttp(1)">
+                                <option selected value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                        
                     </div>
                     <div class="card-body">
                         <div class="scrollable">
@@ -157,17 +171,22 @@
                                     </tr>
                                 </tbody>
                             </table>
+                             <div v-if="spinner2 == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
                         </div>
-                              <nav aria-label="Page navigation example">
-                        <ul class="pagination pagination-sm justify-content-center">
-                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent-1)" type="button">Atras</a></li>
-                            <li class="page-item"><a type="button" v-if="pageEvent>1" v-on:click="changePageEvent(1)" class="page-link">1</a></li>
-                            <li class="page-item active"><a type="button" class="page-link">{{pageEvent}}</a></li>
-                            <li class="page-item" v-for="(itemLi, index) in newPagesLiEvents" v-bind:key="index"><a type="button" v-if="itemLi.newPage!=pagesEvents" v-on:click="changePageEvent(itemLi.newPage)" class="page-link text-primary">{{itemLi.newPage}} </a></li>
-                            <li class="page-item"><a type="button" class="page-link text-primary" v-if="pageEvent!=pagesEvents" v-on:click="changePageEvent(pagesEvents)"><i style="color:#1abb97" class="fas fa-angle-double-right"></i></a></li>
-                            <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEvent(pageEvent+1)" type="button">Siguiente</a></li>
-                        </ul>
-                    </nav>
+                            <nav aria-label="Page navigation example">
+                            <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageProgreso(pageEventProgreso-1)" type="button">Atras</a></li>
+                                <li class="page-item"><a type="button" v-if="pageEventProgreso>1" v-on:click="changePageProgreso(1)" class="page-link">1</a></li>
+                                <li class="page-item active"><a type="button" class="page-link">{{pageEventProgreso}}</a></li>
+                                <li class="page-item" v-for="(itemLi, index) in newPagesLiEventsProgreso" v-bind:key="index"><a type="button" v-if="itemLi.newPage!=pagesEventsProgreso" v-on:click="changePageProgreso(itemLi.newPage)" class="page-link text-primary">{{itemLi.newPage}} </a></li>
+                                <li class="page-item"><a type="button" class="page-link text-primary" v-if="pageEventProgreso!=pagesEventsProgreso" v-on:click="changePageProgreso(pagesEventsProgreso)"><i style="color:#1abb97" class="fas fa-angle-double-right"></i></a></li>
+                                <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageProgreso(pageEventProgreso+1)" type="button">Siguiente</a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -183,6 +202,22 @@
                         Eventos
                         <span class="position-absolute top-0 start-100 translate-middl badge rounded-pill bg-danger">{{totalEventos}}</span>
                     </span>
+                        <form  style="float:right;" class="d-flex">
+                                <!-- <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search"> -->
+                                <input class="form-control form-control-sm me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search">
+                                <button class="btn btn-secondary btn-sm" type="submit" disabled><i class="fas fa-search"></i></button>
+
+                            </form>
+                           <div style="float:right;margin-left:5px;margin-right:1rem">
+                               
+                            <select class="form-select form-select-sm" aria-label="Default select example" id="numRowsEventos" @change="getEventosFromHttp(1)">
+                                <option selected value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
                 </div>
                 <div class="card-body">
                     <!-- *PRIMER COLUMNA EVENTOS-->
@@ -216,8 +251,24 @@
                                     <!-- <td style="color:#fff">{{item.estado}}</td> -->
                                 </tr>
                             </tbody>
+                            <!-- changePageEventos -->
                         </table>
+                          <div v-if="spinner3 == true" style="margin-top:1rem" class="d-flex justify-content-center text-primary">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
                     </div>
+                            <nav aria-label="Page navigation example">
+                            <ul class="pagination pagination-sm justify-content-center">
+                                <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEventos(pageEventEventos-1)" type="button">Atras</a></li>
+                                <li class="page-item"><a type="button" v-if="pageEventEventos>1" v-on:click="changePageEventos(1)" class="page-link">1</a></li>
+                                <li class="page-item active"><a type="button" class="page-link">{{pageEventEventos}}</a></li>
+                                <li class="page-item" v-for="(itemLi, index) in newPagesLiEventsEventos" v-bind:key="index"><a type="button" v-if="itemLi.newPage!=pagesEventsEventos" v-on:click="changePageEventos(itemLi.newPage)" class="page-link text-primary">{{itemLi.newPage}} </a></li>
+                                <li class="page-item"><a type="button" class="page-link text-primary" v-if="pageEventEventos!=pagesEventsEventos" v-on:click="changePageEventos(pagesEventsEventos)"><i style="color:#1abb97" class="fas fa-angle-double-right"></i></a></li>
+                                <li class="page-item"><a class="page-link btn-next-back text-primary" v-on:click="changePageEventos(pageEventEventos+1)" type="button">Siguiente</a></li>
+                            </ul>
+                        </nav>
                 </div>
             </div>
         </div>
@@ -258,8 +309,8 @@ export default {
         // this.Alert();
         this.SocketOnInit();
         this.getAlarmasFromHttp(1);
-        this.getEventosFromHttp();
-        this.getProgresoAlarmasFromHttp();
+        this.getProgresoAlarmasFromHttp(1);
+        this.getEventosFromHttp(1);
         // this.getDataFromSocket();
         // console.log('variable global',this.myVar);
 
@@ -384,23 +435,54 @@ export default {
             pendientes: '',
             asd: '',
             GlobalApi: this.globalVar,
-
-            perPage: '',
-            newPagesLiEvents: [], //array que forma la paginacion
+            //* ALARMAS PAGINATION
+            perPagePendientes: '',
+            perPagePendientes: 0,
+            pagesEventsPendientes: 0,
+            newPagesLiEventsPendientes: [], //array que forma la paginacion
+            pageEventPendientes: 1, //página actual
             page: 1, //determinar cual es la siguiente página o movimiento
-            pageEvent: 1, //página actual
-            pages: 0,
-            pagesEvents: 0,
-            adjacents: 2, //determinar cuantos cuadritos en la paginacion
+            adjacentsPendientes: 2, //determinar cuantos cuadritos en la paginacion
+            pagesPendientes: 0,
             newPagesLi: [],
-            newPagesLiEvents: [],
+            newPagesLiEventsPendientes: [],
             totalPages: 0,
             totalPagesEvent: 0,
-            perPage: 0,
-            spinner:false
+            spinner: false,
+            search:'',
+            //* ALARMAS PROGRESO PAGINATION
+            perPageProgreso: '',
+            perPageProgreso: 0,
+            pagesEventsProgreso: 0,
+            newPagesLiEventsProgreso: [],
+            pageEventProgreso: 1,
+            adjacentsProgreso: 2,
+            pagesProgreso:0,
+            spinner2: false,
+            //* EVENTOS PAGINATION
+            perPageEventos: '',
+            perPageEventos: 0,
+            pagesEventsEventos: 0,
+            newPagesLiEventsEventos: [],
+            pageEventEventos: 1,
+            adjacentsEventos: 2,
+            pagesEventos:0,
+            spinner3: false,
+            
+
+
         }
     },
+   computed: {
+        filterDataAlarmsPendientes() {
 
+                 return this.itemsAlerts.filter(blog => {
+                return blog.event?.toLowerCase().includes(this.search.toLowerCase()) || blog.idAlarmas?.toString().toLowerCase().includes(this.search.toLowerCase())
+                || blog.deviceid?.toLowerCase().includes(this.search.toLowerCase()) || blog.account?.toLowerCase().includes(this.search.toLowerCase())
+                || blog.estado_alarma?.toLowerCase().includes(this.search.toLowerCase()) || blog.nombreAsignado?.toLowerCase().includes(this.search.toLowerCase());
+            });
+        }
+    },
     methods: {
         logChange(event) {
             console.log(event);
@@ -412,7 +494,7 @@ export default {
                 audio.play();
             }
         },
-        popup(id, c, d, e, f, es, cla,z,nz) {
+        popup(id, c, d, e, f, es, cla, z, nz) {
             //       var trDevice=document.getElementById("device-" + id);
             // trDevice.style.backgroundColor = '#c71527';
             // trDevice.style.transition = 'all .9s ease-in-out';
@@ -516,28 +598,28 @@ export default {
                 }, Time)
             }
         },
-         changePageEvent(page) {
+        changePagePendientes(page) {
 
-            this.pageEvent = (page <= 0 || page > this.pagesEvents) ? this.pageEvent : page;
+            this.pageEventPendientes = (page <= 0 || page > this.pagesEventsPendientes) ? this.pageEventPendientes : page;
 
-            console.log("Pagina nueva", this.pageEvent);
+            console.log("Pagina nueva", this.pageEventPendientes);
             if (page > 0) {
-                this.newPagesLiEvents.length = 0;
-                let limitLi = this.pageEvent + this.adjacents;
+                this.newPagesLiEventsPendientes.length = 0;
+                let limitLi = this.pageEventPendientes + this.adjacentsPendientes;
 
-                let pmax = (this.pageEvent < (this.pagesEvents - this.adjacents)) ? (this.pageEvent + this.adjacents) : this.pagesEvents;
+                let pmax = (this.pageEventPendientes < (this.pagesEventsPendientes - this.adjacentsPendientes)) ? (this.pageEventPendientes + this.adjacentsPendientes) : this.pagesEventsPendientes;
 
-                for (var i = this.pageEvent; i <= pmax; i++) {
+                for (var i = this.pageEventPendientes; i <= pmax; i++) {
                     let newLi = page++;
-                    if (newLi != this.pageEvent) {
+                    if (newLi != this.pageEventPendientes) {
                         console.log(newLi);
-                        this.newPagesLiEvents.push({
+                        this.newPagesLiEventsPendientes.push({
                             "newPage": newLi
                         })
                     }
 
                 }
-                this.getAlarmasFromHttp(this.pageEvent);
+                this.getAlarmasFromHttp(this.pageEventPendientes);
             }
 
         },
@@ -551,18 +633,18 @@ export default {
 
             console.log("idUser es", idUser);
             console.log("idUser es", typeUser);
-this.itemsAlerts.length = 0;
-            let perPageSelected = document.getElementById("numRowsEvents");
+            this.itemsAlerts.length = 0;
+            let perPageSelected = document.getElementById("numRowsPendientes");
             console.log("el valor es ", perPageSelected.value);
-            
-            this.perPage = perPageSelected.value;
+
+            this.perPagePendientes = perPageSelected.value;
 
             var data = {
                 "typeFunction": "GetAlarmas",
                 "idcPrincipal": this.id_cPrincipal,
                 "idcSecundaria": "null",
                 "page": p,
-                "perPage": this.perPage,
+                "perPage": this.perPagePendientes,
                 "idUserLoged": idUser,
                 "typeUserLoged": typeUser
             }
@@ -578,15 +660,15 @@ this.itemsAlerts.length = 0;
 
             // send request
             xhr.send(JSON.stringify(data));
-            this.spinner= true;
+            this.spinner = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText)
                 console.log("xml request aws", resp);
                 var json = resp;
-                this.spinner= false;
+                this.spinner = false;
                 // this.itemsAlerts.length = 0;
 
-                this.pages = resp.totalPages;
+                this.pagesPendientes = resp.totalPages;
                 console.log("Datos Alarmas son", json.data);
                 console.log("Datos Alarmas total", json.data.length);
                 this.totalAlarmas = json.data.length;
@@ -595,20 +677,18 @@ this.itemsAlerts.length = 0;
                     /*CONDICIÓN PARA CAMBIAR EL NOMBRE DEL EVENTO SI ES "ALARMA DE TEMPERATURA"
                      POR EL NOMBRE DE LA REGLA CREADA POR EL USUARIO*/
                     var nombreAlarma = json.data[index]["nameTypeAlarm"];
-                     if (json.data[index]["id_alarma_virtual"] > 0) {
-                       nombreAlarma = json.data[index]["NombreAlarmaVirtual"]
-                        }
+                    if (json.data[index]["id_alarma_virtual"] > 0) {
+                        nombreAlarma = json.data[index]["NombreAlarmaVirtual"]
+                    }
 
                     let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
-
-                   
 
                     this.itemsAlerts.push({
                         idAlarmas: json.data[index]["idAlarmas"],
                         deviceid: json.data[index]["NameDevice"],
                         fecha: locall,
                         account: json.data[index]["NameUbica"],
-                        
+
                         // event: json.data[index]["nameTypeAlarm"],
                         event: nombreAlarma,
                         zona: "000",
@@ -622,21 +702,21 @@ this.itemsAlerts.length = 0;
 
                     });
 
-                        // TODO PAGINATION CODIGO PRUEBA
-                    this.pagesEvents = resp.totalPages;
-                    console.log(this.pagesEvents);
+                    // TODO PAGINATION CODIGO PRUEBA
+                    this.pagesEventsPendientes = resp.totalPages;
+                    console.log(this.pagesEventsPendientes);
 
-                    this.newPagesLiEvents.length = 0;
-                    let page = this.pageEvent;
+                    this.newPagesLiEventsPendientes.length = 0;
+                    let page = this.pageEventPendientes;
 
-                    let limitLi = this.pageEvent + this.adjacents;
+                    let limitLi = this.pageEventPendientes + this.adjacentsPendientes;
 
-                    let pmax = (this.pageEvent < (this.pagesEvents - this.adjacents)) ? (this.pageEvent + this.adjacents) : this.pagesEvents;
+                    let pmax = (this.pageEventPendientes < (this.pagesEventsPendientes - this.adjacentsPendientes)) ? (this.pageEventPendientes + this.adjacentsPendientes) : this.pagesEventsPendientes;
 
-                    for (var i = this.pageEvent; i <= pmax; i++) {
+                    for (var i = this.pageEventPendientes; i <= pmax; i++) {
                         let newLi = page++;
-                        if (newLi != this.pageEvent) {
-                            this.newPagesLiEvents.push({
+                        if (newLi != this.pageEventPendientes) {
+                            this.newPagesLiEventsPendientes.push({
                                 "newPage": newLi
                             })
                         }
@@ -649,23 +729,53 @@ this.itemsAlerts.length = 0;
 
             }
         },
-        getProgresoAlarmasFromHttp() {
+        changePageProgreso(page) {
 
-            var page = 1;
-            var perPage = 200;
+            this.pageEventProgreso = (page <= 0 || page > this.pagesEventsProgreso) ? this.pageEventProgreso : page;
+
+            console.log("Pagina nueva", this.pageEventProgreso);
+            if (page > 0) {
+                this.newPagesLiEventsProgreso.length = 0;
+                let limitLi = this.pageEventProgreso + this.adjacentsProgreso;
+
+                let pmax = (this.pageEventProgreso < (this.pagesEventsProgreso - this.adjacentsProgreso)) ? (this.pageEventProgreso + this.adjacentsProgreso) : this.pagesEventsProgreso;
+
+                for (var i = this.pageEventProgreso; i <= pmax; i++) {
+                    let newLi = page++;
+                    if (newLi != this.pageEventProgreso) {
+                        console.log(newLi);
+                        this.newPagesLiEventsProgreso.push({
+                            "newPage": newLi
+                        })
+                    }
+
+                }
+                this.getProgresoAlarmasFromHttp(this.pageEventProgreso);
+            }
+
+        },
+        getProgresoAlarmasFromHttp(p) {
+// numRowsProgreso
+            // var page = 1;
+            // var perPage = 200;
 
             var idUser = this.id_usuario; //cambiarlo despues por el state
             var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
 
             console.log("idUser es", idUser);
             console.log("idUser es", typeUser);
+            this.itemsAlertsProgreso.length = 0;
+            let perPageSelected = document.getElementById("numRowsProgreso");
+            console.log("el valor es ", perPageSelected.value);
+
+            this.perPageProgreso = perPageSelected.value;
 
             var data = {
                 "typeFunction": "getAlarmasProgreso",
                 "idcPrincipal": this.id_cPrincipal,
                 "idcSecundaria": "null",
-                "page": page,
-                "perPage": perPage,
+                "page": p,
+                "perPage": this.perPageProgreso,
                 "idUserLoged": idUser,
                 "typeUserLoged": typeUser
             }
@@ -681,20 +791,21 @@ this.itemsAlerts.length = 0;
 
             // send request
             xhr.send(JSON.stringify(data));
-
+            this.spinner2 = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText)
                 console.log("xml request aws", resp);
                 var json = resp;
+                this.spinner2 = false;
                 this.itemsAlertsProgreso.length = 0;
 
-                this.pages = resp.totalPages;
+                this.pagesProgreso = resp.totalPages;
                 console.log("Datos Alarmas en progreso son", json.data);
                 this.totalAlarmasProgreso = json.data.length;
 
                 for (var index in json.data) {
 
-                       /*CONDICIÓN PARA CAMBIAR EL NOMBRE DEL EVENTO SI ES "ALARMA DE TEMPERATURA"
+                    /*CONDICIÓN PARA CAMBIAR EL NOMBRE DEL EVENTO SI ES "ALARMA DE TEMPERATURA"
                      POR EL NOMBRE DE LA REGLA CREADA POR EL USUARIO*/
                     // var nombreAlarma = json.data[index]["nameTypeAlarm"];
                     //  if (json.data[index]["id_alarma_virtual"] > 0) {
@@ -719,26 +830,79 @@ this.itemsAlerts.length = 0;
                         nombre_zona: json.data[index]["nombre_zona"]
                     });
 
+                    
+                    // TODO PAGINATION CODIGO PRUEBA
+                    this.pagesEventsProgreso = resp.totalPages;
+                    console.log(this.pagesEventsProgreso);
+
+                    this.newPagesLiEventsProgreso.length = 0;
+                    let page = this.pageEventProgreso;
+
+                    let limitLi = this.pageEventProgreso + this.adjacentsProgreso;
+
+                    let pmax = (this.pageEventProgreso < (this.pagesEventsProgreso - this.adjacentsProgreso)) ? (this.pageEventProgreso + this.adjacentsProgreso) : this.pagesEventsProgreso;
+
+                    for (var i = this.pageEventProgreso; i <= pmax; i++) {
+                        let newLi = page++;
+                        if (newLi != this.pageEventProgreso) {
+                            this.newPagesLiEventsProgreso.push({
+                                "newPage": newLi
+                            })
+                        }
+
+                    }
+
+                    // TODO **************
+
                 }
             }
         },
-        getEventosFromHttp() {
+        changePageEventos(page) {
 
-            var page = 1;
-            var perPage = 200;
+            this.pageEventEventos = (page <= 0 || page > this.pagesEventsEventos) ? this.pageEventEventos : page;
+
+            console.log("Pagina nueva", this.pageEventEventos);
+            if (page > 0) {
+                this.newPagesLiEventsEventos.length = 0;
+                let limitLi = this.pageEventEventos + this.adjacentsEventos;
+
+                let pmax = (this.pageEventEventos < (this.pagesEventsEventos - this.adjacentsEventos)) ? (this.pageEventEventos + this.adjacentsEventos) : this.pagesEventsEventos;
+
+                for (var i = this.pageEventEventos; i <= pmax; i++) {
+                    let newLi = page++;
+                    if (newLi != this.pageEventEventos) {
+                        console.log(newLi);
+                        this.newPagesLiEventsEventos.push({
+                            "newPage": newLi
+                        })
+                    }
+
+                }
+                this.getEventosFromHttp(this.pageEventEventos);
+            }
+
+        },
+        getEventosFromHttp(p) {
+
+            // var page = 1;
+            // var perPage = 200;
 
             var idUser = this.id_usuario; //cambiarlo despues por el state
             var typeUser = this.id_tipoUsuario; // cambiarlo luego por el state
 
             // console.log("idUser es",idUser);
             // console.log("idUser es",typeUser);
+             this.itemsEvents.length = 0;
+            let perPageSelected = document.getElementById("numRowsEventos");
+            console.log("el valor es ", perPageSelected.value);
 
+            this.perPageEventos = perPageSelected.value;
             var data = {
                 "typeFunction": "GetEventos",
-                "idcPrincipal": "1",
+                "idcPrincipal": this.id_cPrincipal,
                 "idcSecundaria": "null",
-                "page": page,
-                "perPage": perPage,
+                "page": p,
+                "perPage": this.perPageEventos,
                 "idUserLoged": idUser,
                 "typeUserLoged": typeUser
             }
@@ -754,14 +918,15 @@ this.itemsAlerts.length = 0;
 
             // send request
             xhr.send(JSON.stringify(data));
-
+            this.spinner3 = true;
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText)
                 console.log("xml request aws", resp);
                 var json = resp;
+                this.spinner3 = false;
                 this.itemsEvents.length = 0;
 
-                this.pages = resp.totalPages;
+                this.pagesEventos = resp.totalPages;
                 console.log("Datos Eventos son", json.data);
                 this.totalEventos = json.data.length;
 
@@ -783,6 +948,29 @@ this.itemsAlerts.length = 0;
                         nombre_zona: json.data[index]["nombre_zona"]
                         // numero_zona: json.data[index]["numero_zona"]
                     });
+
+                          // TODO PAGINATION CODIGO PRUEBA
+                    this.pagesEventsEventos = resp.totalPages;
+                    console.log(this.pagesEventsEventos);
+
+                    this.newPagesLiEventsEventos.length = 0;
+                    let page = this.pageEventEventos;
+
+                    let limitLi = this.pageEventEventos + this.adjacentsEventos;
+
+                    let pmax = (this.pageEventEventos < (this.pagesEventsEventos - this.adjacentsEventos)) ? (this.pageEventEventos + this.adjacentsEventos) : this.pagesEventsEventos;
+
+                    for (var i = this.pageEventEventos; i <= pmax; i++) {
+                        let newLi = page++;
+                        if (newLi != this.pageEventEventos) {
+                            this.newPagesLiEventsEventos.push({
+                                "newPage": newLi
+                            })
+                        }
+
+                    }
+
+                    // TODO **************
 
                 }
             }
@@ -1159,7 +1347,7 @@ this.itemsAlerts.length = 0;
                 cantidad: "1",
                 nombreAsignado: json["nombre_asignado"],
                 idEventos: json["idInserted"],
-                 zona: json["zona"],
+                zona: json["zona"],
                 nombre_zona: json["nombre_zona"],
             };
 
@@ -1314,6 +1502,7 @@ this.itemsAlerts.length = 0;
     height: 447px;
     overflow: scroll;
 }
+
 /* .scrollable::-webkit-scrollbar {
     background-color: #1a2130;
 }
@@ -1408,11 +1597,11 @@ this.itemsAlerts.length = 0;
     /* width: 38.5rem; */
     /* height: 382px; */
     /* height: 565px; */
-    height: 545px;
+    height: 547px;
 }
 
 .card-evento {
-    /* height: 382px; */
+    height: 550px;
 }
 
 .navbar {
@@ -1433,14 +1622,17 @@ this.itemsAlerts.length = 0;
     /* --bs-text-opacity: 1; */
     font-weight: 500;
 }
-tr{
+
+tr {
     border-bottom: 1px solid #00000033;
 }
-.version{
-    font-size:14px;
+
+.version {
+    font-size: 14px;
     text-transform: capitalize;
     letter-spacing: 0;
 }
+
 .page-link {
     position: relative;
     display: block;
@@ -1450,28 +1642,32 @@ tr{
     border: 1px solid #343638;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
     background-color: #28997f;
     border-color: #28997f;
 }
-.btn-next-back{
-  background-color: #343638;
+
+.btn-next-back {
+    background-color: #343638;
     border: 1px solid #343638;
     color: #fff !important;
 }
 
 .form-select-sm {
-    padding: 1px 19px 1px 8px !important;
+    padding: 6px 20px 2px 10px !important;
     background-position: right -0rem center !important;
-    
+
 }
+
 .form-select-sm:focus {
 
     border-color: none;
     box-shadow: none;
 }
+
 @media only screen and (min-width: 1300px) {
     .card2 {
         /* width: 38rem; */
