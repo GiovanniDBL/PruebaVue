@@ -45,7 +45,7 @@
   </li>
  <li class="list-group-item d-flex justify-content-between align-items-center">
     Zona:  
-    <span class="">{{txtNombreZona}}-{{txtZona}}</span>
+    <span class="">{{txtZona}} - {{txtNombreZona}}</span>
   </li>
  <li class="list-group-item ">
  <div class="d-grid gap-2">
@@ -55,17 +55,20 @@
   <span v-if="txtStatus == 'Finalizado'" style="text-align: center; color:#1aa33c">¡Atención finalizada!</span>
 </div>
   </li>
- <!-- <li  v-if="txtStatus == 'Pendiente'"  class="list-group-item d-flex justify-content-between align-items-center" >
-   
-    <span type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="" style="color:#fff;background:#0f8f3c;padding:5px;border-radius:5px;">Iniciar atención <i class="fas fa-play"></i></span>
-  </li>
- <li  v-if="txtStatus == 'Progreso'"  class="list-group-item d-flex justify-content-between align-items-center" >
-   
-    <span class="" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropp" style="color:#fff;background:#dc3545;padding:5px;border-radius:5px;">Finalizar atención <i class="fas fa-play"></i></span>
-  </li> -->
-</ul>
 
-<!-- <button class="btn btn-danger"  type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fas fa-play"></i> Iniciar atención</button> -->
+</ul>
+<!--//TODO PRUEBA SPLICE -->
+<!-- <button class="btn btn-warning" @click="splice();"> prueba</button> -->
+
+<!-- <h2>Amigos</h2>
+<input type="text" v-model="amigo">
+<button class="btn btn-warning" @click="splice();"> Agregar Amigo</button>
+<ul>
+  <li v-for="(amigo, index) in $store.state.amigos" :key="index" >
+    {{amigo}}
+  </li>
+</ul> -->
+<!--//TODO PRUEBA SPLICE -->
 <hr>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item" role="presentation">
@@ -265,23 +268,27 @@ import moment from 'moment'
 import Swal from 'sweetalert2';
 import monitore from './monitoreo';
 import 'animate.css';
-
+import { mapState } from 'vuex';
 export default {
     name: "detallesComponent",
 components: {
     monitore,
   },
-        mounted(){
+         mounted(){
           this.alarmaID = this.$route.params.id;
             this.getInfoAlarma();
+console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
 
             
     },
 
     data(){
         return{
+            amigo:'',
             alarmaID:null,
             itemsAlerts:[],
+            txtNombreAsignado:'',
+            txtClasificacion:'',
             txtCuenta:'',
             txtDireccion:'',
             txtCiudad:'',
@@ -306,7 +313,36 @@ components: {
             // myVar:this.itemsAlertsProgreso,
         }
     },
+    computed: {
+      ...mapState(['itemsAlertsProgreso']),
+    },
+   
     methods:{
+      splice(){
+
+        this.$store.state.amigo = this.amigo;
+        this.$store.dispatch('addAmigoAction');
+        this.amigo = '';
+
+        //         let jSON={
+        //           deviceid: this.txtNameDevice,
+        //           account: this.txtCuenta,
+        //         fecha: this.txtTimeAlarma,
+        //         event: this.txtTypoAlarma,
+        //         zona: this.txtZona,
+        //         cantidad: "1",
+        //         idAlarmas: this.alarmaID,
+        //         estado_alarma: 'progreso',
+        //         nombreAsignado: this.txtNombreAsignado,
+        //         nombre_zona: this.txtNombreZona,
+        //         clasificacion: this.txtClasificacion
+        // };
+
+        //  this.itemsAlertsProgreso.splice(0,0,jSON);
+        
+        //  localStorage.setItem('JsonSplice', JSON.stringify(jSON));
+        //  console.log('itemsAlertsProgreso',jSON);
+      },
       texto(){
         // console.log("TxtAreaFinal",this.textoFormFinal);
         // console.log("SelectFinal",this.idciereAlarm);
@@ -364,6 +400,8 @@ components: {
           var nameDevice = json[index]["NameDevice"]
           var numero_zona = json[index]["numero_zona"]
           var nombre_zona = json[index]["nombre_zona"]
+          var nombre_asignado = json[index]["nombre_asignado"]
+          var id_clasificacion_alarma = json[index]["id_clasificacion_alarma"]
           var NameDevice = json[index]["nombre_zona"]
 
 
@@ -382,6 +420,8 @@ this.txtIdDispositivo =
        this.txtNameDevice = nameDevice;
        this.txtZona = numero_zona;
        this.txtNombreZona = nombre_zona;
+       this.txtNombreAsignado = nombre_asignado;
+       this.txtClasificacion = id_clasificacion_alarma;
       //  var statusAlarma=document.getElementById("select-statusA");
 
       //  var opt = document.createElement('option');
@@ -442,6 +482,8 @@ location.reload();
         };
 
          this.historialNotas.splice(0,0,jSON);
+
+     
 
       }
 },

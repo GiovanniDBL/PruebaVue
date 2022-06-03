@@ -1,6 +1,13 @@
 <template>
 <div class="animated fadeIn">
+<!-- <h2>Amigos</h2>
 
+<ul style="color:red">
+  <li v-for="(amigo, index) in $store.state.amigos" :key="index" >
+    {{amigo}}
+  </li>
+  
+</ul> -->
     <!-- //TODO *************** NAVBAR ************** -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
@@ -122,7 +129,7 @@
                         </span>
                                <form  style="float:right;" class="d-flex">
                                 <!-- <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search"> -->
-                                <input class="form-control form-control-sm me-2" type="text" v-model="search2" placeholder="Buscar..." aria-label="Search">
+                                <input class="form-control form-control-sm me-2" type="text" v-model="searchProgreso" placeholder="Buscar..." aria-label="Search">
                                 <button class="btn btn-secondary btn-sm" type="submit" disabled><i class="fas fa-search"></i></button>
 
                             </form>
@@ -156,7 +163,7 @@
                                     </tr>
                                 </thead>
                                 <!-- style="background:#f39c12;" -->
-                                <tbody v-for="item in itemsAlertsProgreso" :key="item.idAlarmas">
+                                <tbody v-for="item in filterDataAlarmsProgreso" :key="item.idAlarmas">
                                     <tr :id="'device2-'+ item.idAlarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma, item.clasificacion)">
                                         <th scope="row">{{item.idAlarmas}}</th>
                                         <td>{{item.account}}</td>
@@ -204,7 +211,7 @@
                     </span>
                         <form  style="float:right;" class="d-flex">
                                 <!-- <input class="form-control me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search"> -->
-                                <input class="form-control form-control-sm me-2" type="text" v-model="search" placeholder="Buscar..." aria-label="Search">
+                                <input class="form-control form-control-sm me-2" type="text" v-model="searchEventos" placeholder="Buscar..." aria-label="Search">
                                 <button class="btn btn-secondary btn-sm" type="submit" disabled><i class="fas fa-search"></i></button>
 
                             </form>
@@ -237,7 +244,7 @@
                                 </tr>
                             </thead>
                             <!-- <tbody style="background:#0c9f54;" v-for="item in itemsEvents" :key="item.idEventos"> -->
-                            <tbody style="background:#115f37;" v-for="item in itemsEvents" :key="item.idEventos">
+                            <tbody style="background:#115f37;" v-for="item in filterDataEventos" :key="item.idEventos">
                                 <tr :id="'device-'+ item.idEventos">
                                     <th style="color:#fff" scope="row">{{item.idEventos}}</th>
                                     <td style="color:#fff;">{{item.account}}</td>
@@ -288,6 +295,7 @@ import detalles from './detalles';
 import {
     mapGetters
 } from 'vuex';
+import { mapState } from 'vuex';
 var audioEvento = new Audio(require('@/assets/AudioEvento.mp3'))
 var audioAlarma = new Audio(require('@/assets/AudioAlarma.mp3'))
 var audioAlerta = new Audio(require('@/assets/AudioAlerta.mp3'))
@@ -313,7 +321,7 @@ export default {
         this.getEventosFromHttp(1);
         // this.getDataFromSocket();
         // console.log('variable global',this.myVar);
-
+console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
     },
 
     computed: mapGetters({
@@ -419,7 +427,7 @@ export default {
                 },
             ],
             itemsAlerts: [],
-            itemsAlertsProgreso: [],
+            // itemsAlertsProgreso: [],
             itemsEvents: [],
             flagRegistro: 0,
             fechaConexion: '0',
@@ -459,6 +467,7 @@ export default {
             adjacentsProgreso: 2,
             pagesProgreso:0,
             spinner2: false,
+            searchProgreso:'',
             //* EVENTOS PAGINATION
             perPageEventos: '',
             perPageEventos: 0,
@@ -468,20 +477,43 @@ export default {
             adjacentsEventos: 2,
             pagesEventos:0,
             spinner3: false,
+            searchEventos:'',
             
 
 
         }
     },
    computed: {
+        ...mapState(['itemsAlertsProgreso']),
         filterDataAlarmsPendientes() {
 
-                 return this.itemsAlerts.filter(blog => {
+                return this.itemsAlerts.filter(blog => {
                 return blog.event?.toLowerCase().includes(this.search.toLowerCase()) || blog.idAlarmas?.toString().toLowerCase().includes(this.search.toLowerCase())
                 || blog.deviceid?.toLowerCase().includes(this.search.toLowerCase()) || blog.account?.toLowerCase().includes(this.search.toLowerCase())
-                || blog.estado_alarma?.toLowerCase().includes(this.search.toLowerCase()) || blog.nombreAsignado?.toLowerCase().includes(this.search.toLowerCase());
+                || blog.estado_alarma?.toLowerCase().includes(this.search.toLowerCase()) || blog.nombreAsignado?.toLowerCase().includes(this.search.toLowerCase())
+                || blog.nombre_zona?.toLowerCase().includes(this.search.toLowerCase()) || blog.zona?.toLowerCase().includes(this.search.toLowerCase());
+            });
+        },
+        filterDataAlarmsProgreso() {
+
+                return this.itemsAlertsProgreso.filter(blog => {
+                return blog.event?.toLowerCase().includes(this.searchProgreso.toLowerCase()) || blog.idAlarmas?.toString().toLowerCase().includes(this.searchProgreso.toLowerCase())
+                || blog.deviceid?.toLowerCase().includes(this.searchProgreso.toLowerCase()) || blog.account?.toLowerCase().includes(this.searchProgreso.toLowerCase())
+                || blog.estado_alarma?.toLowerCase().includes(this.searchProgreso.toLowerCase()) || blog.nombreAsignado?.toLowerCase().includes(this.searchProgreso.toLowerCase())
+                || blog.nombre_zona?.toLowerCase().includes(this.searchProgreso.toLowerCase()) || blog.zona?.toLowerCase().includes(this.searchProgreso.toLowerCase());
+            });
+        },
+        filterDataEventos() {
+
+                return this.itemsEvents.filter(blog => {
+                return blog.event?.toLowerCase().includes(this.searchEventos.toLowerCase()) || blog.idEventos?.toString().toLowerCase().includes(this.searchEventos.toLowerCase())
+                || blog.deviceid?.toLowerCase().includes(this.searchEventos.toLowerCase()) || blog.account?.toLowerCase().includes(this.searchEventos.toLowerCase())
+                || blog.estado_alarma?.toLowerCase().includes(this.searchEventos.toLowerCase()) || blog.nombreAsignado?.toLowerCase().includes(this.searchEventos.toLowerCase())
+                || blog.nombre_zona?.toLowerCase().includes(this.searchEventos.toLowerCase()) || blog.zona?.toLowerCase().includes(this.searchEventos.toLowerCase());
             });
         }
+
+        
     },
     methods: {
         logChange(event) {
@@ -684,20 +716,20 @@ export default {
                     let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
 
                     this.itemsAlerts.push({
+                        event: nombreAlarma,
                         idAlarmas: json.data[index]["idAlarmas"],
                         deviceid: json.data[index]["NameDevice"],
-                        fecha: locall,
                         account: json.data[index]["NameUbica"],
-
-                        // event: json.data[index]["nameTypeAlarm"],
-                        event: nombreAlarma,
-                        zona: "000",
-                        cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
-                        clasificacion: json.data[index]["id_clasificacion_alarma"],
                         nombreAsignado: json.data[index]["nombre_asignado"],
+                        nombre_zona: json.data[index]["nombre_zona"],
+                        
+                        fecha: locall,
+                        // event: json.data[index]["nameTypeAlarm"],
+                        // zona: "000",
+                        cantidad: 1,
+                        clasificacion: json.data[index]["id_clasificacion_alarma"],
                         zona: json.data[index]["zona"],
-                        nombre_zona: json.data[index]["nombre_zona"]
                         // numero_zona: json.data[index]["numero_zona"]
 
                     });
@@ -814,20 +846,20 @@ export default {
                     let locall = moment.utc(json.data[index]["timeAlarm"]).local().format('DD/MM/YYYY HH:mm:ss');
 
                     this.itemsAlertsProgreso.push({
+                        event: json.data[index]["nameTypeAlarm"],
                         idAlarmas: json.data[index]["idAlarmas"],
                         deviceid: json.data[index]["NameDevice"],
-                        fecha: locall,
                         account: json.data[index]["NameUbica"],
-                        // event: nombreAlarma,
-                        event: json.data[index]["nameTypeAlarm"],
-                        zona: "000",
-                        cantidad: 1,
+                        fecha: locall,
                         estado_alarma: json.data[index]["nombreStatus"],
-                        clasificacion: json.data[index]["id_clasificacion_alarma"],
                         nombreAsignado: json.data[index]["nombre_asignado"],
-                        // numero_zona: json.data[index]["numero_zona"],
+                        nombre_zona: json.data[index]["nombre_zona"],
                         zona: json.data[index]["zona"],
-                        nombre_zona: json.data[index]["nombre_zona"]
+                        // event: nombreAlarma,
+                        // zona: "000",
+                        cantidad: 1,
+                        clasificacion: json.data[index]["id_clasificacion_alarma"],
+                        // numero_zona: json.data[index]["numero_zona"],
                     });
 
                     
@@ -935,17 +967,17 @@ export default {
                     let locall = moment.utc(json.data[index]["hora"]).local().format('DD/MM/YYYY HH:mm:ss');
 
                     this.itemsEvents.push({
+                        event: json.data[index]["nameTypeAlarm"],
                         idEventos: json.data[index]["ideventDevice"],
                         deviceid: json.data[index]["NameDevice"],
-                        fecha: locall,
                         account: json.data[index]["NameUbica"],
-                        event: json.data[index]["nameTypeAlarm"],
-                        zona: "000",
-                        cantidad: 1,
                         estado_alarma: json.data[index]["nombreStatus"],
                         nombreAsignado: json.data[index]["nombre_asignado"],
+                        nombre_zona: json.data[index]["nombre_zona"],
                         zona: json.data[index]["zona"],
-                        nombre_zona: json.data[index]["nombre_zona"]
+                        fecha: locall,
+                        // zona: "000",
+                        cantidad: 1,
                         // numero_zona: json.data[index]["numero_zona"]
                     });
 
