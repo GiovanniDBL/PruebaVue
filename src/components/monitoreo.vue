@@ -1,13 +1,6 @@
 <template>
 <div class="animated fadeIn">
-<!-- <h2>Amigos</h2>
-
-<ul style="color:red">
-  <li v-for="(amigo, index) in $store.state.amigos" :key="index" >
-    {{amigo}}
-  </li>
-  
-</ul> -->
+<p>{{msgother}}</p>
     <!-- //TODO *************** NAVBAR ************** -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
@@ -281,7 +274,10 @@
         </div>
     </section>
 
-    <!-- <detalles @customChange="logChange" /> -->
+<!-- <section style="display:none"> -->
+<section >
+    <detalles  @customChange="logChange"/>
+</section>
 
 </div>
 </template>
@@ -301,8 +297,10 @@ var audioAlarma = new Audio(require('@/assets/AudioAlarma.mp3'))
 var audioAlerta = new Audio(require('@/assets/AudioAlerta.mp3'))
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
+import { createStore } from 'vuex'
 export default {
     name: "monitoreoComponent",
+    createStore,
     // props:{
     //   name:{
     //     type: String,
@@ -324,9 +322,9 @@ export default {
 console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
     },
 
-    computed: mapGetters({
-        title: "title"
-    }),
+    // computed: mapGetters({
+    //     title: "title"
+    // }),
     data() {
         return {
             items: [{
@@ -478,7 +476,7 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
             pagesEventos:0,
             spinner3: false,
             searchEventos:'',
-            
+            msgother:''
 
 
         }
@@ -511,12 +509,11 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
                 || blog.estado_alarma?.toLowerCase().includes(this.searchEventos.toLowerCase()) || blog.nombreAsignado?.toLowerCase().includes(this.searchEventos.toLowerCase())
                 || blog.nombre_zona?.toLowerCase().includes(this.searchEventos.toLowerCase()) || blog.zona?.toLowerCase().includes(this.searchEventos.toLowerCase());
             });
-        }
-
-        
+        },        
     },
+
     methods: {
-        logChange(event) {
+        logChange(event){
             console.log(event);
         },
         //  var audio = new Audio('../assets/audioDemo.mp3')
@@ -1458,7 +1455,8 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
 
         },
 
-    }
+    },
+
 
 }
 </script>

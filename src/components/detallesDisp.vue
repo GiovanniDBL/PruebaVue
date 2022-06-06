@@ -978,7 +978,7 @@ export default {
             // console.log('Contenido Data', data);
             xhr.onload = () => {
                 let resp = JSON.parse(xhr.responseText);
-                // console.log("xml request DetallesDevice", resp);
+                console.log("xml request DetallesDevice", resp);
 
                 if (resp.data !== undefined) {
                     this.NameDeviceForm = resp.data[0].NameDevice;

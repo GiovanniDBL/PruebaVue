@@ -1,5 +1,11 @@
 <template>
 
+<!-- <div>
+<input type="text" placeholder="prueba" @change="sendChange">
+</div> -->
+
+
+
 
 <div class="">
   <!-- <input type="text" placeholder="custom text input" @change="$emit('customChange', $event.target.value)"> -->
@@ -59,15 +65,7 @@
 </ul>
 <!--//TODO PRUEBA SPLICE -->
 <!-- <button class="btn btn-warning" @click="splice();"> prueba</button> -->
-
-<!-- <h2>Amigos</h2>
-<input type="text" v-model="amigo">
-<button class="btn btn-warning" @click="splice();"> Agregar Amigo</button>
-<ul>
-  <li v-for="(amigo, index) in $store.state.amigos" :key="index" >
-    {{amigo}}
-  </li>
-</ul> -->
+<button class="btn btn-warning" @click="sendChange();"> prueba</button>
 <!--//TODO PRUEBA SPLICE -->
 <hr>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -269,8 +267,10 @@ import Swal from 'sweetalert2';
 import monitore from './monitoreo';
 import 'animate.css';
 import { mapState } from 'vuex';
+import { createStore } from 'vuex'
 export default {
     name: "detallesComponent",
+    createStore,
 components: {
     monitore,
   },
@@ -311,34 +311,33 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
             af:'',
             GlobalApi:this.globalVar,
             // myVar:this.itemsAlertsProgreso,
+            msg: false
         }
     },
     computed: {
       ...mapState(['itemsAlertsProgreso']),
     },
-   
+  
     methods:{
       splice(){
 
-        this.$store.state.amigo = this.amigo;
-        this.$store.dispatch('addAmigoAction');
-        this.amigo = '';
+      
 
-        //         let jSON={
-        //           deviceid: this.txtNameDevice,
-        //           account: this.txtCuenta,
-        //         fecha: this.txtTimeAlarma,
-        //         event: this.txtTypoAlarma,
-        //         zona: this.txtZona,
-        //         cantidad: "1",
-        //         idAlarmas: this.alarmaID,
-        //         estado_alarma: 'progreso',
-        //         nombreAsignado: this.txtNombreAsignado,
-        //         nombre_zona: this.txtNombreZona,
-        //         clasificacion: this.txtClasificacion
-        // };
+                let jSON={
+                deviceid: this.txtNameDevice,
+                account: this.txtCuenta,
+                fecha: this.txtTimeAlarma,
+                event: this.txtTypoAlarma,
+                zona: this.txtZona,
+                cantidad: "1",
+                idAlarmas: this.alarmaID,
+                estado_alarma: 'progreso',
+                nombreAsignado: this.txtNombreAsignado,
+                nombre_zona: this.txtNombreZona,
+                clasificacion: this.txtClasificacion
+        };
 
-        //  this.itemsAlertsProgreso.splice(0,0,jSON);
+         this.itemsAlertsProgreso.splice(0,0,jSON);
         
         //  localStorage.setItem('JsonSplice', JSON.stringify(jSON));
         //  console.log('itemsAlertsProgreso',jSON);
@@ -356,9 +355,10 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
   }
   console.log("DATA FINAL",data);
       },
-       emitEvent() {
-        myEmitter.emit('sample-event', 'foobar') 
-      },
+      sendChange(event) {
+
+            this.$emit("customChange", 'hola')
+        },
          
     getInfoAlarma(){
     
