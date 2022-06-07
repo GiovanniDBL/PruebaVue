@@ -28,8 +28,15 @@
                                 <div style="background-color: #dc3545;" class="card-header">
                                     Temperatura interna en ATM
                                     <!-- <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span> -->
-                                      <div style="float:right;margin-left:5px">
+                                     <div style="float:right;margin-left:8px" class="dropdown">
 
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="ReglasTemperatura" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="ReglasTemperatura">
+                                            <li><a class="dropdown-item" v-on:click="DatosReglasOn('tempAmb', 'Temperatura')" data-bs-toggle="modal" data-bs-target="#ReglasModal">Reglas</a></li>
+                                        </ul>
+                                    </div>
+
+                                      <div style="float:right;margin-left:5px">
                                         <select id="select" style="background-color: transparent !important" v-on:change="OnchangeInfoDevice($event)" v-model="SelectGraficas" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                             <!-- <option selected></option> -->
                                             <option value="24 hours" selected>Últimas 24 horas</option>
@@ -53,6 +60,21 @@
                             <div class="card ">
                                 <div style="background-color: #2e616a;" class="card-header">
                                     Detección de choque
+
+                                    <div style="float:right;margin-left:8px" class="dropdown">
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="ReglasChoque" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="ReglasChoque">
+                                            <li><a class="dropdown-item" v-on:click="DatosReglasOn('vibLevel', 'Choque')" data-bs-toggle="modal" data-bs-target="#ReglasModal">Reglas</a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- <div class="btn-group dropstart" style="float:right;margin-left:8px">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropstart
+  </button>
+  <ul class="dropdown-menu">
+  <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ReglasModal">Reglas</a></li>
+  </ul>
+</div> -->
                                     <span style="float:right"><i class="fas fa-clock"></i> {{SelectGraficasLabel}}</span>
                                     <!-- <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span> -->
                                 </div>
@@ -70,6 +92,12 @@
                             <div class="card ">
                                 <div style="background-color: #272c35;" class="card-header">
                                     Detección de gas
+                                      <div style="float:right;margin-left:8px" class="dropdown">
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="ReglasGas" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="ReglasGas">
+                                            <li><a class="dropdown-item" v-on:click="DatosReglasOn('gasAmb', 'Gas')" data-bs-toggle="modal" data-bs-target="#ReglasModal">Reglas</a></li>
+                                        </ul>
+                                    </div>
                                     <span style="float:right"><i class="fas fa-clock"></i> {{SelectGraficasLabel}}</span>
                                     <!-- <span style="float:right"><i class="fas fa-clock"></i> Últimas 24 horas</span> -->
                                 </div>
@@ -190,13 +218,18 @@
                                 <div class="card-header text-">
                                     <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Detalles del dispositivo
                                     <!-- <button @click="dowloadPdf" style="float:right" type="button" class="btn btn-success btn-sm">Descargar Documento PDF <i class="fas fa-download btn-pdf"></i></button> -->
-                                    <div style="float:right" class="dropdown">
+                                    <!-- <div style="float:right" class="dropdown">
 
                                         <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsDetalles" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                         <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsDetalles">
                                             <li><a class="dropdown-item" type="button" @click="dowloadPdf">Generar PDF</a></li>
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Zonas">Zonas</a></li>
-                                            <!-- <li><a class="dropdown-item" href="#" @click="disabled();">Editar información</a></li> -->
+                                        </ul>
+                                    </div> -->
+                                      <div style="float:right;margin-left:8px" class="dropdown">
+                                        <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="DetallesDrop" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                        <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="DetallesDrop">
+                                            <li><a class="dropdown-item" type="button" @click="dowloadPdf">Generar PDF</a></li>
                                         </ul>
                                     </div>
 
@@ -320,12 +353,13 @@
                             <div class="card">
                                 <div class="card-header">
                                     <i style="color:#1abb97; font-size:18px" class="fas fa-info-circle"></i> Zonas del dispositivo
-                                    <div style="float:right" class="dropdown">
+                                    <!-- <div style="float:right" class="dropdown">
                                         <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                         <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
+                                    
                                 </div>
                                 <div class="card-body ">
                                     <p style="color:#ffffffcc; text-align:center; font-size: 16px" v-if="results == 'Sin registros..'">Sin registros...</p>
@@ -617,6 +651,62 @@
             </div>
         </div>
     </div>
+    <!--//? ************* MODAL REGLAS ********************** -->
+    <div class="modal fade" id="ReglasModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Regla de {{TypeMetricaNombreForm}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   
+                      <form class="row g-3" v-on:submit.prevent="CrearRegla">
+                          
+                        <div class="col-md-12" style="display:none">
+                        <input  type="text" class="form-control" id="exampleFormControlInput1" v-model="TypeMetricaForm" placeholder="Nombre de Zona" required>
+                        </div>
+
+                 
+                    <div class="col-md-6">
+                        <label for="validationCustom01" class="form-label">Nombre de la regla</label>
+                        <input type="text" class="form-control" placeholder="Nombre de la regla" id="validationCustom01" v-model="FormNombreRegla" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom01" class="form-label">Nombre de alarma</label>
+                        <input type="text" class="form-control" placeholder="Nombre de alarma" id="validationCustom01" v-model="FormNombreAlarma" required>
+                    </div>
+                    <div class="col-md-6">
+                          <label for="validationCustom04" class="form-label">Condición de la regla</label>
+                        <select class="form-select" id="validationCustom04" required v-model="FormCondicion">
+                            <option selected disabled value="">Seleccionar condición</option>
+                            <option value="==">Es igual a</option>
+                            <option value="!=">Es distinto a</option>
+                            <option value="<">Menor a</option>
+                            <option value="<=">Menor o igual a</option>
+                            <option value=">">Mayor a</option>
+                            <option value=">=">Mayor o igual a</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationCustom01" class="form-label">Valor</label>
+                        <input type="text" class="form-control" placeholder="Valor de activación" id="validationCustom01" v-model="FormCondicionValor" required>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <label for="validationCustom01" class="form-label">Condición</label>
+                        <input type="text" class="form-control" placeholder="Condición de la regla" id="validationCustom01" v-model="FormNombreSub" required>
+                    </div> -->
+                    <div class="col-12 text-end">
+                        <button class="btn btn-success" style="text-transform:uppercase">Crear regla</button>
+                    </div>
+                </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </div>
 </template>
@@ -734,6 +824,12 @@ export default {
             asd:[],
             dataAperturaSelect:{},
             dataGraficas:{},
+            TypeMetricaForm:'',
+            TypeMetricaNombreForm:'',
+            FormNombreRegla:'',
+            FormNombreAlarma:'',
+            FormCondicion:'',
+            FormCondicionValor:'',
             // dataAperturaSelect: {
             //     "typeFunction": "getDatos_apertura_device",
             //     "idDevice": this.idDevice,
@@ -1335,6 +1431,10 @@ export default {
 
             // console.log('DatosEditarZonas', this.Form_id_zona, this.Form_nombre_zona );
         },
+        DatosReglasOn(data,name) {
+            this.TypeMetricaForm = data;
+            this.TypeMetricaNombreForm = name
+        },
         ActualizarZonas() {
             var data = {
                 "typeFunction": "updateNombreZona",
@@ -1525,6 +1625,14 @@ export default {
             };
 
             this.getAperturas(this.dataAperturaSelect)
+        },
+        CrearRegla(){
+            console.log(this.FormNombreRegla);
+            console.log(this.FormNombreAlarma);
+            console.log(this.FormCondicion);
+            console.log(this.FormCondicionValor);
+
+
         },
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
@@ -2608,7 +2716,15 @@ export default {
         handleAlertEventos(params) {
             var json = JSON.parse(params);
 
-                this.GetinfoDevice();
+            var datagrafic = {
+              "typeFunction": "getStatusDevice",
+                "idDevice": this.idDeviceSelected,
+                "timeEnd": "24 hours",
+                "idUserLoged": this.idUserLoged,
+                "typeUserLoged": this.typeUserLoged,
+        }
+
+                this.GetinfoDevice(datagrafic);
                 console.log('HandAlerEvento Prueba');
                 console.log("WebSocket Eventos: ", JSON.parse(params));
                 var date = json["date"];
@@ -2934,6 +3050,7 @@ ul {
     border: 1px solid #2b3553;
     background-image: url(../assets/canvas.png) !important;
     /* background-image: url('../assets/flecha_select.webp') */
+    cursor: pointer;
 
 }
 
@@ -3056,7 +3173,19 @@ tr {
     height: 280px;
     width: 100%;
 }
-
+.fa-ellipsis-v:empty::after {
+    margin-left: 0;
+}
+.fa-ellipsis-v::after{
+        display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    /* border-top: 0.3em solid; */
+    /* border-right: 0.3em solid transparent; */
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;

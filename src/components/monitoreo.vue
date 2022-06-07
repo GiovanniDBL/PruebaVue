@@ -1,6 +1,32 @@
 <template>
+<!-- <router-link to="/detalles/13705" target="_blank"> ir</router-link> -->
+<p style="color:#fff" >Home View: {{ store.counter }}</p>
+<p style="color:#fff">Numero de cambios: {{ store.numberOfChanges }}</p>
+<h1 style="color:#fff" v-if="store.counter == 5">HOLA</h1>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <p>Home View: {{ store.counter }}</p>
+<button @click="store.incrementBy(1)">+1</button>
+<button @click="store.incrementBy(2)">+2</button>
+<button @click="store.incrementBy(3)">+3</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="animated fadeIn">
-<p>{{msgother}}</p>
+
     <!-- //TODO *************** NAVBAR ************** -->
     <nav class="navbar sticky-top navbar-expand-lg ">
         <div class="container-fluid">
@@ -156,7 +182,7 @@
                                     </tr>
                                 </thead>
                                 <!-- style="background:#f39c12;" -->
-                                <tbody v-for="item in filterDataAlarmsProgreso" :key="item.idAlarmas">
+                                <tbody data-bs-toggle="modal" data-bs-target="#exampleModal" v-for="item in filterDataAlarmsProgreso" :key="item.idAlarmas">
                                     <tr :id="'device2-'+ item.idAlarmas" v-bind:style="{backgroundColor:ChangeColor(item.clasificacion)}" v-bind:class="item.clasificacion==1? 'text-light':'text-dark'" @click="popup2(item.idAlarmas, item.account, item.deviceid, item.event, item.fecha, item.estado_alarma, item.clasificacion)">
                                         <th scope="row">{{item.idAlarmas}}</th>
                                         <td>{{item.account}}</td>
@@ -275,32 +301,39 @@
     </section>
 
 <!-- <section style="display:none"> -->
-<section >
+<!-- <section >
     <detalles  @customChange="logChange"/>
-</section>
+</section> -->
 
 </div>
 </template>
 
-<script>
+<script lang="js" setup>
 import axios from 'axios'
 import sidebar from './Sidebar';
 import Swal from 'sweetalert2';
 import moment from 'moment'
 import detalles from './detalles';
-import {
-    mapGetters
-} from 'vuex';
-import { mapState } from 'vuex';
+// import {
+//     mapGetters
+// } from 'vuex';
+// import { mapState } from 'vuex';
+import { useCounterStore } from '../stores/counter.ts';
+// const counterStore = useCounterStore();
+
 var audioEvento = new Audio(require('@/assets/AudioEvento.mp3'))
 var audioAlarma = new Audio(require('@/assets/AudioAlarma.mp3'))
 var audioAlerta = new Audio(require('@/assets/AudioAlerta.mp3'))
 let messageApi = 'http://localhost:3000/formulario/';
 let messageWs = 'http://localhost:3000/sendwhatsapp';
-import { createStore } from 'vuex'
+// import { createStore } from 'vuex'
 export default {
     name: "monitoreoComponent",
-    createStore,
+    setup (){
+        const store = useCounterStore();
+        return {store};
+    },
+    // createStore,
     // props:{
     //   name:{
     //     type: String,
@@ -312,6 +345,7 @@ export default {
         detalles,
     },
     mounted() {
+        
         // this.Alert();
         this.SocketOnInit();
         this.getAlarmasFromHttp(1);
@@ -425,7 +459,7 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
                 },
             ],
             itemsAlerts: [],
-            // itemsAlertsProgreso: [],
+            itemsAlertsProgreso: [],
             itemsEvents: [],
             flagRegistro: 0,
             fechaConexion: '0',
@@ -476,13 +510,12 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
             pagesEventos:0,
             spinner3: false,
             searchEventos:'',
-            msgother:''
 
 
         }
     },
    computed: {
-        ...mapState(['itemsAlertsProgreso']),
+        // ...mapState(['itemsAlertsProgreso']),
         filterDataAlarmsPendientes() {
 
                 return this.itemsAlerts.filter(blog => {
@@ -513,9 +546,6 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
     },
 
     methods: {
-        logChange(event){
-            console.log(event);
-        },
         //  var audio = new Audio('../assets/audioDemo.mp3')
         playSound(sound) {
             if (sound) {
@@ -524,14 +554,17 @@ console.log('itemsAlertsProgreso',this.itemsAlertsProgreso);
             }
         },
         popup(id, c, d, e, f, es, cla, z, nz) {
+
             //       var trDevice=document.getElementById("device-" + id);
             // trDevice.style.backgroundColor = '#c71527';
             // trDevice.style.transition = 'all .9s ease-in-out';
 
+            let route = this.$router.resolve({path:"/detalles/" + id})
             var tricono = document.getElementById("icono-" + id);
             tricono.innerHTML = ""
             tricono.style.color = "#fff"
-            window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=900,top=50%");
+            // window.open("/detalles/" + id, id, "location=0,status=0,scrollbars=0,width=480,height=900,top=50%");
+             window.open("/detalles/" + id,"_blank","location=0,status=0,scrollbars=0,width=480,height=900,top=50%");
 
             audioAlarma.pause();
             let jSON = {
