@@ -129,6 +129,35 @@
                     <div class="col-4">
                         <div class="card" style="height:100%">
                             <div class="card-header">
+                                Reglas establecidas
+                                <div style="float:right" class="dropdown">
+                                    <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu animated fadeIn fast" aria-labelledby="OptionsTemp">
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#Reglas" href="#">Reglas</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <!-- v-for="item in EventosDevice" :key="item.idAlarmas" -->
+                           <ul v-if="results !== 'Sin registros..'" class="list-group list-group-flush">
+                                        <div class="scrollable">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center" v-for="(item, index) in itemReglas" :key="item">
+                                                {{item.nombreMetrica}}
+                                                <span style="text-transform: lowercase">{{item.condicion}}</span>
+                                                {{item.valor}}
+
+                                                <button v-on:click="DatosModalEditarZona(item, index)" data-bs-toggle="modal" data-bs-target="#Zonas" class="btn btn-warning btn-sm"><i class="fas fa-edit icono-edit"></i></button>
+                                            </li>
+
+                                        </div>
+                                    </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-4">
+                        <div class="card" style="height:100%">
+                            <div class="card-header">
                                 Últimos indicadores
                                 <div style="float:right" class="dropdown">
                                     <i style="font-size: 21px;" type="button" class="far fa-ellipsis-v" id="OptionsTemp" data-bs-toggle="dropdown" aria-expanded="false"></i>
@@ -166,7 +195,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-4">
                         <!-- style="height:100%" -->
                         <div class="card ">
@@ -774,6 +803,7 @@ export default {
             UltimasAlertas: [],
             timedevice: [],
             tempdevice: [],
+            itemReglas:[],
             // arrayLabels: [],
             vibraciondevice: [],
             gasdevice: [],
@@ -888,7 +918,7 @@ export default {
         this.getZonas();
         this.getAllAlarms();
         this.getEventos();
-       
+       this.GetAllReglas()
         // Evento para abrir y cerrar la ventana de información del marker google maps
         this.$refs.myMapRef.$mapPromise.then((map) => {
             map.addListener('click', (mapsMouseEvent) => {
@@ -1172,6 +1202,10 @@ export default {
                     let ultimatempp = resp.data.map(resp => (resp.tempAmb));
                     this.ultimatemp = ultimatempp.pop();
                     // console.log('ultima temp', this.ultimatemp);
+                    var reglaTemp = localStorage.getItem('Regla_tempAmb')
+                    if (this.ultimatemp == reglaTemp) {
+                        // alert('La temperatura es igual o mayor a ' + reglaTemp)
+                    }
                     //* Ultima vibración
                     let ultimavibb = resp.data.map(resp => (resp.vibDevice));
                     this.ultimavib = ultimavibb.pop();
@@ -1627,12 +1661,92 @@ export default {
             this.getAperturas(this.dataAperturaSelect)
         },
         CrearRegla(){
-            console.log(this.FormNombreRegla);
-            console.log(this.FormNombreAlarma);
-            console.log(this.FormCondicion);
-            console.log(this.FormCondicionValor);
+            // console.log(this.TypeMetricaForm);
+            // console.log(this.FormNombreRegla);
+            // console.log(this.FormNombreAlarma);
+            // console.log(this.FormCondicion);
+            // console.log(this.FormCondicionValor);
+             var data = {
+                "typeFunction": "crearRegla",
+                // "idDevice": this.idDevice,
+                "idDevice": this.idDeviceSelected,
+                "metrica": this.TypeMetricaForm,
+                "valor": this.FormCondicionValor,
+                "nombreRegla": this.FormNombreRegla,
+                "nombreAlarma": this.FormNombreAlarma,
+                "condicion_metric": this.FormCondicion,
+                "frecuencia": 1,
+                "cantidad_activaciones": 1,
+                "tiempo_supervision": 1,
+                "idUserLoged": this.idUserLoged,
+                "typeUserLoged": this.typeUserLoged,
+                "keyUser": ''
+            }
 
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'managerDevices',
+            );
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
 
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText)
+                console.log("respuesta CrearRegla", resp);
+                console.log(data);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Regla creada correctamente',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+
+                        localStorage.setItem('Regla_'+this.TypeMetricaForm, this.FormCondicionValor)
+                    }
+                });
+
+            }
+        },
+        GetAllReglas(){
+                 var data = {
+                "typeFunction": "obtenerReglasByDevice",
+                "idDevice": parseInt(this.idDeviceSelected),
+                "idUserLoged": this.idUserLoged,
+                "typeUserLoged": this.typeUserLoged
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open(
+                "POST",
+                this.GlobalApi + 'managerDevices',
+            );
+
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            xhr.send(JSON.stringify(data));
+
+            xhr.onload = () => {
+                let resp = JSON.parse(xhr.responseText);
+                console.log("xml request allReglas", resp);
+                var json = resp;
+        
+                for (var index in json) {
+                    this.itemReglas.push({
+                        condicion: json[index]["condition_metric"],
+                        metrica: json[index]["rule_metric"],
+                        nombreMetrica: json[index]["rule_name"],
+                        nombreAlarma: json[index]["text_alarma"],
+                        valor: json[index]["rule_data"],
+                    });
+
+                }
+            }
         },
         // ************ GRAFICAS LINE CHART************************
         GraficaTemp() {
@@ -3186,6 +3300,7 @@ tr {
     border-bottom: 0;
     border-left: 0.3em solid transparent;
 }
+
 @media only screen and (min-width: 1800px) {
     .card2 {
         width: 53rem;

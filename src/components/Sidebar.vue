@@ -126,6 +126,9 @@ export default {
                     localStorage.removeItem('id_usuario')
                     localStorage.removeItem('id_tipousuario')
                     localStorage.removeItem('token')
+                    localStorage.removeItem('id_cPrincipal')
+                    localStorage.removeItem('IniciarSocket')
+                    localStorage.removeItem('id_devicesocket')
                     this.$router.push('/');
                 } 
             })
